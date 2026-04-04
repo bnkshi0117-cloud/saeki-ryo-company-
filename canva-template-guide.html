@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canvaテンプレート設計図 | 佐伯亮カンパニー</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Noto Sans JP', sans-serif; background: #f0f0ec; color: #333; padding: 32px; }
+
+    h1 { font-size: 22px; margin-bottom: 6px; }
+    .subtitle { color: #888; font-size: 13px; margin-bottom: 32px; }
+
+    .section { margin-bottom: 48px; }
+    .section-title { font-size: 16px; font-weight: bold; margin-bottom: 16px; padding-left: 10px; border-left: 4px solid #e94560; }
+
+    /* テンプレートコンテナ：16:9比率でプレビュー */
+    .template-row { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 24px; }
+    .template-wrap { display: flex; flex-direction: column; gap: 10px; }
+    .template-label { font-size: 13px; font-weight: bold; color: #555; }
+
+    .canvas { width: 560px; height: 294px; position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+
+    /* ===== テンプレートA：ダーク×ネイビー（AI系） ===== */
+    .tmpl-a {
+      background: linear-gradient(135deg, #0d0d1a 0%, #1a1a3e 100%);
+      display: flex; flex-direction: column; justify-content: center; padding: 32px 36px;
+    }
+    .tmpl-a .tag {
+      font-size: 10px; letter-spacing: 2px; color: #4f8ef7;
+      text-transform: uppercase; margin-bottom: 14px;
+      border: 1px solid #4f8ef7; display: inline-block; padding: 3px 10px; border-radius: 20px;
+    }
+    .tmpl-a .main-title {
+      font-size: 24px; font-weight: 900; color: #fff; line-height: 1.4;
+      margin-bottom: 16px;
+    }
+    .tmpl-a .result {
+      display: flex; align-items: center; gap: 16px;
+    }
+    .tmpl-a .before {
+      font-size: 13px; color: #888; text-decoration: line-through;
+    }
+    .tmpl-a .arrow { color: #4f8ef7; font-size: 18px; }
+    .tmpl-a .after {
+      font-size: 28px; font-weight: 900; color: #4f8ef7;
+    }
+    .tmpl-a .author {
+      position: absolute; bottom: 16px; right: 20px;
+      font-size: 10px; color: #555; letter-spacing: 1px;
+    }
+    .tmpl-a .deco {
+      position: absolute; right: -20px; top: -20px;
+      width: 160px; height: 160px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(79,142,247,0.15) 0%, transparent 70%);
+    }
+
+    /* ===== テンプレートB：白背景（副業・ビジネス系） ===== */
+    .tmpl-b {
+      background: #ffffff;
+      display: flex; align-items: stretch; overflow: hidden;
+    }
+    .tmpl-b .left-bar {
+      width: 8px; background: #e94560; flex-shrink: 0;
+    }
+    .tmpl-b .content {
+      flex: 1; padding: 28px 32px; display: flex; flex-direction: column; justify-content: center;
+    }
+    .tmpl-b .tag {
+      font-size: 10px; color: #e94560; font-weight: bold;
+      letter-spacing: 1px; margin-bottom: 12px;
+    }
+    .tmpl-b .main-title {
+      font-size: 22px; font-weight: 900; color: #1a1a1a; line-height: 1.5;
+      margin-bottom: 16px;
+    }
+    .tmpl-b .numbers {
+      display: flex; gap: 24px;
+    }
+    .tmpl-b .num-item { text-align: center; }
+    .tmpl-b .num-val { font-size: 28px; font-weight: 900; color: #e94560; }
+    .tmpl-b .num-label { font-size: 10px; color: #999; margin-top: 2px; }
+    .tmpl-b .right-area {
+      width: 160px; background: #fff8f9; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 8px; padding: 20px;
+      border-left: 1px solid #f0e0e2;
+    }
+    .tmpl-b .badge {
+      background: #e94560; color: white; font-size: 10px; font-weight: bold;
+      padding: 4px 10px; border-radius: 20px;
+    }
+    .tmpl-b .price-big { font-size: 26px; font-weight: 900; color: #1a1a1a; }
+    .tmpl-b .price-sub { font-size: 10px; color: #999; }
+    .tmpl-b .author-b {
+      font-size: 10px; color: #bbb; margin-top: 4px;
+    }
+
+    /* ===== テンプレートC：体験談型（Before/After） ===== */
+    .tmpl-c {
+      background: #1a1a1a;
+      display: grid; grid-template-columns: 1fr 1fr; overflow: hidden;
+    }
+    .tmpl-c .left {
+      background: #2a1a1a; display: flex; flex-direction: column;
+      justify-content: center; padding: 24px 20px 24px 28px;
+      border-right: 2px dashed #444;
+    }
+    .tmpl-c .right {
+      background: #1a2a1a; display: flex; flex-direction: column;
+      justify-content: center; padding: 24px 28px 24px 20px;
+    }
+    .tmpl-c .state-label {
+      font-size: 10px; letter-spacing: 2px; font-weight: bold; margin-bottom: 10px;
+    }
+    .tmpl-c .before-label { color: #e74c3c; }
+    .tmpl-c .after-label { color: #41b883; }
+    .tmpl-c .state-val {
+      font-size: 22px; font-weight: 900; line-height: 1.4;
+    }
+    .tmpl-c .before-val { color: #e74c3c; }
+    .tmpl-c .after-val { color: #41b883; }
+    .tmpl-c .state-desc {
+      font-size: 11px; color: #888; margin-top: 8px; line-height: 1.5;
+    }
+    .tmpl-c .bottom-bar {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: #111; padding: 8px 20px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .tmpl-c .bottom-title { font-size: 11px; color: #ccc; }
+    .tmpl-c .bottom-author { font-size: 10px; color: #666; }
+
+    /* 仕様パネル */
+    .spec-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .spec-card {
+      background: white; border-radius: 10px; padding: 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    }
+    .spec-card h3 { font-size: 13px; color: #e94560; margin-bottom: 12px; }
+    .spec-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #f5f5f5; font-size: 12px; }
+    .spec-row:last-child { border: none; }
+    .spec-key { color: #888; }
+    .spec-val { font-weight: bold; }
+    .color-dot { width: 16px; height: 16px; border-radius: 50%; display: inline-block; margin-right: 6px; vertical-align: middle; }
+
+    .canva-steps { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
+    .step { display: flex; gap: 14px; margin-bottom: 16px; align-items: flex-start; }
+    .step-num { background: #e94560; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; flex-shrink: 0; }
+    .step-body { font-size: 13px; line-height: 1.6; }
+    .step-body strong { display: block; margin-bottom: 2px; }
+    .step-body span { color: #888; font-size: 12px; }
+
+    .tip { background: #fff8e1; border-left: 3px solid #ffc107; padding: 12px 16px; border-radius: 0 6px 6px 0; font-size: 12px; line-height: 1.7; margin-top: 12px; }
+  </style>
+</head>
+<body>
+
+<h1>🎨 Canvaテンプレート設計図</h1>
+<p class="subtitle">佐伯亮カンパニー / noteアイキャッチ用 / 1280×670px（16:9）</p>
+
+<!-- テンプレートプレビュー -->
+<div class="section">
+  <div class="section-title">テンプレート3種類（実寸の44%プレビュー）</div>
+  <div class="template-row">
+
+    <div class="template-wrap">
+      <div class="template-label">Type A｜ダークネイビー型（AI・技術系）</div>
+      <div class="canvas">
+        <div class="tmpl-a">
+          <div class="deco"></div>
+          <div class="tag">AI × 実体験</div>
+          <div class="main-title">Claudeを議事録作成に使ったら<br>会議後の作業が激変した話</div>
+          <div class="result">
+            <span class="before">37分</span>
+            <span class="arrow">→</span>
+            <span class="after">9分</span>
+          </div>
+          <div class="author">佐伯亮｜沖縄在住 会社員×副業</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="template-wrap">
+      <div class="template-label">Type B｜ホワイト型（副業・ビジネス系）</div>
+      <div class="canvas">
+        <div class="tmpl-b">
+          <div class="left-bar"></div>
+          <div class="content">
+            <div class="tag">副業 × AI実験</div>
+            <div class="main-title">Claude Codeで副業の<br>作業時間を半分にした話</div>
+            <div class="numbers">
+              <div class="num-item">
+                <div class="num-val">3h</div>
+                <div class="num-label">削減/週</div>
+              </div>
+              <div class="num-item">
+                <div class="num-val">¥0</div>
+                <div class="num-label">追加コスト</div>
+              </div>
+              <div class="num-item">
+                <div class="num-val">3ヶ月</div>
+                <div class="num-label">継続実績</div>
+              </div>
+            </div>
+            <div class="author-b">佐伯亮 @saekiryoai</div>
+          </div>
+          <div class="right-area">
+            <div class="badge">有料記事</div>
+            <div class="price-big">¥480</div>
+            <div class="price-sub">プロンプト全文収録</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="template-row">
+    <div class="template-wrap">
+      <div class="template-label">Type C｜Before/After型（体験談系）</div>
+      <div class="canvas" style="position:relative">
+        <div class="tmpl-c">
+          <div class="left">
+            <div class="state-label before-label">BEFORE</div>
+            <div class="state-val before-val">毎晩<br>残業＋議事録</div>
+            <div class="state-desc">会議後40分<br>副業の気力ゼロ</div>
+          </div>
+          <div class="right">
+            <div class="state-label after-label">AFTER</div>
+            <div class="state-val after-val">会議後<br>9分で終わる</div>
+            <div class="state-desc">Claude活用で<br>月2時間以上を回収</div>
+          </div>
+        </div>
+        <div class="tmpl-c bottom-bar">
+          <span class="bottom-title">Claudeを使った議事録自動化の全手順</span>
+          <span class="bottom-author">佐伯亮</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Canva仕様 -->
+<div class="section">
+  <div class="section-title">Canva設定仕様</div>
+  <div class="spec-grid">
+    <div class="spec-card">
+      <h3>📐 基本設定</h3>
+      <div class="spec-row"><span class="spec-key">キャンバスサイズ</span><span class="spec-val">1280 × 670 px</span></div>
+      <div class="spec-row"><span class="spec-key">比率</span><span class="spec-val">16:9</span></div>
+      <div class="spec-row"><span class="spec-key">テンプレ数</span><span class="spec-val">2〜3種固定で使い回す</span></div>
+    </div>
+    <div class="spec-card">
+      <h3>🎨 ブランドカラー</h3>
+      <div class="spec-row">
+        <span class="spec-key">アクセント（赤）</span>
+        <span class="spec-val"><span class="color-dot" style="background:#e94560"></span>#E94560</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">ブルー（AI系）</span>
+        <span class="spec-val"><span class="color-dot" style="background:#4f8ef7"></span>#4F8EF7</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">ダーク背景</span>
+        <span class="spec-val"><span class="color-dot" style="background:#0d0d1a"></span>#0D0D1A</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">グリーン（実績）</span>
+        <span class="spec-val"><span class="color-dot" style="background:#41b883"></span>#41B883</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">白背景</span>
+        <span class="spec-val"><span class="color-dot" style="background:#ffffff;border:1px solid #eee"></span>#FFFFFF</span>
+      </div>
+    </div>
+    <div class="spec-card">
+      <h3>🔤 フォント</h3>
+      <div class="spec-row"><span class="spec-key">メインタイトル</span><span class="spec-val">Noto Sans JP Black(900)</span></div>
+      <div class="spec-row"><span class="spec-key">タグ・サブ</span><span class="spec-val">Noto Sans JP Bold(700)</span></div>
+      <div class="spec-row"><span class="spec-key">数字強調</span><span class="spec-val">フォントサイズ大きめ＋太字</span></div>
+      <div class="spec-row"><span class="spec-key">英語テキスト</span><span class="spec-val">Inter / Montserrat Bold</span></div>
+    </div>
+    <div class="spec-card">
+      <h3>📝 テキスト量のルール</h3>
+      <div class="spec-row"><span class="spec-key">タイトル行数</span><span class="spec-val">最大2行</span></div>
+      <div class="spec-row"><span class="spec-key">文字数/行</span><span class="spec-val">20字以内</span></div>
+      <div class="spec-row"><span class="spec-key">数字入れる</span><span class="spec-val">必須（具体的な数字1つ以上）</span></div>
+      <div class="spec-row"><span class="spec-key">著者名</span><span class="spec-val">「佐伯亮」を小さく入れる</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Canva作業手順 -->
+<div class="section">
+  <div class="section-title">Canvaでの作成手順</div>
+  <div class="canva-steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <strong>カスタムサイズで新規作成</strong>
+        <span>Canvaトップ → 「カスタムサイズ」→ 幅1280 / 高さ670 px → 新しいデザインを作成</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <strong>背景色を設定（Type選択）</strong>
+        <span>Type A → #0D0D1A / Type B → #FFFFFF / Type C → #1A1A1A</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <strong>ブランドカラーをCanvaに登録</strong>
+        <span>左メニュー「ブランド」→ カラーパレットに上記5色を追加しておくと毎回楽</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <strong>タイトルテキストを配置</strong>
+        <span>Noto Sans JP Bold 以上 / フォントサイズ60〜80px / 余白を大きく取る</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <strong>数字・結果を強調テキストで追加</strong>
+        <span>「37分→9分」「月3万円」などアクセントカラーで大きく表示</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <strong>著者名を右下or左下に小さく</strong>
+        <span>「佐伯亮 | @saekiryoai」を薄いグレーで入れる（ブランド認知の積み重ね）</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">7</div>
+      <div class="step-body">
+        <strong>テンプレとして保存</strong>
+        <span>右上「…」→「テンプレートとして保存」→ 次回から流用できる</span>
+      </div>
+    </div>
+
+    <div class="tip">
+      💡 <strong>時短のコツ：</strong>Type A・Bの2種類を作ったら、あとはタイトルと数字のテキストだけ変えて使い回す。デザインを毎回考えない。「このデザイン = 佐伯亮」という認知が積み重なるので、統一することに価値がある。
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

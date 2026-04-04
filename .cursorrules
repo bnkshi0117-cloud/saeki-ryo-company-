@@ -1,0 +1,61 @@
+# 佐伯亮カンパニー プロジェクトルール
+
+## オーナー
+- 名前：佐伯亮（ペンネーム）
+- 居住：沖縄
+- 職業：会社員 × 副業（AI活用・Kindle出版・アプリ開発）
+- テーマ：AI × 副業 × アプリ開発の実体験
+
+## ブランドルール
+- 「やってみたらこうだった」という一次情報が核心
+- 推測・受け売りは書かない
+- 「AIで月○万円！」系の煽り禁止
+- 「革命」「最強」「爆速」禁止
+- 具体的な数字を使う（「たくさん」→「3時間が30分に」）
+
+## 環境
+- OS: Windows 11
+- Shell: bash / PowerShell
+- Node.js使用（ESモジュール .mjs）
+- Python環境あり
+- Anthropic APIキー設定済み（.env）
+
+## 主要ファイル構成
+```
+saeki-ryo-company-/
+  ├── CLAUDE.md               # ブランド憲法
+  ├── .env                    # APIキー（git除外）
+  ├── company-rpg.html        # 会社RPGページ
+  ├── company-server.mjs      # ローカルサーバー（port:3355）
+  ├── note-viewer.html        # note記事ビューワー（build-viewer.mjsで生成）
+  ├── canva-template-guide.html
+  ├── 会社を起動する.bat       # サーバー起動バッチ
+  └── note-generator/
+      ├── data/titles.json    # 100本のタイトルリスト
+      ├── output/             # 生成済み記事（92本）
+      ├── templates/          # ジャンル別テンプレート
+      └── scripts/
+          ├── generate.mjs        # 記事生成（Anthropic API）
+          ├── quality-check.mjs   # 品質チェック
+          ├── rewrite.mjs         # リライト
+          ├── build-viewer.mjs    # ビューワーHTML生成
+          └── gemini-prompt-free.mjs # Gemini用プロンプト変換
+```
+
+## サーバー
+- 起動: `node company-server.mjs`
+- 会社ページ: http://localhost:3355
+- 記事ビューワー: http://localhost:3355/viewer
+- API: http://localhost:3355/api/status
+
+## npm scripts（note-generator/内で実行）
+- `npm run generate [開始ID] [終了ID]` — 記事生成
+- `npm run check` — 品質チェック
+- `npm run rewrite` — C/Dランク自動リライト
+- `npm run gemini-prompt` — Gemini用プロンプト変換
+- `npm run build-viewer` — ビューワー再ビルド
+
+## 現状（2026-04-04）
+- 記事92本生成済み（Aランク84本）
+- note1本目投稿済み
+- 推定売上ポテンシャル: ¥44,160

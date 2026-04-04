@@ -5,7 +5,26 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git branch:*)",
-      "Bash(git remote:*)"
+      "Bash(git remote:*)",
+      "Bash(winget install:*)",
+      "Bash(schtasks:*)",
+      "Bash(npm run:*)",
+      "Bash(sort -t_ -k1 -n)",
+      "Bash(node scripts/build-viewer.mjs)",
+      "Bash(for f:*)",
+      "Bash(do echo:*)",
+      "Read(//c/Users/bnksh/saeki-ryo-company-/note-generator/output/**)",
+      "Bash(done)",
+      "Bash(node scripts/gemini-prompt-free.mjs)",
+      "Bash(grep -rL \"アイキャッチ画像用プロンプト\" C:/Users/bnksh/saeki-ryo-company-/note-generator/output/*.md)",
+      "Bash(xargs -I{} tail -10 {})",
+      "Bash(curl -s http://localhost:3355/api/status)",
+      "Bash(curl -s http://localhost:3355/viewer)",
+      "Bash(curl -s http://localhost:3355/)",
+      "Bash(netstat -ano)",
+      "Bash(taskkill //PID 14492 //F)",
+      "Bash(node company-server.mjs)",
+      "Bash(node -e \":*)"
     ]
   }
 }

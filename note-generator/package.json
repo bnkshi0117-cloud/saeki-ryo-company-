@@ -1,0 +1,17 @@
+{
+  "name": "note-generator",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "generate": "node scripts/generate.mjs",
+    "check": "node scripts/quality-check.mjs",
+    "rewrite": "node scripts/rewrite.mjs",
+    "gemini-prompt": "node scripts/gemini-prompt-free.mjs",
+    "build-viewer": "node scripts/build-viewer.mjs",
+    "all": "node scripts/generate.mjs && node scripts/quality-check.mjs && node scripts/rewrite.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "dotenv": "^16.0.0"
+  }
+}

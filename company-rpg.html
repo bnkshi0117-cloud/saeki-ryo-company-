@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>佐伯亮カンパニー</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background:#07070f; color:#d0d0d0;
+  font-family:'Press Start 2P', monospace;
+  font-size:10px; height:100vh; overflow:hidden;
+  display:flex; flex-direction:column;
+}
+
+/* ===== トップバー ===== */
+#topbar {
+  background:linear-gradient(90deg,#08081e,#14144a,#08081e);
+  border-bottom:2px solid #2a2a88; padding:5px 14px;
+  display:flex; align-items:center; justify-content:space-between; flex-shrink:0;
+}
+.corp-name { color:#ffdd00; font-size:11px; letter-spacing:2px; }
+.live-row { display:flex; align-items:center; gap:6px; color:#00ff88; font-size:8px; }
+.live-dot { width:6px; height:6px; background:#00ff88; border-radius:50%; animation:blink 1s step-start infinite; }
+@keyframes blink { 50%{opacity:0} }
+#clock { color:#aaaaff; font-size:8px; }
+
+/* ===== レイアウト ===== */
+#layout {
+  display:grid; grid-template-columns:1fr 290px;
+  flex:1; overflow:hidden; gap:2px; padding:2px;
+}
+
+/* ===== 会社フロア（シングルキャンバス） ===== */
+#office-canvas {
+  position:relative; overflow:hidden;
+  background:#0d0d1a;
+  display:grid; grid-template-rows:130px 1fr; gap:2px;
+}
+
+/* ===== 社長室 ===== */
+#pres-room {
+  position:relative; overflow:hidden;
+  background:linear-gradient(180deg,#12100a 0%,#0c0a06 100%);
+  border:2px solid #7a6200;
+}
+
+/* 社長室 壁紙（高級感） */
+.pres-wallpaper {
+  position:absolute; top:0; left:0; right:0; height:44px;
+  background:repeating-linear-gradient(90deg, #1a1500 0px,#1a1500 40px, #161200 40px,#161200 80px);
+  border-bottom:2px solid #4a3800;
+}
+/* モールディング */
+.pres-wallpaper::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg,#aa8800,#ffcc44,#aa8800,#ffcc44,#aa8800);
+}
+
+/* 社長室 床（パーケット） */
+.pres-floor {
+  position:absolute; bottom:0; left:0; right:0; height:22px;
+  background:repeating-linear-gradient(90deg, #3d2800 0px,#3d2800 20px, #2e1e00 20px,#2e1e00 40px);
+  border-top:1px solid #5a3c00;
+}
+
+/* 窓（外の景色つき） */
+.pres-window {
+  position:absolute; top:6px; left:24px;
+  width:52px; height:32px;
+  background:linear-gradient(180deg,#001a44 0%,#002255 40%,#001133 100%);
+  border:2px solid #445566;
+}
+.pres-window::before { /* 縦桟 */
+  content:''; position:absolute; top:0; left:50%; transform:translateX(-50%);
+  width:2px; height:100%; background:#445566;
+}
+.pres-window::after { /* 横桟 */
+  content:''; position:absolute; top:50%; left:0; right:0;
+  height:2px; background:#445566;
+}
+/* 外の景色（ビル） */
+.window-city {
+  position:absolute; top:7px; left:25px;
+  display:flex; align-items:flex-end; gap:2px;
+}
+.city-bldg { background:#001a33; border:1px solid #002244; }
+
+/* 本棚 */
+.bookshelf {
+  position:absolute; top:5px; right:20px;
+  width:36px; height:58px;
+  background:#2a1600; border:1px solid #4a2a00;
+  padding:2px; display:flex; flex-direction:column; gap:2px;
+}
+.shelf { background:#1a0e00; display:flex; gap:1px; align-items:flex-end; padding:1px; height:16px; }
+.bk { border-radius:1px 1px 0 0; flex:1; }
+
+/* トロフィー棚 */
+.trophy-shelf {
+  position:absolute; top:6px; right:66px;
+  width:22px; height:46px;
+  background:#221800; border:1px solid #443200;
+  display:flex; flex-direction:column; align-items:center; justify-content:space-around; padding:2px;
+}
+.trophy { font-size:8px; }
+
+/* 観葉植物 */
+.plant {
+  position:absolute; bottom:20px;
+  width:18px; height:32px;
+}
+.plant-pot { position:absolute; bottom:0; left:3px; width:12px; height:8px; background:#553300; border-radius:0 0 2px 2px; }
+.plant-soil { position:absolute; bottom:8px; left:3px; width:12px; height:4px; background:#2a1800; }
+.plant-leaf1 { position:absolute; bottom:10px; left:1px; width:8px; height:14px; background:#225522; border-radius:50% 0 50% 0; transform:rotate(-20deg); }
+.plant-leaf2 { position:absolute; bottom:10px; left:8px; width:8px; height:14px; background:#2a6622; border-radius:0 50% 0 50%; transform:rotate(20deg); }
+.plant-leaf3 { position:absolute; bottom:14px; left:4px; width:10px; height:16px; background:#1e4e1e; border-radius:50% 50% 0 0; }
+
+/* 社長デスク（L字型・大） */
+.pres-desk-main {
+  position:absolute; bottom:20px; left:50%; transform:translateX(-50%);
+  width:140px; height:34px;
+  background:#5c3d1e; border-top:3px solid #8b5e2a;
+  border-radius:2px 2px 0 0;
+}
+.pres-desk-side {
+  position:absolute; bottom:20px; left:50%; transform:translateX(30px);
+  width:50px; height:22px;
+  background:#553819; border-top:2px solid #7a5225;
+}
+/* デスク上のPC */
+.desk-pc {
+  position:absolute; bottom:52px; left:50%; transform:translateX(-50%) translateX(-30px);
+  width:32px; height:24px;
+  background:#001122; border:2px solid #4488ff;
+  box-shadow:0 0 10px #4488ff66;
+}
+.desk-pc-glow {
+  position:absolute; top:2px; left:2px; right:2px; bottom:2px;
+  background:linear-gradient(135deg,#003366,#001a44);
+  animation:pcFlicker 5s infinite;
+}
+@keyframes pcFlicker { 0%,93%,100%{opacity:1} 94%{opacity:0.6} 96%{opacity:1} 98%{opacity:0.8} }
+/* デスク上の書類 */
+.desk-papers {
+  position:absolute; bottom:52px; left:50%; transform:translateX(10px);
+  width:20px; height:14px;
+  background:#eeeecc; border:1px solid #cccc88;
+}
+.desk-papers::after {
+  content:''; position:absolute; top:3px; left:2px; right:2px;
+  height:1px; background:#aaaaaa;
+  box-shadow:0 3px 0 #aaa, 0 6px 0 #aaa;
+}
+/* コーヒー */
+.coffee-cup {
+  position:absolute; bottom:54px; right:28px;
+  width:8px; height:10px;
+  background:#3d2200; border:1px solid #5a3300;
+  border-radius:0 0 2px 2px;
+}
+.coffee-cup::before { content:'☕'; position:absolute; top:-12px; left:-3px; font-size:10px; }
+
+/* 椅子 */
+.chair {
+  position:absolute; bottom:18px;
+  width:20px; height:18px;
+  background:#222; border:1px solid #444;
+  border-radius:2px 2px 0 0;
+}
+.chair::after {
+  content:''; position:absolute; top:-8px; left:1px;
+  width:18px; height:10px;
+  background:#1a1a1a; border:1px solid #333;
+  border-radius:2px;
+}
+
+/* ルームラベル */
+.room-label {
+  position:absolute; top:4px; left:8px;
+  font-size:8px; z-index:10; letter-spacing:1px;
+}
+
+/* ===== 部署フロア ===== */
+#dept-floors {
+  display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr;
+  gap:2px; overflow:hidden; position:relative;
+}
+
+.dept {
+  position:relative; overflow:hidden;
+}
+
+/* 部署ごとの壁・床 */
+.dept-wall { position:absolute; top:0; left:0; right:0; height:22px; }
+.dept-carpet { position:absolute; bottom:0; left:0; right:0; height:20px; }
+
+/* 仕切りガラス */
+.glass-divider {
+  position:absolute; top:0; bottom:0;
+  width:3px; background:rgba(100,150,255,0.15);
+  border-left:1px solid rgba(100,150,255,0.3);
+}
+
+/* ホワイトボード */
+.whiteboard {
+  position:absolute; top:4px;
+  width:36px; height:26px;
+  background:#f5f5ee; border:2px solid #888; border-radius:1px;
+}
+.wb-line { position:absolute; left:3px; right:3px; height:1px; background:#ddd; }
+.wb-text { position:absolute; top:4px; left:3px; font-size:5px; color:#333; line-height:1.4; }
+.wb-marker { position:absolute; bottom:3px; right:3px; width:6px; height:3px; background:#cc2200; border-radius:1px; }
+
+/* キャビネット */
+.cabinet {
+  position:absolute; bottom:18px;
+  width:16px; height:30px;
+  background:#334; border:1px solid #446; border-radius:1px;
+}
+.cabinet::before,.cabinet::after {
+  content:''; position:absolute; left:2px; right:2px; height:1px; background:#557;
+}
+.cabinet::before { top:10px; }
+.cabinet::after { top:20px; }
+.cab-handle { position:absolute; top:4px; left:50%; transform:translateX(-50%); width:4px; height:2px; background:#888; }
+
+/* ウォータークーラー */
+.water-cooler {
+  position:absolute; bottom:18px;
+  width:12px; height:28px;
+  background:#2244aa; border:1px solid #3355bb;
+  border-radius:2px 2px 0 0;
+}
+.water-cooler::before {
+  content:''; position:absolute; top:-8px; left:1px;
+  width:10px; height:10px;
+  background:#1a3388; border:1px solid #2244aa; border-radius:50%;
+}
+
+/* 部署デスク */
+.dept-desk {
+  position:absolute; bottom:18px;
+  width:50px; height:18px;
+  background:#2a1a0d; border-top:2px solid #4a2e0e;
+  border-radius:1px;
+}
+.dept-monitor {
+  position:absolute; top:-18px; left:6px;
+  width:22px; height:17px;
+  background:#001122; border:1px solid #3366aa;
+  box-shadow:0 0 5px #3366aa44;
+}
+.dept-monitor::after {
+  content:''; position:absolute; top:2px; left:2px; right:2px; bottom:2px;
+  background:linear-gradient(135deg,#002244,#001133);
+  animation:pcFlicker 4s infinite;
+}
+/* デスク上の小物 */
+.desk-mug { position:absolute; top:-8px; right:4px; width:5px; height:7px; background:#553300; border-radius:0 0 1px 1px; }
+.desk-note { position:absolute; top:-6px; left:2px; width:8px; height:6px; background:#ffffcc; border:1px solid #cccc88; }
+
+/* 小植物 */
+.small-plant {
+  position:absolute; bottom:18px;
+  font-size:14px; line-height:1;
+}
+
+/* 部署ラベル */
+.dept-label-tag {
+  position:absolute; top:4px; left:6px;
+  font-size:7px; z-index:5;
+  padding:1px 4px; border-radius:1px;
+}
+
+/* 部署ステータスバー */
+.dept-status-bar {
+  position:absolute; bottom:2px; left:4px; right:4px;
+  display:flex; align-items:center; gap:3px;
+}
+.dsb-label { font-size:6px; color:#555; flex-shrink:0; }
+.dsb-track { flex:1; height:5px; background:#111; border:1px solid #222; }
+.dsb-fill { height:100%; transition:width 1s; }
+.dsb-val { font-size:6px; color:#666; flex-shrink:0; width:22px; text-align:right; }
+
+/* 秘書部スタイル */
+#dept-sec .dept-wall { background:#0a0e1a; border-bottom:1px solid #1a2244; }
+#dept-sec .dept-carpet { background:repeating-linear-gradient(90deg,#0e0e1e 0,#0e0e1e 18px,#0a0a1a 18px,#0a0a1a 36px); }
+#dept-sec .dept-label-tag { color:#88aaff; background:#0a0e1a; border:1px solid #1a2244; }
+#dept-sec .dsb-fill { background:#2255cc; }
+#dept-sec { border:1px solid #1a2244; }
+
+/* リサーチ部スタイル */
+#dept-res .dept-wall { background:#0a1410; border-bottom:1px solid #1a3322; }
+#dept-res .dept-carpet { background:repeating-linear-gradient(90deg,#0e1a10 0,#0e1a10 18px,#0a1208 18px,#0a1208 36px); }
+#dept-res .dept-label-tag { color:#88ff88; background:#0a1410; border:1px solid #1a3322; }
+#dept-res .dsb-fill { background:#226622; }
+#dept-res { border:1px solid #1a3322; }
+
+/* コンテンツ部スタイル */
+#dept-con .dept-wall { background:#160a14; border-bottom:1px solid #331a30; }
+#dept-con .dept-carpet { background:repeating-linear-gradient(90deg,#180e16 0,#180e16 18px,#120a10 18px,#120a10 36px); }
+#dept-con .dept-label-tag { color:#ffaaff; background:#160a14; border:1px solid #331a30; }
+#dept-con .dsb-fill { background:#882255; }
+#dept-con { border:1px solid #331a30; }
+
+/* スケジューラー部スタイル */
+#dept-sch .dept-wall { background:#14100a; border-bottom:1px solid #332200; }
+#dept-sch .dept-carpet { background:repeating-linear-gradient(90deg,#1a1208 0,#1a1208 18px,#120e06 18px,#120e06 36px); }
+#dept-sch .dept-label-tag { color:#ffcc88; background:#14100a; border:1px solid #332200; }
+#dept-sch .dsb-fill { background:#aa7700; }
+#dept-sch { border:1px solid #332200; }
+
+/* ===== キャラクター ===== */
+.char {
+  position:absolute;
+  width:16px; height:24px;
+  image-rendering:pixelated;
+  transition:left 1.5s ease-in-out, top 1.5s ease-in-out;
+  z-index:20;
+}
+.char-head { position:absolute; top:0; left:3px; width:10px; height:10px; background:#ffcc99; border-radius:50%; }
+.char-hair { position:absolute; top:0; left:2px; width:12px; border-radius:4px 4px 0 0; }
+.char-face-detail { position:absolute; top:4px; left:4px; width:2px; height:2px; background:#333; border-radius:50%; box-shadow:4px 0 0 #333; }
+.char-body { position:absolute; top:9px; left:1px; width:14px; height:10px; }
+.char-arms { position:absolute; top:11px; left:-2px; width:20px; height:4px; }
+.char-legs { position:absolute; top:18px; left:2px; width:12px; height:6px; background:#222; }
+
+/* アニメ */
+.anim-type { animation:atype 0.25s steps(1) infinite; }
+@keyframes atype { 50%{transform:translateY(-1px)} }
+.anim-think { animation:athink 2s ease-in-out infinite; }
+@keyframes athink { 50%{transform:rotate(-4deg)} }
+.anim-write { animation:awrite 0.5s steps(2) infinite; }
+@keyframes awrite { 50%{transform:translateX(2px)} }
+.anim-walk { animation:awalk 0.35s steps(2) infinite; }
+@keyframes awalk { 0%{transform:scaleX(1)} 50%{transform:scaleX(-1)} }
+.anim-idle { animation:aidle 3s ease-in-out infinite; }
+@keyframes aidle { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-1px)} }
+
+/* 社長キャラ（スーツ） */
+#ceo {
+  position:absolute;
+  z-index:30;
+  transition: left 1.8s cubic-bezier(0.4,0,0.2,1), top 1.8s cubic-bezier(0.4,0,0.2,1);
+}
+#ceo .char-hair { height:6px; background:#111; }
+#ceo .char-body { background:#1a1a3a; border-left:2px solid #fff; border-right:2px solid #fff; }
+#ceo .char-arms { background:#1a1a3a; }
+#ceo .char-legs { background:#1a1a2a; }
+.ceo-tie { position:absolute; top:10px; left:7px; width:3px; height:7px; background:#cc2200; clip-path:polygon(20% 0%,80% 0%,100% 100%,50% 85%,0% 100%); }
+.ceo-badge { position:absolute; top:12px; right:-2px; width:5px; height:3px; background:#ffcc00; border-radius:1px; }
+.anim-ceo-walk { animation:acwalk 0.4s steps(4) infinite; }
+@keyframes acwalk { 0%{transform:translateY(0)} 25%{transform:translateY(-2px)} 50%{transform:translateY(0)} 75%{transform:translateY(-1px)} }
+
+/* 社員 */
+.emp-sec .char-hair { height:6px; background:#663300; }
+.emp-sec .char-body, .emp-sec .char-arms { background:#2255cc; }
+.emp-res .char-hair { height:5px; background:#222; }
+.emp-res .char-body, .emp-res .char-arms { background:#225522; }
+.emp-res-glasses { position:absolute; top:4px; left:3px; width:10px; height:2px; border:1px solid #aaaaff; }
+.emp-con .char-hair { height:7px; background:#884400; }
+.emp-con .char-body, .emp-con .char-arms { background:#882255; }
+.emp-sch .char-hair { height:4px; background:#ffaa00; }
+.emp-sch .char-body, .emp-sch .char-arms { background:#554400; }
+
+/* 吹き出し */
+.bubble {
+  position:absolute;
+  background:#ffffdd; color:#000; font-size:6px;
+  padding:3px 5px; border:1px solid #888; border-radius:2px;
+  white-space:nowrap; z-index:50; pointer-events:none;
+  transform-origin:bottom left;
+}
+.bubble::after {
+  content:''; position:absolute; bottom:-5px; left:6px;
+  border:4px solid transparent; border-top-color:#ffffdd;
+}
+.bubble.right::after { left:auto; right:6px; }
+.bubble.ceo-bubble {
+  background:#fff8cc; border-color:#aa8800;
+  animation:bubblePop 0.3s ease-out;
+}
+@keyframes bubblePop { from{opacity:0;transform:scale(0.7)} to{opacity:1;transform:scale(1)} }
+.bubble.emp-bubble {
+  background:#eeeeff; border-color:#4444aa;
+  animation:bubblePop 0.3s ease-out 0.4s both;
+}
+
+/* ===== 右パネル ===== */
+#right-panel { display:flex; flex-direction:column; gap:2px; overflow:hidden; }
+
+#revenue-box {
+  background:#0d0a00; border:2px solid #554400; padding:8px; flex-shrink:0;
+}
+.rev-title { color:#aa8800; font-size:8px; margin-bottom:5px; }
+.rev-amount { color:#ffcc00; font-size:16px; text-align:center; padding:4px 0; }
+.rev-sub { color:#554400; font-size:7px; text-align:center; margin-bottom:4px; }
+.rev-prog-track { height:8px; background:#111; border:1px solid #332200; }
+.rev-prog-fill { height:100%; background:linear-gradient(90deg,#4488ff,#00ccff); transition:width 1s; }
+.rev-prog-label { display:flex; justify-content:space-between; font-size:6px; color:#555; margin-top:2px; }
+
+#rank-row { display:flex; gap:2px; flex-shrink:0; }
+.rk { flex:1; text-align:center; padding:4px 2px; border:1px solid #222; }
+.rk .rk-l { font-size:6px; }
+.rk .rk-v { font-size:12px; }
+.rk-a { background:#001a00; border-color:#004400; }
+.rk-a .rk-l { color:#005500; } .rk-a .rk-v { color:#00dd66; }
+.rk-b { background:#1a1100; border-color:#443300; }
+.rk-b .rk-l { color:#443300; } .rk-b .rk-v { color:#ddaa00; }
+.rk-c { background:#1a0800; border-color:#441800; }
+.rk-c .rk-l { color:#441800; } .rk-c .rk-v { color:#dd7700; }
+.rk-d { background:#1a0000; border-color:#440000; }
+.rk-d .rk-l { color:#440000; } .rk-d .rk-v { color:#dd2222; }
+
+#questlog { background:#08080e; border:1px solid #1a1a2a; flex:1; overflow:hidden; display:flex; flex-direction:column; }
+#ql-head { background:#10102a; padding:5px 8px; border-bottom:1px solid #1a1a3a; display:flex; justify-content:space-between; font-size:8px; color:#5555aa; flex-shrink:0; }
+#ql-body { flex:1; overflow-y:auto; padding:4px; }
+#ql-body::-webkit-scrollbar { width:3px; }
+#ql-body::-webkit-scrollbar-track { background:#111; }
+#ql-body::-webkit-scrollbar-thumb { background:#333; }
+.qi { display:flex; gap:4px; padding:3px 2px; border-bottom:1px solid #0d0d14; font-size:6px; align-items:center; }
+.qi-rank { width:13px; height:13px; display:flex; align-items:center; justify-content:center; border:1px solid #333; flex-shrink:0; }
+.qi-rank.A { background:#003300; color:#00ee88; border-color:#005500; }
+.qi-rank.B { background:#332200; color:#eebb00; border-color:#443300; }
+.qi-rank.C { background:#332200; color:#ee7700; border-color:#443300; }
+.qi-rank.D { background:#330000; color:#ee4444; border-color:#440000; }
+.qi-title { color:#999; flex:1; line-height:1.5; }
+.qi-score { color:#444; font-size:5px; flex-shrink:0; }
+
+#footer-bar { background:#06060c; border-top:1px solid #111122; padding:3px 8px; font-size:7px; color:#333; text-align:center; flex-shrink:0; }
+
+/* フラッシュ */
+#flash { position:fixed; top:34px; right:6px; background:#003300; color:#00ff88; font-size:7px; padding:3px 6px; border:1px solid #006600; opacity:0; transition:opacity 0.3s; pointer-events:none; z-index:100; }
+</style>
+</head>
+<body>
+
+<div id="topbar">
+  <div class="corp-name">🏢 SAEKI RYO COMPANY</div>
+  <div class="live-row"><div class="live-dot"></div><span>LIVE</span><span style="color:#555">｜5秒更新</span></div>
+  <div id="clock">--:--:--</div>
+</div>
+<div id="flash">↻ 更新</div>
+
+<div id="layout">
+
+  <!-- 左：オフィスフロア -->
+  <div id="office-canvas">
+
+    <!-- 社長室 -->
+    <div id="pres-room">
+      <div class="pres-wallpaper"></div>
+      <div class="pres-floor"></div>
+      <div class="room-label" style="color:#ffcc44">👑 社長室</div>
+
+      <!-- 窓 -->
+      <div class="pres-window"></div>
+      <!-- 外の景色 -->
+      <div class="window-city">
+        <div class="city-bldg" style="width:6px;height:14px"></div>
+        <div class="city-bldg" style="width:8px;height:20px"></div>
+        <div class="city-bldg" style="width:5px;height:10px"></div>
+        <div class="city-bldg" style="width:7px;height:16px"></div>
+      </div>
+
+      <!-- 本棚 -->
+      <div class="bookshelf">
+        <div class="shelf">
+          <div class="bk" style="background:#aa2200;height:12px"></div>
+          <div class="bk" style="background:#2244aa;height:11px"></div>
+          <div class="bk" style="background:#226622;height:12px"></div>
+          <div class="bk" style="background:#884400;height:10px"></div>
+          <div class="bk" style="background:#662288;height:11px"></div>
+        </div>
+        <div class="shelf">
+          <div class="bk" style="background:#224488;height:13px"></div>
+          <div class="bk" style="background:#886622;height:11px"></div>
+          <div class="bk" style="background:#228866;height:12px"></div>
+          <div class="bk" style="background:#4444aa;height:10px"></div>
+        </div>
+        <div class="shelf">
+          <div class="bk" style="background:#aa4400;height:12px"></div>
+          <div class="bk" style="background:#666622;height:11px"></div>
+          <div class="bk" style="background:#224466;height:13px"></div>
+        </div>
+      </div>
+
+      <!-- トロフィー -->
+      <div class="trophy-shelf">
+        <div class="trophy">🏆</div>
+        <div class="trophy">📚</div>
+        <div class="trophy">⭐</div>
+      </div>
+
+      <!-- 観葉植物 -->
+      <div class="plant" style="left:6px">
+        <div class="plant-leaf3"></div>
+        <div class="plant-leaf1"></div>
+        <div class="plant-leaf2"></div>
+        <div class="plant-soil"></div>
+        <div class="plant-pot"></div>
+      </div>
+
+      <!-- 社長デスク -->
+      <div class="pres-desk-main"></div>
+      <div class="pres-desk-side"></div>
+      <div class="desk-pc"><div class="desk-pc-glow"></div></div>
+      <div class="desk-papers"></div>
+      <div class="coffee-cup"></div>
+      <div class="chair" style="bottom:18px;left:50%;transform:translateX(-50%) translateX(-24px)"></div>
+
+      <!-- 今日の成果バー（右下） -->
+      <div style="position:absolute;bottom:4px;right:8px;display:flex;gap:6px">
+        <div style="background:#1a1000;border:1px solid #554400;padding:2px 6px;font-size:7px">
+          記事 <span style="color:#ffcc00" id="pres-art">--</span>本
+        </div>
+        <div style="background:#1a1000;border:1px solid #554400;padding:2px 6px;font-size:7px">
+          売上 <span style="color:#ffcc00" id="pres-rev">--</span>
+        </div>
+        <div style="background:#001a00;border:1px solid #004400;padding:2px 6px;font-size:7px">
+          A <span style="color:#00dd66" id="pres-a">--</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 部署フロア（ここに全キャラを絶対配置） -->
+    <div id="dept-floors">
+
+      <!-- 秘書部 -->
+      <div class="dept" id="dept-sec">
+        <div class="dept-wall"></div>
+        <div class="dept-carpet"></div>
+        <div class="dept-label-tag">📋 秘書部</div>
+
+        <div class="whiteboard" style="left:50px;top:3px">
+          <div class="wb-text">スケジュール<br>08:00 記事確認<br>10:00 投稿</div>
+          <div class="wb-marker"></div>
+        </div>
+        <div class="cabinet" style="right:8px">
+          <div class="cab-handle"></div>
+        </div>
+        <div class="dept-desk" style="left:16px"><div class="dept-monitor"></div><div class="desk-mug"></div></div>
+        <div class="dept-desk" style="left:76px"><div class="dept-monitor"></div><div class="desk-note"></div></div>
+        <div class="small-plant" style="right:28px">🪴</div>
+
+        <div class="char emp-sec anim-type" id="sec1" style="bottom:36px;left:20px">
+          <div class="char-head"></div><div class="char-hair"></div><div class="char-face-detail"></div>
+          <div class="char-body"></div><div class="char-arms"></div><div class="char-legs"></div>
+        </div>
+        <div class="char emp-sec anim-idle" id="sec2" style="bottom:36px;left:80px">
+          <div class="char-head"></div><div class="char-hair"></div><div class="char-face-detail"></div>
+          <div class="char-body"></div><div class="char-arms"></div><div class="char-legs"></div>
+        </div>
+
+        <div class="dept-status-bar">
+          <div class="dsb-label">稼働</div>
+          <div class="dsb-track"><div class="dsb-fill" id="sec-bar" style="width:85%"></div></div>
+          <div class="dsb-val">85%</div>
+        </div>
+      </div>
+
+      <!-- リサーチ部 -->
+      <div class="dept" id="dept-res">
+        <div class="dept-wall"></div>
+        <div class="dept-carpet"></div>
+        <div class="dept-label-tag">🔍 リサーチ部</div>
+
+        <div class="whiteboard" style="right:50px;top:3px">
+          <div class="wb-text">トレンド<br>#AI #副業<br>#Claude</div>
+          <div class="wb-marker" style="background:#2244aa"></div>
+        </div>
+        <div class="water-cooler" style="right:10px"></div>
+        <div class="dept-desk" style="left:16px"><div class="dept-monitor"></div><div class="desk-mug"></div></div>
+        <div class="dept-desk" style="left:76px"><div class="dept-monitor"></div><div class="desk-note"></div></div>
+
+        <div class="char emp-res anim-think" id="res1" style="bottom:36px;left:20px">
+          <div class="char-head"></div><div class="char-hair"></div><div class="char-face-detail"></div>
+          <div class="emp-res-glasses"></div>
+          <div class="char-body"></div><div class="char-arms"></div><div class="char-legs"></div>
+        </div>
+        <div class="char emp-res anim-type" id="res2" style="bottom:36px;left:80px">
+          <div class="char-head"></div><div class="char-hair"></div><div class="char-face-detail"></div>
+          <div class="emp-res-glasses"></div>
+          <div class="char-body"></div><div class="char-arms"></div><div class="char-legs"></div>
+        </div>
+
+        <div class="dept-status-bar">
+          <div class="dsb-label">稼働</div>
+          <div class="dsb-track"><div class="dsb-fill" id="res-bar" style="width:70%"></div></div>
+          <div class="dsb-val">70%</div>
+        </div>
+      </div>
+
+      <!-- コンテンツ部 -->
+      <div class="dept" id="dept-con">
+        <div class="dept-wall"></div>
+        <div class="dept-carpet"></div>
+        <div class="dept-label-tag">✍️ コンテンツ部</div>
+
+        <div class="whiteboard" style="left:50px;top:3px">
+          <div class="wb-text" id="wb-con">生成中...<br>本日: 0本<br>Aランク: 0</div>
+          <div class="wb-marker" style="background:#882255"></div>
+        </div>
+        <div class="cabinet" style="right:8px">
+          <div class="cab-handle"></div>
+        </div>
+        <div class="dept-desk" style="left:16px"><div class="dept-monitor"></div><div class="desk-mug"></div></div>
+        <div class="dept-desk" style="left:76px"><div class="dept-monitor"></div></div>
+        <div class="small-plant" style="left:118px">🌿</div>
+
+        <div class="char emp-con anim-write" id="con1" style="bottom:36px;left:20px">
+          <div class="char-head"></div><div class="char-hair"></div><div class="char-face-detail"></div>
+          <div class="char-body"></div><div class="char-arms"></div><div class="char-legs"></div>
+        </div>
+        <div class="char emp-con anim-type" id="con2" style="bottom:36px;left:80px">
+          <div class="char-head"></div><div class="char-hair"></div><div class="char-face-detail"></div>
+          <div class="char-body"></div><div class="char-arms"></div><div class="char-legs"></div>
+        </div>
+
+        <div class="dept-status-bar">
+          <div class="dsb-label">進捗</div>
+          <div class="dsb-track"><div class="dsb-fill" id="con-bar" style="width:0%"></div></div>
+          <div class="dsb-val" id="con-pct">0%</div>
+        </div>
+      </div>
+
+      <!-- スケジューラー部 -->
+      <div class="dept" id="dept-sch">
+        <div class="dept-wall"></div>
+        <div class="dept-carpet"></div>
+        <div class="dept-label-tag">📅 スケジューラー部</div>
+
+        <div class="whiteboard" style="right:50px;top:3px">
+          <div class="wb-text">投稿計画<br>Mon 9:00<br>Wed 19:00</div>
+          <div class="wb-marker" style="background:#aa7700"></div>
+        </div>
+        <div class="water-cooler" style="left:10px"></div>
+        <div class="dept-desk" style="left:30px"><div class="dept-monitor"></div><div class="desk-mug"></div></div>
+        <div class="dept-desk" style="left:90px"><div class="dept-monitor"></div><div class="desk-note"></div></div>
+
+        <div class="char emp-sch anim-idle" id="sch1" style="bottom:36px;left:36px">
+          <div class="char-head"></div><div class="char-hair"></div><div class="char-face-detail"></div>
+          <div class="char-body"></div><div class="char-arms"></div><div class="char-legs"></div>
+        </div>
+        <div class="char emp-sch anim-type" id="sch2" style="bottom:36px;left:96px">
+          <div class="char-head"></div><div class="char-hair"></div><div class="char-face-detail"></div>
+          <div class="char-body"></div><div class="char-arms"></div><div class="char-legs"></div>
+        </div>
+
+        <div class="dept-status-bar">
+          <div class="dsb-label">稼働</div>
+          <div class="dsb-track"><div class="dsb-fill" id="sch-bar" style="width:60%"></div></div>
+          <div class="dsb-val">60%</div>
+        </div>
+      </div>
+
+    </div><!-- /dept-floors -->
+
+    <!-- CEO（全体に絶対配置） -->
+    <div id="ceo" class="char" style="top:70px;left:45%">
+      <div class="char-head"></div>
+      <div class="char-hair" style="height:6px;background:#111;border-radius:4px 4px 0 0"></div>
+      <div class="char-face-detail"></div>
+      <div class="char-body" style="background:#1a1a3a;border-left:2px solid #fff;border-right:2px solid #fff"></div>
+      <div class="ceo-tie"></div>
+      <div class="ceo-badge"></div>
+      <div class="char-arms" style="background:#1a1a3a"></div>
+      <div class="char-legs" style="background:#1a1a2a"></div>
+    </div>
+
+  </div><!-- /office-canvas -->
+
+  <!-- 右パネル -->
+  <div id="right-panel">
+    <div id="revenue-box">
+      <div class="rev-title">💰 推定売上</div>
+      <div class="rev-amount" id="rev-num">¥0</div>
+      <div class="rev-sub" id="rev-sub">0本 × 480円</div>
+      <div class="rev-prog-track"><div class="rev-prog-fill" id="rev-fill" style="width:0%"></div></div>
+      <div class="rev-prog-label"><span>0</span><span id="rev-pct">0%</span><span>100本</span></div>
+    </div>
+
+    <div id="rank-row">
+      <div class="rk rk-a"><div class="rk-l">A</div><div class="rk-v" id="rk-a">--</div></div>
+      <div class="rk rk-b"><div class="rk-l">B</div><div class="rk-v" id="rk-b">--</div></div>
+      <div class="rk rk-c"><div class="rk-l">C</div><div class="rk-v" id="rk-c">--</div></div>
+      <div class="rk rk-d"><div class="rk-l">D</div><div class="rk-v" id="rk-d">--</div></div>
+    </div>
+
+    <div id="questlog">
+      <div id="ql-head">
+        <span>📜 QUEST LOG</span>
+        <span id="ql-cnt" style="color:#333">--</span>
+      </div>
+      <div id="ql-body">
+        <div style="color:#222;font-size:7px;padding:12px;text-align:center;line-height:2">
+          node company-server.mjs<br>を起動してください
+        </div>
+      </div>
+    </div>
+    <div id="footer-bar" id="last-up">-- 未接続 --</div>
+  </div>
+
+</div><!-- /layout -->
+
+<script>
+// ===== 時計 =====
+setInterval(() => { document.getElementById('clock').textContent = new Date().toLocaleTimeString('ja-JP'); }, 1000);
+
+// ===== CEO 移動システム =====
+const ceoEl = document.getElementById('ceo');
+
+// デスティネーションゾーン（社長室 + 各部署のキャラ座標）
+// officeCanvasの相対座標で指定
+// presRoomの高さは130px、dept-floorsはその下
+const zones = [
+  { name:'社長室',    top:70,  leftPct:0.44 }, // 社長デスク前
+  { name:'秘書部',    top:145, leftPct:0.12 }, // sec1の横
+  { name:'秘書部',    top:145, leftPct:0.30 }, // sec2の横
+  { name:'リサーチ部',top:145, leftPct:0.62 }, // res1の横
+  { name:'リサーチ部',top:145, leftPct:0.80 }, // res2の横
+  { name:'コンテンツ部',top:245, leftPct:0.12 }, // con1の横
+  { name:'コンテンツ部',top:245, leftPct:0.30 }, // con2の横
+  { name:'スケジューラー部',top:245, leftPct:0.62 }, // sch1の横
+  { name:'スケジューラー部',top:245, leftPct:0.80 }, // sch2の横
+];
+
+// 部署別会話
+const dialogues = {
+  '社長室': {
+    ceo: ['よし、今日も頑張るぞ', '売上チェック中...', 'noteの戦略を考えよう'],
+    emp: null
+  },
+  '秘書部': {
+    ceo: ['今日のスケジュールは？', '進捗を報告してくれ', '助かってるよ'],
+    emp: ['本日の予定です', '記事の公開数が増えています', '全タスク完了です！', 'APIの調子はよいです']
+  },
+  'リサーチ部': {
+    ceo: ['トレンドはどうだ？', '競合の動向は？', '面白いネタはある？'],
+    emp: ['AI系キーワードが熱いです', 'Claude記事の需要が高いです', '副業テーマが好調です', 'noteのPV伸びてます']
+  },
+  'コンテンツ部': {
+    ceo: ['記事の品質どうだ？', '生成ペースは順調？', 'Aランクが多くていいな'],
+    emp: ['全力で書いています！', 'Aランク続出中です', '今日も良記事できました', 'プロンプト磨き中です']
+  },
+  'スケジューラー部': {
+    ceo: ['投稿計画は？', 'タイミングの最適化を頼む', 'noteの更新頻度はどうだ？'],
+    emp: ['月水金の投稿を推奨します', '最適な時間は19時です', 'ストック記事は十分あります', 'スケジュール更新完了！']
+  }
+};
+
+let currentZone = 0;
+let isMoving = false;
+let bubbles = [];
+
+function rand(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+function removeBubbles() {
+  bubbles.forEach(b => b.remove());
+  bubbles = [];
+}
+
+function showDialogue(zone) {
+  const dept = zone.name;
+  const d = dialogues[dept];
+  if (!d) return;
+
+  const canvas = document.getElementById('office-canvas');
+  const canvasRect = canvas.getBoundingClientRect();
+  const ceoRect = ceoEl.getBoundingClientRect();
+
+  // CEO吹き出し
+  const cb = document.createElement('div');
+  cb.className = 'bubble ceo-bubble';
+  cb.textContent = rand(d.ceo);
+  cb.style.cssText = `position:absolute;bottom:${(canvas.offsetHeight - (ceoRect.bottom - canvasRect.top))+26}px;left:${ceoRect.left - canvasRect.left + 18}px`;
+  canvas.appendChild(cb);
+  bubbles.push(cb);
+
+  // 社員吹き出し（少し遅れて）
+  if (d.emp) {
+    setTimeout(() => {
+      const eb = document.createElement('div');
+      eb.className = 'bubble emp-bubble right';
+      eb.textContent = rand(d.emp);
+      eb.style.cssText = `position:absolute;bottom:${(canvas.offsetHeight - (ceoRect.bottom - canvasRect.top))+26}px;left:${ceoRect.left - canvasRect.left + 36}px`;
+      canvas.appendChild(eb);
+      bubbles.push(eb);
+    }, 500);
+  }
+
+  // 4秒後に消す
+  setTimeout(removeBubbles, 4000);
+}
+
+function moveCEO() {
+  if (isMoving) return;
+
+  // ランダムに次のゾーンを選ぶ（現在地以外）
+  let nextIdx;
+  do { nextIdx = Math.floor(Math.random() * zones.length); } while (nextIdx === currentZone);
+
+  const zone = zones[nextIdx];
+  const canvas = document.getElementById('office-canvas');
+  const leftPx = Math.floor(canvas.offsetWidth * zone.leftPct);
+
+  isMoving = true;
+  removeBubbles();
+
+  // 歩きアニメON
+  ceoEl.classList.add('anim-ceo-walk');
+  ceoEl.style.left = leftPx + 'px';
+  ceoEl.style.top = zone.top + 'px';
+
+  // 移動完了後
+  setTimeout(() => {
+    ceoEl.classList.remove('anim-ceo-walk');
+    isMoving = false;
+    currentZone = nextIdx;
+    showDialogue(zone);
+  }, 2000);
+}
+
+// 社長初期位置をセット
+setTimeout(() => {
+  const canvas = document.getElementById('office-canvas');
+  ceoEl.style.left = Math.floor(canvas.offsetWidth * 0.44) + 'px';
+  ceoEl.style.top = '70px';
+}, 100);
+
+// 8〜14秒ごとに移動
+function scheduleCEO() {
+  const delay = 8000 + Math.random() * 6000;
+  setTimeout(() => { moveCEO(); scheduleCEO(); }, delay);
+}
+scheduleCEO();
+
+// ===== データ更新 =====
+let lastCount = 0;
+
+async function fetchStatus() {
+  try {
+    const res = await fetch('/api/status');
+    if (!res.ok) throw new Error();
+    const d = await res.json();
+    updateUI(d);
+    const fl = document.getElementById('flash');
+    fl.style.opacity = '1';
+    setTimeout(() => fl.style.opacity = '0', 700);
+  } catch(e) {
+    document.getElementById('footer-bar').textContent = '⚠ サーバー未接続';
+  }
+}
+
+function yen(n) { return '¥' + n.toLocaleString(); }
+
+function updateUI(d) {
+  const total = d.totalArticles || 0;
+  const r = d.rankCounts || {};
+  const rev = d.estimatedRevenue || 0;
+  const pct = Math.min(100, Math.round(total / 100 * 100));
+
+  // 社長室バッジ
+  document.getElementById('pres-art').textContent = total;
+  document.getElementById('pres-rev').textContent = yen(rev);
+  document.getElementById('pres-a').textContent = r.A || 0;
+
+  // 売上
+  document.getElementById('rev-num').textContent = yen(rev);
+  document.getElementById('rev-sub').textContent = total + '本 × 480円';
+  document.getElementById('rev-fill').style.width = pct + '%';
+  document.getElementById('rev-pct').textContent = pct + '%';
+
+  // ランク
+  document.getElementById('rk-a').textContent = r.A || 0;
+  document.getElementById('rk-b').textContent = r.B || 0;
+  document.getElementById('rk-c').textContent = r.C || 0;
+  document.getElementById('rk-d').textContent = r.D || 0;
+
+  // コンテンツ部プログレス
+  document.getElementById('con-bar').style.width = pct + '%';
+  document.getElementById('con-pct').textContent = pct + '%';
+
+  // ホワイトボード
+  const wb = document.getElementById('wb-con');
+  if (wb) wb.innerHTML = '生成済み<br>' + total + '本完了<br>A:' + (r.A||0) + ' B:' + (r.B||0);
+
+  // フッター
+  document.getElementById('footer-bar').textContent = '最終更新: ' + (d.lastUpdated || '--');
+
+  // クエストログ（変化時のみ）
+  if (total !== lastCount && d.articles && d.articles.length > 0) {
+    lastCount = total;
+    document.getElementById('ql-cnt').textContent = total + '本';
+    document.getElementById('ql-body').innerHTML = d.articles
+      .sort((a,b) => (a.id||0)-(b.id||0))
+      .map(a => `<div class="qi">
+        <div class="qi-rank ${a.rank||'?'}">${a.rank||'?'}</div>
+        <div class="qi-title">${esc(a.file.replace(/^\d+_/,'').replace('.md',''))}</div>
+        <div class="qi-score">${a.score||'--'}pt</div>
+      </div>`).join('');
+  }
+}
+
+function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+fetchStatus();
+setInterval(fetchStatus, 5000);
+</script>
+</body>
+</html>

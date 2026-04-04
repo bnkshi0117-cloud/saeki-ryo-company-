@@ -1,0 +1,906 @@
+{
+  "results": [
+    {
+      "id": 10,
+      "file": "10_claude_ai.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 4961
+    },
+    {
+      "id": 11,
+      "file": "11_claude_ai.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 5211
+    },
+    {
+      "id": 12,
+      "file": "12_claude_ai.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 5763
+    },
+    {
+      "id": 13,
+      "file": "13_claude_ai.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 5335
+    },
+    {
+      "id": 14,
+      "file": "14_claude_ai.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 4738
+    },
+    {
+      "id": 15,
+      "file": "15_claude_ai.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 5655
+    },
+    {
+      "id": 16,
+      "file": "16_claude_ai.md",
+      "score": 100,
+      "rank": "A",
+      "issues": [],
+      "charCount": 5484
+    },
+    {
+      "id": 17,
+      "file": "17_claude_ai.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 6739
+    },
+    {
+      "id": 18,
+      "file": "18_claude_ai.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 6429
+    },
+    {
+      "id": 19,
+      "file": "19_claude_ai.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 5814
+    },
+    {
+      "id": 1,
+      "file": "1_claude_ai.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 5448
+    },
+    {
+      "id": 20,
+      "file": "20_claude_ai.md",
+      "score": 100,
+      "rank": "A",
+      "issues": [],
+      "charCount": 6482
+    },
+    {
+      "id": 21,
+      "file": "21_fukugyou_ai.md",
+      "score": 100,
+      "rank": "A",
+      "issues": [],
+      "charCount": 6472
+    },
+    {
+      "id": 22,
+      "file": "22_fukugyou_ai.md",
+      "score": 75,
+      "rank": "B",
+      "issues": [
+        "冒頭フックが弱い可能性あり",
+        "有料パートの区切りがない"
+      ],
+      "charCount": 6057
+    },
+    {
+      "id": 23,
+      "file": "23_fukugyou_ai.md",
+      "score": 100,
+      "rank": "A",
+      "issues": [],
+      "charCount": 6842
+    },
+    {
+      "id": 24,
+      "file": "24_fukugyou_ai.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 5844
+    },
+    {
+      "id": 25,
+      "file": "25_fukugyou_ai.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 6536
+    },
+    {
+      "id": 26,
+      "file": "26_fukugyou_ai.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 6758
+    },
+    {
+      "id": 27,
+      "file": "27_fukugyou_ai.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 7415
+    },
+    {
+      "id": 28,
+      "file": "28_fukugyou_ai.md",
+      "score": 80,
+      "rank": "B",
+      "issues": [
+        "文字数超過: 8022字（8000字以下推奨）",
+        "有料パートの区切りがない"
+      ],
+      "charCount": 8022
+    },
+    {
+      "id": 29,
+      "file": "29_fukugyou_ai.md",
+      "score": 100,
+      "rank": "A",
+      "issues": [],
+      "charCount": 6066
+    },
+    {
+      "id": 2,
+      "file": "2_claude_ai.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 6166
+    },
+    {
+      "id": 30,
+      "file": "30_fukugyou_ai.md",
+      "score": 75,
+      "rank": "B",
+      "issues": [
+        "冒頭フックが弱い可能性あり",
+        "有料パートの区切りがない"
+      ],
+      "charCount": 7022
+    },
+    {
+      "id": 31,
+      "file": "31_fukugyou_ai.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 7048
+    },
+    {
+      "id": 32,
+      "file": "32_fukugyou_ai.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 7032
+    },
+    {
+      "id": 33,
+      "file": "33_fukugyou_ai.md",
+      "score": 100,
+      "rank": "A",
+      "issues": [],
+      "charCount": 5353
+    },
+    {
+      "id": 34,
+      "file": "34_fukugyou_ai.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 6239
+    },
+    {
+      "id": 35,
+      "file": "35_fukugyou_ai.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 7103
+    },
+    {
+      "id": 36,
+      "file": "36_fukugyou_ai.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 7312
+    },
+    {
+      "id": 37,
+      "file": "37_fukugyou_ai.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 6083
+    },
+    {
+      "id": 38,
+      "file": "38_fukugyou_ai.md",
+      "score": 85,
+      "rank": "B",
+      "issues": [
+        "文字数超過: 8486字（8000字以下推奨）",
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 8486
+    },
+    {
+      "id": 39,
+      "file": "39_fukugyou_ai.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 7943
+    },
+    {
+      "id": 3,
+      "file": "3_claude_ai.md",
+      "score": 100,
+      "rank": "A",
+      "issues": [],
+      "charCount": 5204
+    },
+    {
+      "id": 40,
+      "file": "40_fukugyou_ai.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 7007
+    },
+    {
+      "id": 41,
+      "file": "41_claude_code.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 7555
+    },
+    {
+      "id": 42,
+      "file": "42_claude_code.md",
+      "score": 85,
+      "rank": "B",
+      "issues": [
+        "文字数超過: 9883字（8000字以下推奨）",
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 9883
+    },
+    {
+      "id": 43,
+      "file": "43_claude_code.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 7871
+    },
+    {
+      "id": 44,
+      "file": "44_claude_code.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 6975
+    },
+    {
+      "id": 45,
+      "file": "45_claude_code.md",
+      "score": 100,
+      "rank": "A",
+      "issues": [],
+      "charCount": 6106
+    },
+    {
+      "id": 46,
+      "file": "46_claude_code.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 5597
+    },
+    {
+      "id": 47,
+      "file": "47_claude_code.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 7729
+    },
+    {
+      "id": 48,
+      "file": "48_claude_code.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 6021
+    },
+    {
+      "id": 49,
+      "file": "49_claude_code.md",
+      "score": 100,
+      "rank": "A",
+      "issues": [],
+      "charCount": 6770
+    },
+    {
+      "id": 4,
+      "file": "4_claude_ai.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 5928
+    },
+    {
+      "id": 50,
+      "file": "50_claude_code.md",
+      "score": 85,
+      "rank": "B",
+      "issues": [
+        "文字数超過: 9146字（8000字以下推奨）",
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 9146
+    },
+    {
+      "id": 51,
+      "file": "51_claude_code.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 7598
+    },
+    {
+      "id": 52,
+      "file": "52_claude_code.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 6175
+    },
+    {
+      "id": 53,
+      "file": "53_claude_code.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 7126
+    },
+    {
+      "id": 54,
+      "file": "54_claude_code.md",
+      "score": 100,
+      "rank": "A",
+      "issues": [],
+      "charCount": 7988
+    },
+    {
+      "id": 55,
+      "file": "55_claude_code.md",
+      "score": 85,
+      "rank": "B",
+      "issues": [
+        "文字数超過: 8080字（8000字以下推奨）",
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 8080
+    },
+    {
+      "id": 56,
+      "file": "56_sns_unyo.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 5887
+    },
+    {
+      "id": 57,
+      "file": "57_sns_unyo.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 7100
+    },
+    {
+      "id": 58,
+      "file": "58_sns_unyo.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 6180
+    },
+    {
+      "id": 59,
+      "file": "59_sns_unyo.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 6755
+    },
+    {
+      "id": 5,
+      "file": "5_claude_ai.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 6618
+    },
+    {
+      "id": 60,
+      "file": "60_sns_unyo.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 5429
+    },
+    {
+      "id": 61,
+      "file": "61_sns_unyo.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 6496
+    },
+    {
+      "id": 62,
+      "file": "62_sns_unyo.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 6769
+    },
+    {
+      "id": 63,
+      "file": "63_sns_unyo.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 7306
+    },
+    {
+      "id": 64,
+      "file": "64_sns_unyo.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 5375
+    },
+    {
+      "id": 65,
+      "file": "65_sns_unyo.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 7368
+    },
+    {
+      "id": 66,
+      "file": "66_sns_unyo.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 5912
+    },
+    {
+      "id": 67,
+      "file": "67_sns_unyo.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 5425
+    },
+    {
+      "id": 68,
+      "file": "68_sns_unyo.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 5784
+    },
+    {
+      "id": 69,
+      "file": "69_sns_unyo.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 5794
+    },
+    {
+      "id": 6,
+      "file": "6_claude_ai.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 7153
+    },
+    {
+      "id": 70,
+      "file": "70_sns_unyo.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 7638
+    },
+    {
+      "id": 71,
+      "file": "71_general_fukugyou.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 5152
+    },
+    {
+      "id": 72,
+      "file": "72_general_fukugyou.md",
+      "score": 100,
+      "rank": "A",
+      "issues": [],
+      "charCount": 5818
+    },
+    {
+      "id": 73,
+      "file": "73_general_fukugyou.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 6560
+    },
+    {
+      "id": 74,
+      "file": "74_general_fukugyou.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 6132
+    },
+    {
+      "id": 75,
+      "file": "75_general_fukugyou.md",
+      "score": 100,
+      "rank": "A",
+      "issues": [],
+      "charCount": 5179
+    },
+    {
+      "id": 76,
+      "file": "76_general_fukugyou.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 5645
+    },
+    {
+      "id": 77,
+      "file": "77_general_fukugyou.md",
+      "score": 100,
+      "rank": "A",
+      "issues": [],
+      "charCount": 5772
+    },
+    {
+      "id": 78,
+      "file": "78_general_fukugyou.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 5620
+    },
+    {
+      "id": 79,
+      "file": "79_general_fukugyou.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 4690
+    },
+    {
+      "id": 7,
+      "file": "7_claude_ai.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 5704
+    },
+    {
+      "id": 80,
+      "file": "80_general_fukugyou.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 6799
+    },
+    {
+      "id": 81,
+      "file": "81_general_fukugyou.md",
+      "score": 100,
+      "rank": "A",
+      "issues": [],
+      "charCount": 5999
+    },
+    {
+      "id": 82,
+      "file": "82_general_fukugyou.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 6035
+    },
+    {
+      "id": 83,
+      "file": "83_general_fukugyou.md",
+      "score": 100,
+      "rank": "A",
+      "issues": [],
+      "charCount": 4646
+    },
+    {
+      "id": 84,
+      "file": "84_general_fukugyou.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 6592
+    },
+    {
+      "id": 85,
+      "file": "85_general_fukugyou.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 4964
+    },
+    {
+      "id": 86,
+      "file": "86_general_fukugyou.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 5276
+    },
+    {
+      "id": 87,
+      "file": "87_general_fukugyou.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 4733
+    },
+    {
+      "id": 88,
+      "file": "88_general_fukugyou.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 5471
+    },
+    {
+      "id": 89,
+      "file": "89_general_fukugyou.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 5753
+    },
+    {
+      "id": 8,
+      "file": "8_claude_ai.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 6608
+    },
+    {
+      "id": 90,
+      "file": "90_general_fukugyou.md",
+      "score": 75,
+      "rank": "B",
+      "issues": [
+        "冒頭フックが弱い可能性あり",
+        "有料パートの区切りがない"
+      ],
+      "charCount": 6092
+    },
+    {
+      "id": 91,
+      "file": "91_business_skill.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 4508
+    },
+    {
+      "id": 92,
+      "file": "92_business_skill.md",
+      "score": 100,
+      "rank": "A",
+      "issues": [],
+      "charCount": 5193
+    },
+    {
+      "id": 9,
+      "file": "9_claude_ai.md",
+      "score": 90,
+      "rank": "A",
+      "issues": [
+        "冒頭フックが弱い可能性あり"
+      ],
+      "charCount": 7369
+    }
+  ],
+  "summary": {
+    "A": 84,
+    "B": 8,
+    "C": 0,
+    "D": 0
+  }
+}
