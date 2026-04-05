@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>X エンゲージメントダッシュボード</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0f1117; color: #e7e9ea; font-family: -apple-system, 'Helvetica Neue', sans-serif; display: flex; height: 100vh; overflow: hidden; }
+
+  /* 左ペイン */
+  .left { width: 60%; border-right: 1px solid #2f3336; display: flex; flex-direction: column; }
+  .header { padding: 16px 20px; border-bottom: 1px solid #2f3336; display: flex; align-items: center; gap: 12px; }
+  .header h1 { font-size: 18px; font-weight: 700; }
+  .refresh-btn { margin-left: auto; background: #1d9bf0; color: white; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: 600; }
+  .refresh-btn:hover { background: #1a8cd8; }
+  .refresh-btn:disabled { background: #333; cursor: default; }
+
+  .timeline { flex: 1; overflow-y: auto; }
+  .tweet-card { padding: 16px 20px; border-bottom: 1px solid #2f3336; cursor: pointer; transition: background 0.15s; }
+  .tweet-card:hover { background: #16181c; }
+  .tweet-card.selected { background: #1a2a3a; border-left: 3px solid #1d9bf0; }
+
+  .tweet-top { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .avatar { width: 40px; height: 40px; border-radius: 50%; background: #2f3336; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .author-name { font-weight: 700; font-size: 14px; }
+  .author-handle { color: #71767b; font-size: 13px; }
+  .tweet-time { color: #71767b; font-size: 12px; margin-left: auto; }
+
+  .tweet-text { font-size: 14px; line-height: 1.6; color: #e7e9ea; margin-bottom: 10px; }
+
+  .tweet-metrics { display: flex; gap: 20px; font-size: 12px; color: #71767b; margin-bottom: 12px; }
+  .metric { display: flex; align-items: center; gap: 4px; }
+
+  .tweet-actions { display: flex; gap: 8px; }
+  .btn { padding: 6px 14px; border-radius: 20px; border: none; cursor: pointer; font-size: 12px; font-weight: 600; transition: all 0.15s; }
+  .btn-reply { background: transparent; border: 1px solid #1d9bf0; color: #1d9bf0; }
+  .btn-reply:hover { background: #1d9bf015; }
+  .btn-rt { background: transparent; border: 1px solid #00ba7c; color: #00ba7c; }
+  .btn-rt:hover { background: #00ba7c15; }
+  .btn-like { background: transparent; border: 1px solid #f91880; color: #f91880; }
+  .btn-like:hover { background: #f9188015; }
+  .btn.done { opacity: 0.5; cursor: default; }
+
+  .loading { text-align: center; padding: 40px; color: #71767b; }
+  .empty { text-align: center; padding: 40px; color: #71767b; }
+
+  /* 右ペイン */
+  .right { width: 40%; display: flex; flex-direction: column; }
+  .right-header { padding: 16px 20px; border-bottom: 1px solid #2f3336; font-size: 15px; font-weight: 700; }
+
+  .reply-panel { flex: 1; padding: 20px; display: flex; flex-direction: column; gap: 16px; overflow-y: auto; }
+  .selected-tweet { background: #16181c; border-radius: 12px; padding: 16px; border: 1px solid #2f3336; }
+  .selected-tweet .label { font-size: 11px; color: #71767b; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .selected-tweet .content { font-size: 14px; line-height: 1.6; }
+
+  .reply-box { display: flex; flex-direction: column; gap: 10px; }
+  .reply-box label { font-size: 13px; color: #71767b; }
+  .reply-textarea { background: #16181c; border: 1px solid #2f3336; border-radius: 12px; color: #e7e9ea; font-size: 14px; padding: 14px; resize: vertical; min-height: 120px; font-family: inherit; line-height: 1.6; }
+  .reply-textarea:focus { outline: none; border-color: #1d9bf0; }
+
+  .char-count { text-align: right; font-size: 12px; color: #71767b; }
+  .char-count.over { color: #f4212e; }
+
+  .reply-actions { display: flex; gap: 10px; }
+  .btn-generate { flex: 1; background: #2f3336; color: #e7e9ea; border: none; padding: 10px; border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: 600; }
+  .btn-generate:hover { background: #3a3d42; }
+  .btn-generate:disabled { opacity: 0.5; cursor: default; }
+  .btn-post { flex: 1; background: #1d9bf0; color: white; border: none; padding: 10px; border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: 600; }
+  .btn-post:hover { background: #1a8cd8; }
+  .btn-post:disabled { opacity: 0.5; cursor: default; }
+
+  .no-selection { display: flex; align-items: center; justify-content: center; height: 100%; color: #71767b; font-size: 14px; text-align: center; padding: 40px; }
+
+  .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #1d9bf0; color: white; padding: 10px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 100; }
+  .toast.show { opacity: 1; }
+  .toast.error { background: #f4212e; }
+</style>
+</head>
+<body>
+
+<div class="left">
+  <div class="header">
+    <span style="font-size:20px">𝕏</span>
+    <h1>エンゲージメントダッシュボード</h1>
+    <button class="refresh-btn" id="refreshBtn" onclick="loadTimeline()">更新</button>
+  </div>
+  <div class="timeline" id="timeline">
+    <div class="loading">読み込み中...</div>
+  </div>
+</div>
+
+<div class="right">
+  <div class="right-header">返信プレビュー</div>
+  <div class="reply-panel" id="replyPanel">
+    <div class="no-selection">← 左のツイートをクリックして<br>返信を生成できます</div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let tweets = [];
+let selectedTweet = null;
+let doneTweets = new Set();
+
+function showToast(msg, isError = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (isError ? ' error' : '');
+  setTimeout(() => { t.className = 'toast'; }, 2500);
+}
+
+function formatTime(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  return d.toLocaleString('ja-JP', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+
+function renderTimeline() {
+  const el = document.getElementById('timeline');
+  if (!tweets.length) {
+    el.innerHTML = '<div class="empty">ツイートがありません</div>';
+    return;
+  }
+  el.innerHTML = tweets.map(t => `
+    <div class="tweet-card ${selectedTweet?.id === t.id ? 'selected' : ''}" onclick="selectTweet('${t.id}')">
+      <div class="tweet-top">
+        <div class="avatar">${(t.author.name || '?')[0]}</div>
+        <div>
+          <div class="author-name">${escHtml(t.author.name || '')}</div>
+          <div class="author-handle">@${escHtml(t.author.username || '')}</div>
+        </div>
+        <div class="tweet-time">${formatTime(t.created_at)}</div>
+      </div>
+      <div class="tweet-text">${escHtml(t.text)}</div>
+      <div class="tweet-metrics">
+        <span class="metric">💬 ${t.metrics?.reply_count ?? 0}</span>
+        <span class="metric">🔁 ${t.metrics?.retweet_count ?? 0}</span>
+        <span class="metric">❤️ ${t.metrics?.like_count ?? 0}</span>
+        <span class="metric">👁 ${t.metrics?.impression_count ?? 0}</span>
+      </div>
+      <div class="tweet-actions">
+        <button class="btn btn-reply ${doneTweets.has('reply_'+t.id)?'done':''}" onclick="event.stopPropagation();selectAndGenerate('${t.id}')">
+          ${doneTweets.has('reply_'+t.id) ? '✅ 返信済' : '💬 返信生成'}
+        </button>
+        <button class="btn btn-rt ${doneTweets.has('rt_'+t.id)?'done':''}" onclick="event.stopPropagation();doRetweet('${t.id}')">
+          ${doneTweets.has('rt_'+t.id) ? '✅ RT済' : '🔁 リポスト'}
+        </button>
+        <button class="btn btn-like ${doneTweets.has('like_'+t.id)?'done':''}" onclick="event.stopPropagation();doLike('${t.id}')">
+          ${doneTweets.has('like_'+t.id) ? '✅ いいね済' : '❤️ いいね'}
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+async function loadTimeline() {
+  const btn = document.getElementById('refreshBtn');
+  btn.disabled = true;
+  btn.textContent = '読込中...';
+  document.getElementById('timeline').innerHTML = '<div class="loading">タイムライン取得中...</div>';
+  try {
+    const res = await fetch('/api/timeline');
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    tweets = data.tweets || [];
+    renderTimeline();
+  } catch (e) {
+    document.getElementById('timeline').innerHTML = `<div class="empty">❌ 取得失敗: ${e.message}</div>`;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '更新';
+  }
+}
+
+function selectTweet(id) {
+  selectedTweet = tweets.find(t => t.id === id);
+  renderTimeline();
+  showReplyPanel(selectedTweet);
+}
+
+async function selectAndGenerate(id) {
+  selectTweet(id);
+  await generateReply();
+}
+
+function showReplyPanel(tweet) {
+  const panel = document.getElementById('replyPanel');
+  panel.innerHTML = `
+    <div class="selected-tweet">
+      <div class="label">対象ツイート</div>
+      <div style="font-weight:700;margin-bottom:6px">${escHtml(tweet.author.name)} @${escHtml(tweet.author.username)}</div>
+      <div class="content">${escHtml(tweet.text)}</div>
+    </div>
+    <div class="reply-box">
+      <label>返信文</label>
+      <textarea class="reply-textarea" id="replyText" placeholder="「返信生成」ボタンでAIが自動作成します" oninput="updateCharCount()"></textarea>
+      <div class="char-count" id="charCount">0 / 140</div>
+      <div class="reply-actions">
+        <button class="btn-generate" id="generateBtn" onclick="generateReply()">✨ 返信生成</button>
+        <button class="btn-post" id="postBtn" onclick="postReply()">送信</button>
+      </div>
+    </div>
+  `;
+}
+
+function updateCharCount() {
+  const text = document.getElementById('replyText')?.value || '';
+  const el = document.getElementById('charCount');
+  if (!el) return;
+  el.textContent = `${text.length} / 140`;
+  el.className = 'char-count' + (text.length > 140 ? ' over' : '');
+}
+
+async function generateReply() {
+  if (!selectedTweet) return;
+  const btn = document.getElementById('generateBtn');
+  if (!btn) return;
+  btn.disabled = true;
+  btn.textContent = '生成中...';
+  try {
+    const res = await fetch('/api/generate-reply', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tweet_text: selectedTweet.text, author_name: selectedTweet.author.name }),
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    const ta = document.getElementById('replyText');
+    if (ta) { ta.value = data.reply; updateCharCount(); }
+  } catch (e) {
+    showToast('生成失敗: ' + e.message, true);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '✨ 返信生成';
+  }
+}
+
+async function postReply() {
+  if (!selectedTweet) return;
+  const text = document.getElementById('replyText')?.value?.trim();
+  if (!text) { showToast('返信文を入力してください', true); return; }
+  if (text.length > 140) { showToast('140文字を超えています', true); return; }
+  const btn = document.getElementById('postBtn');
+  btn.disabled = true;
+  btn.textContent = '送信中...';
+  try {
+    const res = await fetch('/api/reply', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text, reply_to_id: selectedTweet.id }),
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    doneTweets.add('reply_' + selectedTweet.id);
+    showToast('✅ 返信しました！');
+    renderTimeline();
+    document.getElementById('replyPanel').innerHTML = '<div class="no-selection">返信を送信しました ✅<br><br>次のツイートを選んでください</div>';
+    selectedTweet = null;
+  } catch (e) {
+    showToast('送信失敗: ' + e.message, true);
+    btn.disabled = false;
+    btn.textContent = '送信';
+  }
+}
+
+async function doRetweet(id) {
+  if (doneTweets.has('rt_'+id)) return;
+  try {
+    const res = await fetch('/api/retweet', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tweet_id: id }),
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    doneTweets.add('rt_' + id);
+    showToast('🔁 リポストしました！');
+    renderTimeline();
+  } catch (e) {
+    showToast('失敗: ' + e.message, true);
+  }
+}
+
+async function doLike(id) {
+  if (doneTweets.has('like_'+id)) return;
+  try {
+    const res = await fetch('/api/like', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tweet_id: id }),
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    doneTweets.add('like_' + id);
+    showToast('❤️ いいねしました！');
+    renderTimeline();
+  } catch (e) {
+    showToast('失敗: ' + e.message, true);
+  }
+}
+
+loadTimeline();
+</script>
+</body>
+</html>

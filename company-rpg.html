@@ -27,8 +27,9 @@ body {
 
 /* ===== レイアウト ===== */
 #layout {
-  display:grid; grid-template-columns:1fr 290px;
+  display:grid; grid-template-columns:420px 290px;
   flex:1; overflow:hidden; gap:2px; padding:2px;
+  justify-content:center;
 }
 
 /* ===== 会社フロア（シングルキャンバス） ===== */
@@ -364,6 +365,17 @@ body {
 .emp-sch .char-hair { height:4px; background:#ffaa00; }
 .emp-sch .char-body, .emp-sch .char-arms { background:#554400; }
 
+/* 役員 */
+#senmu .char-hair { height:6px; background:#334466; border-radius:4px 4px 0 0; }
+#senmu .char-body, #senmu .char-arms { background:#1a2a5a; }
+#senmu .char-legs { background:#111133; }
+.senmu-badge { position:absolute; top:12px; right:-2px; width:5px; height:3px; background:#8899ff; border-radius:1px; }
+#jomu .char-hair { height:6px; background:#335533; border-radius:4px 4px 0 0; }
+#jomu .char-body, #jomu .char-arms { background:#1a3a2a; }
+#jomu .char-legs { background:#112211; }
+.jomu-badge { position:absolute; top:12px; right:-2px; width:5px; height:3px; background:#88cc88; border-radius:1px; }
+.exec-label { position:absolute; font-size:5px; letter-spacing:1px; z-index:25; pointer-events:none; }
+
 /* 吹き出し */
 .bubble {
   position:absolute;
@@ -509,6 +521,22 @@ body {
       <div class="desk-papers"></div>
       <div class="coffee-cup"></div>
       <div class="chair" style="bottom:18px;left:50%;transform:translateX(-50%) translateX(-24px)"></div>
+
+      <!-- 専務 -->
+      <div id="senmu" class="char anim-idle" style="position:absolute;bottom:22px;left:28%">
+        <div class="char-head"></div><div class="char-hair"></div><div class="char-face-detail"></div>
+        <div class="char-body"></div><div class="senmu-badge"></div>
+        <div class="char-arms"></div><div class="char-legs"></div>
+      </div>
+      <div class="exec-label" style="bottom:48px;left:calc(28% - 4px);color:#8899ff">専務</div>
+
+      <!-- 常務 -->
+      <div id="jomu" class="char anim-idle" style="position:absolute;bottom:22px;left:66%">
+        <div class="char-head"></div><div class="char-hair"></div><div class="char-face-detail"></div>
+        <div class="char-body"></div><div class="jomu-badge"></div>
+        <div class="char-arms"></div><div class="char-legs"></div>
+      </div>
+      <div class="exec-label" style="bottom:48px;left:calc(66% - 4px);color:#88cc88">常務</div>
 
       <!-- 今日の成果バー（右下） -->
       <div style="position:absolute;bottom:4px;right:8px;display:flex;gap:6px">
@@ -724,6 +752,8 @@ const zones = [
   { name:'コンテンツ部',top:245, leftPct:0.30 }, // con2の横
   { name:'スケジューラー部',top:245, leftPct:0.62 }, // sch1の横
   { name:'スケジューラー部',top:245, leftPct:0.80 }, // sch2の横
+  { name:'専務',            top:86,  leftPct:0.28 }, // 専務の横
+  { name:'常務',            top:86,  leftPct:0.66 }, // 常務の横
 ];
 
 // 部署別会話
@@ -747,6 +777,14 @@ const dialogues = {
   'スケジューラー部': {
     ceo: ['投稿計画は？', 'タイミングの最適化を頼む', 'noteの更新頻度はどうだ？'],
     emp: ['月水金の投稿を推奨します', '最適な時間は19時です', 'ストック記事は十分あります', 'スケジュール更新完了！']
+  },
+  '専務': {
+    ceo: ['秘書部の状況は？', 'コンテンツ品質どうだ？', 'マネタイズの方針を確認'],
+    emp: ['無料記事の公開を急ぎます', 'Aランク84本、品質は好調です', 'コンテンツ部の生産性は高いです', 'マガジン化を提案します']
+  },
+  '常務': {
+    ceo: ['リサーチの状況は？', '今週の投稿計画を確認', 'スケジュール管理どうだ？'],
+    emp: ['AI系ジャンルの需要が高いです', '今週3本の投稿を計画中です', 'ストック92本、余裕あります', 'いいね周り1日20件で進めます']
   }
 };
 

@@ -1,0 +1,25 @@
+{
+  "name": "佐伯亮",
+  "handle": "@saekiryoAI",
+  "tagline": "AI副業実験者",
+  "location": "沖縄在住・会社員",
+  "description": "沖縄の会社員がAIで副業を実験中。Claude/Claude Code歴3年+。やってみたらこうだったという一次情報だけを発信。",
+  "achievements": {
+    "kindle": "Kindle 8冊出版",
+    "apps": "Webアプリ 2本リリース",
+    "tools": "Claude / Claude Code / ChatGPT歴3年+"
+  },
+  "sns": {
+    "x_followers": 12,
+    "x_posts": 24
+  },
+  "note": {
+    "total_articles": 92,
+    "published": 2,
+    "free": 1,
+    "paid": 1,
+    "paid_price": 980
+  },
+  "current_focus": "note有料記事の継続投稿とXフォロワー増加",
+  "tone": "等身大・カジュアル・一次情報重視・煽らない"
+}

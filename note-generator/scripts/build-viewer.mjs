@@ -13,7 +13,7 @@ function parseMd(content) {
   const lines = content.split("\n");
 
   // DAL-Eプロンプトセクションを分離
-  const dallEIndex = lines.findIndex((l) => l.includes("アイキャッチ画像用プロンプト"));
+  const dallEIndex = lines.findIndex((l) => l.includes("アイキャッチ画像"));
   const geminiIndex = lines.findIndex((l) => l.includes("Gemini向け日本語プロンプト"));
 
   let articleLines, dallEPrompt = "", geminiPrompt = "";

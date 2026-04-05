@@ -8,7 +8,10 @@
     "rewrite": "node scripts/rewrite.mjs",
     "gemini-prompt": "node scripts/gemini-prompt-free.mjs",
     "build-viewer": "node scripts/build-viewer.mjs",
-    "all": "node scripts/generate.mjs && node scripts/quality-check.mjs && node scripts/rewrite.mjs"
+    "all": "node scripts/generate.mjs && node scripts/quality-check.mjs && node scripts/rewrite.mjs",
+    "note-check": "node scripts/note-checker.mjs",
+    "daily": "node scripts/daily-pick.mjs",
+    "mark-posted": "node scripts/mark-posted.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0",
