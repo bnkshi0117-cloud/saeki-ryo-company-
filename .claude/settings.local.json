@@ -139,7 +139,9 @@
       "WebFetch(domain:developer.twitter.com)",
       "WebFetch(domain:docs.x.com)",
       "Bash(npx remotion:*)",
-      "WebFetch(domain:www.builder.io)"
+      "WebFetch(domain:www.builder.io)",
+      "Bash(git fetch:*)",
+      "Bash(git pull:*)"
     ]
   },
   "hooks": {
