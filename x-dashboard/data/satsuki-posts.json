@@ -17,9 +17,9 @@
     {
       "id": 3,
       "text": "ダイソーで買った珪藻土コースター、\n半年使ってまだ現役。\n\n100円でこれは優秀すぎる。\n洗面所に1枚置くだけで\nタオルびしょびしょ問題が消えた。",
-      "status": "pending",
-      "posted_at": null,
-      "thread_id": null
+      "status": "posted",
+      "posted_at": "2026-04-08T12:01:17.210Z",
+      "thread_id": "17957339717942872"
     },
     {
       "id": 4,
@@ -36,5 +36,5 @@
       "thread_id": null
     }
   ],
-  "lastPostedAt": "2026-04-08T06:04:05.801Z"
+  "lastPostedAt": "2026-04-08T12:01:17.210Z"
 }
