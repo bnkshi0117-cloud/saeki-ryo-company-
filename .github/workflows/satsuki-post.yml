@@ -63,10 +63,6 @@ jobs:
         env:
           THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
         run: |
-          # ランダム遅延（0〜20分）で時間をばらす
-          DELAY=$((RANDOM % 1200))
-          echo "⏳ ${DELAY}秒待機してから投稿します..."
-          sleep $DELAY
           cd x-dashboard && node satsuki-threads.mjs
 
       - name: 投稿結果をコミット・プッシュ
