@@ -10,9 +10,9 @@
     {
       "id": 2,
       "text": "月曜の夜、帰ってきたら\nきなこが玄関で待ってた。\n\nそれだけで「まあいっか」ってなれる。\n猫ってすごい。",
-      "status": "pending",
-      "posted_at": null,
-      "thread_id": null
+      "status": "posted",
+      "posted_at": "2026-04-08T06:04:05.801Z",
+      "thread_id": "17916246012343278"
     },
     {
       "id": 3,
@@ -36,5 +36,5 @@
       "thread_id": null
     }
   ],
-  "lastPostedAt": "2026-04-08T05:07:02.751Z"
+  "lastPostedAt": "2026-04-08T06:04:05.801Z"
 }
