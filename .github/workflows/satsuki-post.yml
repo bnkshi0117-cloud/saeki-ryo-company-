@@ -1,0 +1,79 @@
+name: さつき Threads 自動投稿
+
+on:
+  schedule:
+    # 日本時間に変換（UTC+9）で5つの時間帯をカバー
+    # 朝枠:  7:10〜9:20  → UTC 22:10〜00:20
+    - cron: '37 22 * * *'   # JST 7:37
+    - cron: '11 0 * * *'    # JST 9:11
+    # 昼前枠: 10:30〜11:50 → UTC 1:30〜2:50
+    - cron: '47 1 * * *'    # JST 10:47
+    # 昼後枠: 13:00〜14:30 → UTC 4:00〜5:30
+    - cron: '23 4 * * *'    # JST 13:23
+    # 夕方枠: 17:30〜19:00 → UTC 8:30〜10:00
+    - cron: '51 8 * * *'    # JST 17:51
+    # 夜枠:  20:00〜22:00 → UTC 11:00〜13:00
+    - cron: '19 11 * * *'   # JST 20:19
+    - cron: '43 12 * * *'   # JST 21:43
+  workflow_dispatch:  # 手動実行も可能
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Node.js セットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 依存関係インストール
+        run: cd x-dashboard && npm install
+
+      - name: 今日の投稿数チェック（4〜5投稿に制限）
+        id: check
+        run: |
+          TODAY=$(date -u +%Y-%m-%d)
+          COUNT=$(node -e "
+            const fs = require('fs');
+            const data = JSON.parse(fs.readFileSync('x-dashboard/data/satsuki-posts.json'));
+            const today = '$TODAY';
+            const todayPosts = data.posts.filter(p =>
+              p.status === 'posted' && p.posted_at && p.posted_at.startsWith(today)
+            ).length;
+            // 今日の上限: 4か5をランダムで決める（日付のハッシュで固定）
+            const dayNum = parseInt(today.replace(/-/g, ''));
+            const limit = (dayNum % 2 === 0) ? 4 : 5;
+            const shouldPost = todayPosts < limit;
+            console.log('today=' + today);
+            console.log('count=' + todayPosts);
+            console.log('limit=' + limit);
+            console.log('should_post=' + shouldPost);
+            process.stdout.write('should_post=' + shouldPost + '\n');
+          " | tail -1)
+          echo "$COUNT" >> $GITHUB_OUTPUT
+
+      - name: Threads に投稿
+        if: steps.check.outputs.should_post == 'true'
+        env:
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+        run: |
+          # ランダム遅延（0〜20分）で時間をばらす
+          DELAY=$((RANDOM % 1200))
+          echo "⏳ ${DELAY}秒待機してから投稿します..."
+          sleep $DELAY
+          cd x-dashboard && node satsuki-threads.mjs
+
+      - name: 投稿結果をコミット・プッシュ
+        if: steps.check.outputs.should_post == 'true'
+        run: |
+          git config user.name "satsuki-bot"
+          git config user.email "satsuki@saeki-ryo-company"
+          git add x-dashboard/data/satsuki-posts.json
+          git diff --staged --quiet || git commit -m "さつき投稿記録 $(date -u +%Y-%m-%d)"
+          git push
