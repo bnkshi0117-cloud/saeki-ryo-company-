@@ -24,9 +24,9 @@
     {
       "id": 4,
       "text": "今日の夕ごはん、\nキャベツと卵とウインナーだけの炒め物。\n\n15分で作れて、きなこに「なにそれ」って顔された。\nでも美味しかった。一人暮らしの夜ご飯ってこんなもん。",
-      "status": "pending",
-      "posted_at": null,
-      "thread_id": null
+      "status": "posted",
+      "posted_at": "2026-04-08T16:04:12.332Z",
+      "thread_id": "18100375316480826"
     },
     {
       "id": 5,
@@ -36,5 +36,5 @@
       "thread_id": null
     }
   ],
-  "lastPostedAt": "2026-04-08T12:01:17.210Z"
+  "lastPostedAt": "2026-04-08T16:04:12.332Z"
 }
