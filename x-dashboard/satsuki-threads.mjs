@@ -76,7 +76,18 @@ function savePosts(data) {
 }
 
 function getNextPost(data) {
-  return data.posts.find(p => p.status === "pending") || null;
+  const jstHour = (new Date().getUTCHours() + 9) % 24;
+  const isHotTime = jstHour >= 20 && jstHour < 23;
+
+  const pending = data.posts.filter(p => p.status === "pending");
+
+  if (isHotTime) {
+    // ホットタイム（JST 20〜22時）はPR投稿を優先、なければ通常投稿
+    return pending.find(p => p.hot_time_only) || pending.find(p => !p.hot_time_only) || null;
+  } else {
+    // 通常時間帯はPR投稿をスキップして通常投稿のみ
+    return pending.find(p => !p.hot_time_only) || null;
+  }
 }
 
 // ── スレッドの返信を取得 ──
