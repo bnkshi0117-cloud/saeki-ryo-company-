@@ -47,9 +47,9 @@
       "id": 7,
       "text": "今日のきなこ🐱\n\n窓から外を見てたと思ったらそのまま寝てた。\nのんきでいいな〜笑",
       "image_url": "https://i.imgur.com/d6dKyWZ.jpg",
-      "status": "pending",
-      "posted_at": null,
-      "thread_id": null
+      "status": "posted",
+      "posted_at": "2026-04-09T08:07:44.501Z",
+      "thread_id": "17881271838518077"
     },
     {
       "id": 8,
@@ -128,5 +128,5 @@
       "thread_id": null
     }
   ],
-  "lastPostedAt": "2026-04-09T05:02:28.289Z"
+  "lastPostedAt": "2026-04-09T08:07:44.501Z"
 }
