@@ -54,9 +54,9 @@
     {
       "id": 8,
       "text": "在宅の日、ずっときなこが膝の上にいた。\n\n重いんだけど、なんかあったかくて。\nこういう日は仕事もはかどる気がするのは気のせいかな笑",
-      "status": "pending",
-      "posted_at": null,
-      "thread_id": null
+      "status": "posted",
+      "posted_at": "2026-04-09T12:07:39.454Z",
+      "thread_id": "18100813393976241"
     },
     {
       "id": 16,
@@ -128,5 +128,5 @@
       "thread_id": null
     }
   ],
-  "lastPostedAt": "2026-04-09T10:44:06.076Z"
+  "lastPostedAt": "2026-04-09T12:07:39.454Z"
 }
