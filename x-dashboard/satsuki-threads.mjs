@@ -77,7 +77,7 @@ function savePosts(data) {
 
 function getNextPost(data) {
   const jstHour = (new Date().getUTCHours() + 9) % 24;
-  const isHotTime = jstHour >= 20 && jstHour < 23;
+  const isHotTime = jstHour >= 18 && jstHour < 21;
 
   const pending = data.posts.filter(p => p.status === "pending");
 
