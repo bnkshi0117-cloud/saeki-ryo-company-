@@ -39,9 +39,9 @@
     {
       "id": 6,
       "text": "きなこの昼寝スポット、いつの間にかソファの端に決まってた。\n\nもともと私の定位置だったんだけどな〜😂\nまあ、かわいいからいっか。",
-      "status": "pending",
-      "posted_at": null,
-      "thread_id": null
+      "status": "posted",
+      "posted_at": "2026-04-09T05:02:28.289Z",
+      "thread_id": "18081782159626175"
     },
     {
       "id": 7,
@@ -128,5 +128,5 @@
       "thread_id": null
     }
   ],
-  "lastPostedAt": "2026-04-09T00:02:02.411Z"
+  "lastPostedAt": "2026-04-09T05:02:28.289Z"
 }
