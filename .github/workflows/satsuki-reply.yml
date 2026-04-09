@@ -1,0 +1,41 @@
+name: さつき Threads 自動返信
+
+on:
+  schedule:
+    # 1日3回チェック（JST）
+    - cron: '0 1 * * *'   # JST 10:00
+    - cron: '0 7 * * *'   # JST 16:00
+    - cron: '0 13 * * *'  # JST 22:00
+  workflow_dispatch:  # 手動実行も可能
+
+jobs:
+  reply:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Node.js セットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 依存関係インストール
+        run: cd x-dashboard && npm install
+
+      - name: 未返信コメントに自動返信
+        env:
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: cd x-dashboard && node satsuki-reply.mjs
+
+      - name: 返信記録をコミット・プッシュ
+        run: |
+          git config user.name "satsuki-bot"
+          git config user.email "satsuki@saeki-ryo-company"
+          git add x-dashboard/data/satsuki-replied.json
+          git diff --staged --quiet || git commit -m "さつき返信記録 $(date -u +%Y-%m-%d)"
+          git push

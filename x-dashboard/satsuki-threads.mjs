@@ -1,7 +1,11 @@
 /**
- * さつき（@satsuki_kurashitime）Threads自動投稿スクリプト
- * 使い方：node satsuki-threads.mjs
- * キューから次のpending投稿を1件取り出して投稿する
+ * さつき（@satsuki_kurashitime）Threads投稿・返信ツール
+ *
+ * 使い方：
+ *   node satsuki-threads.mjs                          → 通常投稿（キューから1件）
+ *   node satsuki-threads.mjs --dry-run                → ドライラン（投稿しない）
+ *   node satsuki-threads.mjs --check-replies          → 未返信コメント一覧表示
+ *   node satsuki-threads.mjs --reply <thread_id> "<text>"  → 指定スレッドに返信
  */
 
 import dotenv from "dotenv";
@@ -27,19 +31,23 @@ async function getUserId() {
   const data = await res.json();
   if (!res.ok || data.error) throw new Error(data.error?.message || "ユーザーID取得失敗");
   console.log(`👤 ユーザー: @${data.username} (ID: ${data.id})`);
-  return data.id;
+  return { id: data.id, username: data.username };
 }
 
 // ── 投稿コンテナ作成 ──
-async function createContainer(userId, text) {
+async function createContainer(userId, text, imageUrl = null, replyToId = null) {
+  const body = {
+    media_type: imageUrl ? "IMAGE" : "TEXT",
+    text,
+    access_token: TOKEN,
+    ...(imageUrl && { image_url: imageUrl }),
+    ...(replyToId && { reply_to_id: replyToId }),
+  };
+
   const res = await fetch(`${API_BASE}/${userId}/threads`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      media_type: "TEXT",
-      text,
-      access_token: TOKEN,
-    }),
+    body: JSON.stringify(body),
   });
   const data = await res.json();
   if (!res.ok || data.error) throw new Error(data.error?.message || "コンテナ作成失敗");
@@ -51,10 +59,7 @@ async function publishThread(userId, creationId) {
   const res = await fetch(`${API_BASE}/${userId}/threads_publish`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      creation_id: creationId,
-      access_token: TOKEN,
-    }),
+    body: JSON.stringify({ creation_id: creationId, access_token: TOKEN }),
   });
   const data = await res.json();
   if (!res.ok || data.error) throw new Error(data.error?.message || "公開失敗");
@@ -74,21 +79,103 @@ function getNextPost(data) {
   return data.posts.find(p => p.status === "pending") || null;
 }
 
-// ── メイン ──
-async function main() {
-  const args = process.argv.slice(2);
-  const dryRun = args.includes("--dry-run");
+// ── スレッドの返信を取得 ──
+async function getThreadReplies(threadId) {
+  const res = await fetch(
+    `${API_BASE}/${threadId}/replies?fields=id,text,username,timestamp&access_token=${TOKEN}`
+  );
+  const data = await res.json();
+  if (!res.ok || data.error) throw new Error(data.error?.message || "返信取得失敗");
+  return data.data || [];
+}
 
-  console.log("🧵 さつきスレッズ投稿ツール起動");
-  if (dryRun) console.log("🔍 ドライランモード（実際には投稿しません）");
+// ── 未返信コメント確認 ──
+async function checkReplies() {
+  console.log("💬 未返信コメントを確認中...\n");
 
+  const { id: userId, username: myUsername } = await getUserId();
+  const data = loadPosts();
+  const postedPosts = data.posts.filter(p => p.status === "posted" && p.thread_id);
+
+  if (postedPosts.length === 0) {
+    console.log("投稿済みのスレッドがありません。");
+    return;
+  }
+
+  let foundAny = false;
+
+  for (const post of postedPosts) {
+    let replies;
+    try {
+      replies = await getThreadReplies(post.thread_id);
+    } catch (e) {
+      console.warn(`⚠️  ID${post.id} の返信取得失敗: ${e.message}`);
+      continue;
+    }
+
+    if (replies.length === 0) continue;
+
+    // 自分（さつき）が返信済みかチェック
+    const myReplies = replies.filter(r => r.username === myUsername);
+    const othersReplies = replies.filter(r => r.username !== myUsername);
+
+    if (othersReplies.length === 0) continue;
+
+    const hasReplied = myReplies.length > 0;
+    const statusMark = hasReplied ? "✅ 返信済み" : "❗ 未返信";
+
+    console.log(`─────────────────────────────────`);
+    console.log(`📝 投稿ID${post.id} [thread_id: ${post.thread_id}] ${statusMark}`);
+    console.log(`本文: ${post.text.split("\n")[0]}...`);
+    console.log(`コメント${othersReplies.length}件:`);
+    for (const r of othersReplies) {
+      const time = new Date(r.timestamp).toLocaleString("ja-JP");
+      console.log(`  @${r.username} (${time}): ${r.text}`);
+      console.log(`  reply_id: ${r.id}`);
+    }
+
+    if (!hasReplied) {
+      foundAny = true;
+      console.log(`\n  👉 返信するには:`);
+      console.log(`  node satsuki-threads.mjs --reply ${post.thread_id} "返信テキスト"`);
+    }
+    console.log();
+  }
+
+  if (!foundAny) {
+    console.log("✅ 未返信のコメントはありません。");
+  }
+}
+
+// ── コメントへの返信投稿 ──
+async function postReply(replyToId, text) {
+  console.log(`💬 返信投稿を開始します...`);
+  console.log(`宛先スレッドID: ${replyToId}`);
+  console.log(`返信テキスト: ${text}\n`);
+
+  const { id: userId } = await getUserId();
+
+  console.log("⏳ 返信コンテナ作成中...");
+  const creationId = await createContainer(userId, text, null, replyToId);
+
+  console.log("⏳ 1秒待機...");
+  await new Promise(r => setTimeout(r, 1000));
+
+  console.log("⏳ 公開中...");
+  const threadId = await publishThread(userId, creationId);
+
+  console.log(`\n✅ 返信完了！`);
+  console.log(`   返信スレッドID: ${threadId}`);
+  console.log(`   投稿時刻: ${new Date().toLocaleString("ja-JP")}`);
+}
+
+// ── 通常投稿 ──
+async function postNext(dryRun) {
   const data = loadPosts();
   const post = getNextPost(data);
 
   if (!post) {
     console.log("✅ 投稿キューが空です。新しい投稿を追加してください。");
-
-    // 統計表示
     const done = data.posts.filter(p => p.status === "posted").length;
     const skipped = data.posts.filter(p => p.status === "skipped").length;
     console.log(`📊 投稿済み: ${done}件 / スキップ: ${skipped}件`);
@@ -105,40 +192,63 @@ async function main() {
     return;
   }
 
-  try {
-    const userId = await getUserId();
+  const { id: userId } = await getUserId();
 
-    // コンテナ作成
-    console.log("\n⏳ 投稿コンテナ作成中...");
-    const creationId = await createContainer(userId, post.text);
+  const hasImage = !!post.image_url;
+  console.log(`\n⏳ 投稿コンテナ作成中...${hasImage ? "（画像付き）" : ""}`);
+  const creationId = await createContainer(userId, post.text, post.image_url || null);
 
-    // 少し待つ（API推奨）
-    await new Promise(r => setTimeout(r, 1000));
+  const wait = hasImage ? 30000 : 1000;
+  console.log(`⏳ ${hasImage ? "30秒" : "1秒"}待機中...`);
+  await new Promise(r => setTimeout(r, wait));
 
-    // 公開
-    console.log("⏳ 公開中...");
-    const threadId = await publishThread(userId, creationId);
+  console.log("⏳ 公開中...");
+  const threadId = await publishThread(userId, creationId);
 
-    // キュー更新
-    const now = new Date().toISOString();
-    post.status = "posted";
-    post.posted_at = now;
-    post.thread_id = threadId;
-    data.lastPostedAt = now;
-    savePosts(data);
+  const now = new Date().toISOString();
+  post.status = "posted";
+  post.posted_at = now;
+  post.thread_id = threadId;
+  data.lastPostedAt = now;
+  savePosts(data);
 
-    console.log(`\n✅ 投稿完了！`);
-    console.log(`   スレッドID: ${threadId}`);
-    console.log(`   投稿時刻: ${new Date(now).toLocaleString("ja-JP")}`);
+  console.log(`\n✅ 投稿完了！`);
+  console.log(`   スレッドID: ${threadId}`);
+  console.log(`   投稿時刻: ${new Date(now).toLocaleString("ja-JP")}`);
 
-    // 残りキュー表示
-    const remaining = data.posts.filter(p => p.status === "pending").length;
-    console.log(`   残りキュー: ${remaining}件`);
-
-  } catch (e) {
-    console.error(`\n❌ 投稿失敗: ${e.message}`);
-    process.exit(1);
-  }
+  const remaining = data.posts.filter(p => p.status === "pending").length;
+  console.log(`   残りキュー: ${remaining}件`);
 }
 
-main();
+// ── メイン ──
+async function main() {
+  const args = process.argv.slice(2);
+  const dryRun = args.includes("--dry-run");
+
+  console.log("🧵 さつきスレッズツール起動");
+
+  if (args.includes("--check-replies")) {
+    await checkReplies();
+    return;
+  }
+
+  if (args.includes("--reply")) {
+    const idx = args.indexOf("--reply");
+    const replyToId = args[idx + 1];
+    const text = args[idx + 2];
+    if (!replyToId || !text) {
+      console.error("❌ 使い方: --reply <thread_id> \"<返信テキスト>\"");
+      process.exit(1);
+    }
+    await postReply(replyToId, text);
+    return;
+  }
+
+  if (dryRun) console.log("🔍 ドライランモード（実際には投稿しません）");
+  await postNext(dryRun);
+}
+
+main().catch(e => {
+  console.error(`\n❌ エラー: ${e.message}`);
+  process.exit(1);
+});
