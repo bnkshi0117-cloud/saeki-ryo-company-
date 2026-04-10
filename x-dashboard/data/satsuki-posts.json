@@ -70,9 +70,9 @@
       "id": 9,
       "text": "朝起きたら枕元できなこが寝てた。\n\nいつからいたんだろう。\nこっちが起こされてるんだか守られてるんだか笑🐱",
       "image_url": "https://i.imgur.com/Fna1d8I.jpg",
-      "status": "pending",
-      "posted_at": null,
-      "thread_id": null
+      "status": "posted",
+      "posted_at": "2026-04-10T00:05:36.964Z",
+      "thread_id": "18122026597615974"
     },
     {
       "id": 10,
@@ -128,5 +128,5 @@
       "thread_id": null
     }
   ],
-  "lastPostedAt": "2026-04-09T12:07:39.454Z"
+  "lastPostedAt": "2026-04-10T00:05:36.964Z"
 }
