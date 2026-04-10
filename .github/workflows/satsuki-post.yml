@@ -16,14 +16,14 @@ jobs:
 
     steps:
       - name: リポジトリをチェックアウト
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.2
         with:
           token: ${{ secrets.GH_PAT }}
 
       - name: Node.js セットアップ
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v4.3.0
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: 依存関係インストール
         run: cd x-dashboard && npm install
@@ -59,9 +59,11 @@ jobs:
           cd x-dashboard && node satsuki-threads.mjs
 
       - name: 結果をコミット・プッシュ
+        if: always()
         run: |
           git config user.name "satsuki-bot"
           git config user.email "satsuki@saeki-ryo-company"
-          git add x-dashboard/data/satsuki-posts.json
+          git add x-dashboard/data/satsuki-posts.json || true
+          git add x-dashboard/logs/ || true
           git diff --staged --quiet || git commit -m "さつき投稿記録 $(date -u +%Y-%m-%d)"
-          git push
+          git push || true
