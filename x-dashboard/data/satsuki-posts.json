@@ -77,9 +77,9 @@
     {
       "id": 10,
       "text": "きなこ、ごはんの前だけやたら甘えてくる。\n\n計算高いのはわかってるけど\nそれでもかわいいからあげてしまう😂\n完全に負けてる笑",
-      "status": "pending",
-      "posted_at": null,
-      "thread_id": null
+      "status": "posted",
+      "posted_at": "2026-04-10T08:12:37.956Z",
+      "thread_id": "18191459524363955"
     },
     {
       "id": 11,
@@ -128,5 +128,5 @@
       "thread_id": null
     }
   ],
-  "lastPostedAt": "2026-04-10T00:05:36.964Z"
+  "lastPostedAt": "2026-04-10T08:12:37.956Z"
 }
