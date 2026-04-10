@@ -84,9 +84,9 @@
     {
       "id": 11,
       "text": "今日、特に何もしてないんだけど\nきなこと一緒にぼーっとしてたら3時間経ってた😴\n\nこういう何もしない日も、たまにはいいよね。",
-      "status": "pending",
-      "posted_at": null,
-      "thread_id": null
+      "status": "posted",
+      "posted_at": "2026-04-10T12:02:56.890Z",
+      "thread_id": "18017402693667909"
     },
     {
       "id": 12,
@@ -128,5 +128,5 @@
       "thread_id": null
     }
   ],
-  "lastPostedAt": "2026-04-10T10:17:46.209Z"
+  "lastPostedAt": "2026-04-10T12:02:56.890Z"
 }
