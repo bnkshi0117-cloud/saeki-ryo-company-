@@ -123,9 +123,9 @@
       "id": 15,
       "text": "今日のきなこ、なんか機嫌よさそう🐱\n\nこういう日はなぜか私もいい気分になるんだよね〜。\nシンクロしてるのかな笑",
       "image_url": "https://i.imgur.com/mXNX2OL.jpg",
-      "status": "pending",
-      "posted_at": null,
-      "thread_id": null
+      "status": "posted",
+      "posted_at": "2026-04-11T11:05:01.822Z",
+      "thread_id": "18088392671191398"
     },
     {
       "id": 18,
@@ -163,5 +163,5 @@
       "thread_id": null
     }
   ],
-  "lastPostedAt": "2026-04-11T08:07:51.054Z"
+  "lastPostedAt": "2026-04-11T11:05:01.822Z"
 }
