@@ -115,9 +115,9 @@
       "id": 14,
       "text": "きなこが洗濯したばかりのパーカー占領してた。\n\nあったかいのはわかるけど〜😂\nまあ、かわいいからいっか笑",
       "image_url": "https://i.imgur.com/GzyMjfo.jpg",
-      "status": "pending",
-      "posted_at": null,
-      "thread_id": null
+      "status": "posted",
+      "posted_at": "2026-04-11T08:07:51.054Z",
+      "thread_id": "18048191732563977"
     },
     {
       "id": 15,
@@ -163,5 +163,5 @@
       "thread_id": null
     }
   ],
-  "lastPostedAt": "2026-04-11T06:42:32.079Z"
+  "lastPostedAt": "2026-04-11T08:07:51.054Z"
 }
