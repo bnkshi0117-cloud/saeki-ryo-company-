@@ -92,9 +92,9 @@
       "id": 12,
       "text": "きなこのこの顔、\n何考えてるのか全然わからない笑\n\nでもなぜかずっと見ていられるんだよね🐱\n不思議〜。",
       "image_url": "https://i.imgur.com/Zd6HVwz.jpg",
-      "status": "pending",
-      "posted_at": null,
-      "thread_id": null
+      "status": "posted",
+      "posted_at": "2026-04-11T00:02:38.845Z",
+      "thread_id": "17884721997497292"
     },
     {
       "id": 13,
@@ -128,5 +128,5 @@
       "thread_id": null
     }
   ],
-  "lastPostedAt": "2026-04-10T12:02:56.890Z"
+  "lastPostedAt": "2026-04-11T00:02:38.845Z"
 }
