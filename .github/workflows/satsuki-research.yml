@@ -1,0 +1,38 @@
+name: さつき リサーチ・分析
+
+on:
+  schedule:
+    - cron: '0 21 * * *'   # JST 6:00 毎朝（投稿より前に実行）
+  workflow_dispatch:
+
+jobs:
+  research:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4.2.2
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Node.js セットアップ
+        uses: actions/setup-node@v4.3.0
+        with:
+          node-version: '22'
+
+      - name: 依存関係インストール
+        run: cd x-dashboard && npm install
+
+      - name: 投稿パフォーマンス分析
+        env:
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: cd x-dashboard && node satsuki-research.mjs
+
+      - name: 結果をコミット・プッシュ
+        run: |
+          git config user.name "satsuki-bot"
+          git config user.email "satsuki@saeki-ryo-company"
+          git add x-dashboard/data/satsuki-trends.json || true
+          git diff --staged --quiet || git commit -m "さつきリサーチ更新 $(date -u +%Y-%m-%d)"
+          git push || true
