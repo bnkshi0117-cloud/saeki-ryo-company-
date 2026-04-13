@@ -27,6 +27,8 @@ const RSS_FEEDS = [
   { name: "The Verge AI",   url: "https://www.theverge.com/ai-artificial-intelligence/rss/index.xml", lang: "en" },
   { name: "Ars Technica",   url: "https://feeds.arstechnica.com/arstechnica/technology-lab",          lang: "en" },
   { name: "Zenn AI",        url: "https://zenn.dev/topics/ai/feed",                                   lang: "ja" },
+  { name: "The Decoder",    url: "https://the-decoder.com/feed/",                                     lang: "en" },
+  { name: "AI News",        url: "https://buttondown.com/ainews/rss",                                 lang: "en" },
 ];
 
 function readLog() {
@@ -43,6 +45,23 @@ function getTwitter() {
     accessToken:  process.env.X_ACCESS_TOKEN,
     accessSecret: process.env.X_ACCESS_TOKEN_SECRET,
   });
+}
+
+function validateXCredentials() {
+  const keys = ["X_CONSUMER_KEY", "X_CONSUMER_SECRET", "X_ACCESS_TOKEN", "X_ACCESS_TOKEN_SECRET"];
+  const missing = keys.filter(k => !process.env[k]);
+  if (missing.length > 0) {
+    console.error(`❌ X APIクレデンシャル未設定: ${missing.join(", ")}`);
+    console.error("GitHub SecretsにX API認証情報が正しく設定されているか確認してください。");
+    process.exit(1);
+  }
+}
+
+function withTimeout(promise, ms, label) {
+  const timeout = new Promise((_, reject) =>
+    setTimeout(() => reject(new Error(`タイムアウト（${ms / 1000}秒）: ${label}`)), ms)
+  );
+  return Promise.race([promise, timeout]);
 }
 
 // ── RSS収集 ──────────────────────────────────────────────────
@@ -116,6 +135,7 @@ ${newsList}
 - 「〜ですか？」で終わるのはNG
 - 推測・受け売りはNG（一次情報・実体験ベースのみ）
 - side_jobは実際の数字や体験がない場合は選ばない
+- 英語ニュースをベースにした投稿（news_insight / news_citation）の場合のみ、投稿末尾にフォローを自然に促す一言を添えること（例：「AI×副業の話、他にも書いてます🙏」「こういう実験、ほぼ毎日書いてます」など。日本語ニュース・自分の体験ベースの投稿には不要）
 
 JSONのみ出力（説明文不要）：
 {
@@ -189,6 +209,18 @@ async function notifySlackPreview(item, cancelUrl) {
   });
 }
 
+// ── Slack通知（エラー） ───────────────────────────────────────
+async function notifySlackError(errorMessage) {
+  if (!SLACK_WEBHOOK) return;
+  await fetch(SLACK_WEBHOOK, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      text: `❌ X投稿エラー｜${errorMessage}\nGitHub Actionsのログを確認してください。`,
+    }),
+  });
+}
+
 // ── Slack通知（投稿完了） ─────────────────────────────────────
 async function notifySlackDone(item, tweetUrl) {
   if (!SLACK_WEBHOOK) return;
@@ -209,7 +241,11 @@ async function postToX(item) {
     if (candidate.length <= 280) text = candidate;
   }
   console.log("📤 X投稿中...");
-  const tweet = await getTwitter().v2.tweet({ text });
+  const tweet = await withTimeout(
+    getTwitter().v2.tweet({ text }),
+    30000,
+    "X API tweet"
+  );
   const tweetId = tweet.data.id;
   console.log(`✅ 投稿完了: https://x.com/saekiryoAI/status/${tweetId}`);
   return tweetId;
@@ -246,16 +282,24 @@ if (mode === "generate") {
 
 } else if (mode === "post") {
   // Step2: pending-post.json を読んで投稿
+  validateXCredentials();
   if (!fs.existsSync(PENDING_FILE)) {
     console.log("⏭️  pending-post.json が見つかりません（キャンセル済み）");
     process.exit(0);
   }
   const item = JSON.parse(fs.readFileSync(PENDING_FILE, "utf-8"));
-  const tweetId  = await postToX(item);
-  const tweetUrl = `https://x.com/saekiryoAI/status/${tweetId}`;
-  saveLog(item, tweetId);
-  fs.unlinkSync(PENDING_FILE); // pending削除
-  await notifySlackDone(item, tweetUrl);
+  try {
+    const tweetId  = await postToX(item);
+    const tweetUrl = `https://x.com/saekiryoAI/status/${tweetId}`;
+    saveLog(item, tweetId);
+    fs.unlinkSync(PENDING_FILE); // pending削除
+    await notifySlackDone(item, tweetUrl);
+  } catch (err) {
+    console.error(`❌ 投稿失敗: ${err.message}`);
+    await notifySlackError(err.message);
+    // pending-post.json は残しておく（手動リトライ用）
+    process.exit(1);
+  }
 
 } else {
   console.error("使い方: node auto-poster.mjs generate <cancel_url> | post");
