@@ -228,7 +228,7 @@ async function notifySlackDone(item, tweetUrl) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      text: `✅ 投稿完了｜${item.text.slice(0, 60)}${item.text.length > 60 ? "..." : ""}\n${tweetUrl}`,
+      text: `✅ 投稿完了｜${item.text.slice(0, 60)}${item.text.length > 60 ? "..." : ""}\n${tweetUrl}\nコスト: $0.010`,
     }),
   });
 }
