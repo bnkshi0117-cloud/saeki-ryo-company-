@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>投稿キュー | 佐伯亮カンパニー</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #0f0f0f; color: #e8e8e8; min-height: 100vh; padding: 24px 16px; }
+    h1 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+    .subtitle { font-size: 13px; color: #888; margin-bottom: 24px; }
+    .tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+    .tab { padding: 7px 16px; border-radius: 20px; border: 1px solid #333; background: transparent; color: #888; font-size: 13px; cursor: pointer; transition: all .2s; }
+    .tab.active { background: #1d9bf0; border-color: #1d9bf0; color: #fff; }
+    .card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+    .card.pending { border-left: 3px solid #f59e0b; }
+    .card.posted  { border-left: 3px solid #22c55e; opacity: .7; }
+    .card.cancelled { border-left: 3px solid #555; opacity: .5; }
+    .card.error   { border-left: 3px solid #ef4444; }
+    .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .badge { font-size: 11px; padding: 2px 10px; border-radius: 12px; font-weight: 600; }
+    .badge.pending   { background: #f59e0b22; color: #f59e0b; }
+    .badge.posted    { background: #22c55e22; color: #22c55e; }
+    .badge.cancelled { background: #55555522; color: #888; }
+    .badge.error     { background: #ef444422; color: #ef4444; }
+    .type-label { font-size: 11px; color: #888; }
+    .post-text { font-size: 15px; line-height: 1.6; margin-bottom: 10px; white-space: pre-wrap; word-break: break-word; }
+    .meta { font-size: 12px; color: #666; display: flex; flex-direction: column; gap: 3px; }
+    .source-link { color: #1d9bf0; text-decoration: none; font-size: 12px; }
+    .source-link:hover { text-decoration: underline; }
+    .timer { font-size: 13px; color: #f59e0b; font-weight: 600; margin-top: 8px; }
+    .btn-cancel { margin-top: 12px; padding: 8px 20px; background: #ef4444; color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background .2s; }
+    .btn-cancel:hover { background: #dc2626; }
+    .btn-cancel:disabled { background: #555; cursor: not-allowed; }
+    .empty { text-align: center; color: #555; padding: 48px 0; font-size: 14px; }
+    .refresh-btn { padding: 6px 14px; background: #222; border: 1px solid #333; border-radius: 8px; color: #888; font-size: 12px; cursor: pointer; }
+    .refresh-btn:hover { background: #2a2a2a; }
+    .header-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
+  </style>
+</head>
+<body>
+  <div class="header-row">
+    <div>
+      <h1>📤 投稿キュー</h1>
+      <p class="subtitle">5分以内にキャンセルしなければ自動投稿されます</p>
+    </div>
+    <button class="refresh-btn" onclick="load()">↻ 更新</button>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="setTab('pending')">承認待ち</button>
+    <button class="tab" onclick="setTab('posted')">投稿済み</button>
+    <button class="tab" onclick="setTab('all')">すべて</button>
+  </div>
+
+  <div id="list"></div>
+
+  <script>
+    let currentTab = 'pending';
+    let allItems = [];
+
+    const TYPE_LABELS = {
+      news_insight:  'AIニュース解釈',
+      news_citation: 'ニュース引用',
+      side_job:      'AI副業ネタ',
+      algorithm:     'アルゴリズム考察',
+    };
+
+    function setTab(tab) {
+      currentTab = tab;
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+      render();
+    }
+
+    function render() {
+      const list = document.getElementById('list');
+      let items = allItems;
+
+      if (currentTab === 'pending')  items = allItems.filter(i => i.status === 'pending');
+      if (currentTab === 'posted')   items = allItems.filter(i => i.status === 'posted');
+
+      if (items.length === 0) {
+        list.innerHTML = `<div class="empty">${currentTab === 'pending' ? '承認待ちの投稿はありません' : 'まだ投稿がありません'}</div>`;
+        return;
+      }
+
+      list.innerHTML = items.map(item => {
+        const postAt = item.post_at ? new Date(item.post_at) : null;
+        const now    = new Date();
+        const secsLeft = postAt ? Math.max(0, Math.round((postAt - now) / 1000)) : 0;
+        const isPending = item.status === 'pending';
+
+        return `
+          <div class="card ${item.status}" id="card-${item.id}">
+            <div class="card-header">
+              <span class="badge ${item.status}">${statusLabel(item.status)}</span>
+              <span class="type-label">${TYPE_LABELS[item.type] || item.type}</span>
+            </div>
+            <div class="post-text">${escHtml(item.text)}</div>
+            ${item.source ? `<a class="source-link" href="${item.source.url}" target="_blank">📰 ${escHtml(item.source.title)}</a>` : ''}
+            <div class="meta">
+              ${item.reason ? `<span>選定理由: ${escHtml(item.reason)}</span>` : ''}
+              <span>生成: ${fmtTime(item.created_at)}</span>
+              ${item.post_at && isPending ? `<span>投稿予定: ${fmtTime(item.post_at)}</span>` : ''}
+              ${item.posted_at ? `<span>投稿済み: ${fmtTime(item.posted_at)}</span>` : ''}
+            </div>
+            ${isPending ? `
+              <div class="timer" id="timer-${item.id}">⏳ あと ${secsLeft}秒</div>
+              <button class="btn-cancel" onclick="cancel('${item.id}', this)">❌ キャンセル</button>
+            ` : ''}
+          </div>`;
+      }).join('');
+
+      // タイマー更新
+      items.filter(i => i.status === 'pending').forEach(item => {
+        const postAt = item.post_at ? new Date(item.post_at) : null;
+        if (!postAt) return;
+        const el = document.getElementById(`timer-${item.id}`);
+        if (!el) return;
+        const iv = setInterval(() => {
+          const left = Math.max(0, Math.round((postAt - new Date()) / 1000));
+          if (!document.getElementById(`timer-${item.id}`)) { clearInterval(iv); return; }
+          el.textContent = left > 0 ? `⏳ あと ${left}秒` : '🚀 投稿中...';
+          if (left === 0) clearInterval(iv);
+        }, 1000);
+      });
+    }
+
+    async function cancel(id, btn) {
+      btn.disabled = true;
+      btn.textContent = 'キャンセル中...';
+      try {
+        const res = await fetch(`/api/queue/${id}/cancel`, { method: 'POST' });
+        const data = await res.json();
+        if (data.success) {
+          await load();
+        } else {
+          alert(data.error || 'キャンセル失敗');
+          btn.disabled = false;
+          btn.textContent = '❌ キャンセル';
+        }
+      } catch (e) {
+        alert('エラー: ' + e.message);
+        btn.disabled = false;
+        btn.textContent = '❌ キャンセル';
+      }
+    }
+
+    async function load() {
+      const res  = await fetch('/api/queue');
+      const data = await res.json();
+      allItems   = data.items || [];
+      render();
+    }
+
+    function statusLabel(s) {
+      return { pending: '⏳ 承認待ち', posted: '✅ 投稿済み', cancelled: '❌ キャンセル', error: '🔴 エラー' }[s] || s;
+    }
+    function fmtTime(iso) {
+      if (!iso) return '';
+      return new Date(iso).toLocaleString('ja-JP', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+    }
+    function escHtml(s) {
+      return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    load();
+    setInterval(load, 30000); // 30秒ごとに自動更新
+  </script>
+</body>
+</html>

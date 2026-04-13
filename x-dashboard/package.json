@@ -3,12 +3,15 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "start": "node server.mjs"
+    "start": "node server.mjs",
+    "poster": "node auto-poster.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0",
     "dotenv": "^16.0.0",
     "express": "^4.18.0",
+    "node-fetch": "^2.7.0",
+    "rss-parser": "^3.13.0",
     "twitter-api-v2": "^1.17.0"
   }
 }
