@@ -22,7 +22,7 @@ on:
     - cron: '0 10 * * *'
     # JST 20:30 (UTC 11:30)
     - cron: '30 11 * * *'
-  workflow_dispatch:  # 手動実行
+  workflow_dispatch:
 
 jobs:
   post:
@@ -42,15 +42,25 @@ jobs:
       - name: 依存関係インストール
         run: cd x-dashboard && npm install
 
-      - name: X自動投稿
+      - name: 投稿内容を生成・Slack通知
         env:
-          ANTHROPIC_API_KEY:    ${{ secrets.ANTHROPIC_API_KEY }}
-          X_CONSUMER_KEY:       ${{ secrets.X_CONSUMER_KEY }}
-          X_CONSUMER_SECRET:    ${{ secrets.X_CONSUMER_SECRET }}
-          X_ACCESS_TOKEN:       ${{ secrets.X_ACCESS_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          CANCEL_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          cd x-dashboard && node auto-poster.mjs generate "$CANCEL_URL"
+
+      - name: 1分待機（この間にSlackでNGなら上のURLからキャンセル）
+        run: sleep 60
+
+      - name: X投稿
+        env:
+          X_CONSUMER_KEY:        ${{ secrets.X_CONSUMER_KEY }}
+          X_CONSUMER_SECRET:     ${{ secrets.X_CONSUMER_SECRET }}
+          X_ACCESS_TOKEN:        ${{ secrets.X_ACCESS_TOKEN }}
           X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
-          SLACK_WEBHOOK_URL:    ${{ secrets.SLACK_WEBHOOK_URL }}
-        run: cd x-dashboard && node auto-poster.mjs
+          SLACK_WEBHOOK_URL:     ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: cd x-dashboard && node auto-poster.mjs post
 
       - name: ログをコミット・プッシュ
         if: always()
@@ -58,5 +68,5 @@ jobs:
           git config user.name "saeki-auto-poster"
           git config user.email "bot@saeki-ryo-company"
           git add x-dashboard/post-log.json || true
-          git diff --staged --quiet || git commit -m "佐伯亮投稿記録 $(TZ=Asia/Tokyo date +%Y-%m-%d\ %H:%M)"
+          git diff --staged --quiet || git commit -m "佐伯亮投稿記録 $(TZ=Asia/Tokyo date +'%Y-%m-%d %H:%M')"
           git push || true

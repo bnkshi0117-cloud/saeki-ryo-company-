@@ -1,7 +1,8 @@
 /**
  * 佐伯亮カンパニー X自動投稿（一発実行型）
- * GitHub Actionsから呼ばれる想定。
- * RSS収集 → Claude生成 → Slack通知 → X投稿 → ログ保存
+ * 使い方:
+ *   node auto-poster.mjs generate <cancel_url>  → 生成してSlack通知
+ *   node auto-poster.mjs post                   → pending-post.json を投稿
  */
 
 import Anthropic from "@anthropic-ai/sdk";
@@ -16,10 +17,10 @@ import crypto from "crypto";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.join(__dirname, "../.env") });
 
-const LOG_FILE      = path.join(__dirname, "post-log.json");
+const PENDING_FILE = path.join(__dirname, "pending-post.json");
+const LOG_FILE     = path.join(__dirname, "post-log.json");
 const SLACK_WEBHOOK = process.env.SLACK_WEBHOOK_URL;
 
-// ── RSSフィード ──────────────────────────────────────────────
 const RSS_FEEDS = [
   { name: "VentureBeat AI", url: "https://venturebeat.com/category/ai/feed/",                       lang: "en" },
   { name: "TechCrunch AI",  url: "https://techcrunch.com/category/artificial-intelligence/feed/",    lang: "en" },
@@ -28,7 +29,6 @@ const RSS_FEEDS = [
   { name: "Zenn AI",        url: "https://zenn.dev/topics/ai/feed",                                   lang: "ja" },
 ];
 
-// ── ユーティリティ ────────────────────────────────────────────
 function readLog() {
   try { return JSON.parse(fs.readFileSync(LOG_FILE, "utf-8")); }
   catch { return []; }
@@ -49,7 +49,6 @@ function getTwitter() {
 async function fetchNews() {
   const parser = new Parser({ timeout: 8000 });
   const all = [];
-
   const results = await Promise.allSettled(
     RSS_FEEDS.map(f =>
       parser.parseURL(f.url).then(r =>
@@ -64,7 +63,6 @@ async function fetchNews() {
       )
     )
   );
-
   results.forEach(r => { if (r.status === "fulfilled") all.push(...r.value); });
   const sorted = all.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate)).slice(0, 12);
   console.log(`📰 ニュース取得: ${sorted.length}件`);
@@ -75,7 +73,6 @@ async function fetchNews() {
 async function generatePost(news) {
   const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
   const log = readLog();
-
   const recentTexts = log.slice(-10).map(p => p.text).join("\n---\n");
   const recentTypes = log.slice(-5).map(p => p.type).join(", ");
 
@@ -84,7 +81,6 @@ async function generatePost(news) {
   ).join("\n\n");
 
   console.log("🤖 Claude生成中...");
-
   const msg = await anthropic.messages.create({
     model: "claude-sonnet-4-6",
     max_tokens: 600,
@@ -136,8 +132,6 @@ JSONのみ出力（説明文不要）：
   const source = (result.source_index != null) ? news[result.source_index - 1] : null;
 
   console.log(`✍️  生成完了 [${result.type}]: ${result.text.slice(0, 50)}...`);
-  console.log(`📌 選定理由: ${result.reason}`);
-
   return {
     id:     crypto.randomUUID(),
     type:   result.type,
@@ -147,10 +141,9 @@ JSONのみ出力（説明文不要）：
   };
 }
 
-// ── Slack通知 ─────────────────────────────────────────────────
-async function notifySlack(item, tweetUrl) {
+// ── Slack通知（投稿前プレビュー） ─────────────────────────────
+async function notifySlackPreview(item, cancelUrl) {
   if (!SLACK_WEBHOOK) return;
-
   const typeLabel = {
     news_insight:  "AIニュース解釈",
     news_citation: "ニュース引用",
@@ -161,7 +154,7 @@ async function notifySlack(item, tweetUrl) {
   const blocks = [
     {
       type: "header",
-      text: { type: "plain_text", text: `✅ 投稿完了｜${typeLabel}` }
+      text: { type: "plain_text", text: `⏳ 1分後に投稿します｜${typeLabel}` }
     },
     {
       type: "section",
@@ -178,13 +171,33 @@ async function notifySlack(item, tweetUrl) {
 
   blocks.push({
     type: "section",
-    text: { type: "mrkdwn", text: `*選定理由:* ${item.reason}${tweetUrl ? `\n*ポスト:* <${tweetUrl}|Xで確認>` : ""}` }
+    text: { type: "mrkdwn", text: `*選定理由:* ${item.reason}` }
+  });
+
+  blocks.push({
+    type: "section",
+    text: {
+      type: "mrkdwn",
+      text: `❌ *NGの場合（1分以内）:* <${cancelUrl}|GitHubでキャンセル> → 画面右上「Cancel workflow」`
+    }
   });
 
   await fetch(SLACK_WEBHOOK, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ blocks }),
+  });
+}
+
+// ── Slack通知（投稿完了） ─────────────────────────────────────
+async function notifySlackDone(item, tweetUrl) {
+  if (!SLACK_WEBHOOK) return;
+  await fetch(SLACK_WEBHOOK, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      text: `✅ 投稿完了｜${item.text.slice(0, 60)}${item.text.length > 60 ? "..." : ""}\n${tweetUrl}`,
+    }),
   });
 }
 
@@ -195,7 +208,6 @@ async function postToX(item) {
     const candidate = `${text}\n${item.source.url}`;
     if (candidate.length <= 280) text = candidate;
   }
-
   console.log("📤 X投稿中...");
   const tweet = await getTwitter().v2.tweet({ text });
   const tweetId = tweet.data.id;
@@ -220,22 +232,32 @@ function saveLog(item, tweetId) {
 }
 
 // ── メイン ────────────────────────────────────────────────────
-async function main() {
-  console.log(`🚀 X自動投稿開始: ${new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })}`);
+const mode = process.argv[2];
 
-  const news  = await fetchNews();
-  const item  = await generatePost(news);
+if (mode === "generate") {
+  // Step1: 生成 → pending-post.json に保存 → Slack通知
+  const cancelUrl = process.argv[3] || "https://github.com";
+  const news = await fetchNews();
+  const item = await generatePost(news);
+  fs.writeFileSync(PENDING_FILE, JSON.stringify(item, null, 2));
+  console.log("💾 pending-post.json 保存");
+  await notifySlackPreview(item, cancelUrl);
+  console.log("📲 Slack通知送信");
 
+} else if (mode === "post") {
+  // Step2: pending-post.json を読んで投稿
+  if (!fs.existsSync(PENDING_FILE)) {
+    console.log("⏭️  pending-post.json が見つかりません（キャンセル済み）");
+    process.exit(0);
+  }
+  const item = JSON.parse(fs.readFileSync(PENDING_FILE, "utf-8"));
   const tweetId  = await postToX(item);
   const tweetUrl = `https://x.com/saekiryoAI/status/${tweetId}`;
-
   saveLog(item, tweetId);
-  await notifySlack(item, tweetUrl);
+  fs.unlinkSync(PENDING_FILE); // pending削除
+  await notifySlackDone(item, tweetUrl);
 
-  console.log("🎉 完了");
-}
-
-main().catch(e => {
-  console.error("❌ エラー:", e.message);
+} else {
+  console.error("使い方: node auto-poster.mjs generate <cancel_url> | post");
   process.exit(1);
-});
+}
