@@ -1,0 +1,15 @@
+[
+  {
+    "id": "e8414bf5-def1-4d8e-9f0f-7d8daf88d992",
+    "type": "news_insight",
+    "text": "SE歴26年の人が6日間コードを1行も書かず、Markdownの対話だけで8体のAIエージェント組織を作った記事を読んだ。「何を作るか」より「AIとどう話すか」が技術になってきてる実感、自分も最近あります 🤔",
+    "reason": "実体験に近い感覚があり、具体的な気づきとして書けるため",
+    "source": {
+      "title": "Claude Codeで8体AIエージェント組織を作った6日間 — 人間とAIはどんな対話をしたか",
+      "url": "https://zenn.dev/tottoko_hamu/articles/claude-code-org-building-dialogue",
+      "name": "Zenn AI"
+    },
+    "posted_at": "2026-04-13T04:24:00.731Z",
+    "tweet_id": "2043545716224598489"
+  }
+]
