@@ -17,9 +17,10 @@ import crypto from "crypto";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.join(__dirname, "../.env") });
 
-const PENDING_FILE = path.join(__dirname, "pending-post.json");
-const LOG_FILE     = path.join(__dirname, "post-log.json");
-const SLACK_WEBHOOK = process.env.SLACK_WEBHOOK_URL;
+const PENDING_FILE    = path.join(__dirname, "pending-post.json");
+const LOG_FILE        = path.join(__dirname, "post-log.json");
+const SCENARIOS_FILE  = path.join(__dirname, "data/experiment-scenarios.json");
+const SLACK_WEBHOOK   = process.env.SLACK_WEBHOOK_URL;
 
 const RSS_FEEDS = [
   { name: "VentureBeat AI", url: "https://venturebeat.com/category/ai/feed/",                       lang: "en" },
@@ -37,6 +38,21 @@ function readLog() {
 }
 function writeLog(log) {
   fs.writeFileSync(LOG_FILE, JSON.stringify(log, null, 2));
+}
+function pickScenario() {
+  try {
+    const data = JSON.parse(fs.readFileSync(SCENARIOS_FILE, "utf-8"));
+    const unused = data.scenarios.filter(s => !s.used);
+    if (unused.length === 0) return null;
+    const picked = unused[Math.floor(Math.random() * unused.length)];
+    // 使用済みにして保存
+    data.scenarios = data.scenarios.map(s =>
+      s.id === picked.id ? { ...s, used: true } : s
+    );
+    fs.writeFileSync(SCENARIOS_FILE, JSON.stringify(data, null, 2));
+    return picked;
+  } catch { return null; }
+}
 }
 function getTwitter() {
   return new TwitterApi({
@@ -99,6 +115,11 @@ async function generatePost(news) {
     `[${i + 1}] [${n.lang === "ja" ? "日本語" : "英語"}] ${n.source}\nタイトル: ${n.title}\n概要: ${n.summary?.slice(0, 200)}\nURL: ${n.link}`
   ).join("\n\n");
 
+  const scenario = pickScenario();
+  const scenarioBlock = scenario
+    ? `【今回の実験シナリオ（simulationタイプ用）】\nテーマ: ${scenario.theme}\n仮説: ${scenario.hypothesis}\n`
+    : "";
+
   console.log("🤖 Claude生成中...");
   const msg = await anthropic.messages.create({
     model: "claude-sonnet-4-6",
@@ -113,6 +134,7 @@ ${recentTexts || "なし"}
 【最近の投稿タイプ（偏り確認用）】
 ${recentTypes || "なし"}
 
+${scenarioBlock}
 【今日のAIニュース一覧】
 ${newsList}
 
@@ -125,6 +147,7 @@ ${newsList}
 - news_citation : ニュースURLを引用しつつ一言コメント（週2〜3程度に抑える）
 - side_job      : AI副業・Kindle・アプリ開発の実体験や気づき（具体的な数字があれば積極的に）
 - algorithm     : Xの仕組みについての仮説・考察（週1程度・必ず「個人の見解ですが、」で始める）
+- simulation    : 実験シナリオに基づきAIが仮想実験を実施した結果をレポート。冒頭は「AIに〇〇を実験させてみた。」形式。仮想実験であることを自然に明示（「シミュレーションしてみると」「仮想実験では」など）。シナリオが提供されている場合のみ選択可。
 
 【文体ルール（必ず守ること）】
 - 140文字以内
@@ -133,13 +156,13 @@ ${newsList}
 - 煽り表現禁止（革命・最強・爆速・ゲームチェンジャー・衝撃）
 - 絵文字は1〜2個まで
 - 「〜ですか？」で終わるのはNG
-- 推測・受け売りはNG（一次情報・実体験ベースのみ）
 - side_jobは実際の数字や体験がない場合は選ばない
-- 英語ニュースをベースにした投稿（news_insight / news_citation）の場合のみ、投稿末尾にフォローを自然に促す一言を添えること（例：「AI×副業の話、他にも書いてます🙏」「こういう実験、ほぼ毎日書いてます」など。日本語ニュース・自分の体験ベースの投稿には不要）
+- simulationはシナリオが提供されていない場合は選ばない
+- 英語ニュースをベースにした投稿（news_insight / news_citation）の場合のみ、投稿末尾にフォローを自然に促す一言を添えること
 
 JSONのみ出力（説明文不要）：
 {
-  "type": "news_insight|news_citation|side_job|algorithm",
+  "type": "news_insight|news_citation|side_job|algorithm|simulation",
   "text": "140字以内の投稿文",
   "source_index": null または引用する記事番号（1始まり）,
   "reason": "このタイプ・この内容を選んだ理由（30字以内）"
@@ -153,11 +176,12 @@ JSONのみ出力（説明文不要）：
 
   console.log(`✍️  生成完了 [${result.type}]: ${result.text.slice(0, 50)}...`);
   return {
-    id:     crypto.randomUUID(),
-    type:   result.type,
-    text:   result.text,
-    reason: result.reason,
-    source: source ? { title: source.title, url: source.link, name: source.source } : null,
+    id:       crypto.randomUUID(),
+    type:     result.type,
+    text:     result.text,
+    reason:   result.reason,
+    source:   source ? { title: source.title, url: source.link, name: source.source } : null,
+    scenario: scenario ? { id: scenario.id, theme: scenario.theme } : null,
   };
 }
 
@@ -169,6 +193,7 @@ async function notifySlackPreview(item, cancelUrl) {
     news_citation: "ニュース引用",
     side_job:      "AI副業ネタ",
     algorithm:     "アルゴリズム考察",
+    simulation:    "AI実験シミュレーション",
   }[item.type] || item.type;
 
   const blocks = [
