@@ -53,7 +53,6 @@ function pickScenario() {
     return picked;
   } catch { return null; }
 }
-}
 function getTwitter() {
   return new TwitterApi({
     appKey:      process.env.X_CONSUMER_KEY,
