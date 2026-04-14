@@ -51,5 +51,14 @@
     "source": null,
     "posted_at": "2026-04-14T11:43:06.165Z",
     "tweet_id": "2044018604794917249"
+  },
+  {
+    "id": "e6de3193-58a2-497c-a173-a0056a513305",
+    "type": "simulation",
+    "text": "GitHub Agentic Workflowsを調べてみた。「YAMLを自然言語に置き換える」のが売りかと思ったら、本質は「条件分岐の記述コストを下げてCIの設計粒度を細かくする」点らしい。今までYAMLが書けないと設計できなかった部分が、言語化できれば設計できるに変わってく感覚がある 🔧",
+    "reason": "simulationタイプ・反転発見と自分解釈を含むGitHub Agentic Workflows考察",
+    "source": null,
+    "posted_at": "2026-04-14T15:05:03.167Z",
+    "tweet_id": "2044069427097022908"
   }
 ]
