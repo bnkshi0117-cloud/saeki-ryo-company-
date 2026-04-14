@@ -104,6 +104,22 @@ async function fetchNews() {
   return sorted;
 }
 
+// ── 実験シナリオの実データ収集 ────────────────────────────────
+async function fetchScenarioData(scenario) {
+  if (!scenario?.searchQuery) return "";
+  try {
+    const q = encodeURIComponent(scenario.searchQuery);
+    const url = `https://news.google.com/rss/search?q=${q}&hl=ja&gl=JP&ceid=JP:ja`;
+    const parser = new Parser({ timeout: 8000 });
+    const feed = await parser.parseURL(url);
+    const items = feed.items.slice(0, 5).map(item =>
+      `・${item.title}（${item.source?.name || ""}）`
+    ).join("\n");
+    console.log(`🔍 実験データ取得: ${feed.items.length}件`);
+    return items;
+  } catch { return ""; }
+}
+
 // ── Claude投稿生成 ────────────────────────────────────────────
 async function generatePost(news) {
   const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
@@ -116,8 +132,9 @@ async function generatePost(news) {
   ).join("\n\n");
 
   const scenario = pickScenario();
+  const scenarioData = await fetchScenarioData(scenario);
   const scenarioBlock = scenario
-    ? `【今回の実験シナリオ（simulationタイプ用）】\nテーマ: ${scenario.theme}\n仮説: ${scenario.hypothesis}\n`
+    ? `【実験シナリオ】\nテーマ: ${scenario.theme}\n仮説: ${scenario.hypothesis}\n\n【収集した実データ（直近ニュース・レポート）】\n${scenarioData || "（データ取得なし）"}\n`
     : "";
 
   console.log("🤖 Claude生成中...");
@@ -147,7 +164,7 @@ ${newsList}
 - news_citation : ニュースURLを引用しつつ一言コメント（週2〜3程度に抑える）
 - side_job      : AI副業・Kindle・アプリ開発の実体験や気づき（具体的な数字があれば積極的に）
 - algorithm     : Xの仕組みについての仮説・考察（週1程度・必ず「個人の見解ですが、」で始める）
-- simulation    : 実験シナリオに基づきAIが仮想実験を実施した結果をレポート。冒頭は「AIに〇〇を実験させてみた。」形式。仮想実験であることを自然に明示（「シミュレーションしてみると」「仮想実験では」など）。シナリオが提供されている場合のみ選択可。
+- simulation    : 収集した実データ・ニュースを元に、AIが分析・集計した結果を報告する。冒頭は「〇〇について調べてみた。」「〇〇のデータを集めてみた。」形式。実データに基づく分析であることを自然に示す（「調べてみると」「複数のレポートを見ると」など）。シナリオと実データが提供されている場合のみ選択可。
 
 【文体ルール（必ず守ること）】
 - 140文字以内
@@ -157,7 +174,7 @@ ${newsList}
 - 絵文字は1〜2個まで
 - 「〜ですか？」で終わるのはNG
 - side_jobは実際の数字や体験がない場合は選ばない
-- simulationはシナリオが提供されていない場合は選ばない
+- simulationはシナリオと実データが提供されていない場合は選ばない
 - 英語ニュースをベースにした投稿（news_insight / news_citation）の場合のみ、投稿末尾にフォローを自然に促す一言を添えること
 
 JSONのみ出力（説明文不要）：
