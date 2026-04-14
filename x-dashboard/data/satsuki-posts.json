@@ -207,9 +207,9 @@
     {
       "id": 29,
       "text": "ふるさと納税で頼んだ米が届いた🌾\n\n今月は5kg×2回のコース選んだから\n夜中に突然ご飯食べたくなる〜って時も\n躊躇なく炊けるのいいな〜\n\n限度額ギリギリまで活用するのが楽しい笑",
-      "status": "pending",
-      "posted_at": null,
-      "thread_id": null
+      "status": "posted",
+      "posted_at": "2026-04-14T09:04:31.151Z",
+      "thread_id": "18094628227882533"
     },
     {
       "id": 30,
@@ -233,5 +233,5 @@
       "thread_id": null
     }
   ],
-  "lastPostedAt": "2026-04-14T06:07:37.518Z"
+  "lastPostedAt": "2026-04-14T09:04:31.151Z"
 }
