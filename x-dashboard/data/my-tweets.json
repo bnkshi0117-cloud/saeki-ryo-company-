@@ -1,0 +1,1254 @@
+{
+  "fetched_at": "2026-04-14T06:17:35.849Z",
+  "username": "saekiryoAI",
+  "tweets": [
+    {
+      "id": "2043935270307795221",
+      "text": "Claude Codeのメモリ活用を調べてみた。セッション間の記憶として「Obsidian連携でWiki化」が面白かった。脳の外にAIを記憶媒体として置く発想。自分がやってるMarkdownメモと構造が同じで、結局「どう整理するか」の設計力が効いてくる 📝",
+      "created_at": "2026-04-14T06:11:57.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 4
+      }
+    },
+    {
+      "id": "2043900651630133400",
+      "text": "🎉フォロワー1200人達成🎉\n\n皆様いつも構っていただきありがとうございます‼️\n\nフォロワーも徐々に増えていき、1200人達成することができました！🙇‍♂️\n\nまだまだ始めたばかりなので、色々教えていただけたら嬉しいです！\n\nこれからも良いXライフを満喫したいと思います\n\nよろしくお願いします✨ https://t.co/lO2eqVbnhb",
+      "created_at": "2026-04-14T03:54:23.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 18,
+        "like_count": 22,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 429
+      }
+    },
+    {
+      "id": "2043864494875783529",
+      "text": "最近やたらとこの広告出てくるんだが。 \nまだ大丈夫。まだ大丈夫なはず。 \nなのに何かあるんですかね（圧） https://t.co/Rxo4rFAbgl",
+      "created_at": "2026-04-14T01:30:43.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 2,
+        "like_count": 5,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 73
+      }
+    },
+    {
+      "id": "2043855200352645357",
+      "text": "需要あれば続き書きます！\n\n「コンテキスト管理」「複数Claude並列」「CI/CD組み込み」あたりがまだあります。\n\n役に立ったらいいねかRT教えてもらえると続きを出す励みになります🙏",
+      "created_at": "2026-04-14T00:53:47.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 2,
+        "quote_count": 0,
+        "bookmark_count": 1,
+        "impression_count": 19
+      }
+    },
+    {
+      "id": "2043854908164850114",
+      "text": "【Hooks vs CLAUDE.md の使い分け】\n\nCLAUDE.md = アドバイス（無視されることがある）\nHooks = 強制実行（必ず動く）\n\n「ファイル編集後に必ずlintを走らせたい」→ Hooks\n「コードスタイルを守ってほしい」→ CLAUDE.md\n\n絶対に外せない処理はHooksに書く。",
+      "created_at": "2026-04-14T00:52:37.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 2,
+        "quote_count": 0,
+        "bookmark_count": 1,
+        "impression_count": 28
+      }
+    },
+    {
+      "id": "2043854840158450123",
+      "text": "【CLAUDE.md 設計の鉄則】短く、具体的に\n\n「長すぎると大事なルールを無視される」\n\n✅ 入れるべき: Bashコマンド、コードスタイル、テスト方法\n❌ 入れない: Claudeが勝手に分かること、変わりやすい情報\n\n「これ消したらClaudeがミスするか？」を基準に削ぐ。",
+      "created_at": "2026-04-14T00:52:21.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 1,
+        "quote_count": 0,
+        "bookmark_count": 1,
+        "impression_count": 5
+      }
+    },
+    {
+      "id": "2043854772852404330",
+      "text": "【最高レバレッジ】検証方法を渡す\n\n「テスト書いて」より\n「validateEmail書いて。成功例・失敗例も書いて、実行して通るまでやって」の方が圧倒的によい。\n\n自分でチェックできる状態にするのが一番効く。\nスクショ貼って「このデザインと見比べて直して」も強い。",
+      "created_at": "2026-04-14T00:52:05.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 1,
+        "quote_count": 0,
+        "bookmark_count": 1,
+        "impression_count": 7
+      }
+    },
+    {
+      "id": "2043854660788978066",
+      "text": "【最重要】コンテキストウィンドウが埋まると性能が落ちる\n\nClaude Codeは会話・読んだファイル・コマンド出力すべてが\nコンテキストを消費する。\n\nデバッグ1回で数万トークン消えることも。\nこれを意識してないと「なんか途中からClaudeがアホになった」が起きる。",
+      "created_at": "2026-04-14T00:51:38.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 1,
+        "quote_count": 0,
+        "bookmark_count": 1,
+        "impression_count": 9
+      }
+    },
+    {
+      "id": "2043854576739365262",
+      "text": "Anthropicが出したClaude Code公式Best Practicesドキュメント（30p超）を読んだのでまとめます！\n\n英語圏では「神ドキュメント」と話題になっているやつです。\n日本語でざっくり解説します。\n\n🧵↓",
+      "created_at": "2026-04-14T00:51:18.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 3,
+        "quote_count": 0,
+        "bookmark_count": 1,
+        "impression_count": 43
+      }
+    },
+    {
+      "id": "2043815644001689661",
+      "text": "皆さん、はいさい🙋\n\n今日の沖縄は朝方こそ曇り空でしたが、今は太陽がヒョコっと顔を出してくれています☀️\n\n今日も一日、気合いを入れて頑張っていきましょう💪🔥\n\nよろしくお願いします‼️ https://t.co/siEAWR3XxH",
+      "created_at": "2026-04-13T22:16:36.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 9,
+        "like_count": 22,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 250
+      }
+    },
+    {
+      "id": "2043695243741348174",
+      "text": "今日は何にも捗らなかったけど、最後に体動かしたおかげでちょっとスッキリ。中途半端な一日だったけど、ちゃんと寝て明日リセットするわ〜\nおやすみみんな🌙",
+      "created_at": "2026-04-13T14:18:10.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 23,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 146
+      }
+    },
+    {
+      "id": "2043627155230544278",
+      "text": "自己記録更新と共に腰もイキました https://t.co/CpNjiPur6b",
+      "created_at": "2026-04-13T09:47:37.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 15,
+        "like_count": 33,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 458
+      }
+    },
+    {
+      "id": "2043601236025548873",
+      "text": "今日は何にも捗らなくて全部中途半端…\n\nでもこのままじゃ終われないと思って、今からジム行ってくる！\n\n汗流して頭スッキリさせて、明日リセットしようと思う。\n\n中途半端な日こそ体動かすの大事かもな〜\n\nみんなはそんな日どう乗り切ってますか？\n#副業 #ジム #沖縄",
+      "created_at": "2026-04-13T08:04:37.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 8,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 113
+      }
+    },
+    {
+      "id": "2043545716224598489",
+      "text": "SE歴26年の人が6日間コードを1行も書かず、Markdownの対話だけで8体のAIエージェント組織を作った記事を読んだ。「何を作るか」より「AIとどう話すか」が技術になってきてる実感、自分も最近あります 🤔",
+      "created_at": "2026-04-13T04:24:00.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 9,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 101
+      }
+    },
+    {
+      "id": "2043541872807907669",
+      "text": "私も https://t.co/bvJyPJonQ1",
+      "created_at": "2026-04-13T04:08:44.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 3,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 110
+      }
+    },
+    {
+      "id": "2043534933369794713",
+      "text": "今の日本の理不尽な現実\n\n・重すぎる相続税で日本の土地が外国資本へ流出\n\n・なのに立憲などはさらに相続税の増税を主張\n\n・一方、政治家は「政治資金」を無税で世襲可能\n\n​国民の財産を奪う前に、まずは政治家の特権的な「非課税の抜け道」をなくすのが先ではないか？本末転倒すぎる。 https://t.co/ZRlzzOaWF3",
+      "created_at": "2026-04-13T03:41:09.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 2,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 58
+      }
+    },
+    {
+      "id": "2043524197792797127",
+      "text": "大手企業連合による「国産AI」開発のニュース。\n\n正直、期待よりも「どうやって海外勢と差別化するの？」という疑問が勝るかな。",
+      "created_at": "2026-04-13T02:58:30.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 1,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 44
+      }
+    },
+    {
+      "id": "2043521756355523036",
+      "text": "AIの便利さに慣れきって、人間の「忍耐力」が奪われてるって記事。\n\nこれ、文章を書く仕事をしてるとめちゃくちゃ痛感する。\n\n 一瞬でそれっぽい答えを出してくれるから、ウンウン唸って自分なりの言葉を探す「泥臭い思考力」や「粘り強さ」が落ちていく感覚があるんだよね。",
+      "created_at": "2026-04-13T02:48:48.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 2,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 59
+      }
+    },
+    {
+      "id": "2043441541650465066",
+      "text": "ジャンプも読んだことだし\n\n仕事行く準備しなきゃ",
+      "created_at": "2026-04-12T21:30:03.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 6,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 83
+      }
+    },
+    {
+      "id": "2043439978303324504",
+      "text": "皆さん はいさい🙋\n\n今日の沖縄の天気は曇り空が広がっております！\n\n今日から仕事の方が多いと思います！\n\n気合い入れて頑張っていきましょう‼️",
+      "created_at": "2026-04-12T21:23:50.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 2,
+        "like_count": 8,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 142
+      }
+    },
+    {
+      "id": "2043304677748674627",
+      "text": "なにこれ \n\n怖い https://t.co/TDzQNtNONT",
+      "created_at": "2026-04-12T12:26:12.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 5,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 98
+      }
+    },
+    {
+      "id": "2043192582700933402",
+      "text": "SNSまで周りの目を伺いながら生きたくないよね\n\n自分をさらけ出すのが大事なんだね https://t.co/4HoKcJfMAu",
+      "created_at": "2026-04-12T05:00:47.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 5,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 87
+      }
+    },
+    {
+      "id": "2043184505754980413",
+      "text": "比較的近い台湾や韓国の方と繋がりを持てることはとても喜ばしいことですね。\n\n言語の壁を解決したX凄いなと思う。\n\nもっともっと繋がって色んな情報知りたいなと思ってます(*´ω｀*)",
+      "created_at": "2026-04-12T04:28:41.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 7,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 60
+      }
+    },
+    {
+      "id": "2043167187029152247",
+      "text": "フォロワー数1100人超えました🙇‍♂️\n\n最近は外国の方のフォロワーも増え、\n国際交流が出来て嬉しく思います！\n\nこれからもたくさん交流いたしましょう！\n\n皆様よろしくお願いします(＞人＜;) https://t.co/2xC9D7TKYg",
+      "created_at": "2026-04-12T03:19:52.000Z",
+      "metrics": {
+        "retweet_count": 1,
+        "reply_count": 17,
+        "like_count": 44,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 685
+      }
+    },
+    {
+      "id": "2043166501310788036",
+      "text": "有言実行で先程買いに行ってきました‼️\n\n1000円で量はそこそこ？\n\n味は美味しいけど、普通のフライドポテトとの違いは分からなかった🤣 https://t.co/Md6ptUFFW4 https://t.co/Ve8G0ncuEF",
+      "created_at": "2026-04-12T03:17:08.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 76
+      }
+    },
+    {
+      "id": "2043108931879493903",
+      "text": "私は佐伯亮名義で5冊出してます。\n                                                       \n1冊目はクオリティより「出すこと」を優先した。\n\n正直、今見返すと荒削りな部分もある。",
+      "created_at": "2026-04-11T23:28:23.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 1,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 29
+      }
+    },
+    {
+      "id": "2043101500273283504",
+      "text": "収益の仕組みもnoteと違う。\n\nnoteは購入してもらわないとお金にならない。\n\nKindleはUnlimited登録者が数ページ読むだけで収益になる。\n\n日本のKindle Unlimited登録者は数百万人規模。\n                                       \n「買う」ハードルと「読む」ハードルは全然違う。",
+      "created_at": "2026-04-11T22:58:51.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 2,
+        "like_count": 4,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 70
+      }
+    },
+    {
+      "id": "2043100624800354333",
+      "text": "noteは「読まれるかどうか」が運要素強め。\nアルゴリズムやタイミングに左右される部分が大きい。\n\n  Kindleは出版した時点で「本を出した人」になれる。\n  Amazonに自分の名前と表紙が並ぶ。\n\n  これ、地味にでかいです。\n\n  友人に見せたとき「え、本出したの？」って反応された\n  。",
+      "created_at": "2026-04-11T22:55:22.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 2,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 44
+      }
+    },
+    {
+      "id": "2043100363201609962",
+      "text": "0→1を達成したい方、\nnoteもいいけどKindle出版もマジでおすすめです。\n\n理由を書きます。",
+      "created_at": "2026-04-11T22:54:20.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 10,
+        "quote_count": 1,
+        "bookmark_count": 0,
+        "impression_count": 213
+      }
+    },
+    {
+      "id": "2043098452197069045",
+      "text": "皆様 はいさい🙋\n\n本日の沖縄の天気は雲が多いですが晴れております！🌞\n\n昨日も多くのフォロワーさんと繋がることができました🤝\nありがとうございます！\n\n今日も一日頑張っていきましょう！\nよろしくお願いいたします🙂‍↕️",
+      "created_at": "2026-04-11T22:46:44.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 5,
+        "like_count": 26,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 160
+      }
+    },
+    {
+      "id": "2042975202896711741",
+      "text": "パソコンが壊れたのでAndroidのTermuxにClaudeCode入れて動かしてる。\n\n  普通に動く。スマホでAIコーディング、2026年だなꉂ🤣𐤔\n\n Bluetoothキーボード必須だけど、これはこれでアリかも  しれない。\n                                                      \n noteに体験談書きました👇",
+      "created_at": "2026-04-11T14:36:59.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 6,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 125
+      }
+    },
+    {
+      "id": "2042886600833798322",
+      "text": "イチローの銅像、除幕した瞬間にバットが折れる。\n\n本人「まさかここでもリベラにバットを折られるとは」\n\nこんなコメント出来るって凄いなと思う。\n\n殿堂も満票に1票足りず。\n完璧じゃないのに完璧な男。\n\nカッコイイわ https://t.co/aiFfh2b4lY",
+      "created_at": "2026-04-11T08:44:55.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 12,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 135
+      }
+    },
+    {
+      "id": "2042800103304634775",
+      "text": "外食して帰ります\n\n嫌なことは美味しいもの食べて忘れます！ https://t.co/ysKP8Tv0j5",
+      "created_at": "2026-04-11T03:01:12.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 5,
+        "like_count": 28,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 251
+      }
+    },
+    {
+      "id": "2042793189988536770",
+      "text": "ポストした後に恐ろしい事実に気づいたんだけど…\n\nこれ修理期間がモロ被りしてて、GWに何も出来ない！！\n\nﾄﾞ━━( •̀ω•́ )/━━ﾝ!!",
+      "created_at": "2026-04-11T02:33:44.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 2,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 55
+      }
+    },
+    {
+      "id": "2042790880378261610",
+      "text": "ノートパソコンのバッテリーの交換は\n本土に送ってからの修理になるらしい\n\n3週間はツラい😭",
+      "created_at": "2026-04-11T02:24:33.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 2,
+        "like_count": 6,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 92
+      }
+    },
+    {
+      "id": "2042773970861375943",
+      "text": "今からドスパラにパソコン持っていきます&gt;_&lt;💦\n\n早く直るといいな〜 https://t.co/lOkiH1y4yc",
+      "created_at": "2026-04-11T01:17:22.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 3,
+        "like_count": 13,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 162
+      }
+    },
+    {
+      "id": "2042753184243028156",
+      "text": "㊗️フォロワー1,000人達成㊗️\n\nいつも見てくださる皆様、本当にありがとうございます！\n\n​「沖縄の会社員×AI副業」というテーマで、これからガンガン実験して発信していく予定です。（実はまだこれからが本番です…！笑）\n\n​次の目標【2,000人】に向けて、アクションを増やしていきます💪 https://t.co/zsW4rrPUoH",
+      "created_at": "2026-04-10T23:54:46.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 14,
+        "like_count": 35,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 817
+      }
+    },
+    {
+      "id": "2042733120575951235",
+      "text": "パソコン使えないのが凄いストレス\n\nせっかく土日休みでやりたいこと進められると思ったのに😭",
+      "created_at": "2026-04-10T22:35:02.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 10,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 101
+      }
+    },
+    {
+      "id": "2042729515051524518",
+      "text": "ブルーラウンジの皆様 はいさい🙋\n\n本日の沖縄の天気は曇りとなっております！\n\n天気のせいか若干頭が重いですが、\n今日も1日頑張っていきましょう‼️\n\n昨日も多くの皆さんと相互フォローできました！\nありがとうございます☺️\n\n引き続き交流よろしくお願いします✨",
+      "created_at": "2026-04-10T22:20:43.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 32,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 198
+      }
+    },
+    {
+      "id": "2042606913272320194",
+      "text": "最悪😭\n今帰ってパソコン触ろうと思ったら、バッテリーが膨張してる(´・ω・｀)\n\n明日修理出さなきゃ(´Д｀)ﾊｧ…",
+      "created_at": "2026-04-10T14:13:32.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 12,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 136
+      }
+    },
+    {
+      "id": "2042505990210490695",
+      "text": "もうそんな季節か\n\n台風情報はhttps://t.co/6zrsDnBKvF\nが一番正確な気がします。\n\nこのサイトの台風情報は米軍発表の情報になっているとか。\n\n開いたら右側から台風の名前を探し、\n『TC Warning Graphic』ってところクリックすると\n進路予想図が見れます！ https://t.co/iKyC6gndqe https://t.co/dkRykadi0j",
+      "created_at": "2026-04-10T07:32:30.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 10,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 191
+      }
+    },
+    {
+      "id": "2042491922514919767",
+      "text": "これはいつか絶対買いたいと思っている https://t.co/Ih4o6gu2gm",
+      "created_at": "2026-04-10T06:36:36.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 5,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 101
+      }
+    },
+    {
+      "id": "2042486947202154606",
+      "text": "常務が「AIはまだ信頼できない」と渋っている間に、\nこっそり裏でAIを使い倒して時短成功😆\n\n空いた時間でClaudeCodeで思いついたもの作ってるのが一番楽しい。",
+      "created_at": "2026-04-10T06:16:50.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 6,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 95
+      }
+    },
+    {
+      "id": "2042423781655003552",
+      "text": "【Claude Codeの意外な活用法】\n\n補助金・助成金の申請書類って、やたら編集しづらいWordやExcelのフォーマットが多いですよね…\n\n実はClaude Codeを使うと、書類の入力項目を自動検出して会社情報を一括転記するツールを作ることができます。",
+      "created_at": "2026-04-10T02:05:50.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 8,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 163
+      }
+    },
+    {
+      "id": "2042410054402613454",
+      "text": "Meta株が6.5%跳ねたのも納得。\n\n新AI「Muse Spark」発表の裏にある、143億ドルという桁違いの投資とWang氏の引き抜き。\n\n現在のAI開発競争は、完全に「狂気的な資金力」と「トップタレントの奪い合い」のフェーズに入ってきている気がします。",
+      "created_at": "2026-04-10T01:11:17.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 5,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 160
+      }
+    },
+    {
+      "id": "2042409601602335063",
+      "text": "えー昨日ぶりの節目ポストをさせていただきますꉂ🤣𐤔\n\n皆様のおかげで900人達成する事ができました🙇✨\n\n目標にしてた1000人まであと少し‼️\n\n頑張っていきますので、お付き合いください🙇‍♀️\n\nよろしくお願いします！ https://t.co/RCfkVo8cqD",
+      "created_at": "2026-04-10T01:09:29.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 15,
+        "like_count": 30,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 914
+      }
+    },
+    {
+      "id": "2042366274874011954",
+      "text": "はいさい🙋\n\n今日の沖縄は久しぶりに朝日が見えております🌅\n\n寝てる間にもたくさんのフォローいただきました‼️\n\nありがとうございます☺️\n\nまた制限にかかっておりますので、フォロバされてない方もうしばらくお待ちくださいm(_ _)m",
+      "created_at": "2026-04-09T22:17:19.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 4,
+        "like_count": 18,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 186
+      }
+    },
+    {
+      "id": "2042365421639328098",
+      "text": "ブルーラウンジの皆様 はいさい！\n\n今日の沖縄は久しぶりに朝日が見えております🌞\n\n昨日、一昨日とブルーラウンジの同志の皆様から多数のフォローいただきました‼️\n\n今日も引き続き交流させてください😊\n\nよろしくお願いします🙇‍♂️",
+      "created_at": "2026-04-09T22:13:56.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 28,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 252
+      }
+    },
+    {
+      "id": "2042213542687130011",
+      "text": "AIの最大の天敵って間違いなく「方言」だと思う。\n\n議事録作成を効率化しようと思って会議を録音・文字起こししてるんだけど、\n沖縄のイントネーションや言い回しだとAIが全く聞き取れなくて、謎の文章が生成される😇 \n\n結局手直しが必要だし、AIの方言対応もっと進化してほしい…！ \n\n#AIあるある",
+      "created_at": "2026-04-09T12:10:25.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 2,
+        "like_count": 7,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 114
+      }
+    },
+    {
+      "id": "2042196051604705791",
+      "text": "えー本日3度目の節目のポストになりますꉂ🤣𐤔\n\nフォロワーの増え具合に戸惑いを隠せません‼️\n\n目標の1000人まであと200\n\n頑張っていきますので、皆様よろしくお願いします🙇‍♂️ https://t.co/FIBKQuzR3k",
+      "created_at": "2026-04-09T11:00:55.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 16,
+        "like_count": 29,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 518
+      }
+    },
+    {
+      "id": "2042178055041687901",
+      "text": "フォロワー数777\nスクショ撮れて良かった〜ꉂ🤣𐤔 https://t.co/GHt17Lf6MN",
+      "created_at": "2026-04-09T09:49:24.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 8,
+        "like_count": 18,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 508
+      }
+    },
+    {
+      "id": "2042166708593655843",
+      "text": "あちゃー🤦‍♀️巨人中止かー\n\nこりゃ、帰ってClaudeCode起動するしかねぇなꉂ🤣𐤔",
+      "created_at": "2026-04-09T09:04:19.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 2,
+        "like_count": 4,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 110
+      }
+    },
+    {
+      "id": "2042151566808117714",
+      "text": "無料でもめちゃくちゃ使えますんで\n是非試してください！",
+      "created_at": "2026-04-09T08:04:09.000Z",
+      "metrics": {
+        "retweet_count": 1,
+        "reply_count": 1,
+        "like_count": 6,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 110
+      }
+    },
+    {
+      "id": "2042148148391637002",
+      "text": "相互外しされてること、気づいてなかった。",
+      "created_at": "2026-04-09T07:50:34.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 3,
+        "like_count": 11,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 262
+      }
+    },
+    {
+      "id": "2042128486102610352",
+      "text": "またまたすみません笑 嬉しかったので、また貼らせてください☺\nなんとフォロワー700人突破しました！！🎉 \n\nこの勢いで今日中に800人突破できるよう頑張ります！ これからもよろしくお願いします！ https://t.co/68ueslGGYA",
+      "created_at": "2026-04-09T06:32:26.000Z",
+      "metrics": {
+        "retweet_count": 2,
+        "reply_count": 30,
+        "like_count": 53,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 1374
+      }
+    },
+    {
+      "id": "2042126596287434854",
+      "text": "先週Kindleで出版した「Claude」の入門書が、なんと無料本ランキングで12位に入りました🎉🎉\n\n無料キャンペーンは【今日まで】の予定です！ 「Claude気になってたし、ちょっと読んでやってもいいよ」という方がいらっしゃいましたら、この機会にぜひダウンロードしていただけると嬉しいです🤣 https://t.co/1JDA2FFQlQ",
+      "created_at": "2026-04-09T06:24:56.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 7,
+        "quote_count": 1,
+        "bookmark_count": 0,
+        "impression_count": 251
+      }
+    },
+    {
+      "id": "2042116607976337710",
+      "text": "ホントによく思いつくな\n\nもっと良いことに頭使ったらいいのに\n\n\"「青切符」制度を悪用 警察装う男性、高校生から現金だまし取る\" https://t.co/dSLkXDyBBd",
+      "created_at": "2026-04-09T05:45:14.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 4,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 90
+      }
+    },
+    {
+      "id": "2042101823725826247",
+      "text": "Xフォロワーを20人→500人にした方法、全部書きました。\n\nブルーバッジ＋コミュニティ参加だけでこんなに変わるとは思わなかった。\n\nバズも魔法もなし。やったのは「ちゃんと人と向き合うこと」だけ。\n\n詳しくはnoteで↓\nhttps://t.co/ok0ueDWgGK\n\n#note #フォロワー500人",
+      "created_at": "2026-04-09T04:46:29.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 19,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 873
+      }
+    },
+    {
+      "id": "2042080185978396720",
+      "text": "数字が変なだけで\nちゃんとフォローはされてるみたい",
+      "created_at": "2026-04-09T03:20:31.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 3,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 66
+      }
+    },
+    {
+      "id": "2042079839373713859",
+      "text": "ん、フォロー数の表示がおかしい。",
+      "created_at": "2026-04-09T03:19:08.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 6,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 229
+      }
+    },
+    {
+      "id": "2042074168376922124",
+      "text": "半分くらいでまた制限なっちゃいましたꉂ🤣𐤔",
+      "created_at": "2026-04-09T02:56:36.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 1,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 57
+      }
+    },
+    {
+      "id": "2042073756609425809",
+      "text": "お、フォロー制限解除されたみたい！\n\n今からフォロバさせていただきますm(*_ _)m\n\nよろしくお願いします！",
+      "created_at": "2026-04-09T02:54:58.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 2,
+        "like_count": 10,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 131
+      }
+    },
+    {
+      "id": "2042051840595124377",
+      "text": "またとんでもないAIがでたもんだね\n\n使ってみたいけど、\n今のところ一般には公開されないみたい\n\n性能が良すぎるのも考えものだね🧐\n\nAnthropicが新AI「Claude Mythos」を発表。GPT-5.4・Gemini 3.1 Proを大幅に上回る超高性能モデル(ギズモード・ジャパン)\n#Yahooニュース\nhttps://t.co/QqPgDm4YWj",
+      "created_at": "2026-04-09T01:27:52.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 4,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 319
+      }
+    },
+    {
+      "id": "2042027756033339677",
+      "text": "早くフォロー制限解除してくれ～\n\nフォロワーよりフォロー数が少ないと落ち着かない😅",
+      "created_at": "2026-04-08T23:52:10.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 6,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 83
+      }
+    },
+    {
+      "id": "2042014267847954488",
+      "text": "今こんな状況です\nすみません😅 https://t.co/3LAe4TxIVE",
+      "created_at": "2026-04-08T22:58:34.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 2,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 49
+      }
+    },
+    {
+      "id": "2042013497379451036",
+      "text": "皆様　はいさい！\n\n朝起きてまずビックリ！🫢\n\n寝てる間に600人突破しておりました🤣\nありがとうございます！！\n\nフォロバもしていきたいのですが、\n想定外のペースでして、\nXのフォロー制限にまた引っかかっております！ https://t.co/eBHbtWXPOY",
+      "created_at": "2026-04-08T22:55:31.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 3,
+        "like_count": 7,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 196
+      }
+    },
+    {
+      "id": "2042012548787216672",
+      "text": "ブルーラウンジの皆様　はいさい！\n今日の沖縄の天気は曇りで湿気がすごいです\n\n昨日はブルーラウンジの皆様から\nたくさんのフォローいただきました！\nありがとうございます😆\n\n引き続き交流させてください😁\n\nよろしくお願いします！",
+      "created_at": "2026-04-08T22:51:45.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 25,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 200
+      }
+    },
+    {
+      "id": "2041885943872025080",
+      "text": "これは絶対美味しい🤤\n\n絶対週末食べに行こっと🎶\n\n\"沖縄唯一！ベルギー式フライドポテト専門店がNEWオープン！「ポテト王子」熱々サクホク生ポテト＆こだわりディップソース（那覇市）\" https://t.co/H7ul10oAHe",
+      "created_at": "2026-04-08T14:28:40.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 12,
+        "quote_count": 1,
+        "bookmark_count": 1,
+        "impression_count": 279
+      }
+    },
+    {
+      "id": "2041855179474268482",
+      "text": "まさかまさかの今日で５００人突破してしまった🤣\n\nこんなに伸びるとは思いもしなかったです。\n\n次の目標はフォロワー1,000人と収益化目指して頑張っていきます！！🎇\n\n皆様本当にありがとうございました！\n\nこれからもよろしくお願いします🙇‍♂️\n\n#ブルバ100\n#ブルバ https://t.co/wKSnkIUHVR",
+      "created_at": "2026-04-08T12:26:25.000Z",
+      "metrics": {
+        "retweet_count": 1,
+        "reply_count": 20,
+        "like_count": 49,
+        "quote_count": 0,
+        "bookmark_count": 2,
+        "impression_count": 913
+      }
+    },
+    {
+      "id": "2041796473793475011",
+      "text": "今日だけで205人フォロワーが増えました！\n非常にありがたいです🙇‍♂️\n\n今からジムに行くので、増えた分だけ腹筋してきますꉂ🤣𐤔",
+      "created_at": "2026-04-08T08:33:08.000Z",
+      "metrics": {
+        "retweet_count": 1,
+        "reply_count": 6,
+        "like_count": 43,
+        "quote_count": 0,
+        "bookmark_count": 1,
+        "impression_count": 738
+      }
+    },
+    {
+      "id": "2041793215297417453",
+      "text": "流石にビックリです‼️\n\nお昼に300人超えたばっかりなのに、\n\nもう400人越えさせてもらいました😎👐\n\n目標までもう少し！\n\n頑張りますのでよろしくお願いします🙇‍♂️ https://t.co/Rcwk8zShbl",
+      "created_at": "2026-04-08T08:20:11.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 22,
+        "like_count": 40,
+        "quote_count": 0,
+        "bookmark_count": 1,
+        "impression_count": 826
+      }
+    },
+    {
+      "id": "2041736130996154655",
+      "text": "正直ビビってます笑\n\nこんなに早く300人突破するとは\n\nこれも皆さんのおかげです！\n\nありがとうございます🙇‍♂️\n\n目標の500人までもう少し頑張りますので\n\nよろしくお願いします！ https://t.co/2MVCWgAZ9b",
+      "created_at": "2026-04-08T04:33:21.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 23,
+        "like_count": 47,
+        "quote_count": 0,
+        "bookmark_count": 1,
+        "impression_count": 1217
+      }
+    },
+    {
+      "id": "2041734871757025548",
+      "text": "今想定以上にフォロワーが増えてて、\n嬉しい悲鳴をあげています笑\n\nフォロワーの制限がきてしまいましたので、\n解除され次第フォロバさせていただきますので\nもうしばらくお待ちください🙇‍♂️🙇‍♂️",
+      "created_at": "2026-04-08T04:28:21.000Z",
+      "metrics": {
+        "retweet_count": 1,
+        "reply_count": 5,
+        "like_count": 42,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 829
+      }
+    },
+    {
+      "id": "2041692685644542093",
+      "text": "相互フォローしたはずなのに、解除されてるケースが結構ありますね。悲しい😅\n\n解除されてたら私も解除しますので、\nよろしくお願いします！\n\n#ブルバ100",
+      "created_at": "2026-04-08T01:40:43.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 2,
+        "like_count": 16,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 208
+      }
+    },
+    {
+      "id": "2041688590405792067",
+      "text": "さて、ClaudeCodeの週間制限も解除されたことだし、\n今日もいろんな事試してみよ\n\nAI使ってからできることが増えたので、\nとても充実してる気がする☺️",
+      "created_at": "2026-04-08T01:24:27.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 4,
+        "like_count": 19,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 231
+      }
+    },
+    {
+      "id": "2041674229473788374",
+      "text": "ブルーラウンジの皆様\nはいさい！\n先ほど認証されました「佐伯亮」と申します！\nフォロワー500人目指して日々励んでいます😊\n\n#ブルバ100　ですので、よろしくお願いします！",
+      "created_at": "2026-04-08T00:27:23.000Z",
+      "metrics": {
+        "retweet_count": 3,
+        "reply_count": 50,
+        "like_count": 247,
+        "quote_count": 0,
+        "bookmark_count": 3,
+        "impression_count": 6922
+      }
+    },
+    {
+      "id": "2041628712471536000",
+      "text": "ブルーバッジ相互の会のみなさん\nおはようございます(*^^*)\n\n今日の沖縄の天気は曇り空です！\n\n週半ば折り返し地点です。\n週末に向けて頑張っていきましょう💪\n\n #ブルバ100\n #ブルバ500\n #ブルバ",
+      "created_at": "2026-04-07T21:26:31.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 13,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 289
+      }
+    },
+    {
+      "id": "2041498562090107187",
+      "text": "わわっ、あっという間にフォロワー200人達成してました！\n\n昨日100人達成したばかりなのに早すぎます😳  ̖́\n\n皆様ありがとうございます！\n\n500人目指して頑張ります！\n\n #ブルバ100\n #ブルバ https://t.co/6xBnElsZV5",
+      "created_at": "2026-04-07T12:49:21.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 5,
+        "like_count": 21,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 278
+      }
+    },
+    {
+      "id": "2041494218305356171",
+      "text": "＼📚今だけ無料キャンペーン中！／\n\n​『ChatGPTは卒業。: Claudeで仕事・副業・人生を自動化する』\n\n​実践的なClaude活用術！\n\n仕事や副業をAIで自動化してみたい方、今なら無料で読めます🎁\n\nぜひダウンロードしてくれると嬉しいです！\n\nよろしくお願いします🙇‍♂️\n\n​👇リンクはこちら👇",
+      "created_at": "2026-04-07T12:32:05.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 3,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 56
+      }
+    },
+    {
+      "id": "2041426394186752214",
+      "text": "AIチャットに月3,000円払う価値はあるか。\n\n答えは「即課金すべき」です。\n\n​エンジニアじゃなくても、テキスト業務を丸投げするだけで毎月の投資回収は余裕で終わります。その具体的な根拠と使い方をnoteに置きました。迷っている方は読んでみてください。\n\n​https://t.co/NZYOOhaRL7",
+      "created_at": "2026-04-07T08:02:34.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 6,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 125
+      }
+    },
+    {
+      "id": "2041390729105416597",
+      "text": "20ドル分の無料枠貰ったのに\nもう使い果たしちゃった💦",
+      "created_at": "2026-04-07T05:40:51.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 1,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 44
+      }
+    },
+    {
+      "id": "2041384842433286359",
+      "text": "試合見てて、今一番得点圏で期待できるバッター。\n\n今年は是非とも首位打者を取ってもらいたい\n\n首位打者の有力候補　肉体強化で覚醒した「巨人の巧打者」は(週刊ベースボールONLINE)\n#Yahooニュース\nhttps://t.co/t8Af8Z940g",
+      "created_at": "2026-04-07T05:17:28.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 1,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 62
+      }
+    },
+    {
+      "id": "2041376733660881300",
+      "text": "Googleがオフライン動作するAI文字起こしアプリをひっそりリリースしてた📷\n\n ネット環境が不安定な場所でも使えるのは地味にありがたい。\n\n沖縄だと離島とか北部だとネット環境が最悪なところもあるので使えそう。\n\nこういう地味アップデートが実は一番使える。\n\nGoogle quietly launched an AI",
+      "created_at": "2026-04-07T04:45:14.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 3,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 51
+      }
+    },
+    {
+      "id": "2041338935876649097",
+      "text": "ClaudeCode使ってたら突然英字エラーが出ました。バグかと思って1時間調べたら、週間利用制限に引っかかってただけでした😅 制限の存在、全然知らなかったです。",
+      "created_at": "2026-04-07T02:15:03.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 2,
+        "like_count": 4,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 98
+      }
+    },
+    {
+      "id": "2041329980135936050",
+      "text": "OpenAI出身メンバーが「Zero Shot」というVCファンドを立ち上げて、約100億円規模を目指してるらしい✍️\n\nAI業界のお金の流れって本当に速い。\n\nこういう動きが積み重なって次のサービスが生まれてくるんだなと。\n\nOpenAI alums have been quietly investing from a new, potentially $100M fund",
+      "created_at": "2026-04-07T01:39:27.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 2,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 49
+      }
+    },
+    {
+      "id": "2041286313605992921",
+      "text": "はいさい！佐伯亮です☀️",
+      "created_at": "2026-04-06T22:45:57.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 6,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 65
+      }
+    },
+    {
+      "id": "2041133742752989390",
+      "text": "今日50人超えてテンション上がってたら、気づいたら100人突破してた。                                                                                 \n\nえ、はや\n\nブルバ始めてからフォロワーの伸び方が明らかに変わった。正直ここまで効くとは思ってなかった。\n\nブルバ、恐るべし。\n\n#ブルバ100 https://t.co/NOdil9SAeH",
+      "created_at": "2026-04-06T12:39:41.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 2,
+        "like_count": 2,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 156
+      }
+    },
+    {
+      "id": "2041074832557896131",
+      "text": "復活しました〜\nお騒がせいたしました🙇‍♂️",
+      "created_at": "2026-04-06T08:45:36.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 3,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 77
+      }
+    },
+    {
+      "id": "2041064116648026497",
+      "text": "Xの名前の肩書き少し編集したら、ブルーバッジが審議中になって消えてます。\n\n復活するまで少々お待ちください🙇‍♀️",
+      "created_at": "2026-04-06T08:03:01.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 5,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 101
+      }
+    },
+    {
+      "id": "2041054827241939423",
+      "text": "フォロワー50人になりました。\n\n  20人→50人、今日だけで30人増えた。\n  ブルーバッジ取ってこんなに早く動くとは思わなかった。素直に嬉しいです😃\n\n  次は100人。引き続きよろしくお願いします！\n\n#ブルバ100\n#ブルバ https://t.co/3pRi29vg5I",
+      "created_at": "2026-04-06T07:26:06.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 4,
+        "like_count": 10,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 133
+      }
+    },
+    {
+      "id": "2041043554861277402",
+      "text": "はじめまして！\n今日から参加させていただきます「佐伯亮」と申します！\nよろしくお願いします！\n\n#ブルバ100\n#ブルーバッジ",
+      "created_at": "2026-04-06T06:41:18.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 3,
+        "like_count": 25,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 200
+      }
+    },
+    {
+      "id": "2041031760109338642",
+      "text": "非エンジニアでもここまでできるようになった。\n\n「Claude Codeで初めてWebアプリを作った全記録【非エンジニア】」\n\n「アプリを作りたいけど、自分にはコードが書けない」\nClaude Codeのインストール（30分）\n\n実際にやって気づいたこと全部まとめた\n🔗 https://t.co/DXBUEblNuY\n\n#ClaudeCode #AI開発",
+      "created_at": "2026-04-06T05:54:26.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 3,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 97
+      }
+    },
+    {
+      "id": "2041028832048865565",
+      "text": "Xプレミアム、今半額で入れるみたいでラッキーだった。 https://t.co/3JgvbpCs6j",
+      "created_at": "2026-04-06T05:42:48.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 3,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 44
+      }
+    },
+    {
+      "id": "2041026126567682366",
+      "text": "#ブルバ 頼りになるんですが、今日でフォロワー50人超えたら嬉しいな\n\n限界までこちらからフォローしていこっと\n\n #ブルバ100",
+      "created_at": "2026-04-06T05:32:03.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 4,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 45
+      }
+    },
+    {
+      "id": "2041005993606463842",
+      "text": "今日からブルーバッジつけました！",
+      "created_at": "2026-04-06T04:12:03.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 5,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 60
+      }
+    },
+    {
+      "id": "2040965884995613163",
+      "text": "まだリサーチプレビューだけど、\n 「帰宅したら作業が終わってる」が現実になってきた。\n\n  詳細はこちら↓\n  https://t.co/59oNWgbsf2",
+      "created_at": "2026-04-06T01:32:40.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 1,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 44
+      }
+    }
+  ]
+}
