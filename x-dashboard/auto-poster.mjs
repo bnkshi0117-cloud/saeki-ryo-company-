@@ -338,6 +338,7 @@ if (mode === "generate") {
   console.log("💾 pending-post.json 保存");
   await notifySlackPreview(item, cancelUrl);
   console.log("📲 Slack通知送信");
+  process.exit(0);
 
 } else if (mode === "post") {
   // Step2: pending-post.json を読んで投稿
