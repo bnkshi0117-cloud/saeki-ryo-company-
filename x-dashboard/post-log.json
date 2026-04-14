@@ -11,5 +11,18 @@
     },
     "posted_at": "2026-04-13T04:24:00.731Z",
     "tweet_id": "2043545716224598489"
+  },
+  {
+    "id": "106b770f-7e61-4478-bed4-8643919544f8",
+    "type": "simulation",
+    "text": "Claude Codeのメモリ活用を調べてみた。セッション間の記憶として「Obsidian連携でWiki化」が面白かった。脳の外にAIを記憶媒体として置く発想。自分がやってるMarkdownメモと構造が同じで、結局「どう整理するか」の設計力が効いてくる 📝",
+    "reason": "実験シナリオと記事[6]が直結し、自分の体験と接続できるため",
+    "source": {
+      "title": "【LLM Wiki】Obsidian x Claude Codeで学んだ知識を構造化し記憶媒体を脳からAIに移行する",
+      "url": "https://zenn.dev/dely_jp/articles/8b55114cc0b958",
+      "name": "Zenn AI"
+    },
+    "posted_at": "2026-04-14T06:11:57.667Z",
+    "tweet_id": "2043935270307795221"
   }
 ]
