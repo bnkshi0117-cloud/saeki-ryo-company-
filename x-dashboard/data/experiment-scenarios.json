@@ -2,72 +2,72 @@
   "scenarios": [
     {
       "id": 1,
-      "theme": "Claude vs ChatGPT 議事録対決",
-      "hypothesis": "同じ議事録メモをClaudeとChatGPTに渡したとき、品質・速度・使いやすさはどう違うか",
-      "searchQuery": "Claude ChatGPT 比較 議事録",
+      "theme": "Claude Code Hooks の知られざる使い方",
+      "hypothesis": "世界のユーザーはHooksをどんな用途に使っているか。日本ではほぼ知られていない",
+      "searchQuery": "Claude Code hooks automation tips tricks",
       "used": false
     },
     {
       "id": 2,
-      "theme": "AIに副業アイデア50個出させて採点実験",
-      "hypothesis": "Claudeに副業アイデアを50個出させて、実際に使えるレベルのものが何割あるか検証する",
-      "searchQuery": "AI 副業アイデア 実践 レビュー",
+      "theme": "CLAUDE.md の高度な設定術",
+      "hypothesis": "GitHubやRedditで共有されているCLAUDE.mdのプロ的な書き方・設定パターン",
+      "searchQuery": "CLAUDE.md advanced configuration tips examples",
       "used": false
     },
     {
       "id": 3,
-      "theme": "Claudeに営業メール100パターン書かせて最強テンプレを選ぶ",
-      "hypothesis": "同じ商品・サービスの営業メールを100パターン生成させたとき、最も効果的な型はどれか",
-      "searchQuery": "Claude 営業メール プロンプト 効果",
+      "theme": "MCPサーバー接続で何ができるようになるか",
+      "hypothesis": "グローバルコミュニティが実際に使っているMCPサーバーの実用例",
+      "searchQuery": "Claude Code MCP server use cases examples 2025 2026",
       "used": false
     },
     {
       "id": 4,
-      "theme": "AIに1週間の副業スケジュールを組ませたら何が起きるか",
-      "hypothesis": "会社員の条件（平日2時間・週末5時間）を与えてAIに副業スケジュールを組ませると、どんな計画が出てくるか",
-      "searchQuery": "AI 副業 スケジュール 実験",
+      "theme": "Claude Code のメモリ・記憶機能の実運用",
+      "hypothesis": "セッションをまたいだ記憶の活用法として世界でどんな使い方がされているか",
+      "searchQuery": "Claude Code memory system persistent context tips",
       "used": false
     },
     {
       "id": 5,
-      "theme": "プロンプトを丁寧にするvs雑にする、出力品質の差を数値化",
-      "hypothesis": "同じ指示を丁寧に書いた場合と雑に書いた場合で、Claudeの出力品質にどれくらい差が出るか",
-      "searchQuery": "プロンプト 丁寧 雑 出力 比較",
+      "theme": "カスタムスラッシュコマンドで自動化できること",
+      "hypothesis": "世界のユーザーが作った便利なカスタムコマンドの実例",
+      "searchQuery": "Claude Code custom slash commands automation workflow",
       "used": false
     },
     {
       "id": 6,
-      "theme": "Claudeにブログ構成を任せたら読了率はどう変わるか",
-      "hypothesis": "自分で考えた構成とClaudeが提案した構成で記事を書いた場合、どちらが最後まで読まれやすいか",
-      "searchQuery": "AI ブログ 構成 Claude 効果",
+      "theme": "Claude Code × GitHub Actions の組み合わせ",
+      "hypothesis": "CI/CDパイプラインにClaude Codeを組み込んでいる実際の事例",
+      "searchQuery": "Claude Code GitHub Actions CI CD automation examples",
       "used": false
     },
     {
       "id": 7,
-      "theme": "AIに自分の強みを分析させたらキャリアアドバイザーより的確か",
-      "hypothesis": "職歴・スキル・実績をClaudeに渡して強み分析させた結果が、プロのキャリアアドバイザーの分析と比べてどこまで使えるか",
-      "searchQuery": "Claude 強み分析 キャリア AI",
+      "theme": "Claude Code のマルチエージェント設計",
+      "hypothesis": "複数のClaudeエージェントを連携させる設計パターン・実例",
+      "searchQuery": "Claude Code multi agent subagent orchestration examples",
       "used": false
     },
     {
       "id": 8,
-      "theme": "Claude Code vs 手打ちコーディング、同じアプリを作る時間対決",
-      "hypothesis": "同じ仕様のWebアプリをClaude Codeありとなしで作ったとき、完成までの時間と品質はどう違うか",
-      "searchQuery": "Claude Code コーディング 時間 比較",
+      "theme": "Claude Code でトークンコストを下げる実践テクニック",
+      "hypothesis": "グローバルユーザーが実際に効果を出しているコスト最適化の手法",
+      "searchQuery": "Claude Code token cost optimization reduce tips",
       "used": false
     },
     {
       "id": 9,
-      "theme": "AIに節約プランを立てさせたら実際に月いくら浮くか",
-      "hypothesis": "月の支出データをClaudeに渡して節約プランを立てさせたとき、現実的に実行できる提案が出てくるか",
-      "searchQuery": "AI 節約 家計 Claude 実験",
+      "theme": "Claude Code のパーミッション設定と自律実行の境界",
+      "hypothesis": "どこまで自動で動かしてよいか、世界のユーザーはどう判断しているか",
+      "searchQuery": "Claude Code permissions autonomous mode safety best practices",
       "used": false
     },
     {
       "id": 10,
-      "theme": "ChatGPT・Claude・Geminiに同じ質問して回答の違いを比較",
-      "hypothesis": "実務でよく使う質問を3つのAIに投げたとき、回答の深さ・正確さ・使いやすさにどんな差が出るか",
-      "searchQuery": "ChatGPT Claude Gemini 比較 2026",
+      "theme": "Claude Code で非エンジニアが実現していること",
+      "hypothesis": "コードを書けない人がClaude Codeで何を作っているか・何を自動化しているか",
+      "searchQuery": "Claude Code non engineer no code use cases productivity",
       "used": false
     }
   ]
