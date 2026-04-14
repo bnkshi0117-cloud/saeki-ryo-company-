@@ -200,9 +200,9 @@
     {
       "id": 28,
       "text": "セリアで買ったお弁当用の仕切りが優秀すぎて\n今週は毎日これ使って作り置きしてる😊\n\n100円でこのクオリティ、\nお昼ご飯の準備がめっちゃ楽になった✨",
-      "status": "pending",
-      "posted_at": null,
-      "thread_id": null
+      "status": "posted",
+      "posted_at": "2026-04-14T06:07:37.518Z",
+      "thread_id": "17992657322778869"
     },
     {
       "id": 29,
@@ -233,5 +233,5 @@
       "thread_id": null
     }
   ],
-  "lastPostedAt": "2026-04-13T16:02:16.952Z"
+  "lastPostedAt": "2026-04-14T06:07:37.518Z"
 }
