@@ -112,11 +112,29 @@ async function fetchScenarioData(scenario) {
     const url = `https://news.google.com/rss/search?q=${q}&hl=ja&gl=JP&ceid=JP:ja`;
     const parser = new Parser({ timeout: 8000 });
     const feed = await parser.parseURL(url);
-    const items = feed.items.slice(0, 5).map(item =>
+
+    // タイトル一覧
+    const titles = feed.items.slice(0, 5).map(item =>
       `・${item.title}（${item.source?.name || ""}）`
     ).join("\n");
-    console.log(`🔍 実験データ取得: ${feed.items.length}件`);
-    return items;
+
+    // 上位2件の本文をフェッチ（失敗しても続行）
+    const bodyTexts = await Promise.allSettled(
+      feed.items.slice(0, 2).map(async item => {
+        if (!item.link) return "";
+        const res = await withTimeout(fetch(item.link), 8000, "article fetch");
+        const html = await res.text();
+        const text = html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").slice(0, 1000);
+        return `【${item.title}】\n${text}`;
+      })
+    );
+    const bodies = bodyTexts
+      .filter(r => r.status === "fulfilled" && r.value)
+      .map(r => r.value)
+      .join("\n\n");
+
+    console.log(`🔍 実験データ取得: タイトル${feed.items.length}件 + 本文${bodyTexts.filter(r => r.status === "fulfilled").length}件`);
+    return `【記事タイトル一覧】\n${titles}\n\n【記事本文（抜粋）】\n${bodies}`;
   } catch { return ""; }
 }
 
@@ -164,7 +182,7 @@ ${newsList}
 - news_citation : ニュースURLを引用しつつ一言コメント（週2〜3程度に抑える）
 - side_job      : AI副業・Kindle・アプリ開発の実体験や気づき（具体的な数字があれば積極的に）
 - algorithm     : Xの仕組みについての仮説・考察（週1程度・必ず「個人の見解ですが、」で始める）
-- simulation    : 収集した実データ・ニュースを元に、AIが分析・集計した結果を報告する。冒頭は「〇〇について調べてみた。」「〇〇のデータを集めてみた。」形式。実データに基づく分析であることを自然に示す（「調べてみると」「複数のレポートを見ると」など）。シナリオと実データが提供されている場合のみ選択可。
+- simulation    : 収集した実データ・記事本文を深く読み込み、【初歩的な情報は絶対に書かない】。「使い分けが大事」「AIは便利」レベルは禁止。必ず①反転・意外な発見（「〇〇かと思ったら逆だった」）②具体的な条件・数値・ケース（「30分超えると〜」「3割が〜」）③自分なりの解釈・仮説（「たぶん〜が原因」「これは〜と同じ構造」）のいずれかを含めること。冒頭は「〇〇を調べてみた。」形式。シナリオと実データがある場合のみ選択可。
 
 【文体ルール（必ず守ること）】
 - 140文字以内
