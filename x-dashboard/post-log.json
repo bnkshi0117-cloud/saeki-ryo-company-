@@ -100,5 +100,18 @@
     "source": null,
     "posted_at": "2026-04-15T09:07:28.307Z",
     "tweet_id": "2044341826845282455"
+  },
+  {
+    "id": "cc8729bc-9739-4634-9fba-71a9bbab7a71",
+    "type": "news_insight",
+    "text": "GPT-5.4 ProがErdős未解決問題を80分で解いた、というニュース。「AIが数学者を超えた」より「人間が80年積み上げた問題にAIが80分でたどり着いた」という非対称性のほうが気になる。速さじゃなく、蓄積の意味が変わってきてる感覚がある 🤔",
+    "reason": "具体的な数字と反転視点で語れる英語ニュース",
+    "source": {
+      "title": "OpenAI's GPT-5.4 Pro reportedly solves a longstanding open Erdős math problem in under two hours",
+      "url": "https://the-decoder.com/openais-gpt-5-4-pro-reportedly-solves-a-longstanding-open-erdos-math-problem-in-under-two-hours/",
+      "name": "The Decoder"
+    },
+    "posted_at": "2026-04-15T10:41:43.016Z",
+    "tweet_id": "2044365544422289870"
   }
 ]
