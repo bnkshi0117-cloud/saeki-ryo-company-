@@ -60,5 +60,18 @@
     "source": null,
     "posted_at": "2026-04-14T15:05:03.167Z",
     "tweet_id": "2044069427097022908"
+  },
+  {
+    "id": "b5d80147-0f68-400b-b148-d577f71c9cb2",
+    "type": "news_insight",
+    "text": "Claude Codeに「routines」が追加されたニュース。自動でバグ修正やPRレビューをするのかと思ったら、「ローカルマシン不要で動く」が本質らしい。手元のPCが落ちてても動き続けるエージェント。常駐型に近くなってきてる感覚がある 🤖",
+    "reason": "ローカル不要という反転ポイントが具体的で佐伯亮視点を入れやすいnews_insight案件",
+    "source": {
+      "title": "Claude Code routines let AI fix bugs and review code on autopilot",
+      "url": "https://the-decoder.com/claude-code-routines-let-ai-fix-bugs-and-review-code-on-autopilot/",
+      "name": "The Decoder"
+    },
+    "posted_at": "2026-04-15T00:10:07.484Z",
+    "tweet_id": "2044206598696972673"
   }
 ]
