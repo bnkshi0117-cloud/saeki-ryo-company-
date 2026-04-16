@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-04-16T07:13:54.502Z",
+  "fetched_at": "2026-04-16T09:05:55.772Z",
   "accounts": [
     {
       "username": "masahirochaen",
@@ -11,34 +11,34 @@
           "metrics": {
             "retweet_count": 97,
             "reply_count": 8,
-            "like_count": 1158,
+            "like_count": 1167,
             "quote_count": 6,
-            "bookmark_count": 1454,
-            "impression_count": 162387
+            "bookmark_count": 1476,
+            "impression_count": 165415
           }
         },
         {
           "text": "【⚡️速報】Claude Codeにタスクを簡単に自動化できるRoutinesが登場。\n\nAnthropicのクラウド基盤で動くので、別途MacMiniなどで常用型のPCが不要。\n\n以前から愛用してましたが、大幅アップデートして嬉しい。\n\nトリガーは3種類：\n・スケジュール（毎時/夜間/週次） https://t.co/cQKMBfUfum",
           "created_at": "2026-04-15T02:25:16.000Z",
           "metrics": {
-            "retweet_count": 70,
+            "retweet_count": 72,
             "reply_count": 11,
-            "like_count": 991,
+            "like_count": 1003,
             "quote_count": 19,
-            "bookmark_count": 1068,
-            "impression_count": 112867
+            "bookmark_count": 1086,
+            "impression_count": 114892
           }
         },
         {
           "text": "Claude Codeのデスクトップアプリが進化しすぎて、ターミナルを使わなくてもよくなっている説。\n\n進化速度が速すぎて、常に最新情報取っておかないと努力が無駄になる可能性もある‥\n\n・過去のセッション一覧表示\n・フォルダを選択して展開\n・ワーキングツリー、プレビューの表示\n・ターミナルの起動 https://t.co/xSGmQwgiQ1",
           "created_at": "2026-04-15T05:25:16.000Z",
           "metrics": {
-            "retweet_count": 39,
+            "retweet_count": 40,
             "reply_count": 10,
-            "like_count": 535,
-            "quote_count": 15,
-            "bookmark_count": 455,
-            "impression_count": 76268
+            "like_count": 545,
+            "quote_count": 16,
+            "bookmark_count": 463,
+            "impression_count": 77735
           }
         },
         {
@@ -47,10 +47,10 @@
           "metrics": {
             "retweet_count": 51,
             "reply_count": 7,
-            "like_count": 533,
+            "like_count": 535,
             "quote_count": 17,
-            "bookmark_count": 325,
-            "impression_count": 70136
+            "bookmark_count": 326,
+            "impression_count": 70396
           }
         },
         {
@@ -59,10 +59,10 @@
           "metrics": {
             "retweet_count": 37,
             "reply_count": 2,
-            "like_count": 329,
+            "like_count": 332,
             "quote_count": 2,
-            "bookmark_count": 299,
-            "impression_count": 51492
+            "bookmark_count": 300,
+            "impression_count": 51924
           }
         }
       ]
@@ -75,12 +75,12 @@
           "text": "とんでもないレベルになってきた。 https://t.co/QWoVLMzHox",
           "created_at": "2026-04-15T14:32:08.000Z",
           "metrics": {
-            "retweet_count": 21,
+            "retweet_count": 25,
             "reply_count": 1,
-            "like_count": 257,
-            "quote_count": 0,
-            "bookmark_count": 189,
-            "impression_count": 57826
+            "like_count": 309,
+            "quote_count": 1,
+            "bookmark_count": 228,
+            "impression_count": 71424
           }
         },
         {
@@ -92,7 +92,7 @@
             "like_count": 77,
             "quote_count": 3,
             "bookmark_count": 56,
-            "impression_count": 23992
+            "impression_count": 24003
           }
         },
         {
@@ -104,7 +104,19 @@
             "like_count": 23,
             "quote_count": 2,
             "bookmark_count": 30,
-            "impression_count": 11566
+            "impression_count": 11579
+          }
+        },
+        {
+          "text": "久々にCodexを直に触ったけど、これは本当にコミュニケーションに問題がありすぎる。的を射ない回答をしすぎ。ハルシネーションも多いし、直接仕事を依頼する分にはClaude Codeの方がまだマシだわ。間接的に使う分には優秀なんだけど、対人間のコミュニケーションを本当にどうにかして欲しい。",
+          "created_at": "2026-04-15T14:40:05.000Z",
+          "metrics": {
+            "retweet_count": 0,
+            "reply_count": 0,
+            "like_count": 49,
+            "quote_count": 3,
+            "bookmark_count": 8,
+            "impression_count": 10019
           }
         },
         {
@@ -116,19 +128,7 @@
             "like_count": 6,
             "quote_count": 0,
             "bookmark_count": 1,
-            "impression_count": 9828
-          }
-        },
-        {
-          "text": "久々にCodexを直に触ったけど、これは本当にコミュニケーションに問題がありすぎる。的を射ない回答をしすぎ。ハルシネーションも多いし、直接仕事を依頼する分にはClaude Codeの方がまだマシだわ。間接的に使う分には優秀なんだけど、対人間のコミュニケーションを本当にどうにかして欲しい。",
-          "created_at": "2026-04-15T14:40:05.000Z",
-          "metrics": {
-            "retweet_count": 0,
-            "reply_count": 0,
-            "like_count": 46,
-            "quote_count": 3,
-            "bookmark_count": 8,
-            "impression_count": 9593
+            "impression_count": 9836
           }
         }
       ]
@@ -141,24 +141,24 @@
           "text": "排除じゃないけどゆうちょはSteamからの売り上げが入ってると「どんなゲーム売ってるのか具体的に内容を教えろ！そうするまで売り上げ振り込むの停止しちゃいました！ストアページのスクショとかを紙にプリントして郵便で送れ！ネットから提出はできない！」とかすげーガタガタうるせーからもう銀行変 https://t.co/jXCfCGcslb",
           "created_at": "2026-04-15T02:42:25.000Z",
           "metrics": {
-            "retweet_count": 1601,
+            "retweet_count": 1602,
             "reply_count": 2,
-            "like_count": 4113,
+            "like_count": 4123,
             "quote_count": 36,
-            "bookmark_count": 656,
-            "impression_count": 702339
+            "bookmark_count": 658,
+            "impression_count": 705071
           }
         },
         {
           "text": "Allbirdsとかいう知らん会社が物議を醸しているという。なんか数年前に流行ったスニーカー作って売ってる会社らしいんだけど、上場後にブームが去って赤字続きでズタボロに。数日前にたったの60億円で靴事業売っちゃったという。靴メーカーが靴作るのやめてどうすんねんとか言ってたら今日になっていき https://t.co/sjYh44SAfe",
           "created_at": "2026-04-15T19:21:17.000Z",
           "metrics": {
-            "retweet_count": 183,
+            "retweet_count": 191,
             "reply_count": 0,
-            "like_count": 633,
-            "quote_count": 14,
-            "bookmark_count": 100,
-            "impression_count": 178207
+            "like_count": 666,
+            "quote_count": 16,
+            "bookmark_count": 105,
+            "impression_count": 185400
           }
         },
         {
@@ -169,8 +169,8 @@
             "reply_count": 2,
             "like_count": 247,
             "quote_count": 14,
-            "bookmark_count": 60,
-            "impression_count": 86523
+            "bookmark_count": 61,
+            "impression_count": 86775
           }
         },
         {
@@ -181,8 +181,8 @@
             "reply_count": 0,
             "like_count": 155,
             "quote_count": 11,
-            "bookmark_count": 49,
-            "impression_count": 41175
+            "bookmark_count": 50,
+            "impression_count": 41432
           }
         },
         {
@@ -194,7 +194,7 @@
             "like_count": 86,
             "quote_count": 2,
             "bookmark_count": 20,
-            "impression_count": 24649
+            "impression_count": 24772
           }
         }
       ]
@@ -212,7 +212,7 @@
             "like_count": 92,
             "quote_count": 0,
             "bookmark_count": 11,
-            "impression_count": 8708
+            "impression_count": 8710
           }
         },
         {
@@ -236,7 +236,7 @@
             "like_count": 32,
             "quote_count": 1,
             "bookmark_count": 4,
-            "impression_count": 4196
+            "impression_count": 4197
           }
         },
         {
@@ -248,7 +248,7 @@
             "like_count": 52,
             "quote_count": 2,
             "bookmark_count": 19,
-            "impression_count": 4022
+            "impression_count": 4025
           }
         },
         {
@@ -260,7 +260,7 @@
             "like_count": 51,
             "quote_count": 3,
             "bookmark_count": 4,
-            "impression_count": 3985
+            "impression_count": 3987
           }
         }
       ]
@@ -336,51 +336,27 @@
       "note": "ビジネスAI活用",
       "tweets": [
         {
-          "text": "PCを閉じてもClaude Codeが動き続ける\n「Routines」機能が登場！！！これかなりデカい。\nㅤ\n何ができるかというと、、、Claude Codeのセッションを「テンプレート化」して、3種類のトリガーで自動実行できるようになった。\nhttps://t.co/rISjDNosbG\n① Schedule —",
-          "created_at": "2026-04-15T03:27:04.000Z",
-          "metrics": {
-            "retweet_count": 38,
-            "reply_count": 12,
-            "like_count": 501,
-            "quote_count": 11,
-            "bookmark_count": 577,
-            "impression_count": 50631
-          }
-        },
-        {
           "text": "待て待て待てChatGPTの新しい画像生成、すごすぎない？\nめっっちゃコンサルライクな画像一瞬で生成できた https://t.co/wEZK3LZ1Es",
           "created_at": "2026-04-15T16:10:54.000Z",
           "metrics": {
-            "retweet_count": 26,
+            "retweet_count": 27,
             "reply_count": 9,
-            "like_count": 406,
-            "quote_count": 13,
-            "bookmark_count": 277,
-            "impression_count": 46937
-          }
-        },
-        {
-          "text": "https://t.co/12etTkgrWH",
-          "created_at": "2026-04-14T15:38:04.000Z",
-          "metrics": {
-            "retweet_count": 14,
-            "reply_count": 1,
-            "like_count": 170,
-            "quote_count": 6,
-            "bookmark_count": 283,
-            "impression_count": 25378
+            "like_count": 434,
+            "quote_count": 15,
+            "bookmark_count": 300,
+            "impression_count": 52120
           }
         },
         {
           "text": "これ地味に欲しかったかも...\nHuaweiスマホに「AIオススメポーズ」機能が搭載される模様笑\nㅤ\nシーンと被写体に合わせて\nポーズを画面上にガイドしてくれる機能\nhttps://t.co/fNureYMHF0\n・撮影「後」の加工ではなく撮影「前」の提案\n・ワンパターンになりがちな人に最適\n・20倍テレフォト動画も搭載！",
           "created_at": "2026-04-15T05:26:14.000Z",
           "metrics": {
-            "retweet_count": 4,
+            "retweet_count": 5,
             "reply_count": 4,
-            "like_count": 49,
+            "like_count": 50,
             "quote_count": 2,
             "bookmark_count": 14,
-            "impression_count": 14702
+            "impression_count": 14833
           }
         },
         {
@@ -392,7 +368,31 @@
             "like_count": 6,
             "quote_count": 0,
             "bookmark_count": 3,
-            "impression_count": 10941
+            "impression_count": 10995
+          }
+        },
+        {
+          "text": "今週末のClaude Code講座に向けて、\nAIスライド術がめちゃくちゃ磨かれまくっている....\nㅤ\nマークダウンスライド編集が地味にストレスだったので、\nClaude Codeに「オリジナルのAIスライド編集システム」も作ってもらいました。\nㅤ\nブラウザでスライド一覧\n→ クリック\n→ プレビュー\n→ https://t.co/FvVvohohoR",
+          "created_at": "2026-04-15T10:10:32.000Z",
+          "metrics": {
+            "retweet_count": 3,
+            "reply_count": 1,
+            "like_count": 31,
+            "quote_count": 0,
+            "bookmark_count": 30,
+            "impression_count": 9521
+          }
+        },
+        {
+          "text": "新モデル「gpt-image-02」はこちらにまとめています：\nhttps://t.co/wv2sW1CZnV",
+          "created_at": "2026-04-15T16:31:01.000Z",
+          "metrics": {
+            "retweet_count": 1,
+            "reply_count": 0,
+            "like_count": 13,
+            "quote_count": 0,
+            "bookmark_count": 13,
+            "impression_count": 8924
           }
         }
       ]

@@ -1,18 +1,44 @@
 {
-  "fetched_at": "2026-04-16T07:13:52.663Z",
+  "fetched_at": "2026-04-16T09:05:53.728Z",
   "username": "saekiryoAI",
   "tweets": [
+    {
+      "id": "2044688836031311918",
+      "text": "お疲れ様です‼️\n\n今日も定時退社の佐伯ですꉂ🤣𐤔\n残業の方あと少しです！\n\nジムは昨日行ったので、\n今日はハイボールでも飲みながら\n家でナイター見たいと思います⚾",
+      "created_at": "2026-04-16T08:06:21.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 4,
+        "like_count": 6,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 87
+      }
+    },
+    {
+      "id": "2044675920217116755",
+      "text": "Claude Code × GitHub Actionsを調べてみた。「PR自動マージ」が主用途かと思ったら、効いてる設計は「失敗したCIのログをClaudeに渡して、どのステップで止まったか特定させる」診断フロー。修正を任せるより、止まった原因の切り分けに置く設計のほうが精度が出る感覚がある 🔧",
+      "created_at": "2026-04-16T07:15:02.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 1,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 31
+      }
+    },
     {
       "id": "2044663228681138327",
       "text": "Claude Haiku 4.5でSNSのタグ付けを自動化した記事。コスト感まで公開してくれてるのが正直助かる。「どのモデルを選ぶか」より「どこに挟むか」の設計判断のほうが結果に効いてる感覚がある 📄",
       "created_at": "2026-04-16T06:24:36.000Z",
       "metrics": {
         "retweet_count": 0,
-        "reply_count": 0,
+        "reply_count": 1,
         "like_count": 0,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 19
+        "impression_count": 41
       }
     },
     {
@@ -22,10 +48,10 @@
       "metrics": {
         "retweet_count": 0,
         "reply_count": 1,
-        "like_count": 3,
+        "like_count": 4,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 54
+        "impression_count": 74
       }
     },
     {
@@ -38,7 +64,7 @@
         "like_count": 1,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 58
+        "impression_count": 65
       }
     },
     {
@@ -51,7 +77,7 @@
         "like_count": 11,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 122
+        "impression_count": 133
       }
     },
     {
@@ -64,7 +90,7 @@
         "like_count": 6,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 133
+        "impression_count": 134
       }
     },
     {
@@ -77,7 +103,7 @@
         "like_count": 18,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 130
+        "impression_count": 131
       }
     },
     {
@@ -129,7 +155,7 @@
         "like_count": 2,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 74
+        "impression_count": 76
       }
     },
     {
@@ -399,7 +425,7 @@
       "metrics": {
         "retweet_count": 0,
         "reply_count": 2,
-        "like_count": 12,
+        "like_count": 13,
         "quote_count": 0,
         "bookmark_count": 0,
         "impression_count": 229
@@ -610,7 +636,7 @@
         "like_count": 54,
         "quote_count": 1,
         "bookmark_count": 0,
-        "impression_count": 1534
+        "impression_count": 1536
       }
     },
     {
@@ -1156,7 +1182,7 @@
         "like_count": 8,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 164
+        "impression_count": 165
       }
     },
     {
@@ -1235,32 +1261,6 @@
         "quote_count": 0,
         "bookmark_count": 0,
         "impression_count": 521
-      }
-    },
-    {
-      "id": "2042178055041687901",
-      "text": "フォロワー数777\nスクショ撮れて良かった〜ꉂ🤣𐤔 https://t.co/GHt17Lf6MN",
-      "created_at": "2026-04-09T09:49:24.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 8,
-        "like_count": 18,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 510
-      }
-    },
-    {
-      "id": "2042166708593655843",
-      "text": "あちゃー🤦‍♀️巨人中止かー\n\nこりゃ、帰ってClaudeCode起動するしかねぇなꉂ🤣𐤔",
-      "created_at": "2026-04-09T09:04:19.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 2,
-        "like_count": 4,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 111
       }
     }
   ]
