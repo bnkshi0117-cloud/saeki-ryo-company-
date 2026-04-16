@@ -49,7 +49,7 @@ function getTwitter() {
 
 // ── トレンドツイート検索 ──────────────────────────────────────
 // 伸びてると判断する最低いいね数
-const MIN_LIKES = 50;
+const MIN_LIKES = 250;
 
 async function findTrendingTweet(twitter) {
   const queries = [
