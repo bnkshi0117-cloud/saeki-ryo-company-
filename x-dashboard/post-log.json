@@ -175,5 +175,18 @@
     "source": null,
     "posted_at": "2026-04-16T09:07:04.134Z",
     "tweet_id": "2044704113309425769"
+  },
+  {
+    "id": "eda85045-b857-4b87-a314-8e55617f1723",
+    "type": "news_insight",
+    "text": "AdobeがFirefly AI Assistantで全アプリをチャット1つで操作できるようにした、というニュース。正直、「ツールを使う」から「ツールに話しかける」への移行が、クリエイター領域でも本格的に始まった感覚がある。操作を覚える必要がなくなると、何が「スキル」かの定義も変わってくる 🎨",
+    "reason": "Adobe×AIエージェントの話題が非エンジニア層への影響として具体的で解釈の余地があるため",
+    "source": {
+      "title": "Adobe turns its creative suite into a chatbot with the new Firefly AI Assistant",
+      "url": "https://the-decoder.com/adobe-turns-its-creative-suite-into-a-chatbot-with-the-new-firefly-ai-assistant/",
+      "name": "The Decoder"
+    },
+    "posted_at": "2026-04-16T10:45:44.459Z",
+    "tweet_id": "2044728944885367107"
   }
 ]

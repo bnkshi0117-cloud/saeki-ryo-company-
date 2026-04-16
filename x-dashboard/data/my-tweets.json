@@ -1,18 +1,83 @@
 {
-  "fetched_at": "2026-04-16T09:05:53.728Z",
+  "fetched_at": "2026-04-16T10:44:27.938Z",
   "username": "saekiryoAI",
   "tweets": [
+    {
+      "id": "2044714518862033077",
+      "text": "ちょっとドキドキしました",
+      "created_at": "2026-04-16T09:48:24.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 1,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 15
+      }
+    },
+    {
+      "id": "2044714338142048516",
+      "text": "続き\n\n​相手「不正利用が〜」\n\n​私「へぇ〜」「怖いですね〜」\n\n​適当に流し続けてたら、最終的に「チッ」って舌打ちして切られた‼️笑\n\n​そもそも私、JCBのカード持ってないから騙されようがないんだけど、急にかかってきたら焦る人の気持ちも分かる気がします…\n\n​皆さん、本当にお気をつけて‼️",
+      "created_at": "2026-04-16T09:47:41.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 18
+      }
+    },
+    {
+      "id": "2044714022386442443",
+      "text": "さっき初めて海外から「JCBの不正利用」を騙る詐欺電話がきたꉂ🤣𐤔\n\n​電子音「JCBカードに不正利用がありました。心当たりのある方は1を」\n\n→ポチッ\n\n​担当者「…ご用件は？」\n\n​私「いや、そっちからかけてきたんだけど」\n\n​相手「アナウンス聞いてませんか？」\n\n​私「聞いてません（即答）」",
+      "created_at": "2026-04-16T09:46:26.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 3,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 58
+      }
+    },
+    {
+      "id": "2044705140691898698",
+      "text": "テレビつけたらホームラン打ちました\nありがとうございます\n\n #giants",
+      "created_at": "2026-04-16T09:11:08.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 2,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 47
+      }
+    },
+    {
+      "id": "2044704113309425769",
+      "text": "Claude Codeのマルチエージェント設計を調べてみた。「並列で動かす」より先に詰まるのは「失敗したエージェントをどう検知して止めるか」の設計。成功パスだけ描いて組むと、1体が沈黙したまま他が動き続けてタスクが腐る。並列より先に「異常をどう伝播させるか」を決める必要がある 🤖",
+      "created_at": "2026-04-16T09:07:04.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 1,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 21
+      }
+    },
     {
       "id": "2044688836031311918",
       "text": "お疲れ様です‼️\n\n今日も定時退社の佐伯ですꉂ🤣𐤔\n残業の方あと少しです！\n\nジムは昨日行ったので、\n今日はハイボールでも飲みながら\n家でナイター見たいと思います⚾",
       "created_at": "2026-04-16T08:06:21.000Z",
       "metrics": {
         "retweet_count": 0,
-        "reply_count": 4,
-        "like_count": 6,
+        "reply_count": 5,
+        "like_count": 10,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 87
+        "impression_count": 116
       }
     },
     {
@@ -25,7 +90,7 @@
         "like_count": 1,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 31
+        "impression_count": 34
       }
     },
     {
@@ -38,7 +103,7 @@
         "like_count": 0,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 41
+        "impression_count": 46
       }
     },
     {
@@ -51,7 +116,7 @@
         "like_count": 4,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 74
+        "impression_count": 76
       }
     },
     {
@@ -64,7 +129,7 @@
         "like_count": 1,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 65
+        "impression_count": 67
       }
     },
     {
@@ -77,7 +142,7 @@
         "like_count": 11,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 133
+        "impression_count": 136
       }
     },
     {
@@ -90,7 +155,7 @@
         "like_count": 6,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 134
+        "impression_count": 136
       }
     },
     {
@@ -103,7 +168,7 @@
         "like_count": 18,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 131
+        "impression_count": 132
       }
     },
     {
@@ -155,7 +220,7 @@
         "like_count": 2,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 76
+        "impression_count": 81
       }
     },
     {
@@ -376,7 +441,7 @@
         "like_count": 5,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 115
+        "impression_count": 116
       }
     },
     {
@@ -402,7 +467,7 @@
         "like_count": 11,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 213
+        "impression_count": 214
       }
     },
     {
@@ -870,7 +935,7 @@
         "like_count": 8,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 151
+        "impression_count": 152
       }
     },
     {
@@ -1000,7 +1065,7 @@
         "like_count": 26,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 165
+        "impression_count": 168
       }
     },
     {
@@ -1065,7 +1130,7 @@
         "like_count": 6,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 94
+        "impression_count": 95
       }
     },
     {
@@ -1130,7 +1195,7 @@
         "like_count": 12,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 138
+        "impression_count": 139
       }
     },
     {
@@ -1196,71 +1261,6 @@
         "quote_count": 0,
         "bookmark_count": 0,
         "impression_count": 163
-      }
-    },
-    {
-      "id": "2042409601602335063",
-      "text": "えー昨日ぶりの節目ポストをさせていただきますꉂ🤣𐤔\n\n皆様のおかげで900人達成する事ができました🙇✨\n\n目標にしてた1000人まであと少し‼️\n\n頑張っていきますので、お付き合いください🙇‍♀️\n\nよろしくお願いします！ https://t.co/RCfkVo8cqD",
-      "created_at": "2026-04-10T01:09:29.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 15,
-        "like_count": 30,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 917
-      }
-    },
-    {
-      "id": "2042366274874011954",
-      "text": "はいさい🙋\n\n今日の沖縄は久しぶりに朝日が見えております🌅\n\n寝てる間にもたくさんのフォローいただきました‼️\n\nありがとうございます☺️\n\nまた制限にかかっておりますので、フォロバされてない方もうしばらくお待ちくださいm(_ _)m",
-      "created_at": "2026-04-09T22:17:19.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 4,
-        "like_count": 18,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 188
-      }
-    },
-    {
-      "id": "2042365421639328098",
-      "text": "ブルーラウンジの皆様 はいさい！\n\n今日の沖縄は久しぶりに朝日が見えております🌞\n\n昨日、一昨日とブルーラウンジの同志の皆様から多数のフォローいただきました‼️\n\n今日も引き続き交流させてください😊\n\nよろしくお願いします🙇‍♂️",
-      "created_at": "2026-04-09T22:13:56.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 1,
-        "like_count": 28,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 254
-      }
-    },
-    {
-      "id": "2042213542687130011",
-      "text": "AIの最大の天敵って間違いなく「方言」だと思う。\n\n議事録作成を効率化しようと思って会議を録音・文字起こししてるんだけど、\n沖縄のイントネーションや言い回しだとAIが全く聞き取れなくて、謎の文章が生成される😇 \n\n結局手直しが必要だし、AIの方言対応もっと進化してほしい…！ \n\n#AIあるある",
-      "created_at": "2026-04-09T12:10:25.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 2,
-        "like_count": 7,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 115
-      }
-    },
-    {
-      "id": "2042196051604705791",
-      "text": "えー本日3度目の節目のポストになりますꉂ🤣𐤔\n\nフォロワーの増え具合に戸惑いを隠せません‼️\n\n目標の1000人まであと200\n\n頑張っていきますので、皆様よろしくお願いします🙇‍♂️ https://t.co/FIBKQuzR3k",
-      "created_at": "2026-04-09T11:00:55.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 16,
-        "like_count": 29,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 521
       }
     }
   ]
