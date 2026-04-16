@@ -1,0 +1,59 @@
+name: トレンド返信 承認・修正・キャンセル
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'approve（承認） / modify（修正） / cancel（キャンセル）'
+        required: true
+        default: 'approve'
+        type: choice
+        options:
+          - approve
+          - modify
+          - cancel
+      instruction:
+        description: '修正指示（modifyの場合のみ記入）例: もっと短く / 絵文字なしで'
+        required: false
+        type: string
+
+jobs:
+  action:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4.2.2
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Node.js セットアップ
+        uses: actions/setup-node@v4.3.0
+        with:
+          node-version: '22'
+
+      - name: 依存関係インストール
+        run: cd x-dashboard && npm install
+
+      - name: 処理実行
+        env:
+          ANTHROPIC_API_KEY:     ${{ secrets.ANTHROPIC_API_KEY }}
+          SLACK_BOT_TOKEN:       ${{ secrets.SLACK_BOT_TOKEN }}
+          SLACK_CHANNEL_ID:      ${{ secrets.SLACK_CHANNEL_ID }}
+          SLACK_WEBHOOK_URL:     ${{ secrets.SLACK_WEBHOOK_URL }}
+          X_CONSUMER_KEY:        ${{ secrets.X_CONSUMER_KEY }}
+          X_CONSUMER_SECRET:     ${{ secrets.X_CONSUMER_SECRET }}
+          X_ACCESS_TOKEN:        ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+          ACTION_INPUT:          ${{ inputs.action }}
+          INSTRUCTION_INPUT:     ${{ inputs.instruction }}
+        run: cd x-dashboard && node trend-reply.mjs action
+
+      - name: 状態ファイルをコミット
+        if: always()
+        run: |
+          git config user.name "saeki-auto-poster"
+          git config user.email "bot@saeki-ryo-company"
+          git add x-dashboard/data/pending-reply.json || true
+          git diff --staged --quiet || git commit -m "トレンド返信処理[${{ inputs.action }}] $(TZ=Asia/Tokyo date +'%Y-%m-%d %H:%M')"
+          git push || true

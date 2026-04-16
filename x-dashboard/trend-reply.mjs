@@ -23,8 +23,8 @@ const SLACK_CHANNEL  = process.env.SLACK_CHANNEL_ID;
 const SLACK_WEBHOOK  = process.env.SLACK_WEBHOOK_URL;
 
 const action = process.argv[2];
-if (!["generate", "check"].includes(action)) {
-  console.error("使い方: node trend-reply.mjs [generate|check]");
+if (!["generate", "check", "action"].includes(action)) {
+  console.error("使い方: node trend-reply.mjs [generate|check|action]");
   process.exit(1);
 }
 
@@ -214,9 +214,9 @@ if (action === "generate") {
           type: "mrkdwn",
           text: [
             "─────────────────",
-            "✅ *投稿OK* → このスレッドに *OK* と返信",
-            "✏️ *修正したい* → 修正内容を返信（例: 「もっと短く」「絵文字なしで」）",
-            "❌ *キャンセル* → *NG* と返信",
+            `✅ *承認* → <https://github.com/bnkshi0117-cloud/saeki-ryo-company-/actions/workflows/trend-reply-action.yml|このリンク> を開いて *Run workflow* → action: *approve*`,
+            `✏️ *修正* → 同じリンクを開いて *Run workflow* → action: *modify* → instruction欄に指示を記入`,
+            `❌ *キャンセル* → 同じリンクを開いて *Run workflow* → action: *cancel*`,
           ].join("\n"),
         },
       },
@@ -312,6 +312,63 @@ if (action === "check") {
       pending.thread_ts,
       `✏️ 修正しました:\n\`\`\`${newDraft}\`\`\`\n\n投稿する場合は *OK*、さらに修正は内容を返信、キャンセルは *NG*`
     );
+    console.log("✏️  修正案をSlackに送りました");
+  }
+}
+
+// ── GitHub Actions 経由の承認・修正・キャンセル（action） ──────
+if (action === "action") {
+  const pending = readPending();
+  if (!pending || pending.status !== "pending") {
+    console.log("📭 承認待ちの返信なし");
+    process.exit(0);
+  }
+
+  const actionInput = process.env.ACTION_INPUT || "approve";
+  const instruction = process.env.INSTRUCTION_INPUT || "";
+
+  console.log(`📩 アクション: ${actionInput}${instruction ? ` / 指示: ${instruction}` : ""}`);
+
+  if (actionInput === "approve") {
+    console.log("✅ 承認。投稿します...");
+    const twitter = getTwitter();
+    await twitter.v2.tweet({
+      text: pending.draft,
+      reply: { in_reply_to_tweet_id: pending.tweet_id },
+    });
+    pending.status = "posted";
+    pending.posted_at = new Date().toISOString();
+    writePending(pending);
+    await postToSlack({
+      text: `✅ 投稿しました！\n返信内容:\n\`\`\`${pending.draft}\`\`\`\n元ツイート: https://x.com/i/web/status/${pending.tweet_id}`,
+    });
+    console.log("✅ 投稿完了");
+
+  } else if (actionInput === "cancel") {
+    pending.status = "cancelled";
+    writePending(pending);
+    await postToSlack({ text: "❌ キャンセルしました" });
+    console.log("❌ キャンセル完了");
+
+  } else if (actionInput === "modify") {
+    if (!instruction) {
+      console.error("❌ 修正指示が空です。instruction欄に指示を入力してください。");
+      process.exit(1);
+    }
+    console.log("✏️  修正中...");
+    const newDraft = await generateReply(pending.tweet_text, instruction);
+    pending.draft = newDraft;
+    writePending(pending);
+    await postToSlack({
+      text: [
+        `✏️ 修正しました（指示: ${instruction}）`,
+        `\`\`\`${newDraft}\`\`\``,
+        "",
+        `✅ 承認 → <https://github.com/bnkshi0117-cloud/saeki-ryo-company-/actions/workflows/trend-reply-action.yml|リンク> で approve`,
+        `✏️ さらに修正 → 同リンクで modify`,
+        `❌ キャンセル → 同リンクで cancel`,
+      ].join("\n"),
+    });
     console.log("✏️  修正案をSlackに送りました");
   }
 }
