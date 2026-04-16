@@ -1,7 +1,20 @@
 {
-  "fetched_at": "2026-04-16T10:44:27.938Z",
+  "fetched_at": "2026-04-16T11:41:20.652Z",
   "username": "saekiryoAI",
   "tweets": [
+    {
+      "id": "2044728944885367107",
+      "text": "AdobeがFirefly AI Assistantで全アプリをチャット1つで操作できるようにした、というニュース。正直、「ツールを使う」から「ツールに話しかける」への移行が、クリエイター領域でも本格的に始まった感覚がある。操作を覚える必要がなくなると、何が「スキル」かの定義も変わってくる 🎨",
+      "created_at": "2026-04-16T10:45:44.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 2,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 18
+      }
+    },
     {
       "id": "2044714518862033077",
       "text": "ちょっとドキドキしました",
@@ -12,7 +25,7 @@
         "like_count": 1,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 15
+        "impression_count": 18
       }
     },
     {
@@ -25,7 +38,7 @@
         "like_count": 0,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 18
+        "impression_count": 22
       }
     },
     {
@@ -35,10 +48,10 @@
       "metrics": {
         "retweet_count": 0,
         "reply_count": 1,
-        "like_count": 3,
+        "like_count": 4,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 58
+        "impression_count": 72
       }
     },
     {
@@ -51,7 +64,7 @@
         "like_count": 2,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 47
+        "impression_count": 49
       }
     },
     {
@@ -77,7 +90,7 @@
         "like_count": 10,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 116
+        "impression_count": 122
       }
     },
     {
@@ -103,7 +116,7 @@
         "like_count": 0,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 46
+        "impression_count": 48
       }
     },
     {
@@ -116,7 +129,7 @@
         "like_count": 4,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 76
+        "impression_count": 78
       }
     },
     {
@@ -139,10 +152,10 @@
       "metrics": {
         "retweet_count": 0,
         "reply_count": 5,
-        "like_count": 11,
+        "like_count": 12,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 136
+        "impression_count": 137
       }
     },
     {
@@ -168,7 +181,7 @@
         "like_count": 18,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 132
+        "impression_count": 134
       }
     },
     {
@@ -1248,19 +1261,6 @@
         "quote_count": 0,
         "bookmark_count": 0,
         "impression_count": 165
-      }
-    },
-    {
-      "id": "2042410054402613454",
-      "text": "Meta株が6.5%跳ねたのも納得。\n\n新AI「Muse Spark」発表の裏にある、143億ドルという桁違いの投資とWang氏の引き抜き。\n\n現在のAI開発競争は、完全に「狂気的な資金力」と「トップタレントの奪い合い」のフェーズに入ってきている気がします。",
-      "created_at": "2026-04-10T01:11:17.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 0,
-        "like_count": 5,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 163
       }
     }
   ]

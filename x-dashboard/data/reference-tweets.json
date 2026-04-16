@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-04-16T10:44:30.174Z",
+  "fetched_at": "2026-04-16T11:41:22.708Z",
   "accounts": [
     {
       "username": "masahirochaen",
@@ -9,24 +9,24 @@
           "text": "「家族旅行版Palantir」を作成した漢が現る。\nこれは凄い。旅行に本気を出しすぎ笑\n\nGithubに公開されているので、土日に試したい\n\n・コンボイ追跡＋ルート再生（複数都市から集合）\n・食事・宿・アクティビティ・経費を一元管理\n・React 19＋Google Maps API、MIT公開済み\nhttps://t.co/uENQQWWqFg",
           "created_at": "2026-04-14T22:07:01.000Z",
           "metrics": {
-            "retweet_count": 98,
+            "retweet_count": 99,
             "reply_count": 8,
-            "like_count": 1179,
-            "quote_count": 6,
-            "bookmark_count": 1488,
-            "impression_count": 167871
+            "like_count": 1185,
+            "quote_count": 7,
+            "bookmark_count": 1495,
+            "impression_count": 169144
           }
         },
         {
           "text": "【⚡️速報】Claude Codeにタスクを簡単に自動化できるRoutinesが登場。\n\nAnthropicのクラウド基盤で動くので、別途MacMiniなどで常用型のPCが不要。\n\n以前から愛用してましたが、大幅アップデートして嬉しい。\n\nトリガーは3種類：\n・スケジュール（毎時/夜間/週次） https://t.co/cQKMBfUfum",
           "created_at": "2026-04-15T02:25:16.000Z",
           "metrics": {
-            "retweet_count": 72,
+            "retweet_count": 73,
             "reply_count": 11,
-            "like_count": 1012,
-            "quote_count": 20,
-            "bookmark_count": 1096,
-            "impression_count": 116337
+            "like_count": 1022,
+            "quote_count": 19,
+            "bookmark_count": 1104,
+            "impression_count": 117221
           }
         },
         {
@@ -35,10 +35,10 @@
           "metrics": {
             "retweet_count": 41,
             "reply_count": 10,
-            "like_count": 555,
-            "quote_count": 17,
-            "bookmark_count": 472,
-            "impression_count": 79615
+            "like_count": 556,
+            "quote_count": 18,
+            "bookmark_count": 478,
+            "impression_count": 80628
           }
         },
         {
@@ -47,10 +47,10 @@
           "metrics": {
             "retweet_count": 51,
             "reply_count": 7,
-            "like_count": 536,
+            "like_count": 537,
             "quote_count": 17,
-            "bookmark_count": 327,
-            "impression_count": 70604
+            "bookmark_count": 328,
+            "impression_count": 70680
           }
         },
         {
@@ -59,10 +59,10 @@
           "metrics": {
             "retweet_count": 37,
             "reply_count": 2,
-            "like_count": 334,
+            "like_count": 336,
             "quote_count": 2,
-            "bookmark_count": 300,
-            "impression_count": 52238
+            "bookmark_count": 304,
+            "impression_count": 52418
           }
         }
       ]
@@ -75,12 +75,12 @@
           "text": "とんでもないレベルになってきた。 https://t.co/QWoVLMzHox",
           "created_at": "2026-04-15T14:32:08.000Z",
           "metrics": {
-            "retweet_count": 28,
+            "retweet_count": 36,
             "reply_count": 1,
-            "like_count": 354,
-            "quote_count": 0,
-            "bookmark_count": 262,
-            "impression_count": 85896
+            "like_count": 398,
+            "quote_count": 1,
+            "bookmark_count": 281,
+            "impression_count": 99255
           }
         },
         {
@@ -92,7 +92,7 @@
             "like_count": 77,
             "quote_count": 3,
             "bookmark_count": 56,
-            "impression_count": 24012
+            "impression_count": 24025
           }
         },
         {
@@ -104,7 +104,7 @@
             "like_count": 23,
             "quote_count": 2,
             "bookmark_count": 30,
-            "impression_count": 11595
+            "impression_count": 11611
           }
         },
         {
@@ -116,7 +116,7 @@
             "like_count": 50,
             "quote_count": 3,
             "bookmark_count": 8,
-            "impression_count": 10427
+            "impression_count": 10654
           }
         },
         {
@@ -128,7 +128,7 @@
             "like_count": 6,
             "quote_count": 0,
             "bookmark_count": 1,
-            "impression_count": 9842
+            "impression_count": 9849
           }
         }
       ]
@@ -143,22 +143,22 @@
           "metrics": {
             "retweet_count": 1604,
             "reply_count": 2,
-            "like_count": 4137,
-            "quote_count": 36,
-            "bookmark_count": 661,
-            "impression_count": 706931
+            "like_count": 4138,
+            "quote_count": 37,
+            "bookmark_count": 662,
+            "impression_count": 707843
           }
         },
         {
           "text": "Allbirdsとかいう知らん会社が物議を醸しているという。なんか数年前に流行ったスニーカー作って売ってる会社らしいんだけど、上場後にブームが去って赤字続きでズタボロに。数日前にたったの60億円で靴事業売っちゃったという。靴メーカーが靴作るのやめてどうすんねんとか言ってたら今日になっていき https://t.co/sjYh44SAfe",
           "created_at": "2026-04-15T19:21:17.000Z",
           "metrics": {
-            "retweet_count": 202,
+            "retweet_count": 205,
             "reply_count": 1,
-            "like_count": 690,
+            "like_count": 701,
             "quote_count": 18,
-            "bookmark_count": 110,
-            "impression_count": 192017
+            "bookmark_count": 112,
+            "impression_count": 194609
           }
         },
         {
@@ -170,7 +170,7 @@
             "like_count": 247,
             "quote_count": 14,
             "bookmark_count": 60,
-            "impression_count": 86989
+            "impression_count": 87123
           }
         },
         {
@@ -182,7 +182,7 @@
             "like_count": 155,
             "quote_count": 11,
             "bookmark_count": 50,
-            "impression_count": 41623
+            "impression_count": 41754
           }
         },
         {
@@ -194,7 +194,7 @@
             "like_count": 86,
             "quote_count": 2,
             "bookmark_count": 20,
-            "impression_count": 24915
+            "impression_count": 24994
           }
         }
       ]
@@ -212,7 +212,7 @@
             "like_count": 92,
             "quote_count": 0,
             "bookmark_count": 11,
-            "impression_count": 8714
+            "impression_count": 8715
           }
         },
         {
@@ -224,7 +224,7 @@
             "like_count": 55,
             "quote_count": 4,
             "bookmark_count": 14,
-            "impression_count": 5948
+            "impression_count": 5949
           }
         },
         {
@@ -236,7 +236,7 @@
             "like_count": 32,
             "quote_count": 1,
             "bookmark_count": 4,
-            "impression_count": 4202
+            "impression_count": 4206
           }
         },
         {
@@ -248,7 +248,7 @@
             "like_count": 52,
             "quote_count": 2,
             "bookmark_count": 19,
-            "impression_count": 4031
+            "impression_count": 4040
           }
         },
         {
@@ -260,7 +260,7 @@
             "like_count": 51,
             "quote_count": 3,
             "bookmark_count": 4,
-            "impression_count": 3995
+            "impression_count": 3999
           }
         }
       ]
@@ -290,7 +290,7 @@
             "like_count": 198,
             "quote_count": 1,
             "bookmark_count": 134,
-            "impression_count": 20077
+            "impression_count": 20078
           }
         },
         {
@@ -339,60 +339,60 @@
           "text": "待て待て待てChatGPTの新しい画像生成、すごすぎない？\nめっっちゃコンサルライクな画像一瞬で生成できた https://t.co/wEZK3LZ1Es",
           "created_at": "2026-04-15T16:10:54.000Z",
           "metrics": {
-            "retweet_count": 29,
+            "retweet_count": 31,
             "reply_count": 10,
-            "like_count": 466,
-            "quote_count": 18,
-            "bookmark_count": 322,
-            "impression_count": 57979
+            "like_count": 495,
+            "quote_count": 19,
+            "bookmark_count": 334,
+            "impression_count": 62723
           }
         },
         {
           "text": "Googleが公開した「生成AI活用事例集2026年版」がすごいことになってた。国内120社以上の活用事例を余すことなく掲載。金融・小売・製造・IT・商社など各社の課題と解決策、成果指標まで具体的に掲載されており、Geminiや生成AIを実際に業務活用したいDX推進担当者は必見の内容...👇🧵 https://t.co/xLduvTe8QO",
           "created_at": "2026-04-16T08:13:14.000Z",
           "metrics": {
-            "retweet_count": 14,
-            "reply_count": 5,
-            "like_count": 177,
+            "retweet_count": 32,
+            "reply_count": 6,
+            "like_count": 357,
             "quote_count": 1,
-            "bookmark_count": 173,
-            "impression_count": 13403
+            "bookmark_count": 385,
+            "impression_count": 29375
           }
         },
         {
-          "text": "そしてついにClaude Code講座は「今週末」です！\nㅤ\n4/18（土）初級編、4/19（日）発展編。\nコスパ良いのが評判で、1,800人以上の方に申し込みいただいてます。\nㅤ\nこういう「自分の仕事を楽にするツール」をサクッと作れるのが本質だなと。\n講座でもそういう話もします。楽しみにしてください！ https://t.co/vYAeGFiNx5",
-          "created_at": "2026-04-15T10:10:39.000Z",
+          "text": "知らない間に、Claude Codeに\nめっちゃ便利なコマンド「/team-onboarding 」が追加されてる！！！！\nㅤ\nこれまでは新メンバーが入るたびに\n「どうやってClaude Code使ってるの？」って\n毎回口頭で説明してたけど、\nㅤ\n・過去30日のセッションを自動分析\n・作業タイプの割合をグラフ化（Build 40%, Plan https://t.co/qlglcKwFi5",
+          "created_at": "2026-04-16T09:07:33.000Z",
           "metrics": {
-            "retweet_count": 0,
-            "reply_count": 0,
-            "like_count": 6,
-            "quote_count": 0,
-            "bookmark_count": 3,
-            "impression_count": 11053
-          }
-        },
-        {
-          "text": "今週末のClaude Code講座に向けて、\nAIスライド術がめちゃくちゃ磨かれまくっている....\nㅤ\nマークダウンスライド編集が地味にストレスだったので、\nClaude Codeに「オリジナルのAIスライド編集システム」も作ってもらいました。\nㅤ\nブラウザでスライド一覧\n→ クリック\n→ プレビュー\n→ https://t.co/FvVvohohoR",
-          "created_at": "2026-04-15T10:10:32.000Z",
-          "metrics": {
-            "retweet_count": 3,
-            "reply_count": 1,
-            "like_count": 31,
-            "quote_count": 0,
-            "bookmark_count": 31,
-            "impression_count": 9602
+            "retweet_count": 17,
+            "reply_count": 3,
+            "like_count": 259,
+            "quote_count": 13,
+            "bookmark_count": 302,
+            "impression_count": 15988
           }
         },
         {
           "text": "新モデル「gpt-image-02」はこちらにまとめています：\nhttps://t.co/wv2sW1CZnV",
           "created_at": "2026-04-15T16:31:01.000Z",
           "metrics": {
-            "retweet_count": 0,
+            "retweet_count": 1,
             "reply_count": 0,
             "like_count": 13,
             "quote_count": 0,
             "bookmark_count": 14,
-            "impression_count": 9361
+            "impression_count": 9725
+          }
+        },
+        {
+          "text": "Anthropicが無料公開してる\n有益AIコースが多すぎるので13個全部まとめます。ㅤ\nㅤ\n情報商材とか買う前にまずはこれチェックするのはアリ：\nㅤ\n・Claude 101 → Claudeの基本操作と活用法\nhttps://t.co/2O8Mkcs3Yn\n・AI Fluency基礎 → AIリテラシーの思考フレームワーク\nhttps://t.co/a2cYoPK2H3 https://t.co/qvNMGZ3OMF",
+          "created_at": "2026-04-16T03:59:38.000Z",
+          "metrics": {
+            "retweet_count": 22,
+            "reply_count": 5,
+            "like_count": 107,
+            "quote_count": 2,
+            "bookmark_count": 146,
+            "impression_count": 8371
           }
         }
       ]
