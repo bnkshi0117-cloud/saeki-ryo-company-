@@ -114,28 +114,42 @@ async function generateReply(tweetText, instruction = null) {
 // ── Slack にメッセージ送信（Bot Token 使用） ──────────────────
 async function postToSlack(payload) {
   console.log(`📤 Slack送信: TOKEN=${SLACK_TOKEN ? "あり" : "なし"}, CHANNEL=${SLACK_CHANNEL || "なし"}, WEBHOOK=${SLACK_WEBHOOK ? "あり" : "なし"}`);
+
+  // Bot Token で送信（スレッド返信に必要）
   if (SLACK_TOKEN && SLACK_CHANNEL) {
-    const res = await fetch("https://slack.com/api/chat.postMessage", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${SLACK_TOKEN}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ channel: SLACK_CHANNEL, ...payload }),
-    });
-    const data = await res.json();
-    if (!data.ok) throw new Error(`Slack API エラー: ${data.error}`);
-    return data.ts;
-  } else if (SLACK_WEBHOOK) {
-    // フォールバック: Webhook のみ（スレッド返信は読めない）
-    await fetch(SLACK_WEBHOOK, {
+    try {
+      const res = await fetch("https://slack.com/api/chat.postMessage", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${SLACK_TOKEN}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ channel: SLACK_CHANNEL, ...payload }),
+      });
+      const data = await res.json();
+      if (!data.ok) {
+        console.warn(`⚠️  Bot Token送信失敗: ${data.error} → Webhookにフォールバック`);
+      } else {
+        console.log(`✅ Bot Token送信成功 (ts: ${data.ts})`);
+        return data.ts;
+      }
+    } catch (e) {
+      console.warn(`⚠️  Bot Token送信エラー: ${e.message} → Webhookにフォールバック`);
+    }
+  }
+
+  // Webhook フォールバック（thread_tsは取れないがメッセージは届く）
+  if (SLACK_WEBHOOK) {
+    const res = await fetch(SLACK_WEBHOOK, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
+    console.log(`✅ Webhook送信完了 (status: ${res.status})`);
     return null;
   }
-  throw new Error("Slack設定が見つかりません");
+
+  throw new Error("Slack設定が見つかりません（SLACK_BOT_TOKEN または SLACK_WEBHOOK_URL が必要）");
 }
 
 // ── Slack スレッド返信を取得 ──────────────────────────────────
