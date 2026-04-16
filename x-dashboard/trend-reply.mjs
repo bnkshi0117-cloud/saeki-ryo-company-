@@ -49,27 +49,31 @@ function getTwitter() {
 
 // ── トレンドツイート検索 ──────────────────────────────────────
 async function findTrendingTweet(twitter) {
-  // 日本語・高エンゲージメント・ニュース系ツイートを検索
+  // Basic APIプランで使えるシンプルなクエリ（min_favesは上位プランのみ）
   const queries = [
-    "lang:ja -is:retweet min_faves:200 (事件 OR 事故 OR 速報 OR 話題)",
-    "lang:ja -is:retweet min_faves:100 (AI OR ChatGPT OR Claude OR 生成AI)",
+    "lang:ja -is:retweet (事件 OR 事故 OR 速報 OR 話題)",
+    "lang:ja -is:retweet (AI OR ChatGPT OR Claude OR 生成AI)",
   ];
 
   for (const query of queries) {
     try {
+      console.log(`🔍 検索: ${query}`);
       const result = await twitter.v2.search(query, {
         max_results: 10,
         "tweet.fields": ["public_metrics", "created_at"],
         sort_order: "relevancy",
       });
       const tweets = result.data?.data || [];
+      console.log(`  → ${tweets.length}件取得`);
       if (tweets.length === 0) continue;
 
-      // エンゲージメント順で1位を返す
-      return tweets.sort((a, b) =>
+      // いいね数でソートして上位を返す
+      const sorted = tweets.sort((a, b) =>
         (b.public_metrics.like_count + b.public_metrics.reply_count) -
         (a.public_metrics.like_count + a.public_metrics.reply_count)
-      )[0];
+      );
+      console.log(`  → 最高エンゲージメント: ${sorted[0].public_metrics.like_count}いいね`);
+      return sorted[0];
     } catch (e) {
       console.warn(`⚠️  検索失敗: ${e.message}`);
     }
@@ -109,6 +113,7 @@ async function generateReply(tweetText, instruction = null) {
 
 // ── Slack にメッセージ送信（Bot Token 使用） ──────────────────
 async function postToSlack(payload) {
+  console.log(`📤 Slack送信: TOKEN=${SLACK_TOKEN ? "あり" : "なし"}, CHANNEL=${SLACK_CHANNEL || "なし"}, WEBHOOK=${SLACK_WEBHOOK ? "あり" : "なし"}`);
   if (SLACK_TOKEN && SLACK_CHANNEL) {
     const res = await fetch("https://slack.com/api/chat.postMessage", {
       method: "POST",
