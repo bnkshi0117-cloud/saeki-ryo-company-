@@ -86,9 +86,9 @@ async function generateReply(tweetText, instruction = null) {
   const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
   const content = instruction
-    ? `元ツイート：「${tweetText}」\n\n現在の返信案：「${readPending()?.draft || ""}」\n\n修正指示：${instruction}\n\n修正後の返信文のみ出力。140文字以内。`
+    ? `元ツイート：「${tweetText}」\n\n現在の引用コメント：「${readPending()?.draft || ""}」\n\n修正指示：${instruction}\n\n修正後のコメント文のみ出力。140文字以内。`
     : `あなたは佐伯亮（沖縄在住の会社員・AI×副業の実験者）です。
-以下のツイートに返信を1件書いてください。
+以下のツイートを引用リツイートするコメントを1件書いてください。
 
 ツイート：「${tweetText}」
 
@@ -96,11 +96,11 @@ async function generateReply(tweetText, instruction = null) {
 - 140文字以内
 - 語尾は「〜かな。」「〜んだよね。」「〜ある。」「〜実感あります。」など
 - 「です」「ます」「思います」などの丁寧語禁止
-- 共感・ツッコミ・一言コメントのどれか
+- 共感・ツッコミ・自分の見解のどれか
 - 批判・煽り禁止
 - 絵文字は0〜1個
 
-返信文のみ出力（説明不要）`;
+コメント文のみ出力（説明不要）`;
 
   const msg = await anthropic.messages.create({
     model: "claude-sonnet-4-6",
@@ -334,7 +334,7 @@ if (action === "action") {
     const twitter = getTwitter();
     await twitter.v2.tweet({
       text: pending.draft,
-      reply: { in_reply_to_tweet_id: pending.tweet_id },
+      quote_tweet_id: pending.tweet_id,
     });
     pending.status = "posted";
     pending.posted_at = new Date().toISOString();
