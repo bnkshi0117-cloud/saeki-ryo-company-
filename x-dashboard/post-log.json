@@ -131,5 +131,18 @@
     "source": null,
     "posted_at": "2026-04-15T14:56:03.235Z",
     "tweet_id": "2044429550365364562"
+  },
+  {
+    "id": "8ab50880-49c1-44c5-ba23-e52da280ffaa",
+    "type": "news_insight",
+    "text": "Claude Codeが「非エンジニアのタスク管理・健康記録」に使われてるって記事。正直、コード生成より「話しかけたら動く」の部分が刺さってる人が多いんだな、という感覚がある。ツールの定義が使う人によって変わってきてる 📄",
+    "reason": "非エンジニア用途という意外な切り口にnews_insightが適合",
+    "source": {
+      "title": "【実例あり】Claude Codeで非エンジニアができること——タスク管理・ブログ・健康管理をAIに任せた",
+      "url": "https://zenn.dev/tottoko_hamu/articles/claude-code-non-engineer-guide",
+      "name": "Zenn AI"
+    },
+    "posted_at": "2026-04-16T05:10:37.746Z",
+    "tweet_id": "2044644611243884981"
   }
 ]

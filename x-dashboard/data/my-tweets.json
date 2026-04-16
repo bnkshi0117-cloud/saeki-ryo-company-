@@ -1,18 +1,577 @@
 {
-  "fetched_at": "2026-04-14T06:17:35.849Z",
+  "fetched_at": "2026-04-16T05:09:26.556Z",
   "username": "saekiryoAI",
   "tweets": [
     {
-      "id": "2043935270307795221",
-      "text": "Claude Codeのメモリ活用を調べてみた。セッション間の記憶として「Obsidian連携でWiki化」が面白かった。脳の外にAIを記憶媒体として置く発想。自分がやってるMarkdownメモと構造が同じで、結局「どう整理するか」の設計力が効いてくる 📝",
-      "created_at": "2026-04-14T06:11:57.000Z",
+      "id": "2044636556611514742",
+      "text": "井上先生の絵ヤバ！！\n王騎将軍カッケェ https://t.co/ndCxnYSPDU",
+      "created_at": "2026-04-16T04:38:37.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 1,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 22
+      }
+    },
+    {
+      "id": "2044616816316813654",
+      "text": "今日の弁当です。\n400円でした。 https://t.co/ZZa0Tl7cnu",
+      "created_at": "2026-04-16T03:20:10.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 4,
+        "like_count": 10,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 101
+      }
+    },
+    {
+      "id": "2044535095969910851",
+      "text": "皆さん はいさい🙋\n\n今日の天気はどんよりとした曇り空が広がっております☁️\n\nこのポストを書いているたった今小雨がポツポツと降ってきました☂️\n\n週半ばも過ぎ、疲れが溜まってきてると思いますが、気合い入れて頑張っていきましょう！\n\n今日も一日よろしくお願いします☔✨",
+      "created_at": "2026-04-15T21:55:27.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 4,
+        "like_count": 6,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 124
+      }
+    },
+    {
+      "id": "2044533907576729760",
+      "text": "ブルーラウンジの皆さん はいさい🙋\n\n今日の沖縄の天気はあいにくの曇り空☁️☁︎\nたった今、小雨が降ってきました！\n\n週の半分も過ぎ、週末に差し掛かってきます！\n\n気合い入れて頑張っていきましょう‼️\n\nフォローは無言でも大歓迎なので\n\nよろしくお願いします！",
+      "created_at": "2026-04-15T21:50:43.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 3,
+        "like_count": 18,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 125
+      }
+    },
+    {
+      "id": "2044429550365364562",
+      "text": "CLAUDE.mdの設定を調べてみた。「丁寧な指示書」かと思ったら、効いてるのは「やらせないこと」を先に書く設計らしい。禁止事項→出力形式→背景の順で書くと、曖昧な判断をAIがしなくなる。許可より制約を先に置く発想、ガードレールとして使ってる感覚がある 📄",
+      "created_at": "2026-04-15T14:56:03.000Z",
       "metrics": {
         "retweet_count": 0,
         "reply_count": 0,
         "like_count": 0,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 4
+        "impression_count": 44
+      }
+    },
+    {
+      "id": "2044417177747607592",
+      "text": "脚トレした日は起きてるの23時が限界\n\nおやすみなさい！\n\nまた明日お会いしましょう♪",
+      "created_at": "2026-04-15T14:06:53.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 2,
+        "like_count": 5,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 124
+      }
+    },
+    {
+      "id": "2044379978695954773",
+      "text": "Claude Codeのパーミッション設定を調べてみた。「どこまで自動でやらせるか」の判断、グローバルでは「タスクの可逆性」で線を引いてる例が多い。削除・デプロイは必ず確認、ファイル生成は自動OK、という分け方。全部止めるか全部任せるかじゃなくて、「戻せるか」が基準になってる 🤖",
+      "created_at": "2026-04-15T11:39:04.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 1,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 33
+      }
+    },
+    {
+      "id": "2044365544422289870",
+      "text": "GPT-5.4 ProがErdős未解決問題を80分で解いた、というニュース。「AIが数学者を超えた」より「人間が80年積み上げた問題にAIが80分でたどり着いた」という非対称性のほうが気になる。速さじゃなく、蓄積の意味が変わってきてる感覚がある 🤔",
+      "created_at": "2026-04-15T10:41:42.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 2,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 73
+      }
+    },
+    {
+      "id": "2044359342523375974",
+      "text": "今日の脚トレ終了！\n\n​レッグプレスの限界セット中に、ヘッドホンから『お願いマッスル』が流れるという放送事故が発生。\n\n​サビの「サイドチェストー！」で腹圧が爆発して潰れかけたけど、なんとか生還しました……。\n\n​さて、プロテインキメて帰ります。 https://t.co/yA4n8Fp3rJ",
+      "created_at": "2026-04-15T10:17:04.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 2,
+        "like_count": 3,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 92
+      }
+    },
+    {
+      "id": "2044341826845282455",
+      "text": "Claude Code × GitHub Actionsを調べてみた。「PRレビューの自動化」が主用途かと思ったら、実用例で多いのは「CIが落ちた原因をClaudeが特定して、どのコミットに戻すか判断する」診断フロー。修正じゃなく原因の切り分けに置く設計が効く。止まる場所に置くのが鍵 🔧",
+      "created_at": "2026-04-15T09:07:28.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 1,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 37
+      }
+    },
+    {
+      "id": "2044326651790799110",
+      "text": "これは自業自得だね https://t.co/hzwL2YUPgx",
+      "created_at": "2026-04-15T08:07:10.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 1,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 60
+      }
+    },
+    {
+      "id": "2044325755627442643",
+      "text": "皆さん お疲れ様です！\n\n17時になりましたので、定時退社いたします‼️\n残業の方はあと少し頑張ってください💪\n\n私は帰宅ラッシュに巻き込まれながら\nジムへ向かいます🚗³₃\n\nお疲れ様でした😊",
+      "created_at": "2026-04-15T08:03:36.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 4,
+        "like_count": 10,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 148
+      }
+    },
+    {
+      "id": "2044313197704814665",
+      "text": "MCPサーバーの実用例を調べてみた。「APIをつなぐ便利ツール」かと思ったら、グローバルで多いのは「複数ツールをまたいだ状態管理」用途らしい。単発の接続より、文脈を保ったまま別サービスへ渡す「橋」として使う設計が効く。接続より先に「何を記憶させるか」を決める必要がある 🔌",
+      "created_at": "2026-04-15T07:13:42.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 6,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 71
+      }
+    },
+    {
+      "id": "2044300292049793400",
+      "text": "Claude Codeのマルチエージェント設計を調べてみた。「並列で動かす」より「誰がオーケストレーターか」の設計が先に詰まる。VSCode 1.109で並列実行できるようになっても、タスクの依存関係を整理できてないと詰まる場所が増えるだけ。分割より先に「誰が何を判断するか」を決める設計力が要る 🤖",
+      "created_at": "2026-04-15T06:22:25.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 1,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 71
+      }
+    },
+    {
+      "id": "2044279253508976897",
+      "text": "現場の警察が、被害者の尊厳を守るために必死にブルーシートで囲っている。その配慮を、わざわざ上空からヘリを使って無神経に暴く行為のどこが「報道」なのだろうか。\n世間の注目度が高い事件だからといって、数字のためにプライバシーを踏みにじってまで空撮する意味が全く分からない。",
+      "created_at": "2026-04-15T04:58:49.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 4,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 168
+      }
+    },
+    {
+      "id": "2044270703135076721",
+      "text": "なんか最近子供絡みの事件事故が多くて気分が落ち込む。 https://t.co/3rR9e2N68l",
+      "created_at": "2026-04-15T04:24:50.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 2,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 690
+      }
+    },
+    {
+      "id": "2044269647168749586",
+      "text": "新しいnote書きました。\n\n「AIでSNS投稿を自動化したら運用時間が週5時間から30分になった」\n\n実際に自分が使ってるプロンプト3本と、Threadsにまで自動展開する仕組みも全部書いてあります。\n\n週5時間かかってた作業が30分になった体感、ぜひ読んでみてください。\n\nhttps://t.co/rmNvlTy1zB",
+      "created_at": "2026-04-15T04:20:39.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 2,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 131
+      }
+    },
+    {
+      "id": "2044256945817940128",
+      "text": "ユージおめでとう🎊 https://t.co/mGIGcGVYq0",
+      "created_at": "2026-04-15T03:30:10.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 1,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 61
+      }
+    },
+    {
+      "id": "2044241267065008529",
+      "text": "Claude Codeって「AIが頑張るツール」だと思ってたけど、\n\nHooksは「人間がルールを設計する場所」だった。\n\nAIに頼むんじゃなくて、仕組みとして強制する。\n自分的にはこの発想の切り替えが一番面白かったかもな。\n\n設定コードの具体例、書けたら投稿してみようかな。",
+      "created_at": "2026-04-15T02:27:52.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 1,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 23
+      }
+    },
+    {
+      "id": "2044241257317499020",
+      "text": "【発火タイミングは6種類】\n\n・SessionStart（起動時）\n・UserPromptSubmit（プロンプト送信後）\n・PreToolUse（ツール実行前）← 危険コマンド阻止に\n・PostToolUse（ツール実行後）← フォーマット自動化に\n・PostToolUseFailure（失敗時）\n・Stop（終了時）← ログ記録に",
+      "created_at": "2026-04-15T02:27:50.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 1,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 28
+      }
+    },
+    {
+      "id": "2044241247632781562",
+      "text": "自分が実際に設定してるのはこれ↓\n\nセッションが終わるたびにログファイルへ時刻を自動書き込み。\n\n今日だけでセッション終了が50回以上あったけど、全部自動で残ってた。\n\n手でやってたら絶対やってないやつ笑",
+      "created_at": "2026-04-15T02:27:48.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 13
+      }
+    },
+    {
+      "id": "2044241237985898804",
+      "text": "【Hooksとは何か】\n\n一言で言うと「絶対に実行される処理を仕込む仕組み」。\n\nCLAUDE.md = Claudeへのアドバイス（無視されることがある）\nHooks = 強制実行（必ず動く）\n\nフォーマット自動化・ログ記録・危険コマンドのブロックに使える。",
+      "created_at": "2026-04-15T02:27:45.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 14
+      }
+    },
+    {
+      "id": "2044241228368359551",
+      "text": "Claude CodeのHooksを実際に設定してみた。\n\n「AIにお願いする」じゃなくて「絶対に実行させる」仕組みを作れる機能。\n\n非エンジニアがどう使うか書きます。\n\n🧵↓",
+      "created_at": "2026-04-15T02:27:43.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 3,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 93
+      }
+    },
+    {
+      "id": "2044206598696972673",
+      "text": "Claude Codeに「routines」が追加されたニュース。自動でバグ修正やPRレビューをするのかと思ったら、「ローカルマシン不要で動く」が本質らしい。手元のPCが落ちてても動き続けるエージェント。常駐型に近くなってきてる感覚がある 🤖",
+      "created_at": "2026-04-15T00:10:07.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 3,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 53
+      }
+    },
+    {
+      "id": "2044182439178973639",
+      "text": "レギュラーガソリン価格150円でした\n皆さんのところはいくらなんでしょうか…🤔💭 https://t.co/5Sz0jJTUmW",
+      "created_at": "2026-04-14T22:34:07.000Z",
+      "metrics": {
+        "retweet_count": 1,
+        "reply_count": 1,
+        "like_count": 5,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 115
+      }
+    },
+    {
+      "id": "2044177305338294445",
+      "text": "8番出口の人めっちゃ忠実に再現されてるよねꉂ🤣𐤔 https://t.co/V8gA9V6nAl",
+      "created_at": "2026-04-14T22:13:43.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 3,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 80
+      }
+    },
+    {
+      "id": "2044172017944125690",
+      "text": "皆さん はいさい🙋\n\n今日の沖縄の天気は曇り空が広がってどんよりとしております‼️\n\n昨日もたくさんの方と繋がることができました🙇‍♂️ありがとうございます‼️\n\n週の真ん中、水曜日折り返し地点です。\n\n気合い入れて頑張っていきましょう💪🔥 https://t.co/Nh1J4iMWCP",
+      "created_at": "2026-04-14T21:52:42.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 4,
+        "like_count": 11,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 212
+      }
+    },
+    {
+      "id": "2044069427097022908",
+      "text": "GitHub Agentic Workflowsを調べてみた。「YAMLを自然言語に置き換える」のが売りかと思ったら、本質は「条件分岐の記述コストを下げてCIの設計粒度を細かくする」点らしい。今までYAMLが書けないと設計できなかった部分が、言語化できれば設計できるに変わってく感覚がある 🔧",
+      "created_at": "2026-04-14T15:05:03.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 3,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 40
+      }
+    },
+    {
+      "id": "2044051317124149366",
+      "text": "今日やる事は全て終わったのでもう寝ます😪\nおやすみなさい(-_-)zzz",
+      "created_at": "2026-04-14T13:53:05.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 2,
+        "like_count": 13,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 229
+      }
+    },
+    {
+      "id": "2044028328294994393",
+      "text": "今日の試合は最高でしたね👍\nよく眠れそうですꉂ🤣𐤔\n\n #giants",
+      "created_at": "2026-04-14T12:21:44.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 2,
+        "like_count": 5,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 93
+      }
+    },
+    {
+      "id": "2044021736199602223",
+      "text": "ライデル頼むぞ〜！\n抑えてくれ〜\n\n #giants",
+      "created_at": "2026-04-14T11:55:32.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 4,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 42
+      }
+    },
+    {
+      "id": "2044018604794917249",
+      "text": "Claude Code × GitHub Actionsを調べてみた。「PR作成→自動レビュー」より「CI失敗時にClaudeが原因を特定してコミットまで戻す」使い方が実用例として多かった。修正じゃなくて診断を自動化する発想。パイプラインの「止まる場所」に置くのが効く 🔧",
+      "created_at": "2026-04-14T11:43:06.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 3,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 44
+      }
+    },
+    {
+      "id": "2044016917594439934",
+      "text": "大城‼️やばい鳥肌たったww\nナイスホームラン！！\n\n #giants",
+      "created_at": "2026-04-14T11:36:23.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 3,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 44
+      }
+    },
+    {
+      "id": "2044014734840889575",
+      "text": "くっ、逆転されただと！？\n\n #giants",
+      "created_at": "2026-04-14T11:27:43.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 2,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 28
+      }
+    },
+    {
+      "id": "2044012396461862955",
+      "text": "ヤバいよ〜\n追いつかれるよ〜\n\n #giants",
+      "created_at": "2026-04-14T11:18:25.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 3,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 55
+      }
+    },
+    {
+      "id": "2044009268630958361",
+      "text": "今日は浦田の日かもな\n\n #giants",
+      "created_at": "2026-04-14T11:06:00.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 2,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 32
+      }
+    },
+    {
+      "id": "2044004069275324814",
+      "text": "Claude Codeのトークンコスト削減を調べてみた。「コンテキストを短くする」が定番かと思ったら、実際に効果が高いのは「タスク分割の粒度」らしい。大きなタスクを1回で投げると3〜5倍のトークンを使う。細かく切って都度クリアする設計力が、結局コストに直結する 💸",
+      "created_at": "2026-04-14T10:45:20.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 6,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 69
+      }
+    },
+    {
+      "id": "2043984044476825783",
+      "text": "おぉ、才木から先制できるなんて！\n増田陸もナイスバッティング！\n \n #giants",
+      "created_at": "2026-04-14T09:25:46.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 1,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 64
+      }
+    },
+    {
+      "id": "2043979337452474382",
+      "text": "Claude Code Hooksを調べてみた。海外では「コミット前の自動テスト起動」より「禁止ワード検知でAIの暴走を止めるガード」用途が多い。安全弁として使ってる。日本ではHooks自体ほぼ認知されてない、という非対称が面白い 🔧",
+      "created_at": "2026-04-14T09:07:04.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 2,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 81
+      }
+    },
+    {
+      "id": "2043967331064582180",
+      "text": "もう少しで1000名！\n頑張れー！💪 https://t.co/brQ1UdBmUB",
+      "created_at": "2026-04-14T08:19:21.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 2,
+        "like_count": 7,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 308
+      }
+    },
+    {
+      "id": "2043963017298358661",
+      "text": "さっさと会社から離脱しなきゃ|)彡　ｻｯ\n\n皆さんお仕事お疲れ様でした！\n残業の方はもう少し頑張ってください！！\n\n私は全身筋肉痛のため、家に帰ってナイター観ます！",
+      "created_at": "2026-04-14T08:02:12.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 5,
+        "like_count": 15,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 182
+      }
+    },
+    {
+      "id": "2043950704201814217",
+      "text": "「Claude Codeを1ヶ月使ってわかった本当の使い方」\n\n「Claude Codeって難しそう」と思ってた自分が、\n1ヶ月後にはWebアプリをリリースしてた。\nClaude Codeを1ヶ月使ってわかった本当の使い方\n\n実際にやって気づいたこと全部まとめました（450円）\n🔗 （https://t.co/nytraq0pQq）",
+      "created_at": "2026-04-14T07:13:17.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 3,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 121
+      }
+    },
+    {
+      "id": "2043946939209920790",
+      "text": "ノートパソコンの修理代金30,000円だって😨\n\n痛い出費だぜ🥺",
+      "created_at": "2026-04-14T06:58:19.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 11,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 155
+      }
+    },
+    {
+      "id": "2043935270307795221",
+      "text": "Claude Codeのメモリ活用を調べてみた。セッション間の記憶として「Obsidian連携でWiki化」が面白かった。脳の外にAIを記憶媒体として置く発想。自分がやってるMarkdownメモと構造が同じで、結局「どう整理するか」の設計力が効いてくる 📝",
+      "created_at": "2026-04-14T06:11:57.000Z",
+      "metrics": {
+        "retweet_count": 0,
+        "reply_count": 2,
+        "like_count": 5,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 59
       }
     },
     {
@@ -21,11 +580,11 @@
       "created_at": "2026-04-14T03:54:23.000Z",
       "metrics": {
         "retweet_count": 0,
-        "reply_count": 18,
-        "like_count": 22,
-        "quote_count": 0,
+        "reply_count": 41,
+        "like_count": 54,
+        "quote_count": 1,
         "bookmark_count": 0,
-        "impression_count": 429
+        "impression_count": 1533
       }
     },
     {
@@ -35,10 +594,10 @@
       "metrics": {
         "retweet_count": 0,
         "reply_count": 2,
-        "like_count": 5,
+        "like_count": 6,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 73
+        "impression_count": 88
       }
     },
     {
@@ -48,10 +607,10 @@
       "metrics": {
         "retweet_count": 0,
         "reply_count": 0,
-        "like_count": 2,
+        "like_count": 3,
         "quote_count": 0,
-        "bookmark_count": 1,
-        "impression_count": 19
+        "bookmark_count": 0,
+        "impression_count": 26
       }
     },
     {
@@ -61,10 +620,10 @@
       "metrics": {
         "retweet_count": 0,
         "reply_count": 1,
-        "like_count": 2,
+        "like_count": 3,
         "quote_count": 0,
-        "bookmark_count": 1,
-        "impression_count": 28
+        "bookmark_count": 0,
+        "impression_count": 35
       }
     },
     {
@@ -77,7 +636,7 @@
         "like_count": 1,
         "quote_count": 0,
         "bookmark_count": 1,
-        "impression_count": 5
+        "impression_count": 11
       }
     },
     {
@@ -90,7 +649,7 @@
         "like_count": 1,
         "quote_count": 0,
         "bookmark_count": 1,
-        "impression_count": 7
+        "impression_count": 12
       }
     },
     {
@@ -103,7 +662,7 @@
         "like_count": 1,
         "quote_count": 0,
         "bookmark_count": 1,
-        "impression_count": 9
+        "impression_count": 10
       }
     },
     {
@@ -113,10 +672,10 @@
       "metrics": {
         "retweet_count": 0,
         "reply_count": 1,
-        "like_count": 3,
+        "like_count": 4,
         "quote_count": 0,
-        "bookmark_count": 1,
-        "impression_count": 43
+        "bookmark_count": 0,
+        "impression_count": 63
       }
     },
     {
@@ -125,11 +684,11 @@
       "created_at": "2026-04-13T22:16:36.000Z",
       "metrics": {
         "retweet_count": 0,
-        "reply_count": 9,
-        "like_count": 22,
+        "reply_count": 11,
+        "like_count": 24,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 250
+        "impression_count": 287
       }
     },
     {
@@ -139,10 +698,10 @@
       "metrics": {
         "retweet_count": 0,
         "reply_count": 1,
-        "like_count": 23,
+        "like_count": 22,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 146
+        "impression_count": 151
       }
     },
     {
@@ -152,10 +711,10 @@
       "metrics": {
         "retweet_count": 0,
         "reply_count": 15,
-        "like_count": 33,
+        "like_count": 34,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 458
+        "impression_count": 471
       }
     },
     {
@@ -168,7 +727,7 @@
         "like_count": 8,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 113
+        "impression_count": 118
       }
     },
     {
@@ -178,10 +737,10 @@
       "metrics": {
         "retweet_count": 0,
         "reply_count": 1,
-        "like_count": 9,
+        "like_count": 10,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 101
+        "impression_count": 105
       }
     },
     {
@@ -194,7 +753,7 @@
         "like_count": 3,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 110
+        "impression_count": 114
       }
     },
     {
@@ -207,7 +766,7 @@
         "like_count": 2,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 58
+        "impression_count": 62
       }
     },
     {
@@ -220,7 +779,7 @@
         "like_count": 1,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 44
+        "impression_count": 47
       }
     },
     {
@@ -233,7 +792,7 @@
         "like_count": 2,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 59
+        "impression_count": 63
       }
     },
     {
@@ -246,7 +805,7 @@
         "like_count": 6,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 83
+        "impression_count": 86
       }
     },
     {
@@ -259,7 +818,7 @@
         "like_count": 8,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 142
+        "impression_count": 151
       }
     },
     {
@@ -272,7 +831,7 @@
         "like_count": 5,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 98
+        "impression_count": 101
       }
     },
     {
@@ -285,7 +844,7 @@
         "like_count": 5,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 87
+        "impression_count": 90
       }
     },
     {
@@ -298,7 +857,7 @@
         "like_count": 7,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 60
+        "impression_count": 62
       }
     },
     {
@@ -311,7 +870,7 @@
         "like_count": 44,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 685
+        "impression_count": 689
       }
     },
     {
@@ -324,7 +883,7 @@
         "like_count": 0,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 76
+        "impression_count": 77
       }
     },
     {
@@ -337,7 +896,7 @@
         "like_count": 1,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 29
+        "impression_count": 31
       }
     },
     {
@@ -350,7 +909,7 @@
         "like_count": 4,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 70
+        "impression_count": 71
       }
     },
     {
@@ -376,7 +935,7 @@
         "like_count": 10,
         "quote_count": 1,
         "bookmark_count": 0,
-        "impression_count": 213
+        "impression_count": 220
       }
     },
     {
@@ -389,7 +948,7 @@
         "like_count": 26,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 160
+        "impression_count": 165
       }
     },
     {
@@ -402,7 +961,7 @@
         "like_count": 6,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 125
+        "impression_count": 128
       }
     },
     {
@@ -415,7 +974,7 @@
         "like_count": 12,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 135
+        "impression_count": 136
       }
     },
     {
@@ -425,10 +984,10 @@
       "metrics": {
         "retweet_count": 0,
         "reply_count": 5,
-        "like_count": 28,
+        "like_count": 27,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 251
+        "impression_count": 253
       }
     },
     {
@@ -441,7 +1000,7 @@
         "like_count": 2,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 55
+        "impression_count": 56
       }
     },
     {
@@ -454,7 +1013,7 @@
         "like_count": 6,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 92
+        "impression_count": 94
       }
     },
     {
@@ -467,7 +1026,7 @@
         "like_count": 13,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 162
+        "impression_count": 163
       }
     },
     {
@@ -480,7 +1039,7 @@
         "like_count": 35,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 817
+        "impression_count": 821
       }
     },
     {
@@ -493,7 +1052,7 @@
         "like_count": 10,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 101
+        "impression_count": 102
       }
     },
     {
@@ -506,7 +1065,7 @@
         "like_count": 32,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 198
+        "impression_count": 199
       }
     },
     {
@@ -519,7 +1078,7 @@
         "like_count": 12,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 136
+        "impression_count": 138
       }
     },
     {
@@ -532,7 +1091,7 @@
         "like_count": 10,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 191
+        "impression_count": 192
       }
     },
     {
@@ -545,7 +1104,7 @@
         "like_count": 5,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 101
+        "impression_count": 104
       }
     },
     {
@@ -558,7 +1117,7 @@
         "like_count": 6,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 95
+        "impression_count": 96
       }
     },
     {
@@ -571,7 +1130,7 @@
         "like_count": 8,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 163
+        "impression_count": 164
       }
     },
     {
@@ -584,7 +1143,7 @@
         "like_count": 5,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 160
+        "impression_count": 163
       }
     },
     {
@@ -597,7 +1156,7 @@
         "like_count": 30,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 914
+        "impression_count": 917
       }
     },
     {
@@ -610,7 +1169,7 @@
         "like_count": 18,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 186
+        "impression_count": 188
       }
     },
     {
@@ -623,7 +1182,7 @@
         "like_count": 28,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 252
+        "impression_count": 254
       }
     },
     {
@@ -636,7 +1195,7 @@
         "like_count": 7,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 114
+        "impression_count": 115
       }
     },
     {
@@ -649,7 +1208,7 @@
         "like_count": 29,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 518
+        "impression_count": 521
       }
     },
     {
@@ -662,7 +1221,7 @@
         "like_count": 18,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 508
+        "impression_count": 510
       }
     },
     {
@@ -675,7 +1234,7 @@
         "like_count": 4,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 110
+        "impression_count": 111
       }
     },
     {
@@ -688,7 +1247,7 @@
         "like_count": 6,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 110
+        "impression_count": 111
       }
     },
     {
@@ -701,553 +1260,7 @@
         "like_count": 11,
         "quote_count": 0,
         "bookmark_count": 0,
-        "impression_count": 262
-      }
-    },
-    {
-      "id": "2042128486102610352",
-      "text": "またまたすみません笑 嬉しかったので、また貼らせてください☺\nなんとフォロワー700人突破しました！！🎉 \n\nこの勢いで今日中に800人突破できるよう頑張ります！ これからもよろしくお願いします！ https://t.co/68ueslGGYA",
-      "created_at": "2026-04-09T06:32:26.000Z",
-      "metrics": {
-        "retweet_count": 2,
-        "reply_count": 30,
-        "like_count": 53,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 1374
-      }
-    },
-    {
-      "id": "2042126596287434854",
-      "text": "先週Kindleで出版した「Claude」の入門書が、なんと無料本ランキングで12位に入りました🎉🎉\n\n無料キャンペーンは【今日まで】の予定です！ 「Claude気になってたし、ちょっと読んでやってもいいよ」という方がいらっしゃいましたら、この機会にぜひダウンロードしていただけると嬉しいです🤣 https://t.co/1JDA2FFQlQ",
-      "created_at": "2026-04-09T06:24:56.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 0,
-        "like_count": 7,
-        "quote_count": 1,
-        "bookmark_count": 0,
-        "impression_count": 251
-      }
-    },
-    {
-      "id": "2042116607976337710",
-      "text": "ホントによく思いつくな\n\nもっと良いことに頭使ったらいいのに\n\n\"「青切符」制度を悪用 警察装う男性、高校生から現金だまし取る\" https://t.co/dSLkXDyBBd",
-      "created_at": "2026-04-09T05:45:14.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 0,
-        "like_count": 4,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 90
-      }
-    },
-    {
-      "id": "2042101823725826247",
-      "text": "Xフォロワーを20人→500人にした方法、全部書きました。\n\nブルーバッジ＋コミュニティ参加だけでこんなに変わるとは思わなかった。\n\nバズも魔法もなし。やったのは「ちゃんと人と向き合うこと」だけ。\n\n詳しくはnoteで↓\nhttps://t.co/ok0ueDWgGK\n\n#note #フォロワー500人",
-      "created_at": "2026-04-09T04:46:29.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 0,
-        "like_count": 19,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 873
-      }
-    },
-    {
-      "id": "2042080185978396720",
-      "text": "数字が変なだけで\nちゃんとフォローはされてるみたい",
-      "created_at": "2026-04-09T03:20:31.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 0,
-        "like_count": 3,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 66
-      }
-    },
-    {
-      "id": "2042079839373713859",
-      "text": "ん、フォロー数の表示がおかしい。",
-      "created_at": "2026-04-09T03:19:08.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 1,
-        "like_count": 6,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 229
-      }
-    },
-    {
-      "id": "2042074168376922124",
-      "text": "半分くらいでまた制限なっちゃいましたꉂ🤣𐤔",
-      "created_at": "2026-04-09T02:56:36.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 0,
-        "like_count": 1,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 57
-      }
-    },
-    {
-      "id": "2042073756609425809",
-      "text": "お、フォロー制限解除されたみたい！\n\n今からフォロバさせていただきますm(*_ _)m\n\nよろしくお願いします！",
-      "created_at": "2026-04-09T02:54:58.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 2,
-        "like_count": 10,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 131
-      }
-    },
-    {
-      "id": "2042051840595124377",
-      "text": "またとんでもないAIがでたもんだね\n\n使ってみたいけど、\n今のところ一般には公開されないみたい\n\n性能が良すぎるのも考えものだね🧐\n\nAnthropicが新AI「Claude Mythos」を発表。GPT-5.4・Gemini 3.1 Proを大幅に上回る超高性能モデル(ギズモード・ジャパン)\n#Yahooニュース\nhttps://t.co/QqPgDm4YWj",
-      "created_at": "2026-04-09T01:27:52.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 0,
-        "like_count": 4,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 319
-      }
-    },
-    {
-      "id": "2042027756033339677",
-      "text": "早くフォロー制限解除してくれ～\n\nフォロワーよりフォロー数が少ないと落ち着かない😅",
-      "created_at": "2026-04-08T23:52:10.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 0,
-        "like_count": 6,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 83
-      }
-    },
-    {
-      "id": "2042014267847954488",
-      "text": "今こんな状況です\nすみません😅 https://t.co/3LAe4TxIVE",
-      "created_at": "2026-04-08T22:58:34.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 0,
-        "like_count": 2,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 49
-      }
-    },
-    {
-      "id": "2042013497379451036",
-      "text": "皆様　はいさい！\n\n朝起きてまずビックリ！🫢\n\n寝てる間に600人突破しておりました🤣\nありがとうございます！！\n\nフォロバもしていきたいのですが、\n想定外のペースでして、\nXのフォロー制限にまた引っかかっております！ https://t.co/eBHbtWXPOY",
-      "created_at": "2026-04-08T22:55:31.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 3,
-        "like_count": 7,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 196
-      }
-    },
-    {
-      "id": "2042012548787216672",
-      "text": "ブルーラウンジの皆様　はいさい！\n今日の沖縄の天気は曇りで湿気がすごいです\n\n昨日はブルーラウンジの皆様から\nたくさんのフォローいただきました！\nありがとうございます😆\n\n引き続き交流させてください😁\n\nよろしくお願いします！",
-      "created_at": "2026-04-08T22:51:45.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 1,
-        "like_count": 25,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 200
-      }
-    },
-    {
-      "id": "2041885943872025080",
-      "text": "これは絶対美味しい🤤\n\n絶対週末食べに行こっと🎶\n\n\"沖縄唯一！ベルギー式フライドポテト専門店がNEWオープン！「ポテト王子」熱々サクホク生ポテト＆こだわりディップソース（那覇市）\" https://t.co/H7ul10oAHe",
-      "created_at": "2026-04-08T14:28:40.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 0,
-        "like_count": 12,
-        "quote_count": 1,
-        "bookmark_count": 1,
-        "impression_count": 279
-      }
-    },
-    {
-      "id": "2041855179474268482",
-      "text": "まさかまさかの今日で５００人突破してしまった🤣\n\nこんなに伸びるとは思いもしなかったです。\n\n次の目標はフォロワー1,000人と収益化目指して頑張っていきます！！🎇\n\n皆様本当にありがとうございました！\n\nこれからもよろしくお願いします🙇‍♂️\n\n#ブルバ100\n#ブルバ https://t.co/wKSnkIUHVR",
-      "created_at": "2026-04-08T12:26:25.000Z",
-      "metrics": {
-        "retweet_count": 1,
-        "reply_count": 20,
-        "like_count": 49,
-        "quote_count": 0,
-        "bookmark_count": 2,
-        "impression_count": 913
-      }
-    },
-    {
-      "id": "2041796473793475011",
-      "text": "今日だけで205人フォロワーが増えました！\n非常にありがたいです🙇‍♂️\n\n今からジムに行くので、増えた分だけ腹筋してきますꉂ🤣𐤔",
-      "created_at": "2026-04-08T08:33:08.000Z",
-      "metrics": {
-        "retweet_count": 1,
-        "reply_count": 6,
-        "like_count": 43,
-        "quote_count": 0,
-        "bookmark_count": 1,
-        "impression_count": 738
-      }
-    },
-    {
-      "id": "2041793215297417453",
-      "text": "流石にビックリです‼️\n\nお昼に300人超えたばっかりなのに、\n\nもう400人越えさせてもらいました😎👐\n\n目標までもう少し！\n\n頑張りますのでよろしくお願いします🙇‍♂️ https://t.co/Rcwk8zShbl",
-      "created_at": "2026-04-08T08:20:11.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 22,
-        "like_count": 40,
-        "quote_count": 0,
-        "bookmark_count": 1,
-        "impression_count": 826
-      }
-    },
-    {
-      "id": "2041736130996154655",
-      "text": "正直ビビってます笑\n\nこんなに早く300人突破するとは\n\nこれも皆さんのおかげです！\n\nありがとうございます🙇‍♂️\n\n目標の500人までもう少し頑張りますので\n\nよろしくお願いします！ https://t.co/2MVCWgAZ9b",
-      "created_at": "2026-04-08T04:33:21.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 23,
-        "like_count": 47,
-        "quote_count": 0,
-        "bookmark_count": 1,
-        "impression_count": 1217
-      }
-    },
-    {
-      "id": "2041734871757025548",
-      "text": "今想定以上にフォロワーが増えてて、\n嬉しい悲鳴をあげています笑\n\nフォロワーの制限がきてしまいましたので、\n解除され次第フォロバさせていただきますので\nもうしばらくお待ちください🙇‍♂️🙇‍♂️",
-      "created_at": "2026-04-08T04:28:21.000Z",
-      "metrics": {
-        "retweet_count": 1,
-        "reply_count": 5,
-        "like_count": 42,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 829
-      }
-    },
-    {
-      "id": "2041692685644542093",
-      "text": "相互フォローしたはずなのに、解除されてるケースが結構ありますね。悲しい😅\n\n解除されてたら私も解除しますので、\nよろしくお願いします！\n\n#ブルバ100",
-      "created_at": "2026-04-08T01:40:43.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 2,
-        "like_count": 16,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 208
-      }
-    },
-    {
-      "id": "2041688590405792067",
-      "text": "さて、ClaudeCodeの週間制限も解除されたことだし、\n今日もいろんな事試してみよ\n\nAI使ってからできることが増えたので、\nとても充実してる気がする☺️",
-      "created_at": "2026-04-08T01:24:27.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 4,
-        "like_count": 19,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 231
-      }
-    },
-    {
-      "id": "2041674229473788374",
-      "text": "ブルーラウンジの皆様\nはいさい！\n先ほど認証されました「佐伯亮」と申します！\nフォロワー500人目指して日々励んでいます😊\n\n#ブルバ100　ですので、よろしくお願いします！",
-      "created_at": "2026-04-08T00:27:23.000Z",
-      "metrics": {
-        "retweet_count": 3,
-        "reply_count": 50,
-        "like_count": 247,
-        "quote_count": 0,
-        "bookmark_count": 3,
-        "impression_count": 6922
-      }
-    },
-    {
-      "id": "2041628712471536000",
-      "text": "ブルーバッジ相互の会のみなさん\nおはようございます(*^^*)\n\n今日の沖縄の天気は曇り空です！\n\n週半ば折り返し地点です。\n週末に向けて頑張っていきましょう💪\n\n #ブルバ100\n #ブルバ500\n #ブルバ",
-      "created_at": "2026-04-07T21:26:31.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 0,
-        "like_count": 13,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 289
-      }
-    },
-    {
-      "id": "2041498562090107187",
-      "text": "わわっ、あっという間にフォロワー200人達成してました！\n\n昨日100人達成したばかりなのに早すぎます😳  ̖́\n\n皆様ありがとうございます！\n\n500人目指して頑張ります！\n\n #ブルバ100\n #ブルバ https://t.co/6xBnElsZV5",
-      "created_at": "2026-04-07T12:49:21.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 5,
-        "like_count": 21,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 278
-      }
-    },
-    {
-      "id": "2041494218305356171",
-      "text": "＼📚今だけ無料キャンペーン中！／\n\n​『ChatGPTは卒業。: Claudeで仕事・副業・人生を自動化する』\n\n​実践的なClaude活用術！\n\n仕事や副業をAIで自動化してみたい方、今なら無料で読めます🎁\n\nぜひダウンロードしてくれると嬉しいです！\n\nよろしくお願いします🙇‍♂️\n\n​👇リンクはこちら👇",
-      "created_at": "2026-04-07T12:32:05.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 0,
-        "like_count": 3,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 56
-      }
-    },
-    {
-      "id": "2041426394186752214",
-      "text": "AIチャットに月3,000円払う価値はあるか。\n\n答えは「即課金すべき」です。\n\n​エンジニアじゃなくても、テキスト業務を丸投げするだけで毎月の投資回収は余裕で終わります。その具体的な根拠と使い方をnoteに置きました。迷っている方は読んでみてください。\n\n​https://t.co/NZYOOhaRL7",
-      "created_at": "2026-04-07T08:02:34.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 1,
-        "like_count": 6,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 125
-      }
-    },
-    {
-      "id": "2041390729105416597",
-      "text": "20ドル分の無料枠貰ったのに\nもう使い果たしちゃった💦",
-      "created_at": "2026-04-07T05:40:51.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 0,
-        "like_count": 1,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 44
-      }
-    },
-    {
-      "id": "2041384842433286359",
-      "text": "試合見てて、今一番得点圏で期待できるバッター。\n\n今年は是非とも首位打者を取ってもらいたい\n\n首位打者の有力候補　肉体強化で覚醒した「巨人の巧打者」は(週刊ベースボールONLINE)\n#Yahooニュース\nhttps://t.co/t8Af8Z940g",
-      "created_at": "2026-04-07T05:17:28.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 0,
-        "like_count": 1,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 62
-      }
-    },
-    {
-      "id": "2041376733660881300",
-      "text": "Googleがオフライン動作するAI文字起こしアプリをひっそりリリースしてた📷\n\n ネット環境が不安定な場所でも使えるのは地味にありがたい。\n\n沖縄だと離島とか北部だとネット環境が最悪なところもあるので使えそう。\n\nこういう地味アップデートが実は一番使える。\n\nGoogle quietly launched an AI",
-      "created_at": "2026-04-07T04:45:14.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 0,
-        "like_count": 3,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 51
-      }
-    },
-    {
-      "id": "2041338935876649097",
-      "text": "ClaudeCode使ってたら突然英字エラーが出ました。バグかと思って1時間調べたら、週間利用制限に引っかかってただけでした😅 制限の存在、全然知らなかったです。",
-      "created_at": "2026-04-07T02:15:03.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 2,
-        "like_count": 4,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 98
-      }
-    },
-    {
-      "id": "2041329980135936050",
-      "text": "OpenAI出身メンバーが「Zero Shot」というVCファンドを立ち上げて、約100億円規模を目指してるらしい✍️\n\nAI業界のお金の流れって本当に速い。\n\nこういう動きが積み重なって次のサービスが生まれてくるんだなと。\n\nOpenAI alums have been quietly investing from a new, potentially $100M fund",
-      "created_at": "2026-04-07T01:39:27.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 0,
-        "like_count": 2,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 49
-      }
-    },
-    {
-      "id": "2041286313605992921",
-      "text": "はいさい！佐伯亮です☀️",
-      "created_at": "2026-04-06T22:45:57.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 0,
-        "like_count": 6,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 65
-      }
-    },
-    {
-      "id": "2041133742752989390",
-      "text": "今日50人超えてテンション上がってたら、気づいたら100人突破してた。                                                                                 \n\nえ、はや\n\nブルバ始めてからフォロワーの伸び方が明らかに変わった。正直ここまで効くとは思ってなかった。\n\nブルバ、恐るべし。\n\n#ブルバ100 https://t.co/NOdil9SAeH",
-      "created_at": "2026-04-06T12:39:41.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 2,
-        "like_count": 2,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 156
-      }
-    },
-    {
-      "id": "2041074832557896131",
-      "text": "復活しました〜\nお騒がせいたしました🙇‍♂️",
-      "created_at": "2026-04-06T08:45:36.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 0,
-        "like_count": 3,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 77
-      }
-    },
-    {
-      "id": "2041064116648026497",
-      "text": "Xの名前の肩書き少し編集したら、ブルーバッジが審議中になって消えてます。\n\n復活するまで少々お待ちください🙇‍♀️",
-      "created_at": "2026-04-06T08:03:01.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 1,
-        "like_count": 5,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 101
-      }
-    },
-    {
-      "id": "2041054827241939423",
-      "text": "フォロワー50人になりました。\n\n  20人→50人、今日だけで30人増えた。\n  ブルーバッジ取ってこんなに早く動くとは思わなかった。素直に嬉しいです😃\n\n  次は100人。引き続きよろしくお願いします！\n\n#ブルバ100\n#ブルバ https://t.co/3pRi29vg5I",
-      "created_at": "2026-04-06T07:26:06.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 4,
-        "like_count": 10,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 133
-      }
-    },
-    {
-      "id": "2041043554861277402",
-      "text": "はじめまして！\n今日から参加させていただきます「佐伯亮」と申します！\nよろしくお願いします！\n\n#ブルバ100\n#ブルーバッジ",
-      "created_at": "2026-04-06T06:41:18.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 3,
-        "like_count": 25,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 200
-      }
-    },
-    {
-      "id": "2041031760109338642",
-      "text": "非エンジニアでもここまでできるようになった。\n\n「Claude Codeで初めてWebアプリを作った全記録【非エンジニア】」\n\n「アプリを作りたいけど、自分にはコードが書けない」\nClaude Codeのインストール（30分）\n\n実際にやって気づいたこと全部まとめた\n🔗 https://t.co/DXBUEblNuY\n\n#ClaudeCode #AI開発",
-      "created_at": "2026-04-06T05:54:26.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 0,
-        "like_count": 3,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 97
-      }
-    },
-    {
-      "id": "2041028832048865565",
-      "text": "Xプレミアム、今半額で入れるみたいでラッキーだった。 https://t.co/3JgvbpCs6j",
-      "created_at": "2026-04-06T05:42:48.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 0,
-        "like_count": 3,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 44
-      }
-    },
-    {
-      "id": "2041026126567682366",
-      "text": "#ブルバ 頼りになるんですが、今日でフォロワー50人超えたら嬉しいな\n\n限界までこちらからフォローしていこっと\n\n #ブルバ100",
-      "created_at": "2026-04-06T05:32:03.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 0,
-        "like_count": 4,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 45
-      }
-    },
-    {
-      "id": "2041005993606463842",
-      "text": "今日からブルーバッジつけました！",
-      "created_at": "2026-04-06T04:12:03.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 0,
-        "like_count": 5,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 60
-      }
-    },
-    {
-      "id": "2040965884995613163",
-      "text": "まだリサーチプレビューだけど、\n 「帰宅したら作業が終わってる」が現実になってきた。\n\n  詳細はこちら↓\n  https://t.co/59oNWgbsf2",
-      "created_at": "2026-04-06T01:32:40.000Z",
-      "metrics": {
-        "retweet_count": 0,
-        "reply_count": 0,
-        "like_count": 1,
-        "quote_count": 0,
-        "bookmark_count": 0,
-        "impression_count": 44
+        "impression_count": 263
       }
     }
   ]
