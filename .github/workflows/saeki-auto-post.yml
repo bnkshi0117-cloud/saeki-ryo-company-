@@ -37,6 +37,7 @@ jobs:
         run: cd x-dashboard && npm install
 
       - name: 自分のツイートを最新取得（エンゲージメントデータ更新）
+        continue-on-error: true
         env:
           X_CONSUMER_KEY:        ${{ secrets.X_CONSUMER_KEY }}
           X_CONSUMER_SECRET:     ${{ secrets.X_CONSUMER_SECRET }}
