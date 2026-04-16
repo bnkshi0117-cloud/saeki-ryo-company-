@@ -1,0 +1,10 @@
+{
+  "accounts": [
+    { "username": "masahirochaen", "note": "私生活・業務でのAIツール実践" },
+    { "username": "satori_sz9",    "note": "AIインフルエンサー" },
+    { "username": "umiyuki_ai",    "note": "日常AI活用" },
+    { "username": "ozaken_ai",     "note": "AI副業系" },
+    { "username": "riku_ai_chatgpt", "note": "ChatGPT活用実体験" },
+    { "username": "SuguruKun_ai",  "note": "ビジネスAI活用" }
+  ]
+}

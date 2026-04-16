@@ -36,6 +36,14 @@ jobs:
       - name: 依存関係インストール
         run: cd x-dashboard && npm install
 
+      - name: 自分のツイートを最新取得（エンゲージメントデータ更新）
+        env:
+          X_CONSUMER_KEY:        ${{ secrets.X_CONSUMER_KEY }}
+          X_CONSUMER_SECRET:     ${{ secrets.X_CONSUMER_SECRET }}
+          X_ACCESS_TOKEN:        ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+        run: cd x-dashboard && node fetch-my-tweets.mjs
+
       - name: 投稿内容を生成・Slack通知
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -61,6 +69,6 @@ jobs:
         run: |
           git config user.name "saeki-auto-poster"
           git config user.email "bot@saeki-ryo-company"
-          git add x-dashboard/post-log.json || true
+          git add x-dashboard/post-log.json x-dashboard/data/my-tweets.json x-dashboard/data/reference-tweets.json || true
           git diff --staged --quiet || git commit -m "佐伯亮投稿記録 $(TZ=Asia/Tokyo date +'%Y-%m-%d %H:%M')"
           git push || true

@@ -1,0 +1,49 @@
+name: トレンド返信候補生成
+
+on:
+  schedule:
+    # JST 9:00 / 13:00 / 17:00 / 20:00
+    - cron: '0 0 * * *'
+    - cron: '0 4 * * *'
+    - cron: '0 8 * * *'
+    - cron: '0 11 * * *'
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4.2.2
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Node.js セットアップ
+        uses: actions/setup-node@v4.3.0
+        with:
+          node-version: '22'
+
+      - name: 依存関係インストール
+        run: cd x-dashboard && npm install
+
+      - name: 返信候補生成・Slack通知
+        env:
+          ANTHROPIC_API_KEY:     ${{ secrets.ANTHROPIC_API_KEY }}
+          SLACK_BOT_TOKEN:       ${{ secrets.SLACK_BOT_TOKEN }}
+          SLACK_CHANNEL_ID:      ${{ secrets.SLACK_CHANNEL_ID }}
+          SLACK_WEBHOOK_URL:     ${{ secrets.SLACK_WEBHOOK_URL }}
+          X_CONSUMER_KEY:        ${{ secrets.X_CONSUMER_KEY }}
+          X_CONSUMER_SECRET:     ${{ secrets.X_CONSUMER_SECRET }}
+          X_ACCESS_TOKEN:        ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+        run: cd x-dashboard && node trend-reply.mjs generate
+
+      - name: 状態ファイルをコミット
+        if: always()
+        run: |
+          git config user.name "saeki-auto-poster"
+          git config user.email "bot@saeki-ryo-company"
+          git add x-dashboard/data/pending-reply.json || true
+          git diff --staged --quiet || git commit -m "トレンド返信候補生成 $(TZ=Asia/Tokyo date +'%Y-%m-%d %H:%M')"
+          git push || true

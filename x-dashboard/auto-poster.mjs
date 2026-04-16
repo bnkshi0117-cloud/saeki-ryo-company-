@@ -137,12 +137,55 @@ async function fetchScenarioData(scenario) {
   } catch { return ""; }
 }
 
+// ── 高エンゲージメント投稿を取得（節目投稿除外） ──────────────
+const MILESTONE_PATTERNS = [
+  /フォロワー/,
+  /\d+人(突破|達成|超え|越え)/,
+  /^\s*🎉/,
+  /節目のポスト/,
+  /フォロー(してくれ|ありがとう)/,
+];
+
+function isMilestone(text) {
+  return MILESTONE_PATTERNS.some(p => p.test(text));
+}
+
+function getTopTweets(n = 6) {
+  try {
+    const data = JSON.parse(fs.readFileSync(path.join(__dirname, "data/my-tweets.json"), "utf-8"));
+    return data.tweets
+      .filter(t => t.metrics.impression_count > 0 && !isMilestone(t.text))
+      .sort((a, b) => b.metrics.impression_count - a.metrics.impression_count)
+      .slice(0, n)
+      .map(t => `- 「${t.text.replace(/\n/g, " ")}」（インプ: ${t.metrics.impression_count}）`);
+  } catch { return []; }
+}
+
+// ── 参照アカウントの高インプ投稿を取得 ───────────────────────
+function getReferenceTweets(perAccount = 2) {
+  try {
+    const data = JSON.parse(fs.readFileSync(path.join(__dirname, "data/reference-tweets.json"), "utf-8"));
+    const lines = [];
+    for (const account of data.accounts) {
+      const top = account.tweets
+        .filter(t => !isMilestone(t.text))
+        .slice(0, perAccount);
+      for (const t of top) {
+        lines.push(`- @${account.username}「${t.text.replace(/\n/g, " ").slice(0, 100)}」（インプ: ${t.metrics.impression_count}）`);
+      }
+    }
+    return lines;
+  } catch { return []; }
+}
+
 // ── Claude投稿生成 ────────────────────────────────────────────
 async function generatePost(news) {
   const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
   const log = readLog();
   const recentTexts = log.slice(-10).map(p => p.text).join("\n---\n");
   const recentTypes = log.slice(-5).map(p => p.type).join(", ");
+  const topTweets = getTopTweets(6);
+  const refTweets = getReferenceTweets();
 
   const newsList = news.map((n, i) =>
     `[${i + 1}] [${n.lang === "ja" ? "日本語" : "英語"}] ${n.source}\nタイトル: ${n.title}\n概要: ${n.summary?.slice(0, 200)}\nURL: ${n.link}`
@@ -177,17 +220,19 @@ ${newsList}
 以下のルールでXポストを1件生成してください。
 
 【投稿タイプ選択基準】
-- news_insight  : ニュースを読んだ佐伯亮としての解釈・感想（最多・具体的な気づきがあれば）
-- news_citation : ニュースURLを引用しつつ一言コメント（週2〜3程度に抑える）
-- side_job      : AI副業・Kindle・アプリ開発の実体験や気づき（具体的な数字があれば積極的に）
-- algorithm     : Xの仕組みについての仮説・考察（週1程度・必ず「個人の見解ですが、」で始める）
-- simulation    : 収集した実データ・記事本文を深く読み込み、【初歩的な情報は絶対に書かない】。「使い分けが大事」「AIは便利」レベルは禁止。必ず①反転・意外な発見（「〇〇かと思ったら逆だった」）②具体的な条件・数値・ケース（「30分超えると〜」「3割が〜」）③自分なりの解釈・仮説（「たぶん〜が原因」「これは〜と同じ構造」）のいずれかを含めること。冒頭は「〇〇を調べてみた。」形式。シナリオと実データがある場合のみ選択可。
+優先順位: side_job（実体験） > simulation（実データあり時） > news_insight > algorithm > news_citation
 
-【佐伯亮の実際の投稿サンプル（この文体・語尾を完全に模倣すること）】
-- 「大手企業連合による「国産AI」開発のニュース。正直、期待よりも「どうやって海外勢と差別化するの？」という疑問が勝るかな。」
-- 「AIの便利さに慣れきって、人間の「忍耐力」が奪われてるって記事。これ、めちゃくちゃ痛感する。一瞬でそれっぽい答えを出してくれるから、泥臭い思考力が落ちていく感覚があるんだよね。」
-- 「SE歴26年の人が6日間コードを1行も書かず、8体のAIエージェント組織を作った記事を読んだ。「何を作るか」より「AIとどう話すか」が技術になってきてる実感、自分も最近あります 🤔」
-- 「Claude Codeのメモリ活用を調べてみた。「Obsidian連携でWiki化」が面白かった。脳の外にAIを記憶媒体として置く発想。結局「どう整理するか」の設計力が効いてくる 📝」
+- side_job      : AI副業・Kindle・アプリ開発・SNS運用など佐伯亮の実体験や気づき。具体的な数字・失敗・発見があれば最優先で選ぶ。「やってみたらこうだった」が核心。
+- simulation    : 収集した実データ・記事本文を深く読み込み、【初歩的な情報は絶対に書かない】。「使い分けが大事」「AIは便利」レベルは禁止。必ず①反転・意外な発見②具体的な条件・数値③自分なりの解釈のいずれかを含めること。冒頭は「〇〇を調べてみた。」形式。シナリオと実データがある場合のみ選択可。
+- news_insight  : ニュースを読んだ佐伯亮としての解釈・感想。具体的な気づきがある場合のみ。
+- algorithm     : Xの仕組みについての仮説・考察（週1程度・必ず「個人の見解ですが、」で始める）
+- news_citation : ニュースURLを引用しつつ一言コメント（週2〜3程度に抑える）
+
+【実際に伸びた自分の投稿（インプ順・この文体と温度感を模倣すること）】
+${topTweets.length > 0 ? topTweets.join("\n") : "- （データなし）"}
+
+【佐伯亮がいいねした他の人の投稿（内容ではなく「刺さった理由・構造」を参考にすること）】
+${refTweets.length > 0 ? refTweets.join("\n") : "- （データなし）"}
 
 【文体ルール（必ず守ること）】
 - 140文字以内

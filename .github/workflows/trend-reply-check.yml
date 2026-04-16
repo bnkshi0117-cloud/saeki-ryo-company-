@@ -1,0 +1,45 @@
+name: Slack返信確認・処理
+
+on:
+  schedule:
+    # 10分ごとに確認
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4.2.2
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Node.js セットアップ
+        uses: actions/setup-node@v4.3.0
+        with:
+          node-version: '22'
+
+      - name: 依存関係インストール
+        run: cd x-dashboard && npm install
+
+      - name: Slack返信確認・処理
+        env:
+          ANTHROPIC_API_KEY:     ${{ secrets.ANTHROPIC_API_KEY }}
+          SLACK_BOT_TOKEN:       ${{ secrets.SLACK_BOT_TOKEN }}
+          SLACK_CHANNEL_ID:      ${{ secrets.SLACK_CHANNEL_ID }}
+          X_CONSUMER_KEY:        ${{ secrets.X_CONSUMER_KEY }}
+          X_CONSUMER_SECRET:     ${{ secrets.X_CONSUMER_SECRET }}
+          X_ACCESS_TOKEN:        ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+        run: cd x-dashboard && node trend-reply.mjs check
+
+      - name: 状態ファイルをコミット
+        if: always()
+        run: |
+          git config user.name "saeki-auto-poster"
+          git config user.email "bot@saeki-ryo-company"
+          git add x-dashboard/data/pending-reply.json || true
+          git diff --staged --quiet || git commit -m "トレンド返信処理 $(TZ=Asia/Tokyo date +'%Y-%m-%d %H:%M')"
+          git push || true
