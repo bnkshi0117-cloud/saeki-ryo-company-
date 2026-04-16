@@ -48,8 +48,10 @@ function getTwitter() {
 }
 
 // ── トレンドツイート検索 ──────────────────────────────────────
+// 伸びてると判断する最低いいね数
+const MIN_LIKES = 50;
+
 async function findTrendingTweet(twitter) {
-  // Basic APIプランで使えるシンプルなクエリ（min_favesは上位プランのみ）
   const queries = [
     "lang:ja -is:retweet -is:reply (事件 OR 事故 OR 速報 OR 話題)",
     "lang:ja -is:retweet -is:reply (AI OR ChatGPT OR Claude OR 生成AI)",
@@ -59,7 +61,7 @@ async function findTrendingTweet(twitter) {
     try {
       console.log(`🔍 検索: ${query}`);
       const result = await twitter.v2.search(query, {
-        max_results: 10,
+        max_results: 20,
         "tweet.fields": ["public_metrics", "created_at"],
         sort_order: "relevancy",
       });
@@ -67,17 +69,25 @@ async function findTrendingTweet(twitter) {
       console.log(`  → ${tweets.length}件取得`);
       if (tweets.length === 0) continue;
 
-      // いいね数でソートして上位を返す
-      const sorted = tweets.sort((a, b) =>
-        (b.public_metrics.like_count + b.public_metrics.reply_count) -
-        (a.public_metrics.like_count + a.public_metrics.reply_count)
-      );
-      console.log(`  → 最高エンゲージメント: ${sorted[0].public_metrics.like_count}いいね`);
-      return sorted[0];
+      // 最低いいね数でフィルター → エンゲージメント順でソート
+      const qualified = tweets
+        .filter(t => t.public_metrics.like_count >= MIN_LIKES)
+        .sort((a, b) =>
+          (b.public_metrics.like_count + b.public_metrics.reply_count * 2) -
+          (a.public_metrics.like_count + a.public_metrics.reply_count * 2)
+        );
+
+      console.log(`  → ${MIN_LIKES}いいね以上: ${qualified.length}件`);
+      if (qualified.length === 0) continue;
+
+      const top = qualified[0];
+      console.log(`  → 採用: ${top.public_metrics.like_count}いいね / ${top.public_metrics.reply_count}返信`);
+      return top;
     } catch (e) {
       console.warn(`⚠️  検索失敗: ${e.message}`);
     }
   }
+  console.log(`⚠️  ${MIN_LIKES}いいね以上のツイートが見つかりませんでした`);
   return null;
 }
 
