@@ -61,7 +61,7 @@ async function findTrendingTweet(twitter) {
     try {
       console.log(`🔍 検索: ${query}`);
       const result = await twitter.v2.search(query, {
-        max_results: 20,
+        max_results: 100,
         "tweet.fields": ["public_metrics", "created_at"],
         sort_order: "relevancy",
       });

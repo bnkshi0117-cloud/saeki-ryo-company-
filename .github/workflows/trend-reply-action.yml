@@ -6,7 +6,7 @@ on:
       action:
         description: 'approve（承認） / modify（修正） / cancel（キャンセル）'
         required: true
-        default: 'approve'
+        default: 'cancel'
         type: choice
         options:
           - approve
