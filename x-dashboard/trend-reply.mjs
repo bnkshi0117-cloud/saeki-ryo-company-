@@ -51,8 +51,8 @@ function getTwitter() {
 async function findTrendingTweet(twitter) {
   // Basic APIプランで使えるシンプルなクエリ（min_favesは上位プランのみ）
   const queries = [
-    "lang:ja -is:retweet (事件 OR 事故 OR 速報 OR 話題)",
-    "lang:ja -is:retweet (AI OR ChatGPT OR Claude OR 生成AI)",
+    "lang:ja -is:retweet -is:reply (事件 OR 事故 OR 速報 OR 話題)",
+    "lang:ja -is:retweet -is:reply (AI OR ChatGPT OR Claude OR 生成AI)",
   ];
 
   for (const query of queries) {
