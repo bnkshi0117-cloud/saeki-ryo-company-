@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-04-16T06:23:28.400Z",
+  "fetched_at": "2026-04-16T07:13:54.502Z",
   "accounts": [
     {
       "username": "masahirochaen",
@@ -11,10 +11,10 @@
           "metrics": {
             "retweet_count": 97,
             "reply_count": 8,
-            "like_count": 1151,
+            "like_count": 1158,
             "quote_count": 6,
-            "bookmark_count": 1447,
-            "impression_count": 160965
+            "bookmark_count": 1454,
+            "impression_count": 162387
           }
         },
         {
@@ -23,10 +23,10 @@
           "metrics": {
             "retweet_count": 70,
             "reply_count": 11,
-            "like_count": 987,
+            "like_count": 991,
             "quote_count": 19,
-            "bookmark_count": 1064,
-            "impression_count": 111992
+            "bookmark_count": 1068,
+            "impression_count": 112867
           }
         },
         {
@@ -35,22 +35,22 @@
           "metrics": {
             "retweet_count": 39,
             "reply_count": 10,
-            "like_count": 531,
+            "like_count": 535,
             "quote_count": 15,
-            "bookmark_count": 448,
-            "impression_count": 75555
+            "bookmark_count": 455,
+            "impression_count": 76268
           }
         },
         {
           "text": "【⚡️速報】Google Geminiから新機能「パーソナル インテリジェンス」が正式公開。\n\nGmail、Google フォト、Google 検索、YouTube などの履歴からユーザー好みの回答を生成。\n\nこれがまさにGoogleのエコシステムの強み。 https://t.co/D3v9BY4aiM",
           "created_at": "2026-04-14T14:38:20.000Z",
           "metrics": {
-            "retweet_count": 52,
+            "retweet_count": 51,
             "reply_count": 7,
-            "like_count": 532,
+            "like_count": 533,
             "quote_count": 17,
             "bookmark_count": 325,
-            "impression_count": 70017
+            "impression_count": 70136
           }
         },
         {
@@ -59,10 +59,10 @@
           "metrics": {
             "retweet_count": 37,
             "reply_count": 2,
-            "like_count": 328,
+            "like_count": 329,
             "quote_count": 2,
             "bookmark_count": 299,
-            "impression_count": 51257
+            "impression_count": 51492
           }
         }
       ]
@@ -77,10 +77,10 @@
           "metrics": {
             "retweet_count": 21,
             "reply_count": 1,
-            "like_count": 228,
+            "like_count": 257,
             "quote_count": 0,
-            "bookmark_count": 168,
-            "impression_count": 50355
+            "bookmark_count": 189,
+            "impression_count": 57826
           }
         },
         {
@@ -92,7 +92,7 @@
             "like_count": 77,
             "quote_count": 3,
             "bookmark_count": 56,
-            "impression_count": 23983
+            "impression_count": 23992
           }
         },
         {
@@ -104,7 +104,7 @@
             "like_count": 23,
             "quote_count": 2,
             "bookmark_count": 30,
-            "impression_count": 11555
+            "impression_count": 11566
           }
         },
         {
@@ -116,7 +116,7 @@
             "like_count": 6,
             "quote_count": 0,
             "bookmark_count": 1,
-            "impression_count": 9821
+            "impression_count": 9828
           }
         },
         {
@@ -125,10 +125,10 @@
           "metrics": {
             "retweet_count": 0,
             "reply_count": 0,
-            "like_count": 45,
+            "like_count": 46,
             "quote_count": 3,
             "bookmark_count": 8,
-            "impression_count": 9414
+            "impression_count": 9593
           }
         }
       ]
@@ -141,24 +141,24 @@
           "text": "排除じゃないけどゆうちょはSteamからの売り上げが入ってると「どんなゲーム売ってるのか具体的に内容を教えろ！そうするまで売り上げ振り込むの停止しちゃいました！ストアページのスクショとかを紙にプリントして郵便で送れ！ネットから提出はできない！」とかすげーガタガタうるせーからもう銀行変 https://t.co/jXCfCGcslb",
           "created_at": "2026-04-15T02:42:25.000Z",
           "metrics": {
-            "retweet_count": 1598,
+            "retweet_count": 1601,
             "reply_count": 2,
-            "like_count": 4105,
+            "like_count": 4113,
             "quote_count": 36,
-            "bookmark_count": 655,
-            "impression_count": 700600
+            "bookmark_count": 656,
+            "impression_count": 702339
           }
         },
         {
           "text": "Allbirdsとかいう知らん会社が物議を醸しているという。なんか数年前に流行ったスニーカー作って売ってる会社らしいんだけど、上場後にブームが去って赤字続きでズタボロに。数日前にたったの60億円で靴事業売っちゃったという。靴メーカーが靴作るのやめてどうすんねんとか言ってたら今日になっていき https://t.co/sjYh44SAfe",
           "created_at": "2026-04-15T19:21:17.000Z",
           "metrics": {
-            "retweet_count": 178,
+            "retweet_count": 183,
             "reply_count": 0,
-            "like_count": 622,
+            "like_count": 633,
             "quote_count": 14,
-            "bookmark_count": 98,
-            "impression_count": 174531
+            "bookmark_count": 100,
+            "impression_count": 178207
           }
         },
         {
@@ -170,7 +170,7 @@
             "like_count": 247,
             "quote_count": 14,
             "bookmark_count": 60,
-            "impression_count": 86432
+            "impression_count": 86523
           }
         },
         {
@@ -179,10 +179,10 @@
           "metrics": {
             "retweet_count": 24,
             "reply_count": 0,
-            "like_count": 154,
+            "like_count": 155,
             "quote_count": 11,
             "bookmark_count": 49,
-            "impression_count": 41051
+            "impression_count": 41175
           }
         },
         {
@@ -194,7 +194,7 @@
             "like_count": 86,
             "quote_count": 2,
             "bookmark_count": 20,
-            "impression_count": 24573
+            "impression_count": 24649
           }
         }
       ]
@@ -212,7 +212,7 @@
             "like_count": 92,
             "quote_count": 0,
             "bookmark_count": 11,
-            "impression_count": 8707
+            "impression_count": 8708
           }
         },
         {
@@ -224,7 +224,7 @@
             "like_count": 55,
             "quote_count": 4,
             "bookmark_count": 14,
-            "impression_count": 5947
+            "impression_count": 5948
           }
         },
         {
@@ -236,7 +236,7 @@
             "like_count": 32,
             "quote_count": 1,
             "bookmark_count": 4,
-            "impression_count": 4192
+            "impression_count": 4196
           }
         },
         {
@@ -248,19 +248,19 @@
             "like_count": 52,
             "quote_count": 2,
             "bookmark_count": 19,
-            "impression_count": 4018
+            "impression_count": 4022
           }
         },
         {
-          "text": "さらば青春の光の森田さんとご一緒。@saraba_morita \n\nYouTube番組「さらば森田のAI〇〇ラボ」に出演させていただきました。\n\nゲストとしてお邪魔したのですが、楽しすぎてほぼレギュラーみたいになってしまいました（笑）。他の収録回もかなり面白い内容になっているので、ぜひお楽しみに。 https://t.co/kyUjXCdo1I",
-          "created_at": "2026-04-08T07:07:38.000Z",
+          "text": "&lt;重大告知&gt;\n3日間で20回以上登壇します。大変なので見守りにきてください...\n\n2026年4月15日〜17日に東京ビッグサイトで開催されるAI・人工知能EXPOの特別企画「AI Table 2026（春）」にて、モデレーターとして登壇させていただきます！ https://t.co/3mYukWNHrb",
+          "created_at": "2026-03-23T09:32:00.000Z",
           "metrics": {
-            "retweet_count": 3,
+            "retweet_count": 11,
             "reply_count": 1,
-            "like_count": 34,
-            "quote_count": 1,
-            "bookmark_count": 2,
-            "impression_count": 3982
+            "like_count": 51,
+            "quote_count": 3,
+            "bookmark_count": 4,
+            "impression_count": 3985
           }
         }
       ]
@@ -339,24 +339,24 @@
           "text": "PCを閉じてもClaude Codeが動き続ける\n「Routines」機能が登場！！！これかなりデカい。\nㅤ\n何ができるかというと、、、Claude Codeのセッションを「テンプレート化」して、3種類のトリガーで自動実行できるようになった。\nhttps://t.co/rISjDNosbG\n① Schedule —",
           "created_at": "2026-04-15T03:27:04.000Z",
           "metrics": {
-            "retweet_count": 37,
+            "retweet_count": 38,
             "reply_count": 12,
-            "like_count": 495,
+            "like_count": 501,
             "quote_count": 11,
-            "bookmark_count": 570,
-            "impression_count": 50185
+            "bookmark_count": 577,
+            "impression_count": 50631
           }
         },
         {
           "text": "待て待て待てChatGPTの新しい画像生成、すごすぎない？\nめっっちゃコンサルライクな画像一瞬で生成できた https://t.co/wEZK3LZ1Es",
           "created_at": "2026-04-15T16:10:54.000Z",
           "metrics": {
-            "retweet_count": 25,
-            "reply_count": 8,
-            "like_count": 390,
-            "quote_count": 14,
-            "bookmark_count": 259,
-            "impression_count": 43657
+            "retweet_count": 26,
+            "reply_count": 9,
+            "like_count": 406,
+            "quote_count": 13,
+            "bookmark_count": 277,
+            "impression_count": 46937
           }
         },
         {
@@ -367,8 +367,8 @@
             "reply_count": 1,
             "like_count": 170,
             "quote_count": 6,
-            "bookmark_count": 282,
-            "impression_count": 25339
+            "bookmark_count": 283,
+            "impression_count": 25378
           }
         },
         {
@@ -380,7 +380,7 @@
             "like_count": 49,
             "quote_count": 2,
             "bookmark_count": 14,
-            "impression_count": 14640
+            "impression_count": 14702
           }
         },
         {
@@ -392,7 +392,7 @@
             "like_count": 6,
             "quote_count": 0,
             "bookmark_count": 3,
-            "impression_count": 10922
+            "impression_count": 10941
           }
         }
       ]
