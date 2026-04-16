@@ -257,8 +257,11 @@ JSONのみ出力（説明文不要）：
     }],
   });
 
-  const raw = msg.content[0].text.trim().replace(/^```json\n?/, "").replace(/\n?```$/, "");
-  const result = JSON.parse(raw);
+  const rawText = msg.content[0].text.trim();
+  // JSON部分だけを抽出（前後に余分なテキストがついても対応）
+  const jsonMatch = rawText.match(/\{[\s\S]*\}/);
+  if (!jsonMatch) throw new Error(`Claude応答にJSONが見つかりません: ${rawText.slice(0, 100)}`);
+  const result = JSON.parse(jsonMatch[0]);
   const source = (result.source_index != null) ? news[result.source_index - 1] : null;
 
   console.log(`✍️  生成完了 [${result.type}]: ${result.text.slice(0, 50)}...`);
@@ -385,12 +388,18 @@ const mode = process.argv[2];
 if (mode === "generate") {
   // Step1: 生成 → pending-post.json に保存 → Slack通知
   const cancelUrl = process.argv[3] || "https://github.com";
-  const news = await fetchNews();
-  const item = await generatePost(news);
-  fs.writeFileSync(PENDING_FILE, JSON.stringify(item, null, 2));
-  console.log("💾 pending-post.json 保存");
-  await notifySlackPreview(item, cancelUrl);
-  console.log("📲 Slack通知送信");
+  try {
+    const news = await fetchNews();
+    const item = await generatePost(news);
+    fs.writeFileSync(PENDING_FILE, JSON.stringify(item, null, 2));
+    console.log("💾 pending-post.json 保存");
+    await notifySlackPreview(item, cancelUrl);
+    console.log("📲 Slack通知送信");
+  } catch (err) {
+    console.error(`❌ 生成失敗: ${err.message}`);
+    await notifySlackError(`生成失敗: ${err.message}`);
+    process.exit(1);
+  }
   process.exit(0);
 
 } else if (mode === "post") {
