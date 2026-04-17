@@ -312,9 +312,9 @@
     {
       "id": 44,
       "text": "兄夫婦の子どもたちと映画館行ってきた🎬\n甥っ子が爆笑してて、その様子見てるだけで\nこっちまで楽しくなっちゃった笑\nたまのおでかけ、やっぱりいいな〜✨",
-      "status": "pending",
-      "posted_at": null,
-      "thread_id": null
+      "status": "posted",
+      "posted_at": "2026-04-17T12:08:03.668Z",
+      "thread_id": "18104108929742075"
     },
     {
       "id": 45,
@@ -338,5 +338,5 @@
       "thread_id": null
     }
   ],
-  "lastPostedAt": "2026-04-17T10:38:37.479Z"
+  "lastPostedAt": "2026-04-17T12:08:03.668Z"
 }
