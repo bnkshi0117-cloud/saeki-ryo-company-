@@ -1,68 +1,68 @@
 {
-  "fetched_at": "2026-04-16T11:41:22.708Z",
+  "fetched_at": "2026-04-17T00:05:06.226Z",
   "accounts": [
     {
       "username": "masahirochaen",
       "note": "私生活・業務でのAIツール実践",
       "tweets": [
         {
-          "text": "「家族旅行版Palantir」を作成した漢が現る。\nこれは凄い。旅行に本気を出しすぎ笑\n\nGithubに公開されているので、土日に試したい\n\n・コンボイ追跡＋ルート再生（複数都市から集合）\n・食事・宿・アクティビティ・経費を一元管理\n・React 19＋Google Maps API、MIT公開済み\nhttps://t.co/uENQQWWqFg",
-          "created_at": "2026-04-14T22:07:01.000Z",
+          "text": "完全Claude Codeだけで企業向けLPを作成。\n\n・所要時間 約2時間\n・Figmaなどのデザインツール無し\n・画像生成も全部Claude Code内で完結\n・Googleフォーム連携済み\n・X / YouTube / Note APIで情報を自動更新\n・カルーセル表示・スクロール型・ロゴ配置までフル対応\n\n【2時間の内訳】\n・構成・指示出し https://t.co/TSIKkD5TQw",
+          "created_at": "2026-04-16T12:13:51.000Z",
           "metrics": {
-            "retweet_count": 99,
-            "reply_count": 8,
-            "like_count": 1185,
+            "retweet_count": 22,
+            "reply_count": 5,
+            "like_count": 450,
+            "quote_count": 6,
+            "bookmark_count": 474,
+            "impression_count": 40584
+          }
+        },
+        {
+          "text": "【意外】靴会社がAI企業に転身→株価400%超爆上がり\n\n日本でも一世を風靡したAllbirdsがまさかのAI企業に転身。\n僕も何足か持ってたので正直驚いた。\n\nAllbirdsは2015年創業、シリコンバレーのエンジニアやVCが履いていた「テック界の制服」とまで言われたウールスニーカーブランド。 https://t.co/qfQAfBg30s",
+          "created_at": "2026-04-15T23:25:01.000Z",
+          "metrics": {
+            "retweet_count": 9,
+            "reply_count": 6,
+            "like_count": 148,
+            "quote_count": 3,
+            "bookmark_count": 74,
+            "impression_count": 38010
+          }
+        },
+        {
+          "text": "Anthropicから新しいXアカウントが登場！！\n\n変更履歴、APIのリリース、コミュニティの最新情報などを発信予定。\n\nClaude Codeユーザーは必見のアカウント。 https://t.co/DUYnxGqEtC",
+          "created_at": "2026-04-16T22:38:00.000Z",
+          "metrics": {
+            "retweet_count": 5,
+            "reply_count": 3,
+            "like_count": 71,
+            "quote_count": 1,
+            "bookmark_count": 38,
+            "impression_count": 32999
+          }
+        },
+        {
+          "text": "FirecrawlからPDFを高速処理できる「Fire-PDF」が登場\n\n私はClaudeCodeでもFirecrawl愛用してるので、APIで自動適用はありがたい。\n\n・Rust製エンジンでMarkdown変換3.5〜5.7倍速\n・216ページの財務報告書が約83秒で処理\n・テーブルはMarkdown・数式はLaTeX完全保持\n\nhttps://t.co/jzXFuPBCAP",
+          "created_at": "2026-04-15T21:59:01.000Z",
+          "metrics": {
+            "retweet_count": 18,
+            "reply_count": 1,
+            "like_count": 254,
+            "quote_count": 8,
+            "bookmark_count": 264,
+            "impression_count": 24245
+          }
+        },
+        {
+          "text": "【⚡️速報】Anthropicが最上位モデル「Claude Opus 4.7」を公開\n\nコーディングの性能が上がり、更に画像の読み込み精度も上がった。つまり、UIのスクショ、回路図などを細部まで認識できる。\n\nClaude Codeの性能も更に上がる。Claude強すぎる…\n\n・社内コード評価でOpus 4.6比+13% https://t.co/XphHAbD2yN",
+          "created_at": "2026-04-16T17:37:49.000Z",
+          "metrics": {
+            "retweet_count": 10,
+            "reply_count": 1,
+            "like_count": 118,
             "quote_count": 7,
-            "bookmark_count": 1495,
-            "impression_count": 169144
-          }
-        },
-        {
-          "text": "【⚡️速報】Claude Codeにタスクを簡単に自動化できるRoutinesが登場。\n\nAnthropicのクラウド基盤で動くので、別途MacMiniなどで常用型のPCが不要。\n\n以前から愛用してましたが、大幅アップデートして嬉しい。\n\nトリガーは3種類：\n・スケジュール（毎時/夜間/週次） https://t.co/cQKMBfUfum",
-          "created_at": "2026-04-15T02:25:16.000Z",
-          "metrics": {
-            "retweet_count": 73,
-            "reply_count": 11,
-            "like_count": 1022,
-            "quote_count": 19,
-            "bookmark_count": 1104,
-            "impression_count": 117221
-          }
-        },
-        {
-          "text": "Claude Codeのデスクトップアプリが進化しすぎて、ターミナルを使わなくてもよくなっている説。\n\n進化速度が速すぎて、常に最新情報取っておかないと努力が無駄になる可能性もある‥\n\n・過去のセッション一覧表示\n・フォルダを選択して展開\n・ワーキングツリー、プレビューの表示\n・ターミナルの起動 https://t.co/xSGmQwgiQ1",
-          "created_at": "2026-04-15T05:25:16.000Z",
-          "metrics": {
-            "retweet_count": 41,
-            "reply_count": 10,
-            "like_count": 556,
-            "quote_count": 18,
-            "bookmark_count": 478,
-            "impression_count": 80628
-          }
-        },
-        {
-          "text": "【⚡️速報】Google Geminiから新機能「パーソナル インテリジェンス」が正式公開。\n\nGmail、Google フォト、Google 検索、YouTube などの履歴からユーザー好みの回答を生成。\n\nこれがまさにGoogleのエコシステムの強み。 https://t.co/D3v9BY4aiM",
-          "created_at": "2026-04-14T14:38:20.000Z",
-          "metrics": {
-            "retweet_count": 51,
-            "reply_count": 7,
-            "like_count": 537,
-            "quote_count": 17,
-            "bookmark_count": 328,
-            "impression_count": 70680
-          }
-        },
-        {
-          "text": "【⚡️速報】Google ChromeにSkillsが登場。\n\nGoogleにもSkillsが来たか\nただ、本来のSkillsでなくプロンプト呼び出しに近い\n\n・プロンプトをSkillsで保存→1クリック再実行\n・「/」or「+」で即呼び出し\n・複数タブ同時適用、全端末自動同期\n・スキルライブラリも同時ローンチ\nhttps://t.co/Mo6OzqXKPP",
-          "created_at": "2026-04-15T02:59:36.000Z",
-          "metrics": {
-            "retweet_count": 37,
-            "reply_count": 2,
-            "like_count": 336,
-            "quote_count": 2,
-            "bookmark_count": 304,
-            "impression_count": 52418
+            "bookmark_count": 37,
+            "impression_count": 21282
           }
         }
       ]
@@ -75,24 +75,24 @@
           "text": "とんでもないレベルになってきた。 https://t.co/QWoVLMzHox",
           "created_at": "2026-04-15T14:32:08.000Z",
           "metrics": {
-            "retweet_count": 36,
+            "retweet_count": 46,
             "reply_count": 1,
-            "like_count": 398,
+            "like_count": 557,
             "quote_count": 1,
-            "bookmark_count": 281,
-            "impression_count": 99255
+            "bookmark_count": 360,
+            "impression_count": 135910
           }
         },
         {
-          "text": "ローカルのClaude CodeからサーバーのCodexを呼ぶとき、完了通知が来ないのがネックですよね。\n\nそんなときはClaude Codeでサブエージェントを作ってその中からCodexを使わせて監視させましょう。そうするとCodexが完了したらサブエージェントも完了するので通知代わりになります。",
-          "created_at": "2026-04-09T13:37:38.000Z",
+          "text": "久々にCodexを直に触ったけど、これは本当にコミュニケーションに問題がありすぎる。的を射ない回答をしすぎ。ハルシネーションも多いし、直接仕事を依頼する分にはClaude Codeの方がまだマシだわ。間接的に使う分には優秀なんだけど、対人間のコミュニケーションを本当にどうにかして欲しい。",
+          "created_at": "2026-04-15T14:40:05.000Z",
           "metrics": {
-            "retweet_count": 5,
-            "reply_count": 1,
-            "like_count": 77,
+            "retweet_count": 0,
+            "reply_count": 0,
+            "like_count": 56,
             "quote_count": 3,
-            "bookmark_count": 56,
-            "impression_count": 24025
+            "bookmark_count": 8,
+            "impression_count": 12479
           }
         },
         {
@@ -104,19 +104,7 @@
             "like_count": 23,
             "quote_count": 2,
             "bookmark_count": 30,
-            "impression_count": 11611
-          }
-        },
-        {
-          "text": "久々にCodexを直に触ったけど、これは本当にコミュニケーションに問題がありすぎる。的を射ない回答をしすぎ。ハルシネーションも多いし、直接仕事を依頼する分にはClaude Codeの方がまだマシだわ。間接的に使う分には優秀なんだけど、対人間のコミュニケーションを本当にどうにかして欲しい。",
-          "created_at": "2026-04-15T14:40:05.000Z",
-          "metrics": {
-            "retweet_count": 0,
-            "reply_count": 0,
-            "like_count": 50,
-            "quote_count": 3,
-            "bookmark_count": 8,
-            "impression_count": 10654
+            "impression_count": 11700
           }
         },
         {
@@ -128,7 +116,19 @@
             "like_count": 6,
             "quote_count": 0,
             "bookmark_count": 1,
-            "impression_count": 9849
+            "impression_count": 9902
+          }
+        },
+        {
+          "text": "マイクラ関連だけで30万行弱まで成長してきた。MindAxis全体だと60万行超えた。",
+          "created_at": "2026-04-11T10:36:44.000Z",
+          "metrics": {
+            "retweet_count": 0,
+            "reply_count": 1,
+            "like_count": 18,
+            "quote_count": 1,
+            "bookmark_count": 0,
+            "impression_count": 8713
           }
         }
       ]
@@ -138,39 +138,15 @@
       "note": "日常AI活用",
       "tweets": [
         {
-          "text": "排除じゃないけどゆうちょはSteamからの売り上げが入ってると「どんなゲーム売ってるのか具体的に内容を教えろ！そうするまで売り上げ振り込むの停止しちゃいました！ストアページのスクショとかを紙にプリントして郵便で送れ！ネットから提出はできない！」とかすげーガタガタうるせーからもう銀行変 https://t.co/jXCfCGcslb",
-          "created_at": "2026-04-15T02:42:25.000Z",
-          "metrics": {
-            "retweet_count": 1604,
-            "reply_count": 2,
-            "like_count": 4138,
-            "quote_count": 37,
-            "bookmark_count": 662,
-            "impression_count": 707843
-          }
-        },
-        {
           "text": "Allbirdsとかいう知らん会社が物議を醸しているという。なんか数年前に流行ったスニーカー作って売ってる会社らしいんだけど、上場後にブームが去って赤字続きでズタボロに。数日前にたったの60億円で靴事業売っちゃったという。靴メーカーが靴作るのやめてどうすんねんとか言ってたら今日になっていき https://t.co/sjYh44SAfe",
           "created_at": "2026-04-15T19:21:17.000Z",
           "metrics": {
-            "retweet_count": 205,
+            "retweet_count": 230,
             "reply_count": 1,
-            "like_count": 701,
-            "quote_count": 18,
-            "bookmark_count": 112,
-            "impression_count": 194609
-          }
-        },
-        {
-          "text": "AnthropicがSaaSをシバキ回してるのは「ド素人どもがAI使って競合SaaS作るから」ではないと思います。それよりAI社員はそもそもSaaSが要らんからでしょう。SaaSは人間の社員のためのものです。マウスポチポチしてデータを操作するGUIとかが整備されてます。AI社員はそういうの要りません。ちょっと別の https://t.co/M1rpjCIsV8",
-          "created_at": "2026-04-14T12:54:03.000Z",
-          "metrics": {
-            "retweet_count": 50,
-            "reply_count": 2,
-            "like_count": 247,
-            "quote_count": 14,
-            "bookmark_count": 60,
-            "impression_count": 87123
+            "like_count": 791,
+            "quote_count": 21,
+            "bookmark_count": 126,
+            "impression_count": 212221
           }
         },
         {
@@ -179,10 +155,10 @@
           "metrics": {
             "retweet_count": 24,
             "reply_count": 0,
-            "like_count": 155,
+            "like_count": 156,
             "quote_count": 11,
-            "bookmark_count": 50,
-            "impression_count": 41754
+            "bookmark_count": 53,
+            "impression_count": 42542
           }
         },
         {
@@ -191,10 +167,34 @@
           "metrics": {
             "retweet_count": 17,
             "reply_count": 0,
-            "like_count": 86,
+            "like_count": 88,
             "quote_count": 2,
-            "bookmark_count": 20,
-            "impression_count": 24994
+            "bookmark_count": 21,
+            "impression_count": 25534
+          }
+        },
+        {
+          "text": "GoogleがFabulaっていうAI小説作成ツールを出すんだって https://t.co/u8w9GeLPZ9",
+          "created_at": "2026-04-15T14:53:59.000Z",
+          "metrics": {
+            "retweet_count": 3,
+            "reply_count": 1,
+            "like_count": 49,
+            "quote_count": 1,
+            "bookmark_count": 25,
+            "impression_count": 12059
+          }
+        },
+        {
+          "text": "AI製だと知らずに賞を与えてから「実はAIでしたｗｗ選考委員さえ気付かなかったｗｗＡＩすげｗｗ」とか作者から種明かしされて赤っ恥かかされるリスク。エラソーに作品を選別するだけだった立場からむしろ自分の方が試される側へ立場逆転。わざわざこんなリスク抱えて選考委員なんてやるわけない https://t.co/azHMPWpyCv",
+          "created_at": "2026-04-16T05:22:44.000Z",
+          "metrics": {
+            "retweet_count": 18,
+            "reply_count": 0,
+            "like_count": 69,
+            "quote_count": 2,
+            "bookmark_count": 12,
+            "impression_count": 8802
           }
         }
       ]
@@ -212,7 +212,7 @@
             "like_count": 92,
             "quote_count": 0,
             "bookmark_count": 11,
-            "impression_count": 8715
+            "impression_count": 8724
           }
         },
         {
@@ -224,7 +224,7 @@
             "like_count": 55,
             "quote_count": 4,
             "bookmark_count": 14,
-            "impression_count": 5949
+            "impression_count": 5950
           }
         },
         {
@@ -236,7 +236,7 @@
             "like_count": 32,
             "quote_count": 1,
             "bookmark_count": 4,
-            "impression_count": 4206
+            "impression_count": 4227
           }
         },
         {
@@ -248,7 +248,7 @@
             "like_count": 52,
             "quote_count": 2,
             "bookmark_count": 19,
-            "impression_count": 4040
+            "impression_count": 4090
           }
         },
         {
@@ -260,139 +260,7 @@
             "like_count": 51,
             "quote_count": 3,
             "bookmark_count": 4,
-            "impression_count": 3999
-          }
-        }
-      ]
-    },
-    {
-      "username": "riku_ai_chatgpt",
-      "note": "ChatGPT活用実体験",
-      "tweets": [
-        {
-          "text": "Google LabsのOpal面白いな。自然言語でDifyやn8nみたいなワークフロー作成できた。\n\nYoutube動画のURLから日本語のようやく作るアプリが一瞬でできてしまった。\n\nGoogleがワークフロー領域も参入してくるの恐ろしすぎ...👇 https://t.co/wWwGEWjdww",
-          "created_at": "2025-07-25T02:26:57.000Z",
-          "metrics": {
-            "retweet_count": 28,
-            "reply_count": 1,
-            "like_count": 257,
-            "quote_count": 3,
-            "bookmark_count": 213,
-            "impression_count": 24221
-          }
-        },
-        {
-          "text": "Kiroのおもろい点は要件定義→デザイン→タスク分解の順序をよく守って順々に進めてくれるから今何してるのかわかりやすい点。\n\n順々に進めてくれるから、要件定義とかで気に入らないところも修正できるしタスクも今何が実行されてるのか非エンジニアでもわかりやすい。 https://t.co/h5ZlrcrRih",
-          "created_at": "2025-07-16T07:58:44.000Z",
-          "metrics": {
-            "retweet_count": 13,
-            "reply_count": 0,
-            "like_count": 198,
-            "quote_count": 1,
-            "bookmark_count": 134,
-            "impression_count": 20078
-          }
-        },
-        {
-          "text": "ChatGPT Agentいいね。動画渡して、画面スクショ→画像を添えて説明を入れたPDF資料が作れた。\n\nデータ容量小さい動画だったら、Manusみたいに動画渡すだけで操作マニュアルとかも作れそう。\n\nターミナル操作できることによって幅広がるな👇 https://t.co/kHuwg0AgJy",
-          "created_at": "2025-07-18T06:19:14.000Z",
-          "metrics": {
-            "retweet_count": 5,
-            "reply_count": 0,
-            "like_count": 48,
-            "quote_count": 1,
-            "bookmark_count": 30,
-            "impression_count": 7035
-          }
-        },
-        {
-          "text": "チームみらい、政策をgithubでドキュメント管理してるの興味深いし、ClaudeとDevinがContributerにいるのおもろすぎる笑\n\n文字通りAIが政治担う未来や笑 https://t.co/zB3yYwSAdV",
-          "created_at": "2025-07-16T05:42:20.000Z",
-          "metrics": {
-            "retweet_count": 5,
-            "reply_count": 0,
-            "like_count": 44,
-            "quote_count": 1,
-            "bookmark_count": 14,
-            "impression_count": 4203
-          }
-        },
-        {
-          "text": "Git/Github勉強会があまりにも有益すぎた...\n#vibe_beginner\n\nスライド読むだけでもかなり勉強になる👇\nhttps://t.co/1n1SSKK1fZ",
-          "created_at": "2025-08-15T12:33:55.000Z",
-          "metrics": {
-            "retweet_count": 1,
-            "reply_count": 0,
-            "like_count": 18,
-            "quote_count": 0,
-            "bookmark_count": 8,
-            "impression_count": 1585
-          }
-        }
-      ]
-    },
-    {
-      "username": "SuguruKun_ai",
-      "note": "ビジネスAI活用",
-      "tweets": [
-        {
-          "text": "待て待て待てChatGPTの新しい画像生成、すごすぎない？\nめっっちゃコンサルライクな画像一瞬で生成できた https://t.co/wEZK3LZ1Es",
-          "created_at": "2026-04-15T16:10:54.000Z",
-          "metrics": {
-            "retweet_count": 31,
-            "reply_count": 10,
-            "like_count": 495,
-            "quote_count": 19,
-            "bookmark_count": 334,
-            "impression_count": 62723
-          }
-        },
-        {
-          "text": "Googleが公開した「生成AI活用事例集2026年版」がすごいことになってた。国内120社以上の活用事例を余すことなく掲載。金融・小売・製造・IT・商社など各社の課題と解決策、成果指標まで具体的に掲載されており、Geminiや生成AIを実際に業務活用したいDX推進担当者は必見の内容...👇🧵 https://t.co/xLduvTe8QO",
-          "created_at": "2026-04-16T08:13:14.000Z",
-          "metrics": {
-            "retweet_count": 32,
-            "reply_count": 6,
-            "like_count": 357,
-            "quote_count": 1,
-            "bookmark_count": 385,
-            "impression_count": 29375
-          }
-        },
-        {
-          "text": "知らない間に、Claude Codeに\nめっちゃ便利なコマンド「/team-onboarding 」が追加されてる！！！！\nㅤ\nこれまでは新メンバーが入るたびに\n「どうやってClaude Code使ってるの？」って\n毎回口頭で説明してたけど、\nㅤ\n・過去30日のセッションを自動分析\n・作業タイプの割合をグラフ化（Build 40%, Plan https://t.co/qlglcKwFi5",
-          "created_at": "2026-04-16T09:07:33.000Z",
-          "metrics": {
-            "retweet_count": 17,
-            "reply_count": 3,
-            "like_count": 259,
-            "quote_count": 13,
-            "bookmark_count": 302,
-            "impression_count": 15988
-          }
-        },
-        {
-          "text": "新モデル「gpt-image-02」はこちらにまとめています：\nhttps://t.co/wv2sW1CZnV",
-          "created_at": "2026-04-15T16:31:01.000Z",
-          "metrics": {
-            "retweet_count": 1,
-            "reply_count": 0,
-            "like_count": 13,
-            "quote_count": 0,
-            "bookmark_count": 14,
-            "impression_count": 9725
-          }
-        },
-        {
-          "text": "Anthropicが無料公開してる\n有益AIコースが多すぎるので13個全部まとめます。ㅤ\nㅤ\n情報商材とか買う前にまずはこれチェックするのはアリ：\nㅤ\n・Claude 101 → Claudeの基本操作と活用法\nhttps://t.co/2O8Mkcs3Yn\n・AI Fluency基礎 → AIリテラシーの思考フレームワーク\nhttps://t.co/a2cYoPK2H3 https://t.co/qvNMGZ3OMF",
-          "created_at": "2026-04-16T03:59:38.000Z",
-          "metrics": {
-            "retweet_count": 22,
-            "reply_count": 5,
-            "like_count": 107,
-            "quote_count": 2,
-            "bookmark_count": 146,
-            "impression_count": 8371
+            "impression_count": 4019
           }
         }
       ]
