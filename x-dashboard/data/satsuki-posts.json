@@ -305,9 +305,9 @@
     {
       "id": 43,
       "text": "業スーで買った冷凍唐揚げ、\nそのまま食べても揚げ直してもいけるし\n1kg500円ちょっとだから一人暮らしの味方だな🙌\n在宅の日のお昼とか、ほんと助かる😊",
-      "status": "pending",
-      "posted_at": null,
-      "thread_id": null
+      "status": "posted",
+      "posted_at": "2026-04-17T10:38:37.479Z",
+      "thread_id": "18080336798110743"
     },
     {
       "id": 44,
@@ -338,5 +338,5 @@
       "thread_id": null
     }
   ],
-  "lastPostedAt": "2026-04-17T09:02:05.597Z"
+  "lastPostedAt": "2026-04-17T10:38:37.479Z"
 }
