@@ -199,7 +199,7 @@ async function generatePost(news) {
 
   console.log("🤖 Claude生成中...");
   const msg = await anthropic.messages.create({
-    model: "claude-sonnet-4-6",
+    model: "claude-opus-4-7",
     max_tokens: 600,
     messages: [{
       role: "user",

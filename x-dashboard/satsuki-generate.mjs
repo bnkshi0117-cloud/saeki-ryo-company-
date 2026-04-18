@@ -155,7 +155,7 @@ JSON配列のみ。各要素は {"text": "投稿本文（改行は\\nで）"} �
 ]`;
 
   const message = await anthropic.messages.create({
-    model: "claude-haiku-4-5-20251001",
+    model: "claude-opus-4-7",
     max_tokens: 1500,
     system: SATSUKI_SYSTEM,
     messages: [{ role: "user", content: prompt }],

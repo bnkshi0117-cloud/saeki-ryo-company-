@@ -1,19 +1,6 @@
 name: 佐伯亮 X自動投稿
 
 on:
-  schedule:
-    # JST 7:00  (UTC 22:00 前日)
-    - cron: '0 22 * * *'
-    # JST 9:00  (UTC 00:00)
-    - cron: '0 0 * * *'
-    # JST 11:00 (UTC 02:00)
-    - cron: '0 2 * * *'
-    # JST 13:00 (UTC 04:00)
-    - cron: '0 4 * * *'
-    # JST 15:00 (UTC 06:00)
-    - cron: '0 6 * * *'
-    # JST 17:00 (UTC 08:00)
-    - cron: '0 8 * * *'
   workflow_dispatch:
 
 jobs:
