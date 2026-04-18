@@ -333,9 +333,9 @@
     {
       "id": 47,
       "text": "テレワークの休憩時間に、\n近所の100均で新しい湯飲み買ってきた\nお気に入りの色が揃ってると\nお茶する時間もちょっと特別になる気がする☕️✨",
-      "status": "pending",
-      "posted_at": null,
-      "thread_id": null
+      "status": "posted",
+      "posted_at": "2026-04-18T06:52:59.105Z",
+      "thread_id": "18103890211822129"
     },
     {
       "id": 48,
@@ -373,5 +373,5 @@
       "thread_id": null
     }
   ],
-  "lastPostedAt": "2026-04-18T00:06:40.505Z"
+  "lastPostedAt": "2026-04-18T06:52:59.105Z"
 }
