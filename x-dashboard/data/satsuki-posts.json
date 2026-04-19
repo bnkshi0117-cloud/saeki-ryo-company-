@@ -368,9 +368,9 @@
     {
       "id": 52,
       "text": "休みの日に近所のカフェでコーヒー飲みながら\n本読むの最高だな〜☕\n一人の時間って大事だなって改めて思う\nたまにはこういう何もしない時間、必要だよね✨",
-      "status": "pending",
-      "posted_at": null,
-      "thread_id": null
+      "status": "posted",
+      "posted_at": "2026-04-19T07:53:45.956Z",
+      "thread_id": "17895914709439902"
     },
     {
       "id": 53,
@@ -408,5 +408,5 @@
       "thread_id": null
     }
   ],
-  "lastPostedAt": "2026-04-19T05:36:58.068Z"
+  "lastPostedAt": "2026-04-19T07:53:45.956Z"
 }
