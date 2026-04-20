@@ -410,9 +410,9 @@
     {
       "id": 58,
       "text": "ダイソーの「おにぎりぽん」っていう\n一発でおにぎり作れるやつ買ってみた🍙\n朝の弁当作りが5分短縮されてびっくり\n100円でこの時短はコスパ良すぎるって✨",
-      "status": "pending",
-      "posted_at": null,
-      "thread_id": null
+      "status": "posted",
+      "posted_at": "2026-04-20T12:46:00.970Z",
+      "thread_id": "18004474085857323"
     },
     {
       "id": 59,
@@ -443,5 +443,5 @@
       "thread_id": null
     }
   ],
-  "lastPostedAt": "2026-04-20T11:05:07.162Z"
+  "lastPostedAt": "2026-04-20T12:46:00.970Z"
 }
