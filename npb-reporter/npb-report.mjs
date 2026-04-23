@@ -93,9 +93,9 @@ async function main() {
     // Step 6: 出力・保存
     outputReport(report, gameData, date);
 
-    // Step 7: X投稿
+    // Step 7: Xスレッド投稿
     if (!isDryRun) {
-      await postToX(report.xPost, gameData);
+      await postToX(report.thread, gameData);
     }
     console.log("");
   }
@@ -216,30 +216,20 @@ function extractManagerDecisions(lineups, playerStats, awayTeam, homeTeam) {
 }
 
 function outputReport(report, gameData, date) {
-  const { awayTeam, homeTeam, score, dateLabel } = { ...gameData, dateLabel: gameData.date };
+  const { awayTeam, homeTeam, score } = gameData;
   const scoreLine = `${awayTeam} ${score.away}-${score.home} ${homeTeam}`;
   const filename = `${date}-${awayTeam}vs${homeTeam}.md`;
   const outputPath = path.join(__dirname, "data", filename);
 
-  // 140字確認
-  const xPostLen = [...report.xPost].length;
-  const lenWarning = xPostLen > 140 ? ` ⚠️ ${xPostLen}字（140字超過）` : ` ✅ ${xPostLen}字`;
+  const threadText = report.thread.map((t, i) => `### ツイート${i + 1}（${[...t].length}字）\n${t}`).join("\n\n");
 
-  const content = `# ${dateLabel} ${scoreLine}
+  const content = `# ${gameData.date} ${scoreLine}
 
 ---
 
-## 📱 Xポスト用（${xPostLen}字）
+> ※ この記事はAIが試合データをもとに生成しています。数値に誤差が生じる場合があります。
 
-${report.xPost}
-
----
-
-## 📝 Article本文
-
-> ※ この記事はAIが試合データをもとに生成しています。データの性質上、細かい数値に誤差が生じる場合があります。あらかじめご了承ください。
-
-${report.article}
+${threadText}
 
 ---
 *生成: ${new Date().toLocaleString("ja-JP")}*
@@ -248,12 +238,12 @@ ${report.article}
   fs.writeFileSync(outputPath, content, "utf-8");
 
   console.log("=".repeat(60));
-  console.log(`⚾ ${dateLabel} ${scoreLine}`);
+  console.log(`⚾ ${gameData.date} ${scoreLine}`);
   console.log("=".repeat(60));
-  console.log(`\n【Xポスト用】${lenWarning}`);
-  console.log(report.xPost);
-  console.log(`\n【Article（抜粋）】`);
-  console.log(report.article.slice(0, 500) + "...");
+  report.thread.forEach((t, i) => {
+    console.log(`\n【ツイート${i + 1}】${[...t].length}字`);
+    console.log(t);
+  });
   console.log("=".repeat(60));
   console.log(`💾 保存: ${outputPath}`);
 }
@@ -300,11 +290,11 @@ async function runDemoMode(dateLabel, dryRun) {
   console.log("Claude APIで批評文を生成中...");
   const report = await generateReport(demoData);
   outputReport(report, demoData, dateLabel.replace(/\//g, ""));
-  await postToX(report.xPost, demoData);
+  await postToX(report.thread, demoData);
 }
 
-// ── X投稿 ──
-async function postToX(xPost, gameData) {
+// ── Xスレッド投稿 ──
+async function postToX(thread, gameData) {
   const keys = ["X_CONSUMER_KEY", "X_CONSUMER_SECRET", "X_ACCESS_TOKEN", "X_ACCESS_TOKEN_SECRET"];
   const missing = keys.filter((k) => !process.env[k]);
   if (missing.length > 0) {
@@ -320,11 +310,18 @@ async function postToX(xPost, gameData) {
   });
 
   try {
-    console.log("Step 7: Xに投稿中...");
-    const tweet = await client.v2.tweet({ text: xPost });
-    const tweetId = tweet.data.id;
-    const url = `https://x.com/saekiryoAI/status/${tweetId}`;
-    console.log(`  ✅ 投稿完了: ${url}`);
+    console.log("Step 7: Xスレッド投稿中...");
+    let replyToId = null;
+    const tweetIds = [];
+
+    for (let i = 0; i < thread.length; i++) {
+      const params = { text: thread[i] };
+      if (replyToId) params.reply = { in_reply_to_tweet_id: replyToId };
+      const res = await client.v2.tweet(params);
+      replyToId = res.data.id;
+      tweetIds.push(replyToId);
+      console.log(`  ✅ ツイート${i + 1}: https://x.com/saekiryoAI/status/${replyToId}`);
+    }
 
     // 投稿ログ保存
     const logPath = path.join(__dirname, "data", "post-log.json");
@@ -333,10 +330,9 @@ async function postToX(xPost, gameData) {
       date: gameData.date,
       matchup: `${gameData.awayTeam}vs${gameData.homeTeam}`,
       score: `${gameData.score.away}-${gameData.score.home}`,
-      tweet_id: tweetId,
-      url,
+      tweet_ids: tweetIds,
+      url: `https://x.com/saekiryoAI/status/${tweetIds[0]}`,
       posted_at: new Date().toISOString(),
-      xPost,
     });
     fs.writeFileSync(logPath, JSON.stringify(log, null, 2));
   } catch (e) {

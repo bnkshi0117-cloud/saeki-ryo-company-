@@ -100,26 +100,27 @@ export async function generateReport(gameData) {
   const raw = message.content[0].text;
   const report = parseReport(raw);
 
-  // 140字チェック → オーバーなら1回だけ再生成
-  const xLen = [...report.xPost].length;
-  if (xLen > 140) {
-    console.log(`  ⚠️ Xポスト${xLen}字 → 140字以内に再生成...`);
-    const retryMsg = await anthropic.messages.create({
-      model: "claude-sonnet-4-6",
-      max_tokens: 300,
-      system: buildSystemPrompt(),
-      messages: [
-        { role: "user", content: prompt },
-        { role: "assistant", content: raw },
-        {
-          role: "user",
-          content: `Xポスト用が${xLen}字で140字を超えています。140字以内に収めて、Xポスト用テキストだけ再出力してください。ハッシュタグ含めて140字以内厳守。末尾に #giants は必ず残すこと。`,
-        },
-      ],
-    });
-    report.xPost = retryMsg.content[0].text.trim().replace(/^【Xポスト用[^】]*】\n?/, "");
-    const newLen = [...report.xPost].length;
-    console.log(`  → 再生成後: ${newLen}字`);
+  // 各ツイートの140字チェック
+  for (let i = 0; i < report.thread.length; i++) {
+    const len = [...report.thread[i]].length;
+    if (len > 140) {
+      console.log(`  ⚠️ ツイート${i + 1}が${len}字 → 140字以内に再生成...`);
+      const retryMsg = await anthropic.messages.create({
+        model: "claude-sonnet-4-6",
+        max_tokens: 300,
+        system: buildSystemPrompt(),
+        messages: [
+          { role: "user", content: prompt },
+          { role: "assistant", content: raw },
+          {
+            role: "user",
+            content: `ツイート${i + 1}が${len}字で140字を超えています。そのツイートだけ140字以内に収めて再出力してください。`,
+          },
+        ],
+      });
+      report.thread[i] = retryMsg.content[0].text.trim().replace(/^【ツイート[①-⑤]】\n?/, "");
+      console.log(`  → 再生成後: ${[...report.thread[i]].length}字`);
+    }
   }
 
   return report;
@@ -147,9 +148,11 @@ function buildSystemPrompt() {
 - 投手は勝敗・防御率（ERA）・リリーフなら登板回数・セーブ数を使う
 - 全部OPSに帰結させない。数字を使い分けてこそ読み応えが出る
 
-【Xポスト制約】
-- 必ず140字以内（日本語1字=1字、句読点・改行・ハッシュタグも全部カウント）
-- 末尾に必ず #giants を入れる。他のハッシュタグは1個まで
+【スレッド制約】
+- 各ツイートは必ず140字以内（日本語1字=1字、句読点・改行・ハッシュタグも全部カウント）
+- ツイート①の末尾は必ず「詳細はスレッドで👇 #giants」で終わる
+- ツイート⑤の末尾は必ず「#giants」で終わる
+- 各ツイートは独立して読めること。前のツイートを前提にしない
 
 【品質基準】
 - 事実ベースで書く。采配批評は「データがこうだから」という根拠を必ず添える
@@ -215,40 +218,44 @@ ${battersText || "なし"}
 
 ---
 
-以下のフォーマットで出力してください：
+以下のフォーマットでXスレッド用に5ツイート出力してください。各ツイートは140字以内厳守。
 
-【Xポスト用（140字以内・厳守）】
-（試合のハイライト。選手名を出す時は必ずチームが分かるよう「巨人・〇〇」と書く）
+【ツイート①】
+【昨日の記録】${date} ${awayTeam} ${score.away}-${score.home} ${homeTeam}
+（1〜2行で試合ハイライト。選手名は「巨人・〇〇」と書く）
+詳細はスレッドで👇 #giants
 
-【Article用本文】
-## 今日の注目スタメン
-（起用意図の考察と結果評価。選手は「チーム名＋名前」で書く）
+【ツイート②】
+【注目スタメン】
+（起用意図と結果を2〜3選手。選手は「チーム名＋名前」で書く）
 
-## 今日の熱盛プレー
-（2〜3本。データに記載のある事実だけ書く）
+【ツイート③】
+【今日の熱盛】
+（データに記載のある事実だけ。2〜3本）
 
-## 試合を決めたシーン
-（分岐点となった1〜2場面）
+【ツイート④】
+【データで見ると】
+（指標の一言説明つき。数字を使い分ける）
 
-## 采配レビュー
-（良かった・悪かった、根拠とともに）
-
-## データで見ると
-（指標の一言説明つき）
-
-## 今日の一言
-（1文で総括）`;
+【ツイート⑤】
+（1〜2文の総括）
+#giants`;
 }
 
 function parseReport(raw) {
-  const xPostMatch = raw.match(/【Xポスト用[^】]*】\n([\s\S]*?)(?=\n【Article用|$)/);
-  const articleMatch = raw.match(/【Article用本文】\n([\s\S]*?)$/);
+  const markers = ["【ツイート①】", "【ツイート②】", "【ツイート③】", "【ツイート④】", "【ツイート⑤】"];
+  const thread = markers.map((marker, i) => {
+    const start = raw.indexOf(marker);
+    if (start === -1) return null;
+    const contentStart = start + marker.length;
+    const nextMarker = markers[i + 1] ? raw.indexOf(markers[i + 1], contentStart) : -1;
+    const content = nextMarker !== -1
+      ? raw.slice(contentStart, nextMarker)
+      : raw.slice(contentStart);
+    return content.trim();
+  }).filter(Boolean);
 
-  return {
-    xPost: xPostMatch ? xPostMatch[1].trim() : raw.slice(0, 140),
-    article: articleMatch ? articleMatch[1].trim() : raw,
-    raw,
-  };
+  return { thread, raw };
 }
 
 export { anthropic };
