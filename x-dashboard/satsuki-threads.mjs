@@ -14,6 +14,24 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// ── ログ書き出し ──
+const LOG_DIR = path.join(__dirname, "logs");
+if (!fs.existsSync(LOG_DIR)) fs.mkdirSync(LOG_DIR, { recursive: true });
+
+function writeLog(level, message) {
+  const now = new Date();
+  const jstStr = now.toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
+  const dateStr = now.toISOString().slice(0, 10);
+  const line = `[${jstStr}] [${level}] ${message}\n`;
+  const logFile = path.join(LOG_DIR, `satsuki-threads-${dateStr}.log`);
+  fs.appendFileSync(logFile, line, "utf-8");
+  if (level === "ERROR") console.error(line.trim());
+  else console.log(line.trim());
+}
+
+function logInfo(msg) { writeLog("INFO", msg); }
+function logError(msg) { writeLog("ERROR", msg); }
 dotenv.config({ path: path.join(__dirname, "../.env") });
 
 const TOKEN = process.env.THREADS_ACCESS_TOKEN;
@@ -260,6 +278,7 @@ async function main() {
 }
 
 main().catch(e => {
-  console.error(`\n❌ エラー: ${e.message}`);
+  logError(`致命的エラー: ${e.message}`);
+  if (e.stack) logError(e.stack);
   process.exit(1);
 });

@@ -62,7 +62,8 @@ async function fetchInsights(threadId) {
 
     const metrics = {};
     for (const item of data.data || []) {
-      metrics[item.name] = item.total_value?.value ?? 0;
+      // Threads APIは values[0].value 形式で返す
+      metrics[item.name] = item.values?.[0]?.value ?? item.total_value?.value ?? 0;
     }
     return metrics;
   } catch {
@@ -130,14 +131,17 @@ async function main() {
   console.log("🔍 さつきリサーチ開始\n");
 
   const data = JSON.parse(fs.readFileSync(POSTS_FILE, "utf-8"));
-  const postedPosts = data.posts.filter(p => p.status === "posted" && p.thread_id);
+  // Threads APIのinsightsは古い投稿（30日超）に対応しないため直近30日分のみ対象
+  const cutoff = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+  const allPosted = data.posts.filter(p => p.status === "posted" && p.thread_id);
+  const postedPosts = allPosted.filter(p => p.posted_at && p.posted_at >= cutoff);
 
-  if (postedPosts.length === 0) {
+  if (allPosted.length === 0) {
     console.log("投稿済み記事なし。スキップ。");
     return;
   }
 
-  console.log(`📈 ${postedPosts.length}件の投稿を分析中...`);
+  console.log(`📈 ${postedPosts.length}件（直近30日）/ 全${allPosted.length}件を分析中...`);
 
   // インサイト取得 & スコア計算
   const postData = [];

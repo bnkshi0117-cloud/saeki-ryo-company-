@@ -21,6 +21,7 @@ dotenv.config({ path: path.join(__dirname, "../.env") });
 
 const POSTS_FILE = path.join(__dirname, "data/satsuki-posts.json");
 const TRENDS_FILE = path.join(__dirname, "data/satsuki-trends.json");
+const PRODUCTS_FILE = path.join(__dirname, "data/satsuki-products.json");
 const REPLENISH_THRESHOLD = 3;
 const GENERATE_COUNT = 5;
 
@@ -91,6 +92,28 @@ function loadTrends() {
   return null;
 }
 
+// ── 商品DBから未使用品を取得 ──
+function loadUnusedProducts() {
+  try {
+    if (!fs.existsSync(PRODUCTS_FILE)) return [];
+    const data = JSON.parse(fs.readFileSync(PRODUCTS_FILE, "utf-8"));
+    return (data.products || []).filter(p => !p.used);
+  } catch {}
+  return [];
+}
+
+// ── 使用した商品をusedにマーク ──
+function markProductsUsed(usedNames) {
+  try {
+    if (!fs.existsSync(PRODUCTS_FILE)) return;
+    const data = JSON.parse(fs.readFileSync(PRODUCTS_FILE, "utf-8"));
+    for (const p of data.products) {
+      if (usedNames.includes(p.name)) p.used = true;
+    }
+    fs.writeFileSync(PRODUCTS_FILE, JSON.stringify(data, null, 2), "utf-8");
+  } catch {}
+}
+
 function loadPosts() {
   return JSON.parse(fs.readFileSync(POSTS_FILE, "utf-8"));
 }
@@ -131,6 +154,23 @@ ${trends.nextGuidance || ""}
 バズりやすいパターン: ${(trends.viralPatterns || []).join("、")}`;
   }
 
+  // 実在商品リスト（使用可能なもの）
+  const unusedProducts = loadUnusedProducts();
+  let productInstruction = "";
+  let productMap = {};
+  if (unusedProducts.length > 0) {
+    const productList = unusedProducts.map(p =>
+      `- 「${p.name}」（${p.shop} ${p.price}円）: ${p.features}`
+    ).join("\n");
+    productInstruction = `
+【実在商品リスト（優先使用）】
+以下の実在商品を積極的に使ってください。商品名は正確に記載すること。
+${productList}
+商品を使った投稿には必ず "product_name" フィールドに商品名を入れてください。`;
+
+    productMap = Object.fromEntries(unusedProducts.map(p => [p.name, p]));
+  }
+
   const prompt = `以下はさつきの最近の投稿です。これと重複しない新しい投稿を${GENERATE_COUNT}件生成してください。
 
 【最近の投稿】
@@ -140,19 +180,17 @@ ${recentSample}
 ${catInstruction}
 ${themeInstruction}
 ${trendsInstruction}
-- 1件あたり3〜5行程度、改行で読みやすく
+${productInstruction}
+- 1件あたり4〜6行程度、改行で読みやすく
 - Threadsらしい等身大のトーン（共感・発見・日常のひとコマ）
-- 具体的な商品名・数字・場所を入れるとリアリティが出る
+- 具体的な商品名・数字を入れるとリアリティが出る
+- 必ず末尾に「質問・二択・共感募集」のどれか一つを入れてコメントを誘う
+  例：「同じもの使ってる人いる？」「◯◯派？◯◯派？笑」「これ知ってた？」
 
 【出力形式】
-JSON配列のみ。各要素は {"text": "投稿本文（改行は\\nで）"} の形式。
-余計な説明は不要。
-
-例：
-[
-  {"text": "ダイソーで見つけたシリコンスプーン、\\n100円なのに鍋を傷つけないし洗いやすいし\\nもっと早く買えばよかった笑"},
-  {"text": "在宅の日のお昼、\\n冷蔵庫の残り野菜と卵だけでチャーハン作ったら\\nめちゃくちゃ美味しかった🍳\\n一人暮らしのご飯ってこういうのでいいんだよな"}
-]`;
+JSON配列のみ。各要素は以下の形式：
+{"text": "投稿本文（改行は\\nで）", "product_name": "使った商品名（なければnull）"}
+余計な説明は不要。`;
 
   const message = await anthropic.messages.create({
     model: "claude-opus-4-7",
@@ -165,7 +203,30 @@ JSON配列のみ。各要素は {"text": "投稿本文（改行は\\nで）"} �
   const match = raw.match(/\[[\s\S]*\]/);
   if (!match) throw new Error("JSONの抽出に失敗しました: " + raw);
 
-  return JSON.parse(match[0]);
+  const generated = JSON.parse(match[0]);
+
+  // 商品DBと紐付けてimage_urlを付与（部分一致）
+  const usedProductNames = [];
+  for (const post of generated) {
+    const name = post.product_name;
+    if (name) {
+      const matched = Object.keys(productMap).find(k =>
+        k.includes(name) || name.includes(k) || k.replace(/[（）\s]/g, "").includes(name.replace(/[（）\s]/g, ""))
+      );
+      if (matched && productMap[matched].image_url) {
+        post.image_url = productMap[matched].image_url;
+        usedProductNames.push(matched);
+      }
+    }
+    delete post.product_name;
+  }
+
+  // 使用した商品をusedにマーク
+  if (usedProductNames.length > 0) {
+    markProductsUsed(usedProductNames);
+  }
+
+  return generated;
 }
 
 async function main() {
@@ -213,13 +274,15 @@ async function main() {
   const maxId = Math.max(...data.posts.map(p => p.id));
 
   generated.forEach((post, i) => {
-    data.posts.push({
+    const entry = {
       id: maxId + i + 1,
       text: post.text,
       status: "pending",
       posted_at: null,
       thread_id: null,
-    });
+    };
+    if (post.image_url) entry.image_url = post.image_url;
+    data.posts.push(entry);
   });
 
   savePosts(data);

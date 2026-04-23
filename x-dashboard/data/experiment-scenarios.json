@@ -5,7 +5,9 @@
       "theme": "Claude Code Hooks の知られざる使い方",
       "hypothesis": "世界のユーザーはHooksをどんな用途に使っているか。日本ではほぼ知られていない",
       "searchQuery": "Claude Code hooks automation tips tricks",
-      "used": false
+      "used": true,
+      "used_at": "2026-04-15",
+      "output": "logs/content/2026-04-15-hooks-thread.md"
     },
     {
       "id": 2,

@@ -39,148 +39,91 @@ body {
   display:grid; grid-template-rows:130px 1fr; gap:2px;
 }
 
-/* ===== 社長室 ===== */
+/* ===== 社長室 – ダークタイル高級スイート ===== */
 #pres-room {
   position:relative; overflow:hidden;
-  background:linear-gradient(180deg,#12100a 0%,#0c0a06 100%);
-  border:2px solid #7a6200;
+  background:
+    repeating-conic-gradient(#1a2535 0% 25%, #1e2d40 0% 50%) 0 0/22px 22px;
+  border:2px solid #334466;
 }
-
-/* 社長室 壁紙（高級感） */
-.pres-wallpaper {
-  position:absolute; top:0; left:0; right:0; height:44px;
-  background:repeating-linear-gradient(90deg, #1a1500 0px,#1a1500 40px, #161200 40px,#161200 80px);
-  border-bottom:2px solid #4a3800;
-}
-/* モールディング */
-.pres-wallpaper::after {
-  content:''; position:absolute; bottom:0; left:0; right:0; height:3px;
-  background:linear-gradient(90deg,#aa8800,#ffcc44,#aa8800,#ffcc44,#aa8800);
-}
-
-/* 社長室 床（パーケット） */
-.pres-floor {
-  position:absolute; bottom:0; left:0; right:0; height:22px;
-  background:repeating-linear-gradient(90deg, #3d2800 0px,#3d2800 20px, #2e1e00 20px,#2e1e00 40px);
-  border-top:1px solid #5a3c00;
-}
-
-/* 窓（外の景色つき） */
-.pres-window {
-  position:absolute; top:6px; left:24px;
-  width:52px; height:32px;
-  background:linear-gradient(180deg,#001a44 0%,#002255 40%,#001133 100%);
-  border:2px solid #445566;
-}
-.pres-window::before { /* 縦桟 */
-  content:''; position:absolute; top:0; left:50%; transform:translateX(-50%);
-  width:2px; height:100%; background:#445566;
-}
-.pres-window::after { /* 横桟 */
-  content:''; position:absolute; top:50%; left:0; right:0;
-  height:2px; background:#445566;
-}
-/* 外の景色（ビル） */
-.window-city {
-  position:absolute; top:7px; left:25px;
-  display:flex; align-items:flex-end; gap:2px;
-}
-.city-bldg { background:#001a33; border:1px solid #002244; }
-
-/* 本棚 */
-.bookshelf {
-  position:absolute; top:5px; right:20px;
-  width:36px; height:58px;
-  background:#2a1600; border:1px solid #4a2a00;
-  padding:2px; display:flex; flex-direction:column; gap:2px;
-}
-.shelf { background:#1a0e00; display:flex; gap:1px; align-items:flex-end; padding:1px; height:16px; }
-.bk { border-radius:1px 1px 0 0; flex:1; }
-
-/* トロフィー棚 */
-.trophy-shelf {
-  position:absolute; top:6px; right:66px;
-  width:22px; height:46px;
-  background:#221800; border:1px solid #443200;
-  display:flex; flex-direction:column; align-items:center; justify-content:space-around; padding:2px;
-}
-.trophy { font-size:8px; }
-
-/* 観葉植物 */
-.plant {
-  position:absolute; bottom:20px;
-  width:18px; height:32px;
-}
-.plant-pot { position:absolute; bottom:0; left:3px; width:12px; height:8px; background:#553300; border-radius:0 0 2px 2px; }
-.plant-soil { position:absolute; bottom:8px; left:3px; width:12px; height:4px; background:#2a1800; }
-.plant-leaf1 { position:absolute; bottom:10px; left:1px; width:8px; height:14px; background:#225522; border-radius:50% 0 50% 0; transform:rotate(-20deg); }
-.plant-leaf2 { position:absolute; bottom:10px; left:8px; width:8px; height:14px; background:#2a6622; border-radius:0 50% 0 50%; transform:rotate(20deg); }
-.plant-leaf3 { position:absolute; bottom:14px; left:4px; width:10px; height:16px; background:#1e4e1e; border-radius:50% 50% 0 0; }
-
-/* 社長デスク（L字型・大） */
-.pres-desk-main {
-  position:absolute; bottom:20px; left:50%; transform:translateX(-50%);
-  width:140px; height:34px;
-  background:#5c3d1e; border-top:3px solid #8b5e2a;
-  border-radius:2px 2px 0 0;
-}
-.pres-desk-side {
-  position:absolute; bottom:20px; left:50%; transform:translateX(30px);
-  width:50px; height:22px;
-  background:#553819; border-top:2px solid #7a5225;
-}
-/* デスク上のPC */
-.desk-pc {
-  position:absolute; bottom:52px; left:50%; transform:translateX(-50%) translateX(-30px);
-  width:32px; height:24px;
-  background:#001122; border:2px solid #4488ff;
-  box-shadow:0 0 10px #4488ff66;
-}
-.desk-pc-glow {
-  position:absolute; top:2px; left:2px; right:2px; bottom:2px;
-  background:linear-gradient(135deg,#003366,#001a44);
-  animation:pcFlicker 5s infinite;
-}
-@keyframes pcFlicker { 0%,93%,100%{opacity:1} 94%{opacity:0.6} 96%{opacity:1} 98%{opacity:0.8} }
-/* デスク上の書類 */
-.desk-papers {
-  position:absolute; bottom:52px; left:50%; transform:translateX(10px);
-  width:20px; height:14px;
-  background:#eeeecc; border:1px solid #cccc88;
-}
-.desk-papers::after {
-  content:''; position:absolute; top:3px; left:2px; right:2px;
-  height:1px; background:#aaaaaa;
-  box-shadow:0 3px 0 #aaa, 0 6px 0 #aaa;
-}
-/* コーヒー */
-.coffee-cup {
-  position:absolute; bottom:54px; right:28px;
-  width:8px; height:10px;
-  background:#3d2200; border:1px solid #5a3300;
-  border-radius:0 0 2px 2px;
-}
-.coffee-cup::before { content:'☕'; position:absolute; top:-12px; left:-3px; font-size:10px; }
-
-/* 椅子 */
-.chair {
-  position:absolute; bottom:18px;
-  width:20px; height:18px;
-  background:#222; border:1px solid #444;
-  border-radius:2px 2px 0 0;
-}
-.chair::after {
-  content:''; position:absolute; top:-8px; left:1px;
-  width:18px; height:10px;
-  background:#1a1a1a; border:1px solid #333;
-  border-radius:2px;
+/* 上壁 */
+#pres-room::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:20px;
+  background:#0d1520; border-bottom:3px solid #2a3d55; z-index:4;
 }
 
 /* ルームラベル */
 .room-label {
-  position:absolute; top:4px; left:8px;
-  font-size:8px; z-index:10; letter-spacing:1px;
+  position:absolute; top:3px; left:8px;
+  font-size:9px; z-index:10; letter-spacing:1px;
 }
+
+/* 社長室ラグ */
+.pres-rug {
+  position:absolute; bottom:18px; left:50%; transform:translateX(-50%);
+  width:140px; height:60px;
+  background:radial-gradient(ellipse at center, #3a1a1a 60%, #5a2a2a 100%);
+  border:2px solid #7a3a3a; border-radius:4px; z-index:1;
+}
+
+/* 社長デスク（トップダウン） */
+.pres-desk-td {
+  position:absolute; bottom:30px; left:50%; transform:translateX(-50%);
+  width:100px; height:44px;
+  background:#c8a860; border:3px solid #886830;
+  border-right:5px solid #604810; border-bottom:5px solid #604810;
+  z-index:3;
+}
+.pres-desk-td::after { /* モニター */
+  content:''; position:absolute; top:8px; left:28px;
+  width:30px; height:22px;
+  background:#0a1a2a; border:2px solid #4488cc;
+  box-shadow:0 0 8px #2266aa66;
+}
+
+/* ソファ（トップダウン） */
+.sofa-td {
+  position:absolute;
+  background:#8b2a2a; border-radius:3px;
+  z-index:2;
+}
+.sofa-h { width:88px; height:28px; border:3px solid #6a1a1a; border-bottom:6px solid #4a0a0a; }
+.sofa-h::before { content:''; position:absolute; top:0; left:0; right:0; height:9px; background:#aa3a3a; border-radius:2px 2px 0 0; }
+
+/* 額縁（壁掛け） */
+.picture-frame {
+  position:absolute; top:4px;
+  background:#1a1000; border:2px solid #887030;
+  z-index:5;
+}
+.picture-frame::after {
+  content:''; position:absolute; top:3px; left:3px; right:3px; bottom:3px;
+  background:linear-gradient(135deg,#2a1a00,#0a0800);
+  border:1px solid #4a3010;
+}
+
+/* 本棚（トップダウン・壁付け） */
+.bookshelf-td {
+  position:absolute; top:4px;
+  height:18px; background:#3a2010; border:2px solid #6a4020;
+  display:flex; gap:2px; padding:2px; z-index:5;
+}
+.bk-td { border-radius:1px 1px 0 0; flex:1; min-width:6px; }
+
+/* 植物（トップダウン俯瞰） */
+.pt {
+  position:absolute;
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, #7ed44a, #2a7020);
+  box-shadow:2px 3px 0 #1a4a10, inset -2px -2px 4px rgba(0,0,0,0.3);
+  z-index:6;
+}
+.pt-sm  { width:16px; height:16px; }
+.pt-md  { width:22px; height:22px; }
+.pt-lg  { width:30px; height:30px; background:radial-gradient(circle at 35% 30%, #88e050, #226818); }
+.pt-xl  { width:38px; height:38px; background:radial-gradient(circle at 35% 30%, #90e860, #1e6015); }
+.pt-cactus { border-radius:35% 35% 40% 40%; background:radial-gradient(ellipse at 40% 30%, #60aa40, #1e5a18); }
+.pt-dark { background:radial-gradient(circle at 35% 30%, #50aa38, #184a10); }
 
 /* ===== 部署フロア ===== */
 #dept-floors {
@@ -190,142 +133,112 @@ body {
 
 .dept {
   position:relative; overflow:hidden;
+  /* 温かみのある木目床（トップダウン） */
+  background-color:#9b6835;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(0,0,0,0.08) 0 1px, transparent 0 28px),
+    repeating-linear-gradient(90deg, rgba(140,90,30,0.2) 0 1px, transparent 0 44px);
 }
-
-/* 部署ごとの壁・床 */
-.dept-wall { position:absolute; top:0; left:0; right:0; height:22px; }
-.dept-carpet { position:absolute; bottom:0; left:0; right:0; height:20px; }
-
-/* 仕切りガラス */
-.glass-divider {
-  position:absolute; top:0; bottom:0;
-  width:3px; background:rgba(100,150,255,0.15);
-  border-left:1px solid rgba(100,150,255,0.3);
-}
-
-/* ホワイトボード */
-.whiteboard {
-  position:absolute; top:4px;
-  width:36px; height:26px;
-  background:#f5f5ee; border:2px solid #888; border-radius:1px;
-}
-.wb-line { position:absolute; left:3px; right:3px; height:1px; background:#ddd; }
-.wb-text { position:absolute; top:4px; left:3px; font-size:5px; color:#333; line-height:1.4; }
-.wb-marker { position:absolute; bottom:3px; right:3px; width:6px; height:3px; background:#cc2200; border-radius:1px; }
-
-/* キャビネット */
-.cabinet {
-  position:absolute; bottom:18px;
-  width:16px; height:30px;
-  background:#334; border:1px solid #446; border-radius:1px;
-}
-.cabinet::before,.cabinet::after {
-  content:''; position:absolute; left:2px; right:2px; height:1px; background:#557;
-}
-.cabinet::before { top:10px; }
-.cabinet::after { top:20px; }
-.cab-handle { position:absolute; top:4px; left:50%; transform:translateX(-50%); width:4px; height:2px; background:#888; }
-
-/* ウォータークーラー */
-.water-cooler {
-  position:absolute; bottom:18px;
-  width:12px; height:28px;
-  background:#2244aa; border:1px solid #3355bb;
-  border-radius:2px 2px 0 0;
-}
-.water-cooler::before {
-  content:''; position:absolute; top:-8px; left:1px;
-  width:10px; height:10px;
-  background:#1a3388; border:1px solid #2244aa; border-radius:50%;
-}
-
-/* 部署デスク */
-.dept-desk {
-  position:absolute; bottom:18px;
-  width:50px; height:18px;
-  background:#2a1a0d; border-top:2px solid #4a2e0e;
-  border-radius:1px;
-}
-.dept-monitor {
-  position:absolute; top:-18px; left:6px;
-  width:22px; height:17px;
-  background:#001122; border:1px solid #3366aa;
-  box-shadow:0 0 5px #3366aa44;
-}
-.dept-monitor::after {
-  content:''; position:absolute; top:2px; left:2px; right:2px; bottom:2px;
-  background:linear-gradient(135deg,#002244,#001133);
-  animation:pcFlicker 4s infinite;
-}
-/* デスク上の小物 */
-.desk-mug { position:absolute; top:-8px; right:4px; width:5px; height:7px; background:#553300; border-radius:0 0 1px 1px; }
-.desk-note { position:absolute; top:-6px; left:2px; width:8px; height:6px; background:#ffffcc; border:1px solid #cccc88; }
-
-/* 小植物 */
-.small-plant {
-  position:absolute; bottom:18px;
-  font-size:14px; line-height:1;
+/* 上壁 */
+.dept::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:18px;
+  background:#4a2e12; border-bottom:3px solid #7a5028; z-index:4;
 }
 
 /* 部署ラベル */
 .dept-label-tag {
-  position:absolute; top:4px; left:6px;
-  font-size:7px; z-index:5;
+  position:absolute; top:2px; left:6px;
+  font-size:8px; z-index:10;
   padding:1px 4px; border-radius:1px;
+}
+
+/* 部署デスク（トップダウン） */
+.dept-desk {
+  position:absolute; bottom:24px;
+  width:58px; height:26px;
+  background:#d8c080; border:2px solid #a89050;
+  border-right:4px solid #806830; border-bottom:4px solid #806830;
+  z-index:3;
+}
+.desk-left  { left:calc(50% - 66px); }
+.desk-right { left:calc(50% + 8px); }
+/* モニター（デスク上） */
+.dept-desk::after {
+  content:''; position:absolute; top:4px; left:14px;
+  width:20px; height:14px;
+  background:#0a1a2a; border:1.5px solid #3388aa;
+}
+/* 右側のキャラは左向きに反転 */
+.char-flip { transform:scaleX(-1); }
+
+/* デスク上の小物（マグカップ） */
+.desk-mug { position:absolute; top:-9px; right:3px; font-size:9px; z-index:4; }
+.desk-note { position:absolute; top:-7px; left:2px; width:8px; height:6px; background:#ffffcc; border:1px solid #cccc88; z-index:4; }
+
+/* ホワイトボード（壁付け・トップダウン） */
+.whiteboard {
+  position:absolute; top:4px;
+  width:50px; height:14px;
+  background:#f0f0e8; border:2px solid #888; z-index:5;
+}
+.wb-text { position:absolute; top:2px; left:3px; font-size:6px; color:#333; white-space:nowrap; overflow:hidden; }
+
+/* キャビネット（トップダウン） */
+.cabinet-td {
+  position:absolute;
+  background:#446; border:2px solid #668;
+  border-right:3px solid #224; border-bottom:3px solid #224;
+  z-index:3;
+}
+/* 丸テーブル */
+.round-table {
+  position:absolute;
+  border-radius:50%;
+  background:radial-gradient(circle at 40% 35%, #c8a060, #8a6030);
+  border:2px solid #6a4820;
+  border-bottom:4px solid #4a2800;
+  z-index:3;
 }
 
 /* 部署ステータスバー */
 .dept-status-bar {
   position:absolute; bottom:2px; left:4px; right:4px;
-  display:flex; align-items:center; gap:3px;
+  display:flex; align-items:center; gap:3px; z-index:10;
 }
-.dsb-label { font-size:6px; color:#555; flex-shrink:0; }
-.dsb-track { flex:1; height:5px; background:#111; border:1px solid #222; }
+.dsb-label { font-size:8px; color:#5a3a10; flex-shrink:0; }
+.dsb-track { flex:1; height:5px; background:#5a3a10; border:1px solid #3a1a00; }
 .dsb-fill { height:100%; transition:width 1s; }
-.dsb-val { font-size:6px; color:#666; flex-shrink:0; width:22px; text-align:right; }
+.dsb-val { font-size:7px; color:#8a6030; flex-shrink:0; width:26px; text-align:right; }
 
-/* 秘書部スタイル */
-#dept-sec .dept-wall { background:#0a0e1a; border-bottom:1px solid #1a2244; }
-#dept-sec .dept-carpet { background:repeating-linear-gradient(90deg,#0e0e1e 0,#0e0e1e 18px,#0a0a1a 18px,#0a0a1a 36px); }
-#dept-sec .dept-label-tag { color:#88aaff; background:#0a0e1a; border:1px solid #1a2244; }
-#dept-sec .dsb-fill { background:#2255cc; }
-#dept-sec { border:1px solid #1a2244; }
-
-/* リサーチ部スタイル */
-#dept-res .dept-wall { background:#0a1410; border-bottom:1px solid #1a3322; }
-#dept-res .dept-carpet { background:repeating-linear-gradient(90deg,#0e1a10 0,#0e1a10 18px,#0a1208 18px,#0a1208 36px); }
-#dept-res .dept-label-tag { color:#88ff88; background:#0a1410; border:1px solid #1a3322; }
-#dept-res .dsb-fill { background:#226622; }
-#dept-res { border:1px solid #1a3322; }
-
-/* コンテンツ部スタイル */
-#dept-con .dept-wall { background:#160a14; border-bottom:1px solid #331a30; }
-#dept-con .dept-carpet { background:repeating-linear-gradient(90deg,#180e16 0,#180e16 18px,#120a10 18px,#120a10 36px); }
-#dept-con .dept-label-tag { color:#ffaaff; background:#160a14; border:1px solid #331a30; }
-#dept-con .dsb-fill { background:#882255; }
-#dept-con { border:1px solid #331a30; }
-
-/* スケジューラー部スタイル */
-#dept-sch .dept-wall { background:#14100a; border-bottom:1px solid #332200; }
-#dept-sch .dept-carpet { background:repeating-linear-gradient(90deg,#1a1208 0,#1a1208 18px,#120e06 18px,#120e06 36px); }
-#dept-sch .dept-label-tag { color:#ffcc88; background:#14100a; border:1px solid #332200; }
-#dept-sch .dsb-fill { background:#aa7700; }
-#dept-sch { border:1px solid #332200; }
+/* 部署ごとの色テーマ */
+#dept-sec .dept-label-tag { color:#cceeff; background:rgba(20,40,80,0.8); border:1px solid #2244aa; }
+#dept-sec .dept::before    { background:#3a2810; border-bottom-color:#6a4820; }
+#dept-sec .dsb-fill        { background:#3366cc; }
+#dept-sec { border:1px solid #2a4a80; }
+#dept-res .dept-label-tag  { color:#ccffcc; background:rgba(10,40,20,0.8); border:1px solid #226622; }
+#dept-res .dsb-fill        { background:#338833; }
+#dept-res { border:1px solid #2a5a2a; }
+#dept-con .dept-label-tag  { color:#ffccff; background:rgba(50,10,50,0.8); border:1px solid #882266; }
+#dept-con .dsb-fill        { background:#993366; }
+#dept-con { border:1px solid #5a1a4a; }
+#dept-sch .dept-label-tag  { color:#ffeebb; background:rgba(40,30,10,0.8); border:1px solid #885500; }
+#dept-sch .dsb-fill        { background:#aa8800; }
+#dept-sch { border:1px solid #5a4010; }
 
 /* ===== キャラクター ===== */
 .char {
   position:absolute;
-  width:16px; height:24px;
+  width:32px; height:48px;
   image-rendering:pixelated;
   transition:left 1.5s ease-in-out, top 1.5s ease-in-out;
   z-index:20;
 }
-.char-head { position:absolute; top:0; left:3px; width:10px; height:10px; background:#ffcc99; border-radius:50%; }
-.char-hair { position:absolute; top:0; left:2px; width:12px; border-radius:4px 4px 0 0; }
-.char-face-detail { position:absolute; top:4px; left:4px; width:2px; height:2px; background:#333; border-radius:50%; box-shadow:4px 0 0 #333; }
-.char-body { position:absolute; top:9px; left:1px; width:14px; height:10px; }
-.char-arms { position:absolute; top:11px; left:-2px; width:20px; height:4px; }
-.char-legs { position:absolute; top:18px; left:2px; width:12px; height:6px; background:#222; }
+.char-head { position:absolute; top:0; left:6px; width:20px; height:20px; background:#ffcc99; border-radius:50%; }
+.char-hair { position:absolute; top:0; left:4px; width:24px; border-radius:8px 8px 0 0; }
+.char-face-detail { position:absolute; top:8px; left:8px; width:4px; height:4px; background:#333; border-radius:50%; box-shadow:8px 0 0 #333; }
+.char-body { position:absolute; top:18px; left:2px; width:28px; height:20px; }
+.char-arms { position:absolute; top:22px; left:-4px; width:40px; height:8px; }
+.char-legs { position:absolute; top:36px; left:4px; width:24px; height:12px; background:#222; }
 
 /* アニメ */
 .anim-type { animation:atype 0.25s steps(1) infinite; }
@@ -345,42 +258,42 @@ body {
   z-index:30;
   transition: left 1.8s cubic-bezier(0.4,0,0.2,1), top 1.8s cubic-bezier(0.4,0,0.2,1);
 }
-#ceo .char-hair { height:6px; background:#111; }
-#ceo .char-body { background:#1a1a3a; border-left:2px solid #fff; border-right:2px solid #fff; }
+#ceo .char-hair { height:12px; background:#111; }
+#ceo .char-body { background:#1a1a3a; border-left:3px solid #fff; border-right:3px solid #fff; }
 #ceo .char-arms { background:#1a1a3a; }
 #ceo .char-legs { background:#1a1a2a; }
-.ceo-tie { position:absolute; top:10px; left:7px; width:3px; height:7px; background:#cc2200; clip-path:polygon(20% 0%,80% 0%,100% 100%,50% 85%,0% 100%); }
-.ceo-badge { position:absolute; top:12px; right:-2px; width:5px; height:3px; background:#ffcc00; border-radius:1px; }
+.ceo-tie { position:absolute; top:20px; left:14px; width:6px; height:14px; background:#cc2200; clip-path:polygon(20% 0%,80% 0%,100% 100%,50% 85%,0% 100%); }
+.ceo-badge { position:absolute; top:24px; right:-4px; width:10px; height:6px; background:#ffcc00; border-radius:1px; }
 .anim-ceo-walk { animation:acwalk 0.4s steps(4) infinite; }
 @keyframes acwalk { 0%{transform:translateY(0)} 25%{transform:translateY(-2px)} 50%{transform:translateY(0)} 75%{transform:translateY(-1px)} }
 
 /* 社員 */
-.emp-sec .char-hair { height:6px; background:#663300; }
+.emp-sec .char-hair { height:12px; background:#663300; }
 .emp-sec .char-body, .emp-sec .char-arms { background:#2255cc; }
-.emp-res .char-hair { height:5px; background:#222; }
+.emp-res .char-hair { height:10px; background:#222; }
 .emp-res .char-body, .emp-res .char-arms { background:#225522; }
-.emp-res-glasses { position:absolute; top:4px; left:3px; width:10px; height:2px; border:1px solid #aaaaff; }
-.emp-con .char-hair { height:7px; background:#884400; }
+.emp-res-glasses { position:absolute; top:8px; left:6px; width:20px; height:4px; border:2px solid #aaaaff; }
+.emp-con .char-hair { height:14px; background:#884400; }
 .emp-con .char-body, .emp-con .char-arms { background:#882255; }
-.emp-sch .char-hair { height:4px; background:#ffaa00; }
+.emp-sch .char-hair { height:8px; background:#ffaa00; }
 .emp-sch .char-body, .emp-sch .char-arms { background:#554400; }
 
 /* 役員 */
-#senmu .char-hair { height:6px; background:#334466; border-radius:4px 4px 0 0; }
+#senmu .char-hair { height:12px; background:#334466; border-radius:8px 8px 0 0; }
 #senmu .char-body, #senmu .char-arms { background:#1a2a5a; }
 #senmu .char-legs { background:#111133; }
-.senmu-badge { position:absolute; top:12px; right:-2px; width:5px; height:3px; background:#8899ff; border-radius:1px; }
-#jomu .char-hair { height:6px; background:#335533; border-radius:4px 4px 0 0; }
+.senmu-badge { position:absolute; top:24px; right:-4px; width:10px; height:6px; background:#8899ff; border-radius:1px; }
+#jomu .char-hair { height:12px; background:#335533; border-radius:8px 8px 0 0; }
 #jomu .char-body, #jomu .char-arms { background:#1a3a2a; }
 #jomu .char-legs { background:#112211; }
-.jomu-badge { position:absolute; top:12px; right:-2px; width:5px; height:3px; background:#88cc88; border-radius:1px; }
-.exec-label { position:absolute; font-size:5px; letter-spacing:1px; z-index:25; pointer-events:none; }
+.jomu-badge { position:absolute; top:24px; right:-4px; width:10px; height:6px; background:#88cc88; border-radius:1px; }
+.exec-label { position:absolute; font-size:8px; letter-spacing:1px; z-index:25; pointer-events:none; }
 
 /* 吹き出し */
 .bubble {
   position:absolute;
-  background:#ffffdd; color:#000; font-size:6px;
-  padding:3px 5px; border:1px solid #888; border-radius:2px;
+  background:#ffffdd; color:#000; font-size:8px;
+  padding:4px 6px; border:1px solid #888; border-radius:2px;
   white-space:nowrap; z-index:50; pointer-events:none;
   transform-origin:bottom left;
 }
@@ -431,19 +344,106 @@ body {
 #ql-body::-webkit-scrollbar { width:3px; }
 #ql-body::-webkit-scrollbar-track { background:#111; }
 #ql-body::-webkit-scrollbar-thumb { background:#333; }
-.qi { display:flex; gap:4px; padding:3px 2px; border-bottom:1px solid #0d0d14; font-size:6px; align-items:center; }
-.qi-rank { width:13px; height:13px; display:flex; align-items:center; justify-content:center; border:1px solid #333; flex-shrink:0; }
+.qi { display:flex; gap:4px; padding:4px 2px; border-bottom:1px solid #0d0d14; font-size:8px; align-items:center; }
+.qi-rank { width:16px; height:16px; display:flex; align-items:center; justify-content:center; border:1px solid #333; flex-shrink:0; font-size:9px; }
 .qi-rank.A { background:#003300; color:#00ee88; border-color:#005500; }
 .qi-rank.B { background:#332200; color:#eebb00; border-color:#443300; }
 .qi-rank.C { background:#332200; color:#ee7700; border-color:#443300; }
 .qi-rank.D { background:#330000; color:#ee4444; border-color:#440000; }
 .qi-title { color:#999; flex:1; line-height:1.5; }
-.qi-score { color:#444; font-size:5px; flex-shrink:0; }
+.qi-score { color:#444; font-size:7px; flex-shrink:0; }
 
 #footer-bar { background:#06060c; border-top:1px solid #111122; padding:3px 8px; font-size:7px; color:#333; text-align:center; flex-shrink:0; }
 
 /* フラッシュ */
 #flash { position:fixed; top:34px; right:6px; background:#003300; color:#00ff88; font-size:7px; padding:3px 6px; border:1px solid #006600; opacity:0; transition:opacity 0.3s; pointer-events:none; z-index:100; }
+
+/* ===== 社長指示バー ===== */
+#cmd-bar {
+  background:#04040a; border-top:2px solid #1a1a3a;
+  padding:5px 10px; display:flex; align-items:center; gap:8px; flex-shrink:0;
+}
+.cmd-prompt { color:#ffcc00; font-size:8px; flex-shrink:0; letter-spacing:1px; white-space:nowrap; }
+#cmd-input {
+  flex:1; background:#010108; color:#00ff88;
+  font-family:'Press Start 2P',monospace; font-size:7px;
+  border:1px solid #1a2244; padding:5px 7px; outline:none;
+}
+#cmd-input:focus { border-color:#4488ff; box-shadow:0 0 8px #4488ff33; }
+#cmd-input::placeholder { color:#1a2a44; }
+#cmd-btn {
+  background:#0a0a22; color:#aaaaff;
+  font-family:'Press Start 2P',monospace; font-size:7px;
+  border:1px solid #2233aa; padding:5px 10px; cursor:pointer; flex-shrink:0;
+  transition:background 0.15s;
+}
+#cmd-btn:hover { background:#1a1a55; color:#fff; }
+#cmd-btn:active { background:#0000aa; }
+
+/* ドア（共通） */
+.door {
+  position:absolute;
+  background:#3a2200; border:2px solid #6a4400; z-index:8;
+}
+.door::before {
+  content:''; position:absolute; background:#ffaa00; border-radius:50%;
+  width:3px; height:3px;
+}
+/* 左右壁のドア（縦型） */
+.door-side {
+  width:14px; height:28px; bottom:28px;
+  border-radius:2px 2px 0 0;
+}
+.door-side::before { top:7px; right:3px; }
+.door-sec  { right:0; }
+.door-res  { left:0; }
+.door-con  { right:0; }
+.door-sch  { left:0; }
+/* 上下壁のドア（縦型・上側に開く） */
+.door-vert {
+  width:16px; height:22px;
+  left:50%; transform:translateX(-50%);
+}
+.door-vert::before { top:5px; right:3px; }
+.door-top    { top:0;    border-top:none;    border-radius:0 0 2px 2px; }
+.door-bottom { bottom:0; border-bottom:none; border-radius:2px 2px 0 0; }
+/* 社長室の下側ドア */
+.door-pres { width:16px; height:22px; bottom:0; left:50%; transform:translateX(-50%); border-bottom:none; border-radius:2px 2px 0 0; }
+.door-pres::before { top:5px; right:3px; }
+
+/* ビジーアニメ */
+.anim-busy { animation:abusy 0.1s steps(2) infinite !important; }
+@keyframes abusy { 0%{transform:translateY(0) scaleX(1)} 50%{transform:translateY(-3px) scaleX(-1)} }
+
+/* 副社長（Claude）スタイル */
+#vp { transition:left 1.5s cubic-bezier(0.4,0,0.2,1), top 1.5s cubic-bezier(0.4,0,0.2,1); z-index:25; }
+#vp .char-hair { height:12px; background:#9999ff; border-radius:8px 8px 0 0; }
+#vp .char-body { background:#1a1a6a; border-left:2px solid #6666ff; border-right:2px solid #6666ff; }
+#vp .char-arms { background:#1a1a6a; }
+#vp .char-legs { background:#111144; }
+.vp-badge { position:absolute; top:24px; right:-4px; width:10px; height:6px; background:#aaaaff; border-radius:1px; box-shadow:0 0 8px #8888ffaa; }
+@keyframes avp-idle { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-2px)} }
+.anim-vp-idle { animation:avp-idle 2.5s ease-in-out infinite; }
+
+/* アイドルアニメ */
+@keyframes astretch { 0%,100%{transform:scaleY(1) translateY(0)} 40%{transform:scaleY(1.15) translateY(-3px)} }
+.anim-stretch { animation:astretch 0.5s ease-in-out 2; }
+@keyframes alook { 0%,100%{transform:rotate(0deg)} 30%,70%{transform:rotate(-5deg)} }
+.anim-look { animation:alook 1.5s ease-in-out 2; }
+
+/* 指示バナー */
+.directive-banner {
+  position:absolute; top:22px; left:0; right:0;
+  background:rgba(255,200,0,0.1); border-top:1px solid rgba(170,136,0,0.5);
+  border-bottom:1px solid rgba(170,136,0,0.5); padding:2px 4px;
+  font-size:5px; color:#ffcc44; z-index:15; text-align:center;
+  animation:bannerFade 4s ease-out forwards; pointer-events:none;
+}
+.directive-done {
+  background:rgba(0,180,80,0.1) !important;
+  border-color:rgba(0,150,60,0.5) !important; color:#00ff88 !important;
+}
+@keyframes bannerFade { 0%,55%{opacity:1} 100%{opacity:0} }
 </style>
 </head>
 <body>
@@ -460,232 +460,207 @@ body {
   <!-- 左：オフィスフロア -->
   <div id="office-canvas">
 
-    <!-- 社長室 -->
+    <!-- 社長室（ダークタイル高級スイート） -->
     <div id="pres-room">
-      <div class="pres-wallpaper"></div>
-      <div class="pres-floor"></div>
-      <div class="room-label" style="color:#ffcc44">👑 社長室</div>
+      <div class="room-label" style="color:#88ccff;z-index:10">👑 社長室</div>
 
-      <!-- 窓 -->
-      <div class="pres-window"></div>
-      <!-- 外の景色 -->
-      <div class="window-city">
-        <div class="city-bldg" style="width:6px;height:14px"></div>
-        <div class="city-bldg" style="width:8px;height:20px"></div>
-        <div class="city-bldg" style="width:5px;height:10px"></div>
-        <div class="city-bldg" style="width:7px;height:16px"></div>
+      <!-- 本棚（壁付け） -->
+      <div class="bookshelf-td" style="left:8px;width:60px">
+        <div class="bk-td" style="background:#aa2200"></div>
+        <div class="bk-td" style="background:#2244aa"></div>
+        <div class="bk-td" style="background:#226622"></div>
+        <div class="bk-td" style="background:#884400"></div>
+        <div class="bk-td" style="background:#662288"></div>
+        <div class="bk-td" style="background:#224488"></div>
+        <div class="bk-td" style="background:#aa4400"></div>
       </div>
+      <!-- 額縁 -->
+      <div class="picture-frame" style="right:80px;width:36px;height:28px"></div>
+      <div class="picture-frame" style="right:36px;width:26px;height:22px;top:6px"></div>
 
-      <!-- 本棚 -->
-      <div class="bookshelf">
-        <div class="shelf">
-          <div class="bk" style="background:#aa2200;height:12px"></div>
-          <div class="bk" style="background:#2244aa;height:11px"></div>
-          <div class="bk" style="background:#226622;height:12px"></div>
-          <div class="bk" style="background:#884400;height:10px"></div>
-          <div class="bk" style="background:#662288;height:11px"></div>
+      <!-- 社長デスク（トップダウン） -->
+      <div class="pres-desk-td"></div>
+
+      <!-- ラグ -->
+      <div class="pres-rug"></div>
+
+      <!-- ソファ -->
+      <div class="sofa-td sofa-h" style="bottom:22px;left:50%;transform:translateX(-50%) translateX(-60px)"></div>
+
+      <!-- 植物（コーナーたくさん） -->
+      <div class="pt pt-xl" style="left:4px;bottom:6px"></div>
+      <div class="pt pt-lg pt-cactus" style="left:42px;bottom:10px"></div>
+      <div class="pt pt-md" style="right:4px;bottom:6px"></div>
+      <div class="pt pt-lg pt-dark" style="right:40px;bottom:8px"></div>
+      <div class="pt pt-md" style="left:6px;top:22px"></div>
+      <div class="pt pt-sm pt-cactus" style="right:8px;top:24px"></div>
+
+      <!-- 社長室下ドア（VP/CEO のみ通行可） -->
+      <div class="door door-pres"></div>
+
+      <!-- 成果バー -->
+      <div style="position:absolute;bottom:4px;right:8px;display:flex;gap:4px;z-index:10">
+        <div style="background:rgba(0,0,0,0.6);border:1px solid #334466;padding:2px 5px;font-size:6px;color:#88aacc">
+          📝<span id="pres-art">--</span>本
         </div>
-        <div class="shelf">
-          <div class="bk" style="background:#224488;height:13px"></div>
-          <div class="bk" style="background:#886622;height:11px"></div>
-          <div class="bk" style="background:#228866;height:12px"></div>
-          <div class="bk" style="background:#4444aa;height:10px"></div>
+        <div style="background:rgba(0,0,0,0.6);border:1px solid #334466;padding:2px 5px;font-size:6px;color:#ffcc44">
+          💰<span id="pres-rev">--</span>
         </div>
-        <div class="shelf">
-          <div class="bk" style="background:#aa4400;height:12px"></div>
-          <div class="bk" style="background:#666622;height:11px"></div>
-          <div class="bk" style="background:#224466;height:13px"></div>
-        </div>
-      </div>
-
-      <!-- トロフィー -->
-      <div class="trophy-shelf">
-        <div class="trophy">🏆</div>
-        <div class="trophy">📚</div>
-        <div class="trophy">⭐</div>
-      </div>
-
-      <!-- 観葉植物 -->
-      <div class="plant" style="left:6px">
-        <div class="plant-leaf3"></div>
-        <div class="plant-leaf1"></div>
-        <div class="plant-leaf2"></div>
-        <div class="plant-soil"></div>
-        <div class="plant-pot"></div>
-      </div>
-
-      <!-- 社長デスク -->
-      <div class="pres-desk-main"></div>
-      <div class="pres-desk-side"></div>
-      <div class="desk-pc"><div class="desk-pc-glow"></div></div>
-      <div class="desk-papers"></div>
-      <div class="coffee-cup"></div>
-      <div class="chair" style="bottom:18px;left:50%;transform:translateX(-50%) translateX(-24px)"></div>
-
-      <!-- 専務 -->
-      <div id="senmu" class="char anim-idle" style="position:absolute;bottom:22px;left:28%">
-        <div class="char-head"></div><div class="char-hair"></div><div class="char-face-detail"></div>
-        <div class="char-body"></div><div class="senmu-badge"></div>
-        <div class="char-arms"></div><div class="char-legs"></div>
-      </div>
-      <div class="exec-label" style="bottom:48px;left:calc(28% - 4px);color:#8899ff">専務</div>
-
-      <!-- 常務 -->
-      <div id="jomu" class="char anim-idle" style="position:absolute;bottom:22px;left:66%">
-        <div class="char-head"></div><div class="char-hair"></div><div class="char-face-detail"></div>
-        <div class="char-body"></div><div class="jomu-badge"></div>
-        <div class="char-arms"></div><div class="char-legs"></div>
-      </div>
-      <div class="exec-label" style="bottom:48px;left:calc(66% - 4px);color:#88cc88">常務</div>
-
-      <!-- 今日の成果バー（右下） -->
-      <div style="position:absolute;bottom:4px;right:8px;display:flex;gap:6px">
-        <div style="background:#1a1000;border:1px solid #554400;padding:2px 6px;font-size:7px">
-          記事 <span style="color:#ffcc00" id="pres-art">--</span>本
-        </div>
-        <div style="background:#1a1000;border:1px solid #554400;padding:2px 6px;font-size:7px">
-          売上 <span style="color:#ffcc00" id="pres-rev">--</span>
-        </div>
-        <div style="background:#001a00;border:1px solid #004400;padding:2px 6px;font-size:7px">
-          A <span style="color:#00dd66" id="pres-a">--</span>
+        <div style="background:rgba(0,0,0,0.6);border:1px solid #224422;padding:2px 5px;font-size:6px;color:#44ee88">
+          A<span id="pres-a">--</span>
         </div>
       </div>
     </div>
 
-    <!-- 部署フロア（ここに全キャラを絶対配置） -->
+    <!-- 部署フロア（木目床・トップダウン） -->
     <div id="dept-floors">
 
       <!-- 秘書部 -->
       <div class="dept" id="dept-sec">
-        <div class="dept-wall"></div>
-        <div class="dept-carpet"></div>
-        <div class="dept-label-tag">📋 秘書部</div>
-
-        <div class="whiteboard" style="left:50px;top:3px">
-          <div class="wb-text">スケジュール<br>08:00 記事確認<br>10:00 投稿</div>
-          <div class="wb-marker"></div>
+        <div class="dept-label-tag" style="color:#cceeff;background:rgba(10,20,60,0.85);border:1px solid #2244aa">📋 秘書部</div>
+        <!-- ホワイトボード -->
+        <div class="whiteboard" style="left:50%;transform:translateX(-50%);top:3px;width:52px">
+          <div class="wb-text" id="wb-con-dummy">08:00 確認<br>投稿チェック</div>
         </div>
-        <div class="cabinet" style="right:8px">
-          <div class="cab-handle"></div>
-        </div>
-        <div class="dept-desk" style="left:16px"><div class="dept-monitor"></div><div class="desk-mug"></div></div>
-        <div class="dept-desk" style="left:76px"><div class="dept-monitor"></div><div class="desk-note"></div></div>
-        <div class="small-plant" style="right:28px">🪴</div>
-
-        <div class="char emp-sec anim-type" id="sec1" style="bottom:36px;left:20px">
+        <!-- キャビネット -->
+        <div class="cabinet-td" style="right:4px;top:20px;width:18px;height:24px"></div>
+        <!-- デスク -->
+        <div class="dept-desk desk-left"><div class="desk-mug">☕</div></div>
+        <div class="dept-desk desk-right"><div class="desk-note"></div></div>
+        <!-- 植物 -->
+        <div class="pt pt-lg" style="left:4px;bottom:20px"></div>
+        <div class="pt pt-md pt-dark" style="left:26px;bottom:22px"></div>
+        <div class="pt pt-xl" style="right:4px;top:20px"></div>
+        <div class="pt pt-sm pt-cactus" style="right:28px;bottom:22px"></div>
+        <!-- 社員 -->
+        <div class="char emp-sec anim-type" id="sec1" style="bottom:40px;left:calc(50% - 64px)">
           <div class="char-head"></div><div class="char-hair"></div><div class="char-face-detail"></div>
           <div class="char-body"></div><div class="char-arms"></div><div class="char-legs"></div>
         </div>
-        <div class="char emp-sec anim-idle" id="sec2" style="bottom:36px;left:80px">
+        <div class="char emp-sec char-flip anim-idle" id="sec2" style="bottom:40px;left:calc(50% + 4px)">
           <div class="char-head"></div><div class="char-hair"></div><div class="char-face-detail"></div>
           <div class="char-body"></div><div class="char-arms"></div><div class="char-legs"></div>
         </div>
-
+        <!-- ドア -->
+        <div class="door door-vert door-top"></div>
+        <div class="door door-side door-sec"></div>
+        <div class="door door-vert door-bottom"></div>
         <div class="dept-status-bar">
-          <div class="dsb-label">稼働</div>
-          <div class="dsb-track"><div class="dsb-fill" id="sec-bar" style="width:85%"></div></div>
-          <div class="dsb-val">85%</div>
+          <div class="dsb-label" style="color:#88aacc">稼働</div>
+          <div class="dsb-track"><div class="dsb-fill" id="sec-bar" style="width:85%;background:#3366cc"></div></div>
+          <div class="dsb-val" style="color:#88aacc">85%</div>
         </div>
       </div>
 
       <!-- リサーチ部 -->
       <div class="dept" id="dept-res">
-        <div class="dept-wall"></div>
-        <div class="dept-carpet"></div>
-        <div class="dept-label-tag">🔍 リサーチ部</div>
-
-        <div class="whiteboard" style="right:50px;top:3px">
-          <div class="wb-text">トレンド<br>#AI #副業<br>#Claude</div>
-          <div class="wb-marker" style="background:#2244aa"></div>
+        <div class="dept-label-tag" style="color:#ccffcc;background:rgba(10,40,20,0.85);border:1px solid #226622">🔍 リサーチ部</div>
+        <div class="whiteboard" style="left:50%;transform:translateX(-50%);top:3px;width:52px">
+          <div class="wb-text">#AI #副業<br>#Claude</div>
         </div>
-        <div class="water-cooler" style="right:10px"></div>
-        <div class="dept-desk" style="left:16px"><div class="dept-monitor"></div><div class="desk-mug"></div></div>
-        <div class="dept-desk" style="left:76px"><div class="dept-monitor"></div><div class="desk-note"></div></div>
-
-        <div class="char emp-res anim-think" id="res1" style="bottom:36px;left:20px">
+        <!-- 丸テーブル -->
+        <div class="round-table" style="right:8px;top:22px;width:22px;height:22px"></div>
+        <!-- デスク -->
+        <div class="dept-desk desk-left"><div class="desk-mug">☕</div></div>
+        <div class="dept-desk desk-right"><div class="desk-note"></div></div>
+        <!-- 植物 -->
+        <div class="pt pt-xl pt-dark" style="left:4px;top:20px"></div>
+        <div class="pt pt-md" style="left:4px;bottom:20px"></div>
+        <div class="pt pt-lg pt-cactus" style="right:4px;bottom:20px"></div>
+        <div class="pt pt-sm" style="right:28px;top:22px"></div>
+        <!-- 社員 -->
+        <div class="char emp-res anim-think" id="res1" style="bottom:40px;left:calc(50% - 64px)">
           <div class="char-head"></div><div class="char-hair"></div><div class="char-face-detail"></div>
           <div class="emp-res-glasses"></div>
           <div class="char-body"></div><div class="char-arms"></div><div class="char-legs"></div>
         </div>
-        <div class="char emp-res anim-type" id="res2" style="bottom:36px;left:80px">
+        <div class="char emp-res char-flip anim-type" id="res2" style="bottom:40px;left:calc(50% + 4px)">
           <div class="char-head"></div><div class="char-hair"></div><div class="char-face-detail"></div>
           <div class="emp-res-glasses"></div>
           <div class="char-body"></div><div class="char-arms"></div><div class="char-legs"></div>
         </div>
-
+        <!-- ドア -->
+        <div class="door door-vert door-top"></div>
+        <div class="door door-side door-res"></div>
+        <div class="door door-vert door-bottom"></div>
         <div class="dept-status-bar">
-          <div class="dsb-label">稼働</div>
-          <div class="dsb-track"><div class="dsb-fill" id="res-bar" style="width:70%"></div></div>
-          <div class="dsb-val">70%</div>
+          <div class="dsb-label" style="color:#88cc88">稼働</div>
+          <div class="dsb-track"><div class="dsb-fill" id="res-bar" style="width:70%;background:#338833"></div></div>
+          <div class="dsb-val" style="color:#88cc88">70%</div>
         </div>
       </div>
 
       <!-- コンテンツ部 -->
       <div class="dept" id="dept-con">
-        <div class="dept-wall"></div>
-        <div class="dept-carpet"></div>
-        <div class="dept-label-tag">✍️ コンテンツ部</div>
-
-        <div class="whiteboard" style="left:50px;top:3px">
-          <div class="wb-text" id="wb-con">生成中...<br>本日: 0本<br>Aランク: 0</div>
-          <div class="wb-marker" style="background:#882255"></div>
+        <div class="dept-label-tag" style="color:#ffccff;background:rgba(50,10,50,0.85);border:1px solid #882266">✍️ コンテンツ部</div>
+        <div class="whiteboard" style="left:50%;transform:translateX(-50%);top:3px;width:56px">
+          <div class="wb-text" id="wb-con">生成中...<br>0本完了</div>
         </div>
-        <div class="cabinet" style="right:8px">
-          <div class="cab-handle"></div>
-        </div>
-        <div class="dept-desk" style="left:16px"><div class="dept-monitor"></div><div class="desk-mug"></div></div>
-        <div class="dept-desk" style="left:76px"><div class="dept-monitor"></div></div>
-        <div class="small-plant" style="left:118px">🌿</div>
-
-        <div class="char emp-con anim-write" id="con1" style="bottom:36px;left:20px">
+        <div class="cabinet-td" style="left:4px;top:20px;width:18px;height:24px"></div>
+        <!-- デスク -->
+        <div class="dept-desk desk-left"><div class="desk-mug">☕</div></div>
+        <div class="dept-desk desk-right"></div>
+        <!-- 植物 -->
+        <div class="pt pt-xl" style="right:4px;bottom:20px"></div>
+        <div class="pt pt-md pt-cactus" style="right:30px;bottom:22px"></div>
+        <div class="pt pt-lg pt-dark" style="left:4px;top:20px"></div>
+        <div class="pt pt-sm" style="left:4px;bottom:22px"></div>
+        <!-- 社員 -->
+        <div class="char emp-con anim-write" id="con1" style="bottom:40px;left:calc(50% - 64px)">
           <div class="char-head"></div><div class="char-hair"></div><div class="char-face-detail"></div>
           <div class="char-body"></div><div class="char-arms"></div><div class="char-legs"></div>
         </div>
-        <div class="char emp-con anim-type" id="con2" style="bottom:36px;left:80px">
+        <div class="char emp-con char-flip anim-type" id="con2" style="bottom:40px;left:calc(50% + 4px)">
           <div class="char-head"></div><div class="char-hair"></div><div class="char-face-detail"></div>
           <div class="char-body"></div><div class="char-arms"></div><div class="char-legs"></div>
         </div>
-
+        <!-- ドア -->
+        <div class="door door-vert door-top"></div>
+        <div class="door door-side door-con"></div>
         <div class="dept-status-bar">
-          <div class="dsb-label">進捗</div>
-          <div class="dsb-track"><div class="dsb-fill" id="con-bar" style="width:0%"></div></div>
-          <div class="dsb-val" id="con-pct">0%</div>
+          <div class="dsb-label" style="color:#cc88cc">進捗</div>
+          <div class="dsb-track"><div class="dsb-fill" id="con-bar" style="width:0%;background:#993366"></div></div>
+          <div class="dsb-val" style="color:#cc88cc" id="con-pct">0%</div>
         </div>
       </div>
 
       <!-- スケジューラー部 -->
       <div class="dept" id="dept-sch">
-        <div class="dept-wall"></div>
-        <div class="dept-carpet"></div>
-        <div class="dept-label-tag">📅 スケジューラー部</div>
-
-        <div class="whiteboard" style="right:50px;top:3px">
-          <div class="wb-text">投稿計画<br>Mon 9:00<br>Wed 19:00</div>
-          <div class="wb-marker" style="background:#aa7700"></div>
+        <div class="dept-label-tag" style="color:#ffeebb;background:rgba(40,30,10,0.85);border:1px solid #885500">📅 スケジューラー部</div>
+        <div class="whiteboard" style="left:50%;transform:translateX(-50%);top:3px;width:54px">
+          <div class="wb-text">Mon 9:00<br>Wed 19:00</div>
         </div>
-        <div class="water-cooler" style="left:10px"></div>
-        <div class="dept-desk" style="left:30px"><div class="dept-monitor"></div><div class="desk-mug"></div></div>
-        <div class="dept-desk" style="left:90px"><div class="dept-monitor"></div><div class="desk-note"></div></div>
-
-        <div class="char emp-sch anim-idle" id="sch1" style="bottom:36px;left:36px">
+        <div class="round-table" style="left:8px;top:22px;width:22px;height:22px"></div>
+        <!-- デスク -->
+        <div class="dept-desk desk-left"><div class="desk-mug">☕</div></div>
+        <div class="dept-desk desk-right"><div class="desk-note"></div></div>
+        <!-- 植物 -->
+        <div class="pt pt-lg" style="right:4px;top:20px"></div>
+        <div class="pt pt-xl pt-dark" style="right:4px;bottom:20px"></div>
+        <div class="pt pt-md pt-cactus" style="left:4px;bottom:20px"></div>
+        <div class="pt pt-sm" style="left:30px;top:22px"></div>
+        <!-- 社員 -->
+        <div class="char emp-sch anim-idle" id="sch1" style="bottom:40px;left:calc(50% - 64px)">
           <div class="char-head"></div><div class="char-hair"></div><div class="char-face-detail"></div>
           <div class="char-body"></div><div class="char-arms"></div><div class="char-legs"></div>
         </div>
-        <div class="char emp-sch anim-type" id="sch2" style="bottom:36px;left:96px">
+        <div class="char emp-sch char-flip anim-type" id="sch2" style="bottom:40px;left:calc(50% + 4px)">
           <div class="char-head"></div><div class="char-hair"></div><div class="char-face-detail"></div>
           <div class="char-body"></div><div class="char-arms"></div><div class="char-legs"></div>
         </div>
-
+        <!-- ドア -->
+        <div class="door door-vert door-top"></div>
+        <div class="door door-side door-sch"></div>
         <div class="dept-status-bar">
-          <div class="dsb-label">稼働</div>
-          <div class="dsb-track"><div class="dsb-fill" id="sch-bar" style="width:60%"></div></div>
-          <div class="dsb-val">60%</div>
+          <div class="dsb-label" style="color:#ccaa55">稼働</div>
+          <div class="dsb-track"><div class="dsb-fill" id="sch-bar" style="width:60%;background:#aa8800"></div></div>
+          <div class="dsb-val" style="color:#ccaa55">60%</div>
         </div>
       </div>
 
     </div><!-- /dept-floors -->
 
-    <!-- CEO（全体に絶対配置） -->
+    <!-- CEO（社長室内・絶対配置） -->
     <div id="ceo" class="char" style="top:70px;left:45%">
       <div class="char-head"></div>
       <div class="char-hair" style="height:6px;background:#111;border-radius:4px 4px 0 0"></div>
@@ -695,6 +670,31 @@ body {
       <div class="ceo-badge"></div>
       <div class="char-arms" style="background:#1a1a3a"></div>
       <div class="char-legs" style="background:#1a1a2a"></div>
+    </div>
+
+    <!-- 副社長（社長室↔全部署を移動・キャンバス絶対配置） -->
+    <div id="vp" class="char anim-vp-idle" style="position:absolute;top:70px;left:42%;z-index:25">
+      <div class="char-head"></div>
+      <div class="char-hair"></div>
+      <div class="char-face-detail"></div>
+      <div class="char-body"></div>
+      <div class="vp-badge"></div>
+      <div class="char-arms"></div>
+      <div class="char-legs"></div>
+    </div>
+
+    <!-- 専務（秘書部↔コンテンツ部巡回・キャンバス絶対配置） -->
+    <div id="senmu" class="char anim-idle" style="position:absolute;top:70px;left:25%;z-index:22">
+      <div class="char-head"></div><div class="char-hair"></div><div class="char-face-detail"></div>
+      <div class="char-body"></div><div class="senmu-badge"></div>
+      <div class="char-arms"></div><div class="char-legs"></div>
+    </div>
+
+    <!-- 常務（リサーチ部↔スケジューラー部巡回・キャンバス絶対配置） -->
+    <div id="jomu" class="char anim-idle" style="position:absolute;top:70px;left:65%;z-index:22">
+      <div class="char-head"></div><div class="char-hair"></div><div class="char-face-detail"></div>
+      <div class="char-body"></div><div class="jomu-badge"></div>
+      <div class="char-arms"></div><div class="char-legs"></div>
     </div>
 
   </div><!-- /office-canvas -->
@@ -732,28 +732,110 @@ body {
 
 </div><!-- /layout -->
 
+<!-- 社長指示バー -->
+<div id="cmd-bar">
+  <span class="cmd-prompt">👑 社長指示 ▶</span>
+  <input type="text" id="cmd-input" placeholder="部署に指示を出す（例: X投稿を作れ　リサーチしてくれ　スケジュール組んで）" maxlength="40">
+  <button id="cmd-btn">▶ 指示</button>
+</div>
+
 <script>
 // ===== 時計 =====
 setInterval(() => { document.getElementById('clock').textContent = new Date().toLocaleTimeString('ja-JP'); }, 1000);
 
-// ===== CEO 移動システム =====
-const ceoEl = document.getElementById('ceo');
+// ===== キャラクター要素 =====
+const ceoEl   = document.getElementById('ceo');
+const senmuEl = document.getElementById('senmu');
+const jomuEl  = document.getElementById('jomu');
+const vpEl2   = document.getElementById('vp');
 
-// デスティネーションゾーン（社長室 + 各部署のキャラ座標）
-// officeCanvasの相対座標で指定
-// presRoomの高さは130px、dept-floorsはその下
+// ===== 座標定義（キャンバス相対・実際のDOM位置から動的に計算） =====
+const POS = {
+  ceoDesk:  { top:75,  leftPct:0.38 },
+  ceoExer:  { top:75,  leftPct:0.55 },
+  // ドアウェイポイント（部屋間の扉位置）
+  doorPresOut: { top:118, leftPct:0.50 }, // 社長室下ドア（VP専用）
+  doorSecIn:   { top:140, leftPct:0.25 }, // 秘書部上ドア（社長室側）
+  doorResIn:   { top:140, leftPct:0.75 }, // リサーチ部上ドア（社長室側）
+  doorSecRes:  { top:200, leftPct:0.50 }, // 秘書部↔リサーチ部境界
+  doorSecCon:  { top:265, leftPct:0.25 }, // 秘書部下↔コンテンツ部上
+  doorResSch:  { top:265, leftPct:0.75 }, // リサーチ部下↔スケジューラー部上
+  doorConSch:  { top:340, leftPct:0.50 }, // コンテンツ部↔スケジューラー部境界
+  // 各部署内の位置（動的に上書きされる）
+  sec1:  { top:200, leftPct:0.12 },
+  sec2:  { top:200, leftPct:0.32 },
+  res1:  { top:200, leftPct:0.62 },
+  res2:  { top:200, leftPct:0.82 },
+  con1:  { top:340, leftPct:0.12 },
+  con2:  { top:340, leftPct:0.32 },
+  sch1:  { top:340, leftPct:0.62 },
+  sch2:  { top:340, leftPct:0.82 },
+};
+
+// DOM から各部署の実際の座標を計算してPOSを更新する
+function recalcPositions() {
+  const canvas = document.getElementById('office-canvas');
+  const cr = canvas.getBoundingClientRect();
+  const cH = canvas.offsetHeight;
+  const cW = canvas.offsetWidth;
+
+  function deptPos(deptId, sidePct) {
+    const el = document.getElementById(deptId);
+    if (!el) return null;
+    const r = el.getBoundingClientRect();
+    const deptTop  = r.top  - cr.top;
+    const deptLeft = r.left - cr.left;
+    const deptH    = r.height;
+    const deptW    = r.width;
+    return {
+      top:     deptTop + deptH - 52,
+      leftPct: (deptLeft + deptW * sidePct) / cW,
+    };
+  }
+
+  // 部署内キャラ位置を更新
+  POS.sec1 = deptPos('dept-sec', 0.30) || POS.sec1;
+  POS.sec2 = deptPos('dept-sec', 0.70) || POS.sec2;
+  POS.res1 = deptPos('dept-res', 0.30) || POS.res1;
+  POS.res2 = deptPos('dept-res', 0.70) || POS.res2;
+  POS.con1 = deptPos('dept-con', 0.30) || POS.con1;
+  POS.con2 = deptPos('dept-con', 0.70) || POS.con2;
+  POS.sch1 = deptPos('dept-sch', 0.30) || POS.sch1;
+  POS.sch2 = deptPos('dept-sch', 0.70) || POS.sch2;
+
+  // ドア位置も更新
+  const presR = document.getElementById('pres-room').getBoundingClientRect();
+  const presH = presR.bottom - cr.top;
+  POS.doorPresOut  = { top: presH - 10, leftPct: 0.50 };
+  POS.doorSecIn    = { top: presH + 8,  leftPct: 0.25 };
+  POS.doorResIn    = { top: presH + 8,  leftPct: 0.75 };
+
+  const secR  = document.getElementById('dept-sec').getBoundingClientRect();
+  const resR  = document.getElementById('dept-res').getBoundingClientRect();
+  const conR  = document.getElementById('dept-con').getBoundingClientRect();
+  const schR  = document.getElementById('dept-sch').getBoundingClientRect();
+
+  const secBot = secR.bottom - cr.top;
+  const conTop = conR.top - cr.top;
+  const resBot = resR.bottom - cr.top;
+  const schTop = schR.top - cr.top;
+
+  POS.doorSecRes = { top: (secR.top - cr.top) + secR.height * 0.5, leftPct: (secR.right - cr.left) / cW };
+  POS.doorSecCon = { top: secBot - 8, leftPct: (secR.left - cr.left + secR.width * 0.5) / cW };
+  POS.doorResSch = { top: resBot - 8, leftPct: (resR.left - cr.left + resR.width * 0.5) / cW };
+  POS.doorConSch = { top: (conR.top - cr.top) + conR.height * 0.5, leftPct: (conR.right - cr.left) / cW };
+}
+// 指示処理用に zones を残す（issueDirectiveで使用）
 const zones = [
-  { name:'社長室',    top:70,  leftPct:0.44 }, // 社長デスク前
-  { name:'秘書部',    top:145, leftPct:0.12 }, // sec1の横
-  { name:'秘書部',    top:145, leftPct:0.30 }, // sec2の横
-  { name:'リサーチ部',top:145, leftPct:0.62 }, // res1の横
-  { name:'リサーチ部',top:145, leftPct:0.80 }, // res2の横
-  { name:'コンテンツ部',top:245, leftPct:0.12 }, // con1の横
-  { name:'コンテンツ部',top:245, leftPct:0.30 }, // con2の横
-  { name:'スケジューラー部',top:245, leftPct:0.62 }, // sch1の横
-  { name:'スケジューラー部',top:245, leftPct:0.80 }, // sch2の横
-  { name:'専務',            top:86,  leftPct:0.28 }, // 専務の横
-  { name:'常務',            top:86,  leftPct:0.66 }, // 常務の横
+  { name:'社長室',         top:75,  leftPct:0.35 },
+  { name:'秘書部',         top:150, leftPct:0.10 },
+  { name:'秘書部',         top:150, leftPct:0.30 },
+  { name:'リサーチ部',     top:150, leftPct:0.60 },
+  { name:'リサーチ部',     top:150, leftPct:0.80 },
+  { name:'コンテンツ部',   top:250, leftPct:0.10 },
+  { name:'コンテンツ部',   top:250, leftPct:0.30 },
+  { name:'スケジューラー部',top:250, leftPct:0.60 },
+  { name:'スケジューラー部',top:250, leftPct:0.80 },
 ];
 
 // 部署別会話
@@ -761,6 +843,10 @@ const dialogues = {
   '社長室': {
     ceo: ['よし、今日も頑張るぞ', '売上チェック中...', 'noteの戦略を考えよう'],
     emp: null
+  },
+  '副社長': {
+    ceo: ['今日の戦略を確認しよう', 'どう思う？', '任せるよ、副社長', '進捗はどうだ？'],
+    emp: ['承知です！進めます', '分析完了しました', 'お任せください！', 'すでに対応中です', '計画通りです']
   },
   '秘書部': {
     ceo: ['今日のスケジュールは？', '進捗を報告してくれ', '助かってるよ'],
@@ -788,91 +874,225 @@ const dialogues = {
   }
 };
 
-let currentZone = 0;
-let isMoving = false;
 let bubbles = [];
-
 function rand(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+function removeBubbles() { bubbles.forEach(b => b.remove()); bubbles = []; }
 
-function removeBubbles() {
-  bubbles.forEach(b => b.remove());
-  bubbles = [];
+// キャラを座標に移動
+function moveChar(el, pos, duration, onDone) {
+  const canvas = document.getElementById('office-canvas');
+  const leftPx = Math.floor(canvas.offsetWidth * pos.leftPct);
+  el.style.transition = `left ${duration}ms cubic-bezier(0.4,0,0.2,1), top ${duration}ms cubic-bezier(0.4,0,0.2,1)`;
+  el.classList.add('anim-walk');
+  el.style.left = leftPx + 'px';
+  el.style.top  = pos.top + 'px';
+  setTimeout(() => {
+    el.classList.remove('anim-walk');
+    el.style.transition = '';
+    if (onDone) onDone();
+  }, duration);
 }
 
-function showDialogue(zone) {
-  const dept = zone.name;
-  const d = dialogues[dept];
-  if (!d) return;
+// 複数ウェイポイントを経由した移動（ドアをくぐる動作）
+function moveThrough(el, positions, speed, onDone) {
+  if (!positions || positions.length === 0) { if (onDone) onDone(); return; }
+  const [first, ...rest] = positions;
+  moveChar(el, first, speed, () => moveThrough(el, rest, speed, onDone));
+}
 
+// 吹き出し表示
+function showBubble(el, text, cls, duration) {
   const canvas = document.getElementById('office-canvas');
   const canvasRect = canvas.getBoundingClientRect();
-  const ceoRect = ceoEl.getBoundingClientRect();
+  const rect = el.getBoundingClientRect();
+  const b = document.createElement('div');
+  b.className = 'bubble ' + (cls || 'ceo-bubble');
+  b.textContent = text;
+  b.style.cssText = `position:absolute;`
+    + `bottom:${canvas.offsetHeight-(rect.bottom-canvasRect.top)+28}px;`
+    + `left:${rect.left-canvasRect.left+20}px`;
+  canvas.appendChild(b);
+  bubbles.push(b);
+  setTimeout(() => { b.remove(); bubbles = bubbles.filter(x=>x!==b); }, duration || 3500);
+  return b;
+}
 
-  // CEO吹き出し
-  const cb = document.createElement('div');
-  cb.className = 'bubble ceo-bubble';
-  cb.textContent = rand(d.ceo);
-  cb.style.cssText = `position:absolute;bottom:${(canvas.offsetHeight - (ceoRect.bottom - canvasRect.top))+26}px;left:${ceoRect.left - canvasRect.left + 18}px`;
-  canvas.appendChild(cb);
-  bubbles.push(cb);
-
-  // 社員吹き出し（少し遅れて）
-  if (d.emp) {
-    setTimeout(() => {
-      const eb = document.createElement('div');
-      eb.className = 'bubble emp-bubble right';
-      eb.textContent = rand(d.emp);
-      eb.style.cssText = `position:absolute;bottom:${(canvas.offsetHeight - (ceoRect.bottom - canvasRect.top))+26}px;left:${ceoRect.left - canvasRect.left + 36}px`;
-      canvas.appendChild(eb);
-      bubbles.push(eb);
-    }, 500);
+// ===== 社長：社長室で仕事 or 軽い運動 =====
+let ceoState = 'desk';
+function ceoRoutine() {
+  const canvas = document.getElementById('office-canvas');
+  if (ceoState === 'desk') {
+    // デスクでたまに吹き出し
+    if (Math.random() < 0.4) {
+      showBubble(ceoEl, rand(['売上チェック中...','戦略考え中...','よし！','ふむ...','コーヒー飲みたい☕']), 'ceo-bubble', 2500);
+    }
+    // たまに運動スポットへ
+    if (Math.random() < 0.3) {
+      ceoState = 'exer';
+      moveChar(ceoEl, POS.ceoExer, 1200, () => {
+        showBubble(ceoEl, rand(['軽くストレッチ！','肩こりが…','運動大事！']), 'ceo-bubble', 2000);
+        setTimeout(() => {
+          ceoState = 'desk';
+          moveChar(ceoEl, POS.ceoDesk, 1200);
+        }, 2500);
+      });
+    }
   }
-
-  // 4秒後に消す
-  setTimeout(removeBubbles, 4000);
+  const delay = 6000 + Math.random() * 6000;
+  setTimeout(ceoRoutine, delay);
 }
+// ===== 専務：秘書部 ↔ コンテンツ部（ドアを通って移動） =====
+let senmuZone = 'sec'; // 現在地
+let senmuMeeting = false;
 
-function moveCEO() {
-  if (isMoving) return;
-
-  // ランダムに次のゾーンを選ぶ（現在地以外）
-  let nextIdx;
-  do { nextIdx = Math.floor(Math.random() * zones.length); } while (nextIdx === currentZone);
-
-  const zone = zones[nextIdx];
+function senmuRoutine() {
+  if (senmuMeeting) { setTimeout(senmuRoutine, 3000); return; }
   const canvas = document.getElementById('office-canvas');
-  const leftPx = Math.floor(canvas.offsetWidth * zone.leftPct);
+  const w = canvas.offsetWidth;
 
-  isMoving = true;
-  removeBubbles();
-
-  // 歩きアニメON
-  ceoEl.classList.add('anim-ceo-walk');
-  ceoEl.style.left = leftPx + 'px';
-  ceoEl.style.top = zone.top + 'px';
-
-  // 移動完了後
-  setTimeout(() => {
-    ceoEl.classList.remove('anim-ceo-walk');
-    isMoving = false;
-    currentZone = nextIdx;
-    showDialogue(zone);
-  }, 2000);
+  if (senmuZone === 'sec') {
+    // 秘書部 → ドア → コンテンツ部
+    moveThrough(senmuEl, [POS.doorSecCon, POS.con1], 1300, () => {
+      showBubble(senmuEl, rand(['コンテンツ確認！','品質OKですか？','Aランク狙って！']), 'emp-bubble', 2500);
+      senmuZone = 'con';
+      setTimeout(senmuRoutine, 9000 + Math.random() * 5000);
+    });
+  } else {
+    // コンテンツ部 → ドア → 秘書部
+    moveThrough(senmuEl, [POS.doorSecCon, POS.sec1], 1300, () => {
+      showBubble(senmuEl, rand(['秘書部チェック！','ご苦労様！','いいペースですね']), 'emp-bubble', 2500);
+      senmuZone = 'sec';
+      setTimeout(senmuRoutine, 9000 + Math.random() * 5000);
+    });
+  }
 }
 
-// 社長初期位置をセット
+// ===== 常務：リサーチ部 ↔ スケジューラー部（ドアを通って移動） =====
+let jomuZone = 'res';
+let jomuMeeting = false;
+
+function jomuRoutine() {
+  if (jomuMeeting) { setTimeout(jomuRoutine, 3000); return; }
+
+  if (jomuZone === 'res') {
+    moveThrough(jomuEl, [POS.doorResSch, POS.sch1], 1300, () => {
+      showBubble(jomuEl, rand(['スケジュール確認！','投稿計画どう？','OK！']), 'emp-bubble', 2500);
+      jomuZone = 'sch';
+      setTimeout(jomuRoutine, 9000 + Math.random() * 5000);
+    });
+  } else {
+    moveThrough(jomuEl, [POS.doorResSch, POS.res1], 1300, () => {
+      showBubble(jomuEl, rand(['リサーチ確認！','トレンド追えてる？','いい分析ですね']), 'emp-bubble', 2500);
+      jomuZone = 'res';
+      setTimeout(jomuRoutine, 9000 + Math.random() * 5000);
+    });
+  }
+}
+
+// ===== 副社長：全部署を巡回（社長室はissueDirectiveのみ） =====
+const vpTalk = ['確認中...','順調ですね','よし！','サポートします','状況把握中'];
+let vpRouteIdx = 0;
+let vpInMeeting = false;
+
+function getVpRoutes() {
+  // recalcPositions() 後に呼ぶことでドア位置が確定した値を使う
+  return [
+    [POS.doorSecIn,  POS.sec1],                              // 秘書部
+    [POS.doorSecRes, POS.res1],                              // リサーチ部
+    [POS.doorResSch, POS.sch1],                              // スケジューラ部
+    [POS.doorResSch, POS.doorSecCon, POS.con1],             // コンテンツ部
+  ];
+}
+
+function vpRoutine() {
+  if (vpInMeeting) { setTimeout(vpRoutine, 3000); return; }
+  const routes = getVpRoutes();
+  if (vpRouteIdx >= routes.length) vpRouteIdx = 0;
+  const waypoints = routes[vpRouteIdx];
+  moveThrough(vpEl2, waypoints, 1400, () => {
+    showBubble(vpEl2, rand(vpTalk), 'emp-bubble', 2000);
+  });
+  vpRouteIdx++;
+  setTimeout(vpRoutine, 10000 + Math.random() * 6000);
+}
+
+// ===== 全キャラ初期配置（DOM確定後） =====
 setTimeout(() => {
+  recalcPositions();
   const canvas = document.getElementById('office-canvas');
-  ceoEl.style.left = Math.floor(canvas.offsetWidth * 0.44) + 'px';
-  ceoEl.style.top = '70px';
-}, 100);
+  const w = canvas.offsetWidth;
 
-// 8〜14秒ごとに移動
-function scheduleCEO() {
-  const delay = 8000 + Math.random() * 6000;
-  setTimeout(() => { moveCEO(); scheduleCEO(); }, delay);
+  // CEO: 社長室デスク
+  ceoEl.style.left = Math.floor(w * POS.ceoDesk.leftPct) + 'px';
+  ceoEl.style.top  = POS.ceoDesk.top + 'px';
+
+  // VP: 最初は社長室出口付近 → すぐ秘書部へ
+  vpEl2.style.left = Math.floor(w * POS.doorPresOut.leftPct) + 'px';
+  vpEl2.style.top  = POS.doorPresOut.top + 'px';
+
+  // 専務: 秘書部
+  senmuEl.style.left = Math.floor(w * POS.sec1.leftPct) + 'px';
+  senmuEl.style.top  = POS.sec1.top + 'px';
+
+  // 常務: リサーチ部
+  jomuEl.style.left = Math.floor(w * POS.res1.leftPct) + 'px';
+  jomuEl.style.top  = POS.res1.top + 'px';
+
+  // ルーティン開始
+  setTimeout(ceoRoutine,   3000);
+  setTimeout(senmuRoutine, 5000);
+  setTimeout(jomuRoutine,  7000);
+  setTimeout(vpRoutine,    4000);
+}, 400);
+
+// ===== アイドルシステム =====
+const idleCharIds = ['sec1','sec2','res1','res2','con1','con2','sch1','sch2'];
+
+function triggerIdleAction() {
+  const id = idleCharIds[Math.floor(Math.random() * idleCharIds.length)];
+  const el = document.getElementById(id);
+  if (!el || el.classList.contains('anim-busy')) return;
+
+  const origAnim = [...el.classList].find(c => c.startsWith('anim-')) || 'anim-idle';
+  const roll = Math.random();
+
+  if (roll < 0.35) {
+    // ストレッチ
+    el.classList.remove(origAnim);
+    el.classList.add('anim-stretch');
+    setTimeout(() => { el.classList.remove('anim-stretch'); el.classList.add(origAnim); }, 1200);
+
+  } else if (roll < 0.65) {
+    // ちょっと歩いて戻る
+    const origLeft = parseInt(el.style.left) || 20;
+    const drift = (Math.random() > 0.5 ? 1 : -1) * (8 + Math.floor(Math.random() * 16));
+    const dest = Math.max(5, Math.min(108, origLeft + drift));
+    el.classList.remove(origAnim);
+    el.classList.add('anim-walk');
+    el.style.transition = 'left 0.9s ease-in-out';
+    el.style.left = dest + 'px';
+    setTimeout(() => {
+      el.style.left = origLeft + 'px';
+      setTimeout(() => {
+        el.classList.remove('anim-walk');
+        el.classList.add(origAnim);
+        el.style.transition = '';
+      }, 900);
+    }, 1000);
+
+  } else {
+    // ぼーっとする
+    el.classList.remove(origAnim);
+    el.classList.add('anim-look');
+    setTimeout(() => { el.classList.remove('anim-look'); el.classList.add(origAnim); }, 2000);
+  }
 }
-scheduleCEO();
+
+function scheduleIdle() {
+  const delay = 3500 + Math.random() * 7000;
+  setTimeout(() => { triggerIdleAction(); scheduleIdle(); }, delay);
+}
+scheduleIdle();
 
 // ===== データ更新 =====
 let lastCount = 0;
@@ -945,6 +1165,201 @@ function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>
 
 fetchStatus();
 setInterval(fetchStatus, 5000);
+
+// ===== 社長指示システム =====
+const deptConfig = {
+  sec: { el:'dept-sec', chars:['sec1','sec2'], zoneIdx:1, barId:'sec-bar',
+    exec:['了解！すぐ対応します','秘書部、全力で動きます','はい！着手します','承知しました！'],
+    done:['完了しました！','処理しました✓','報告書まとめました','タスク終了！'] },
+  res: { el:'dept-res', chars:['res1','res2'], zoneIdx:3, barId:'res-bar',
+    exec:['調査開始します！','データ収集中！','分析に入ります','トレンド追ってます'],
+    done:['リサーチ完了！','データまとまりました','レポート完成！','調査結果出ました'] },
+  con: { el:'dept-con', chars:['con1','con2'], zoneIdx:5, barId:'con-bar',
+    exec:['生成開始！','全力で書きます！','プロンプト設計中','コンテンツ制作中！'],
+    done:['記事できました！','Aランク品質！','コンテンツ完成！','仕上がりました！'] },
+  sch: { el:'dept-sch', chars:['sch1','sch2'], zoneIdx:7, barId:'sch-bar',
+    exec:['スケジュール組みます','投稿計画立案中！','最適タイミング計算中','カレンダー更新中'],
+    done:['スケジュール完成！','計画確定しました','カレンダー更新！','投稿枠確保しました'] },
+};
+
+const keywordMap = {
+  sec: ['秘書','連絡','報告','確認','まとめ','メール','申し送り','窓口'],
+  res: ['リサーチ','調査','トレンド','競合','調べ','データ','分析','調べて'],
+  con: ['記事','コンテンツ','X投稿','note','書い','生成','ツイート','投稿文','書け','作れ','作って','書いて'],
+  sch: ['スケジュール','投稿計画','タイミング','予約','カレンダー','計画','スケジュ'],
+};
+
+function detectDepts(text) {
+  const matched = [];
+  for (const [key, kws] of Object.entries(keywordMap)) {
+    if (kws.some(kw => text.includes(kw))) matched.push(key);
+  }
+  return matched.length ? matched : Object.keys(deptConfig); // キーワードなし→全部署
+}
+
+function activateDeptVisual(deptKey) {
+  const cfg = deptConfig[deptKey];
+  const deptEl = document.getElementById(cfg.el);
+
+  // 実行バナー
+  const banner = document.createElement('div');
+  banner.className = 'directive-banner';
+  banner.textContent = '⚡ ' + rand(cfg.exec);
+  deptEl.appendChild(banner);
+  setTimeout(() => banner.remove(), 4000);
+
+  // キャラをビジー＆ちょこちょこ動かす
+  cfg.chars.forEach((id, i) => {
+    const ch = document.getElementById(id);
+    if (!ch) return;
+    const origLeft = ch.style.left;
+    const origAnim = [...ch.classList].find(c => c.startsWith('anim-'));
+
+    ch.classList.remove('anim-type','anim-think','anim-write','anim-idle','anim-walk');
+    ch.classList.add('anim-busy');
+
+    let step = 0;
+    const moveInterval = setInterval(() => {
+      step++;
+      const drift = (Math.random() - 0.5) * 28;
+      ch.style.left = (parseInt(origLeft) + drift) + 'px';
+      if (step >= 5) {
+        clearInterval(moveInterval);
+        ch.style.left = origLeft;
+        ch.classList.remove('anim-busy');
+        ch.classList.add(origAnim || 'anim-idle');
+
+        // 最初のキャラが終わったら完了バナー
+        if (i === 0) {
+          const done = document.createElement('div');
+          done.className = 'directive-banner directive-done';
+          done.textContent = '✅ ' + rand(cfg.done);
+          deptEl.appendChild(done);
+          setTimeout(() => done.remove(), 3000);
+        }
+      }
+    }, 700);
+  });
+
+  // ステータスバー一時上昇
+  const barEl = document.getElementById(cfg.barId);
+  const dsbVal = deptEl.querySelector('.dsb-val');
+  if (barEl) {
+    const cur = parseInt(barEl.style.width) || 50;
+    const newVal = Math.min(100, cur + 15 + Math.floor(Math.random() * 12));
+    barEl.style.width = newVal + '%';
+    if (dsbVal) dsbVal.textContent = newVal + '%';
+    setTimeout(() => {
+      barEl.style.width = cur + '%';
+      if (dsbVal) dsbVal.textContent = cur + '%';
+    }, 5500);
+  }
+}
+
+// 副社長の返答
+const vpResponses = {
+  sec: ['秘書部に指示します！', '申し送り対応します', '秘書部を動かします！'],
+  res: ['リサーチ部に指示！', '調査を開始させます', 'データ収集します'],
+  con: ['コンテンツ部に指示！', '記事生成を開始します', '全力で制作します！'],
+  sch: ['スケジューラーに指示！', '投稿計画を組みます', 'カレンダー更新します'],
+};
+
+function issueDirective() {
+  const input = document.getElementById('cmd-input');
+  const text = input.value.trim();
+  if (!text) return;
+
+  const targets = detectDepts(text);
+  const canvas = document.getElementById('office-canvas');
+
+  // QUEST LOGに指示を記録
+  const qlBody = document.getElementById('ql-body');
+  const entry = document.createElement('div');
+  entry.className = 'qi';
+  entry.style.background = '#0a0808';
+  entry.innerHTML = `<div class="qi-rank B" style="font-size:9px">📋</div>`
+    + `<div class="qi-title" style="color:#ffcc44">${esc(text)}</div>`
+    + `<div class="qi-score">${new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})}</div>`;
+  qlBody.insertBefore(entry, qlBody.firstChild);
+
+  // 副社長が会議中フラグ（パトロール停止）
+  vpInMeeting = true;
+  removeBubbles();
+
+  // ── Step1: 社長が指示を出す（社長はデスクに留まる） ──
+  showBubble(ceoEl, text.length > 14 ? text.slice(0,14)+'…' : text, 'ceo-bubble', 2000);
+
+  // ── Step2: 副社長が社長室へ移動 ──
+  const presPos = { top: 75, leftPct: 0.45 };
+  setTimeout(() => {
+    moveChar(vpEl2, presPos, 1400, () => {
+      // ── Step3: 社長と副社長が会話 ──
+      showBubble(ceoEl, rand(['頼んだぞ、副社長', '任せる！', '急いでくれ']), 'ceo-bubble', 2500);
+      setTimeout(() => {
+        showBubble(vpEl2, rand(['了解です！', '伝えてきます！', '承知しました！']), 'emp-bubble', 2500);
+
+        // ── Step4: 専務・常務に伝える部署を判断 ──
+        const senmuTargets = targets.filter(d => d === 'sec' || d === 'con');
+        const jomuTargets  = targets.filter(d => d === 'res' || d === 'sch');
+        // 判定できなかった分は両方に伝える
+        const hasSenmu = senmuTargets.length > 0 || (jomuTargets.length === 0);
+        const hasJomu  = jomuTargets.length > 0  || (senmuTargets.length === 0);
+
+        // ── Step5: 副社長が社長室を出て専務のいる部署へ移動して伝達 ──
+        setTimeout(() => {
+          removeBubbles();
+          // VP: 社長室出口 → 専務の現在地（秘書部 or コンテンツ部）
+          const vpToSenmu = senmuZone === 'sec'
+            ? [POS.doorPresOut, POS.doorSecIn, POS.sec1]
+            : [POS.doorPresOut, POS.doorSecIn, POS.doorSecCon, POS.con1];
+          senmuMeeting = true;
+          moveThrough(vpEl2, vpToSenmu, 1200, () => {
+            showBubble(vpEl2, rand(['社長からの指示だ', '任務を伝える', 'よろしく頼む！']), 'emp-bubble', 2000);
+            setTimeout(() => {
+              showBubble(senmuEl, rand(['了解しました！', '動かします！', 'すぐ対応します']), 'emp-bubble', 2000);
+              senmuMeeting = false;
+              // 専務担当部署をアクティベート
+              const sActivate = senmuTargets.length > 0 ? senmuTargets : (jomuTargets.length === 0 ? targets : []);
+              sActivate.forEach((dk, i) => setTimeout(() => activateDeptVisual(dk), i * 450));
+
+              // ── Step6: 副社長→常務へ ──
+              setTimeout(() => {
+                removeBubbles();
+                const vpToJomu = jomuZone === 'res'
+                  ? [POS.doorSecRes, POS.res1]
+                  : [POS.doorSecRes, POS.doorResSch, POS.sch1];
+                jomuMeeting = true;
+                moveThrough(vpEl2, vpToJomu, 1200, () => {
+                  showBubble(vpEl2, rand(['常務にも伝える', '社長の指示だ', '動いてくれ']), 'emp-bubble', 2000);
+                  setTimeout(() => {
+                    showBubble(jomuEl, rand(['分かりました！', '即対応します！', '任せてください']), 'emp-bubble', 2000);
+                    jomuMeeting = false;
+                    // 常務担当部署をアクティベート
+                    const jActivate = jomuTargets.length > 0 ? jomuTargets : (senmuTargets.length === 0 ? targets : []);
+                    jActivate.forEach((dk, i) => setTimeout(() => activateDeptVisual(dk), i * 450));
+
+                    // ── Step7: 副社長パトロール再開 ──
+                    setTimeout(() => {
+                      removeBubbles();
+                      vpInMeeting = false;
+                    }, 3000);
+                  }, 800);
+                });
+              }, 2500);
+            }, 800);
+          });
+        }, 1000);
+      }, 900);
+    });
+  }, 1200);
+
+  input.value = '';
+  input.placeholder = '指示を処理中...';
+  setTimeout(() => { input.placeholder = '部署に指示を出す（例: X投稿を作れ　リサーチしてくれ　スケジュール組んで）'; }, 12000);
+}
+
+document.getElementById('cmd-btn').addEventListener('click', issueDirective);
+document.getElementById('cmd-input').addEventListener('keydown', e => { if (e.key === 'Enter') issueDirective(); });
 </script>
 </body>
 </html>

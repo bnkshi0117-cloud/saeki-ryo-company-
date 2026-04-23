@@ -1,4 +1,45 @@
 {
-  "articles": [],
-  "lastRun": null
+  "articles": [
+    {
+      "id": 1,
+      "title": "Claudeを議事録作成に使ったら会議後の作業が10分になった話",
+      "price": 980,
+      "type": "paid",
+      "posted_at": "2026-04-04",
+      "url": ""
+    },
+    {
+      "id": 2,
+      "title": "ChatGPTからClaudeに乗り換えた理由【半年使って比較した結果】",
+      "price": 0,
+      "type": "free",
+      "posted_at": "2026-04-05",
+      "url": ""
+    },
+    {
+      "id": 41,
+      "title": "Claude Codeで初めてWebアプリを作った全記録【非エンジニア】",
+      "price": 0,
+      "type": "free",
+      "posted_at": "2026-04-06",
+      "url": ""
+    },
+    {
+      "id": 43,
+      "title": "Claude Codeで初めてWebアプリを作った全記録【非エンジニア】",
+      "price": 480,
+      "type": "paid",
+      "posted_at": "2026-04-14",
+      "url": ""
+    },
+    {
+      "id": 56,
+      "title": "AIでSNS投稿を自動化したら運用時間が週5時間から30分になった",
+      "price": 980,
+      "type": "paid",
+      "posted_at": "2026-04-15",
+      "url": "https://note.com/saekiryo_ai/n/n766f9f2f1f47"
+    }
+  ],
+  "lastRun": "2026-04-15"
 }

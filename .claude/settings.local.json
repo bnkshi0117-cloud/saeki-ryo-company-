@@ -101,7 +101,59 @@
       "WebFetch(domain:posteverywhere.ai)",
       "WebFetch(domain:minority.works)",
       "WebFetch(domain:camtsuku.com)",
-      "WebFetch(domain:www.comnico.jp)"
+      "WebFetch(domain:www.comnico.jp)",
+      "Bash(python3:*)",
+      "Bash(node -e \"import\\('./server.mjs'\\).catch\\(e => console.error\\(e.message\\)\\)\")",
+      "Bash(curl -s http://localhost:3366/trends.html)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3366/trends.html)",
+      "Bash(taskkill:*)",
+      "Bash(cmd:*)",
+      "Bash(powershell:*)",
+      "Bash(node -e \"import\\('dotenv/lib/main.js'\\).catch\\(\\(\\) => require\\('dotenv'\\)\\); const d = require\\('dotenv'\\); d.config\\({path:'../.env'}\\); console.log\\('ANTHROPIC:', process.env.ANTHROPIC_API_KEY ? 'OK' : 'NG'\\); console.log\\('SLACK:', process.env.SLACK_WEBHOOK_URL ? 'OK' : 'NG'\\);\")",
+      "Bash(node morning.mjs)",
+      "Bash(gh.exe secret:*)",
+      "Bash(where gh:*)",
+      "Bash(node -e ':*)",
+      "Bash(node fix-viewer.mjs)",
+      "Bash(rm fix-viewer.mjs)",
+      "Bash(node fix-viewer2.mjs)",
+      "Bash(rm fix-viewer2.mjs)",
+      "Bash(node fix-viewer3.mjs)",
+      "Bash(rm fix-viewer3.mjs)",
+      "Bash(node fix-final.mjs)",
+      "Bash(rm fix-final.mjs)",
+      "Bash(node fix-foreach.mjs)",
+      "Bash(rm fix-foreach.mjs)",
+      "Bash(node:*)",
+      "Bash(sed:*)",
+      "Bash(xargs grep:*)",
+      "Bash(curl:*)",
+      "Bash(pip install:*)",
+      "Bash(python -c \"import docx; import openpyxl; import fitz; import PIL; print\\('全ライブラリOK'\\)\")",
+      "Bash(python -c \"import tkinter; import main; print\\('起動チェックOK'\\)\")",
+      "Bash(python -c ':*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:marketplace.visualstudio.com)",
+      "Bash(start \"\" \"c:\\\\Users\\\\BENOKI\\\\Desktop\\\\saeki-ryo-company\\\\company-rpg.html\")",
+      "Skill(update-config)",
+      "WebFetch(domain:developer.twitter.com)",
+      "WebFetch(domain:docs.x.com)",
+      "Bash(npx remotion:*)",
+      "WebFetch(domain:www.builder.io)"
+    ]
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node scripts/session-log.mjs",
+            "timeout": 10
+          }
+        ]
+      }
     ]
   }
 }
