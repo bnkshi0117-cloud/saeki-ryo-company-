@@ -1,0 +1,16 @@
+{
+  "name": "npb-reporter",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "report": "node npb-report.mjs",
+    "report:dry": "node npb-report.mjs --dry-run"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "dotenv": "^16.0.0",
+    "node-fetch": "^2.7.0",
+    "rss-parser": "^3.13.0",
+    "twitter-api-v2": "^1.29.0"
+  }
+}
