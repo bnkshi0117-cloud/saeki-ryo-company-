@@ -32,32 +32,27 @@ export async function fetchCentralGameUrls(dateStr) {
   const mmdd = dateStr.slice(4); // "20260422" → "0422"
   const url = `${BASE}/games/2026/`;
 
-  try {
-    const html = await fetchHtml(url);
-    const pattern = new RegExp(`/scores/2026/${mmdd}/([a-z]+-[a-z]+-\\d+)/`, "g");
-    const found = new Set();
-    let match;
-    while ((match = pattern.exec(html)) !== null) {
-      found.add(match[1]);
-    }
-
-    // セリーグの試合のみ絞り込む
-    return [...found]
-      .filter((path) => {
-        const [away, home] = path.split("-");
-        return CENTRAL_CODES.includes(away) && CENTRAL_CODES.includes(home);
-      })
-      .map((path) => ({
-        path,
-        url: `${BASE}/scores/2026/${mmdd}/${path}/`,
-        // NPBのURL形式は home-away-gameNo
-        homeCode: path.split("-")[0],
-        awayCode: path.split("-")[1],
-      }));
-  } catch (e) {
-    console.error("試合URL取得エラー:", e.message);
-    return [];
+  const html = await fetchHtml(url); // エラー時はthrow（リトライ済み）
+  const pattern = new RegExp(`/scores/2026/${mmdd}/([a-z]+-[a-z]+-\\d+)/`, "g");
+  const found = new Set();
+  let match;
+  while ((match = pattern.exec(html)) !== null) {
+    found.add(match[1]);
   }
+
+  // セリーグの試合のみ絞り込む
+  return [...found]
+    .filter((path) => {
+      const [away, home] = path.split("-");
+      return CENTRAL_CODES.includes(away) && CENTRAL_CODES.includes(home);
+    })
+    .map((path) => ({
+      path,
+      url: `${BASE}/scores/2026/${mmdd}/${path}/`,
+      // NPBのURL形式は home-away-gameNo
+      homeCode: path.split("-")[0],
+      awayCode: path.split("-")[1],
+    }));
 }
 
 /**
@@ -215,7 +210,8 @@ function parseLineupTable(html) {
         id: playerMatch[1],
       };
     })
-    .filter(Boolean);
+    // 打順が1〜9の数字の行だけ残す（代打・代走・守備交代を除外）
+    .filter((p) => p !== null && /^[1-9]$/.test(p.order) && !/代打|代走/.test(p.position));
 }
 
 function parseHomeRuns(html) {
@@ -346,10 +342,28 @@ function parseStatsRow(rowHtml, playerId) {
 
 // ── ユーティリティ ──
 
+export async function withRetry(fn, { retries = 3, delay = 2000, label = "" } = {}) {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      return await fn();
+    } catch (e) {
+      if (attempt === retries) throw e;
+      const wait = delay * attempt;
+      console.warn(`  ⚠️ ${label ? label + " " : ""}失敗（${attempt}回目）: ${e.message} → ${wait / 1000}秒後にリトライ`);
+      await new Promise((r) => setTimeout(r, wait));
+    }
+  }
+}
+
 async function fetchHtml(url) {
-  const res = await fetch(url, { headers: HEADERS });
-  if (!res.ok) throw new Error(`HTTP ${res.status}: ${url}`);
-  return res.text();
+  return withRetry(
+    async () => {
+      const res = await fetch(url, { headers: HEADERS });
+      if (!res.ok) throw new Error(`HTTP ${res.status}: ${url}`);
+      return res.text();
+    },
+    { retries: 3, delay: 3000, label: url.slice(-40) }
+  );
 }
 
 function extractSection(html, startMark, endMark) {

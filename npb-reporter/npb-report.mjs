@@ -2,7 +2,7 @@
  * NPB セリーグ 試合批評ジェネレーター
  *
  * 使い方：
- *   node npb-report.mjs                   → 昨日のセリーグ全試合
+ *   node npb-report.mjs                   → 当日のセリーグ全試合（データそろい次第即投稿）
  *   node npb-report.mjs --date 20260422   → 指定日
  *   node npb-report.mjs --team 巨人        → 指定球団の試合のみ
  *   node npb-report.mjs --dry-run         → データ取得のみ（Claude生成しない）
@@ -19,9 +19,9 @@ import {
   fetchGameDetail,
   fetchLineupStats,
   fetchBaseballNews,
-  getYesterdayStr,
+  getTodayStr,
 } from "./npb-fetch.mjs";
-import { generateReport } from "./npb-analyze.mjs";
+import { generateReport, verifyReport, fixReport } from "./npb-analyze.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.join(__dirname, "../.env") });
@@ -33,22 +33,38 @@ const dateArg = dateIdx !== -1 ? args[dateIdx + 1] : null;
 const teamIdx = args.indexOf("--team");
 const teamFilter = teamIdx !== -1 ? args[teamIdx + 1] : null;
 
+function alreadyPosted(date, teamFilter) {
+  const logPath = path.join(__dirname, "data", "post-log.json");
+  if (!fs.existsSync(logPath)) return false;
+  const log = JSON.parse(fs.readFileSync(logPath, "utf-8"));
+  const dateLabel = `${date.slice(0, 4)}/${date.slice(4, 6)}/${date.slice(6, 8)}`;
+  return log.some((entry) => {
+    if (entry.date !== dateLabel) return false;
+    if (!teamFilter) return true;
+    return entry.matchup?.includes(teamFilter);
+  });
+}
+
 async function main() {
-  const date = dateArg || getYesterdayStr();
+  const date = dateArg || getTodayStr();
   const dateLabel = `${date.slice(0, 4)}/${date.slice(4, 6)}/${date.slice(6, 8)}`;
 
   console.log(`\n⚾ NPB批評ジェネレーター 起動`);
   console.log(`📅 対象日: ${dateLabel}`);
   console.log(`🏟 リーグ: セントラルリーグ\n`);
 
+  // 二重投稿防止：既に今日の試合をポスト済みなら終了
+  if (!isDryRun && alreadyPosted(date, teamFilter)) {
+    console.log("  → 本日分は投稿済みです。スキップします。");
+    return;
+  }
+
   // Step 1: 試合URL一覧取得
   console.log("Step 1: セリーグ試合を取得中...");
   const gameUrls = await fetchCentralGameUrls(date);
 
   if (gameUrls.length === 0) {
-    console.log("  → 試合が見つかりませんでした（試合なし or 取得失敗）\n");
-    console.log("--- デモモードで実行 ---\n");
-    await runDemoMode(dateLabel, isDryRun);
+    console.log("  → 試合データなし（試合なし or まだ終了していない）");
     return;
   }
 
@@ -89,6 +105,26 @@ async function main() {
     // Step 5: Claude で批評文生成
     console.log("Step 5: 批評文を生成中（Claude API）...");
     const report = await generateReport(gameData);
+
+    // Step 5b: 自己検証 → 問題があれば修正 → 再検証
+    console.log("Step 5b: 生成内容を検証中...");
+    const verification = await verifyReport(report, gameData);
+    if (!verification.ok) {
+      console.log("  ⚠️ 検証NG - 修正します");
+      verification.issues.forEach((issue) => console.log(`    - ${issue}`));
+      report = await fixReport(report, gameData, verification.issues);
+      console.log("  再検証中...");
+      const recheck = await verifyReport(report, gameData);
+      if (!recheck.ok) {
+        console.error("  ❌ 再検証もNG - 下書き保存のみ（X投稿スキップ）");
+        recheck.issues.forEach((issue) => console.error(`    - ${issue}`));
+        outputReport(report, gameData, date, { draftOnly: true });
+        continue;
+      }
+      console.log("  ✅ 修正後検証OK - 投稿します");
+    } else {
+      console.log("  ✅ 検証OK - 投稿します");
+    }
 
     // Step 6: 出力・保存
     outputReport(report, gameData, date);
@@ -215,10 +251,11 @@ function extractManagerDecisions(lineups, playerStats, awayTeam, homeTeam) {
   return decisions;
 }
 
-function outputReport(report, gameData, date) {
+function outputReport(report, gameData, date, { draftOnly = false } = {}) {
   const { awayTeam, homeTeam, score } = gameData;
   const scoreLine = `${awayTeam} ${score.away}-${score.home} ${homeTeam}`;
-  const filename = `${date}-${awayTeam}vs${homeTeam}.md`;
+  const suffix = draftOnly ? "-DRAFT" : "";
+  const filename = `${date}-${awayTeam}vs${homeTeam}${suffix}.md`;
   const outputPath = path.join(__dirname, "data", filename);
 
   const threadText = report.thread.map((t, i) => `### ツイート${i + 1}（${[...t].length}字）\n${t}`).join("\n\n");
@@ -309,35 +346,31 @@ async function postToX(thread, gameData) {
     accessSecret: process.env.X_ACCESS_TOKEN_SECRET,
   });
 
-  try {
-    console.log("Step 7: Xスレッド投稿中...");
-    let replyToId = null;
-    const tweetIds = [];
+  console.log("Step 7: Xスレッド投稿中...");
+  let replyToId = null;
+  const tweetIds = [];
 
-    for (let i = 0; i < thread.length; i++) {
-      const params = { text: thread[i] };
-      if (replyToId) params.reply = { in_reply_to_tweet_id: replyToId };
-      const res = await client.v2.tweet(params);
-      replyToId = res.data.id;
-      tweetIds.push(replyToId);
-      console.log(`  ✅ ツイート${i + 1}: https://x.com/saekiryoAI/status/${replyToId}`);
-    }
-
-    // 投稿ログ保存
-    const logPath = path.join(__dirname, "data", "post-log.json");
-    const log = fs.existsSync(logPath) ? JSON.parse(fs.readFileSync(logPath, "utf-8")) : [];
-    log.push({
-      date: gameData.date,
-      matchup: `${gameData.awayTeam}vs${gameData.homeTeam}`,
-      score: `${gameData.score.away}-${gameData.score.home}`,
-      tweet_ids: tweetIds,
-      url: `https://x.com/saekiryoAI/status/${tweetIds[0]}`,
-      posted_at: new Date().toISOString(),
-    });
-    fs.writeFileSync(logPath, JSON.stringify(log, null, 2));
-  } catch (e) {
-    console.error(`  ❌ X投稿エラー: ${e.message}`);
+  for (let i = 0; i < thread.length; i++) {
+    const params = { text: thread[i] };
+    if (replyToId) params.reply = { in_reply_to_tweet_id: replyToId };
+    const res = await client.v2.tweet(params);
+    replyToId = res.data.id;
+    tweetIds.push(replyToId);
+    console.log(`  ✅ ツイート${i + 1}: https://x.com/saekiryoAI/status/${replyToId}`);
   }
+
+  // 投稿ログ保存
+  const logPath = path.join(__dirname, "data", "post-log.json");
+  const log = fs.existsSync(logPath) ? JSON.parse(fs.readFileSync(logPath, "utf-8")) : [];
+  log.push({
+    date: gameData.date,
+    matchup: `${gameData.awayTeam}vs${gameData.homeTeam}`,
+    score: `${gameData.score.away}-${gameData.score.home}`,
+    tweet_ids: tweetIds,
+    url: `https://x.com/saekiryoAI/status/${tweetIds[0]}`,
+    posted_at: new Date().toISOString(),
+  });
+  fs.writeFileSync(logPath, JSON.stringify(log, null, 2));
 }
 
 main().catch((e) => {

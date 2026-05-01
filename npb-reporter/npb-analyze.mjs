@@ -3,6 +3,7 @@
  */
 
 import Anthropic from "@anthropic-ai/sdk";
+import { withRetry } from "./npb-fetch.mjs";
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
@@ -90,12 +91,15 @@ export async function generateReport(gameData) {
   validateGameData(gameData);
 
   const prompt = buildPrompt(gameData);
-  const message = await anthropic.messages.create({
-    model: "claude-sonnet-4-6",
-    max_tokens: 3000,
-    system: buildSystemPrompt(),
-    messages: [{ role: "user", content: prompt }],
-  });
+  const message = await withRetry(
+    () => anthropic.messages.create({
+      model: "claude-sonnet-4-6",
+      max_tokens: 3000,
+      system: buildSystemPrompt(),
+      messages: [{ role: "user", content: prompt }],
+    }),
+    { retries: 3, delay: 5000, label: "Claude生成API" }
+  );
 
   const raw = message.content[0].text;
   const report = parseReport(raw);
@@ -105,19 +109,22 @@ export async function generateReport(gameData) {
     const len = [...report.thread[i]].length;
     if (len > 140) {
       console.log(`  ⚠️ ツイート${i + 1}が${len}字 → 140字以内に再生成...`);
-      const retryMsg = await anthropic.messages.create({
-        model: "claude-sonnet-4-6",
-        max_tokens: 300,
-        system: buildSystemPrompt(),
-        messages: [
-          { role: "user", content: prompt },
-          { role: "assistant", content: raw },
-          {
-            role: "user",
-            content: `ツイート${i + 1}が${len}字で140字を超えています。そのツイートだけ140字以内に収めて再出力してください。`,
-          },
-        ],
-      });
+      const retryMsg = await withRetry(
+        () => anthropic.messages.create({
+          model: "claude-sonnet-4-6",
+          max_tokens: 300,
+          system: buildSystemPrompt(),
+          messages: [
+            { role: "user", content: prompt },
+            { role: "assistant", content: raw },
+            {
+              role: "user",
+              content: `ツイート${i + 1}が${len}字で140字を超えています。そのツイートだけ140字以内に収めて再出力してください。`,
+            },
+          ],
+        }),
+        { retries: 3, delay: 5000, label: "140字再生成API" }
+      );
       report.thread[i] = retryMsg.content[0].text.trim().replace(/^【ツイート[①-⑤]】\n?/, "");
       console.log(`  → 再生成後: ${[...report.thread[i]].length}字`);
     }
@@ -256,6 +263,103 @@ function parseReport(raw) {
   }).filter(Boolean);
 
   return { thread, raw };
+}
+
+// ── 自己検証・修正 ──
+
+export async function fixReport(report, gameData, issues) {
+  const tweetText = report.thread.map((t, i) => `【ツイート${i + 1}】\n${t}`).join("\n\n");
+  const issueList = issues.map((i) => `- ${i}`).join("\n");
+
+  const startersAway = (gameData.lineups.away || []).map((p) => `${p.order}番 ${p.position} ${p.name}`).join("\n");
+  const startersHome = (gameData.lineups.home || []).map((p) => `${p.order}番 ${p.position} ${p.name}`).join("\n");
+  const homeRunText = gameData.homeRuns?.length > 0
+    ? gameData.homeRuns.map((h) => `${h.team}: ${h.detail}`).join("\n")
+    : "なし";
+
+  const fixPrompt = `以下のXスレッドに事実誤認が見つかりました。修正してください。
+
+## 発見された問題点
+${issueList}
+
+## 正しい試合データ
+スコア: ${gameData.awayTeam}（先攻）${gameData.score.away} - ${gameData.score.home}${gameData.homeTeam}（後攻）
+勝利投手: ${gameData.pitchers?.win?.name || "なし"}
+敗戦投手: ${gameData.pitchers?.lose?.name || "なし"}
+セーブ: ${gameData.pitchers?.save?.name || "なし"}
+ホームラン: ${homeRunText}
+【スタメン（打順1〜9番のみ）】
+${gameData.awayTeam}: ${startersAway}
+${gameData.homeTeam}: ${startersHome}
+
+## 修正前のスレッド
+${tweetText}
+
+問題のあるツイートを修正し、同じフォーマット（【ツイート①】〜【ツイート⑤】）で全5ツイートを出力してください。各ツイートは140字以内厳守。`;
+
+  const message = await withRetry(
+    () => anthropic.messages.create({
+      model: "claude-sonnet-4-6",
+      max_tokens: 3000,
+      system: buildSystemPrompt(),
+      messages: [{ role: "user", content: fixPrompt }],
+    }),
+    { retries: 3, delay: 5000, label: "修正API" }
+  );
+
+  return parseReport(message.content[0].text);
+}
+
+export async function verifyReport(report, gameData) {
+  const tweetText = report.thread.map((t, i) => `【ツイート${i + 1}】\n${t}`).join("\n\n");
+
+  const startersAway = (gameData.lineups.away || []).map((p) => `${p.order}番 ${p.position} ${p.name}`).join("\n");
+  const startersHome = (gameData.lineups.home || []).map((p) => `${p.order}番 ${p.position} ${p.name}`).join("\n");
+  const homeRunText = gameData.homeRuns?.length > 0
+    ? gameData.homeRuns.map((h) => `${h.team}: ${h.detail}`).join("\n")
+    : "なし";
+
+  const verifyPrompt = `以下の試合データ（事実）と、生成したXスレッドの内容を照合してください。
+
+## 試合データ（事実）
+スコア: ${gameData.awayTeam}（先攻）${gameData.score.away} - ${gameData.score.home}${gameData.homeTeam}（後攻）
+勝利投手: ${gameData.pitchers?.win?.name || "なし"}
+敗戦投手: ${gameData.pitchers?.lose?.name || "なし"}
+セーブ: ${gameData.pitchers?.save?.name || "なし"}
+ホームラン: ${homeRunText}
+
+【スタメン（1〜9番のみ・代打代走は含まない）】
+${gameData.awayTeam}:
+${startersAway || "なし"}
+${gameData.homeTeam}:
+${startersHome || "なし"}
+
+## 生成したXスレッド
+${tweetText}
+
+## 検証指示
+ツイート内の事実的な主張（選手名・打順・ポジション・「スタメン」「途中出場」等の区別・数値）を上記データと照合してください。
+データに存在しない選手をスタメンと記述している場合、打順やポジションが違う場合、ホームランを打っていない選手の記述がある場合は問題として報告してください。
+
+問題がなければ1行目に「OK」とだけ書いてください。
+問題があれば1行目に「NG」、2行目以降に「- （問題の具体的内容）」の形式で列挙してください。`;
+
+  const message = await withRetry(
+    () => anthropic.messages.create({
+      model: "claude-sonnet-4-6",
+      max_tokens: 600,
+      messages: [{ role: "user", content: verifyPrompt }],
+    }),
+    { retries: 3, delay: 5000, label: "検証API" }
+  );
+
+  const result = message.content[0].text.trim();
+  const ok = result.startsWith("OK");
+  const issues = ok
+    ? []
+    : result.split("\n").filter((l) => l.startsWith("-")).map((l) => l.slice(2).trim());
+
+  return { ok, issues, raw: result };
 }
 
 export { anthropic };

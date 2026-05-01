@@ -2,7 +2,7 @@ name: NPB 巨人戦 批評レポート
 
 on:
   schedule:
-    - cron: '30 13 * * *'  # 毎日22:30 JST（UTC+9 → UTC 13:30）
+    - cron: '*/30 7-14 * * *'  # 16:00〜23:30 JST（UTC 7:00〜14:30）30分おきに試合完了を確認
   workflow_dispatch:
     inputs:
       date:
@@ -27,7 +27,7 @@ jobs:
       - name: 依存関係インストール
         run: cd npb-reporter && npm install
 
-      - name: NPB巨人戦レポート生成・X投稿
+      - name: NPB巨人戦レポート生成・自己検証・X投稿（リトライあり）
         env:
           ANTHROPIC_API_KEY:     ${{ secrets.ANTHROPIC_API_KEY }}
           X_CONSUMER_KEY:        ${{ secrets.X_CONSUMER_KEY }}
@@ -35,11 +35,22 @@ jobs:
           X_ACCESS_TOKEN:        ${{ secrets.X_ACCESS_TOKEN }}
           X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
         run: |
+          DATE_ARG=""
           if [ -n "${{ github.event.inputs.date }}" ]; then
-            cd npb-reporter && node npb-report.mjs --team 巨人 --date ${{ github.event.inputs.date }}
-          else
-            cd npb-reporter && node npb-report.mjs --team 巨人
+            DATE_ARG="--date ${{ github.event.inputs.date }}"
           fi
+          for i in 1 2 3; do
+            echo "=== 試行 $i / 3 ==="
+            if (cd npb-reporter && node npb-report.mjs --team 巨人 $DATE_ARG); then
+              exit 0
+            fi
+            if [ $i -lt 3 ]; then
+              echo "失敗。60秒後にリトライ..."
+              sleep 60
+            fi
+          done
+          echo "❌ 3回すべて失敗"
+          exit 1
 
       - name: 生成ファイルをコミット・プッシュ
         if: always()
