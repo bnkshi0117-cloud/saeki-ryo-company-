@@ -10,3 +10,9 @@
     at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
     at async postNext (file:///home/runner/work/saeki-ryo-company-/saeki-ryo-company-/x-dashboard/satsuki-threads.mjs:228:22)
     at async main (file:///home/runner/work/saeki-ryo-company-/saeki-ryo-company-/x-dashboard/satsuki-threads.mjs:277:3)
+[2026/5/6 20:25:54] [ERROR] 致命的エラー: An unknown error occurred
+[2026/5/6 20:25:54] [ERROR] Error: An unknown error occurred
+    at createContainer (file:///home/runner/work/saeki-ryo-company-/saeki-ryo-company-/x-dashboard/satsuki-threads.mjs:71:36)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async postNext (file:///home/runner/work/saeki-ryo-company-/saeki-ryo-company-/x-dashboard/satsuki-threads.mjs:228:22)
+    at async main (file:///home/runner/work/saeki-ryo-company-/saeki-ryo-company-/x-dashboard/satsuki-threads.mjs:277:3)
