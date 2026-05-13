@@ -44,6 +44,11 @@ ${topics}
 最近話したテーマを避けて、番組全体の一部として1ブロック分の台本をJSONだけで返してください。
 架空リスナーメールを1つ含めてください。
 
+冒頭3行は必ずこの順番にしてください:
+1. speakerId "saeki" / speakerName "佐伯亮" / text "どうも、佐伯亮のAIゆんたくラジオです。"
+2. speakerId "saeki" / speakerName "佐伯亮" / text "パーソナリティの佐伯亮です。"
+3. speakerId "higa" / speakerName "比嘉" / text "相方の比嘉です。"
+
 JSON形式:
 {
   "title": "ブロックタイトル",
@@ -53,7 +58,7 @@ JSON形式:
   "lines": [
     {
       "speakerId": "saeki",
-      "speakerName": "佐伯",
+      "speakerName": "佐伯亮",
       "text": "読み上げるセリフ。長すぎない自然な日本語。",
       "segment": "opening"
     }
@@ -62,7 +67,7 @@ JSON形式:
 
 制約:
 - linesは8から14個
-- speakerIdは saeki または aikata
+- speakerIdは saeki または higa
 - 1セリフは80文字以内
 - JSON以外の説明文は禁止`;
 }
@@ -92,8 +97,8 @@ export function validateRadioBlock(block) {
     throw new Error("Radio block requires lines array.");
   }
   for (const line of block.lines) {
-    if (!["saeki", "aikata"].includes(line.speakerId)) {
-      throw new Error("Line speakerId must be saeki or aikata.");
+    if (!["saeki", "higa"].includes(line.speakerId)) {
+      throw new Error("Line speakerId must be saeki or higa.");
     }
     if (typeof line.text !== "string" || line.text.trim() === "") {
       throw new Error("Line text is required.");

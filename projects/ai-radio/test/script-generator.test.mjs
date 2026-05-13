@@ -30,6 +30,25 @@ test("buildScriptPrompt includes Okinawa, AI, comedy radio, and recent topics", 
   assert.match(prompt, /番組全体の目標時間: 約10分/);
 });
 
+test("buildScriptPrompt requires fixed opening self introductions", () => {
+  const prompt = buildScriptPrompt({
+    showConfig: {
+      programTitle: "佐伯亮のAIゆんたくラジオ",
+      hosts: [
+        { id: "saeki", name: "佐伯亮", role: "パーソナリティ" },
+        { id: "higa", name: "比嘉", role: "相方" }
+      ],
+      corners: ["今日のAI実験報告"]
+    },
+    memory: { blocks: [] }
+  });
+
+  assert.match(prompt, /どうも、佐伯亮のAIゆんたくラジオです。/);
+  assert.match(prompt, /パーソナリティの佐伯亮です。/);
+  assert.match(prompt, /相方の比嘉です。/);
+  assert.match(prompt, /冒頭3行は必ずこの順番/);
+});
+
 test("parseScriptResponse extracts valid JSON from text", () => {
   const response = `以下です。
 
@@ -40,7 +59,7 @@ test("parseScriptResponse extracts valid JSON from text", () => {
   "topics": ["沖縄の湿気", "Codex"],
   "lines": [
     {"speakerId": "saeki", "speakerName": "佐伯", "text": "湿気がすごい夜です。", "segment": "opening"},
-    {"speakerId": "aikata", "speakerName": "相方", "text": "パソコンより先に人間が熱暴走してる。", "segment": "opening"}
+    {"speakerId": "higa", "speakerName": "比嘉", "text": "パソコンより先に人間が熱暴走してる。", "segment": "opening"}
   ]
 }
 

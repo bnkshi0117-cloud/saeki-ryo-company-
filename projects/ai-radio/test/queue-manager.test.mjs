@@ -10,7 +10,7 @@ test("queue manager generates one block and exposes public state", async () => {
       corner: "今日のAI実験報告",
       summary: "沖縄の湿気とAI作業の話",
       topics: ["湿気", "AI"],
-      lines: [{ speakerName: "佐伯", text: "湿気がすごいですね。", audioUrl: "/audio/a.mp3" }]
+      lines: [{ speakerId: "saeki", speakerName: "佐伯亮", text: "湿気がすごいですね。", audioUrl: "/audio/a.mp3" }]
     }),
     onBlockCompleted: async () => {}
   });
