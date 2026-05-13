@@ -1,0 +1,145 @@
+:root {
+  color-scheme: dark;
+  --bg: #141414;
+  --panel: #202020;
+  --panel-2: #2a2a2a;
+  --text: #f6f2e8;
+  --muted: #b9b2a5;
+  --accent: #5cc8a7;
+  --accent-2: #f4b942;
+  font-family: "Yu Gothic", "Meiryo", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.shell {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 32px 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 20px;
+}
+
+.console,
+.log-panel {
+  background: var(--panel);
+  border: 1px solid #353535;
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.eyebrow,
+.label,
+.meta-grid span {
+  color: var(--accent);
+  font-size: 12px;
+  letter-spacing: 0;
+  margin: 0 0 8px;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  font-size: 34px;
+  line-height: 1.2;
+}
+
+.masthead p:last-child,
+.line,
+.log-panel {
+  color: var(--muted);
+}
+
+.now-playing {
+  margin: 28px 0;
+  padding: 22px;
+  background: var(--panel-2);
+  border-radius: 8px;
+}
+
+.now-playing h2 {
+  color: var(--accent-2);
+  font-size: 22px;
+}
+
+.line {
+  font-size: 20px;
+  line-height: 1.8;
+  min-height: 72px;
+}
+
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.meta-grid div {
+  background: #181818;
+  border-radius: 8px;
+  padding: 14px;
+}
+
+.meta-grid strong {
+  display: block;
+  margin-top: 6px;
+  color: var(--text);
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+button {
+  border: 0;
+  border-radius: 6px;
+  padding: 12px 18px;
+  color: #101010;
+  background: var(--accent);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button#stop {
+  background: #d8d2c4;
+}
+
+.log-panel h2 {
+  color: var(--text);
+  font-size: 18px;
+}
+
+ol {
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+@media (max-width: 860px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+
+  .meta-grid {
+    grid-template-columns: 1fr;
+  }
+}
