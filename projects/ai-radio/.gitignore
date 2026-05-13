@@ -1,0 +1,4 @@
+data/audio/*.mp3
+data/audio/*.wav
+data/memory.json
+node_modules/
