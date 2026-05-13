@@ -3,10 +3,31 @@ import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { recordingFileName, saveBlockRecording } from "../src/recording-store.mjs";
+import { recordingFileName, saveBlockRecording, saveEpisodeRecording } from "../src/recording-store.mjs";
 
 test("recordingFileName uses block id and mp3 extension", () => {
   assert.equal(recordingFileName({ id: "block-123", title: "沖縄とAI" }), "block-123.mp3");
+});
+
+test("saveEpisodeRecording concatenates block recordings", async () => {
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "ai-radio-episode-"));
+  const recordingsDir = path.join(dir, "recordings");
+  await fs.mkdir(recordingsDir, { recursive: true });
+  const first = path.join(recordingsDir, "one.mp3");
+  const second = path.join(recordingsDir, "two.mp3");
+  await fs.writeFile(first, Buffer.from([9, 8]));
+  await fs.writeFile(second, Buffer.from([7]));
+
+  const result = await saveEpisodeRecording({
+    config: { recordingsDir },
+    episode: {
+      id: "episode-1",
+      recordings: [{ recordingPath: first }, { recordingPath: second }]
+    }
+  });
+
+  assert.equal(result.recordingUrl, "/recordings/episode-1.mp3");
+  assert.deepEqual([...await fs.readFile(result.recordingPath)], [9, 8, 7]);
 });
 
 test("saveBlockRecording concatenates line audio in order", async () => {

@@ -7,7 +7,7 @@ import { loadMemory, appendMemory } from "./memory-store.mjs";
 import { generateScriptBlock } from "./script-generator.mjs";
 import { synthesizeBlock } from "./tts-xai.mjs";
 import { createQueueManager } from "./queue-manager.mjs";
-import { saveBlockRecording } from "./recording-store.mjs";
+import { saveBlockRecording, saveEpisodeRecording } from "./recording-store.mjs";
 
 const contentTypes = new Map([
   [".html", "text/html; charset=utf-8"],
@@ -22,6 +22,17 @@ const contentTypes = new Map([
 function sendJson(res, statusCode, data) {
   res.writeHead(statusCode, { "content-type": "application/json; charset=utf-8" });
   res.end(JSON.stringify(data));
+}
+
+async function readRequestJson(req) {
+  const chunks = [];
+  for await (const chunk of req) {
+    chunks.push(chunk);
+  }
+  if (chunks.length === 0) {
+    return {};
+  }
+  return JSON.parse(Buffer.concat(chunks).toString("utf8"));
 }
 
 async function readJson(filePath) {
@@ -54,7 +65,7 @@ export async function createServer() {
   const manager = createQueueManager({
     generateReadyBlock: async () => {
       const memory = await loadMemory(config.memoryPath);
-      const scriptBlock = await generateScriptBlock({ config, showConfig, memory });
+      const scriptBlock = await generateScriptBlock({ config, showConfig, memory, settings: manager.getState().settings });
       return synthesizeBlock({ config, showConfig, block: scriptBlock });
     },
     onBlockCompleted: async (block) => {
@@ -66,9 +77,9 @@ export async function createServer() {
         corner: block.corner,
         recordingUrl: recording?.recordingUrl || null
       });
-      manager.ensureQueue().catch(() => {});
       return recording;
-    }
+    },
+    onEpisodeCompleted: async (episode) => saveEpisodeRecording({ config, episode })
   });
 
   manager.ensureQueue().catch(() => {});
@@ -82,9 +93,22 @@ export async function createServer() {
       return;
     }
 
+    if (req.method === "GET" && url.pathname === "/api/settings") {
+      sendJson(res, 200, manager.getState().settings);
+      return;
+    }
+
+    if (req.method === "POST" && url.pathname === "/api/settings") {
+      manager.updateSettings(await readRequestJson(req));
+      await manager.ensureQueue().catch(() => {});
+      sendJson(res, 200, manager.getState());
+      return;
+    }
+
     if (req.method === "POST" && url.pathname.startsWith("/api/complete/")) {
       const blockId = decodeURIComponent(url.pathname.replace("/api/complete/", ""));
-      await manager.completeBlock(blockId);
+      const body = await readRequestJson(req).catch(() => ({}));
+      await manager.completeBlock(blockId, { playedSeconds: body.playedSeconds });
       sendJson(res, 200, manager.getState());
       return;
     }

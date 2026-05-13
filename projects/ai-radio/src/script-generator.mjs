@@ -1,6 +1,8 @@
 import { recentTopics } from "./memory-store.mjs";
+import { defaultSettings, normalizeSettings } from "./settings-store.mjs";
 
-export function buildScriptPrompt({ showConfig, memory, now = new Date() }) {
+export function buildScriptPrompt({ showConfig, memory, settings = defaultSettings, now = new Date() }) {
+  const normalizedSettings = normalizeSettings(settings);
   const timeText = new Intl.DateTimeFormat("ja-JP", {
     timeZone: "Asia/Tokyo",
     dateStyle: "medium",
@@ -21,6 +23,9 @@ export function buildScriptPrompt({ showConfig, memory, now = new Date() }) {
 - ChatGPT、Codex、アプリ開発、小さな自動化
 - 実際に試した感想のような一次情報感
 
+今回の指定テーマ: ${normalizedSettings.theme}
+番組全体の目標時間: 約${normalizedSettings.targetMinutes}分
+
 トーン:
 - お笑い芸人の深夜ラジオのような2人の掛け合い
 - 片方が少し脱線し、もう片方がツッコむ
@@ -36,7 +41,7 @@ ${corners}
 最近話したテーマ:
 ${topics}
 
-最近話したテーマを避けて、1ブロック分の台本をJSONだけで返してください。
+最近話したテーマを避けて、番組全体の一部として1ブロック分の台本をJSONだけで返してください。
 架空リスナーメールを1つ含めてください。
 
 JSON形式:
@@ -97,8 +102,8 @@ export function validateRadioBlock(block) {
   return block;
 }
 
-export async function generateScriptBlock({ config, showConfig, memory, fetchImpl = fetch }) {
-  const prompt = buildScriptPrompt({ showConfig, memory });
+export async function generateScriptBlock({ config, showConfig, memory, settings, fetchImpl = fetch }) {
+  const prompt = buildScriptPrompt({ showConfig, memory, settings });
   const response = await fetchImpl("https://api.anthropic.com/v1/messages", {
     method: "POST",
     headers: {

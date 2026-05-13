@@ -36,7 +36,28 @@
             <span>キュー</span>
             <strong id="queue">0</strong>
           </div>
+          <div>
+            <span>番組時間</span>
+            <strong id="episode-time">0:00 / 5:00</strong>
+          </div>
         </div>
+
+        <form id="settings-form" class="settings-form">
+          <label>
+            <span>テーマ</span>
+            <input id="theme" name="theme" type="text" maxlength="80" value="沖縄の日常とAI実験" />
+          </label>
+          <label>
+            <span>長さ</span>
+            <select id="target-minutes" name="targetMinutes">
+              <option value="3">3分</option>
+              <option value="5" selected>5分</option>
+              <option value="10">10分</option>
+              <option value="15">15分</option>
+            </select>
+          </label>
+          <button type="submit">次の番組に反映</button>
+        </form>
 
         <div class="controls">
           <button id="start" type="button">開始</button>

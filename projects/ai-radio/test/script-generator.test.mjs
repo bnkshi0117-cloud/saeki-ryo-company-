@@ -15,6 +15,10 @@ test("buildScriptPrompt includes Okinawa, AI, comedy radio, and recent topics", 
     memory: {
       blocks: [{ topics: ["台風の日のCodex修正"] }]
     },
+    settings: {
+      theme: "台風の日のAI自動化",
+      targetMinutes: 10
+    },
     now: new Date("2026-05-13T21:00:00+09:00")
   });
 
@@ -22,6 +26,8 @@ test("buildScriptPrompt includes Okinawa, AI, comedy radio, and recent topics", 
   assert.match(prompt, /AI関連/);
   assert.match(prompt, /お笑い芸人の深夜ラジオ/);
   assert.match(prompt, /台風の日のCodex修正/);
+  assert.match(prompt, /今回の指定テーマ: 台風の日のAI自動化/);
+  assert.match(prompt, /番組全体の目標時間: 約10分/);
 });
 
 test("parseScriptResponse extracts valid JSON from text", () => {

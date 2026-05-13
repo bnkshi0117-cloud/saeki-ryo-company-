@@ -84,7 +84,7 @@ h1 {
 
 .meta-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 12px;
 }
 
@@ -104,6 +104,32 @@ h1 {
   display: flex;
   gap: 12px;
   margin-top: 22px;
+}
+
+.settings-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 120px auto;
+  gap: 12px;
+  align-items: end;
+  margin-top: 18px;
+}
+
+.settings-form label span {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--accent);
+  font-size: 12px;
+}
+
+input,
+select {
+  width: 100%;
+  border: 1px solid #3a3a3a;
+  border-radius: 6px;
+  padding: 11px 12px;
+  background: #141414;
+  color: var(--text);
+  font: inherit;
 }
 
 button {
@@ -156,6 +182,10 @@ li {
   }
 
   .meta-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .settings-form {
     grid-template-columns: 1fr;
   }
 }
