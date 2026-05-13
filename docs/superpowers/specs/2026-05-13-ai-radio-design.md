@@ -1,83 +1,110 @@
-# Saeki Ryo AI Radio Design
+# 佐伯亮 AIラジオ 設計書
 
-## Goal
+## 目的
 
-Build a local "Saeki Ryo AI Radio" MVP that starts from the command line, opens in a browser, and keeps generating and playing radio blocks with minimal manual control.
+ローカルで起動できる「佐伯亮AIラジオ」のMVPを作る。
 
-The first version targets a nearly automatic local radio experience. If it works well, the next phase is an OBS/YouTube Live-ready broadcast screen.
+最初のバージョンでは、コマンドで起動してブラウザを開き、AIがラジオ番組ブロックを生成し続け、音声として再生できる状態を目指す。
 
-## Creative Direction
+まずは **ほぼ自動で流れ続けるローカル版** を作る。うまく動いたら、次の段階でOBSやYouTube Liveに流せる配信用画面を追加する。
 
-The show is an AI-generated talk radio program centered on Okinawa daily life and practical AI experiments.
+## 番組の方向性
 
-The tone should feel closer to a late-night comedian radio show than a formal information program:
+番組テーマは **沖縄の日常 × AI関連**。
 
-- Two-person banter with light jokes and natural tangents.
-- Okinawa daily details such as weather, humidity, commuting, convenience stores, typhoons, local workday rhythm, and evening atmosphere.
-- Practical AI topics such as ChatGPT, Codex, app development, small automations, and trial-and-error with AI tools.
-- First-person, "I tried it and this happened" energy.
-- No hype like "earn X yen with AI", no follower-count bragging, no attacks on others.
+ただし、情報番組っぽく固くするのではなく、**お笑い芸人の深夜ラジオのような掛け合い** に寄せる。
 
-## Show Format
+大事にする雰囲気:
 
-Each generated block should include a mix of these segments:
+- 2人の軽い掛け合い
+- 小さな日常の違和感を拾う
+- 片方が少し脱線し、もう片方がツッコむ
+- 沖縄の天気、湿気、通勤、コンビニ、台風、仕事終わりの空気感などを話題にする
+- ChatGPT、Codex、アプリ開発、小さな自動化など、実際に触ったAIの話につなげる
+- 「やってみたらこうだった」という一次情報っぽさを出す
+- 「AIで月◯万円」のような煽り、フォロワー数自慢、他者批判はしない
 
-- Opening banter based on the current time of day.
-- Okinawa daily-life talk.
-- AI experiment talk.
-- A random recurring corner.
-- A fictional listener email and response.
-- BGM or jingle break.
+## 番組構成
 
-Recurring corner candidates:
+1つの番組ブロックには、以下の要素を混ぜる。
 
-- Today's AI Experiment Report
-- Okinawa Everyday Life, AI Translation
-- Side Hustle Dream Warning
-- Listener AI Consultation Room
-- This Week's Codex Reflection
-- Today's Tiny Automation
-- AI Line We Want to Hear
+- 時間帯に合わせたオープニング雑談
+- 沖縄の日常トーク
+- AIを触ってみた実験トーク
+- ランダムなレギュラーコーナー
+- 架空リスナーからのメール読み上げ
+- BGMまたはジングル
 
-Version 1 uses AI-generated fictional listener emails. Real listener submissions can be added later through a form or external integration.
+レギュラーコーナー案:
 
-## Architecture
+- 今日のAI実験報告
+- 沖縄あるあるAI変換
+- 副業、夢見すぎ注意報
+- リスナーAI相談室
+- 今週のCodex反省会
+- 今日の小さな自動化
+- AIに言わせたい一言
 
-Place the app under `projects/ai-radio/`.
+v1では、リスナーメールはAIが架空で生成する。
 
-The app should be a Node.js local web application with these parts:
+将来的には、投稿フォームやGoogleフォームなどから本物のメールを受け取れるようにする。
 
-- `server`: serves the browser UI, exposes state and audio assets, and coordinates generation.
-- `script generator`: uses Anthropic API to create structured radio blocks.
-- `tts provider`: uses xAI Text to Speech to turn each line into audio.
-- `queue manager`: keeps current and upcoming blocks ready for playback.
-- `memory store`: records past topics and corners in a JSON file so blocks do not repeat too much.
-- `browser player`: plays generated line audio and BGM while showing the current speaker, line, queue status, and generation status.
+## システム構成
 
-## Data Flow
+アプリは `projects/ai-radio/` に作る。
 
-1. On startup, the server loads `.env`, memory, BGM metadata, and show settings.
-2. The server generates the first radio block with Anthropic.
-3. The server sends each dialogue line to xAI TTS and saves MP3 files under `data/audio/`.
-4. The browser fetches the initial queue and starts playback after the user presses start.
-5. While the current block plays, the server prepares the next block in the background.
-6. After a block finishes, its summary and topics are appended to `data/memory.json`.
-7. The loop continues until the user stops the app.
+Node.jsのローカルWebアプリとして実装する。
 
-## APIs And Secrets
+主な部品:
 
-Use existing root `.env` values:
+- `server`
+  - ブラウザUIを配信する
+  - 現在の状態や音声ファイルを返す
+  - 台本生成と音声生成を管理する
 
-- `ANTHROPIC_API_KEY` for script generation.
-- `XAI_API_KEY` for xAI TTS.
+- `script generator`
+  - Anthropic APIを使って、構造化されたラジオ台本を生成する
 
-Do not expose secret values in browser code or logs.
+- `tts provider`
+  - xAI Text to Speechを使って、各セリフを音声ファイルにする
 
-xAI TTS should be implemented behind a provider interface so it can be swapped later for OpenAI TTS, VOICEVOX, or a mock provider.
+- `queue manager`
+  - 再生中のブロックと、次に流すブロックを管理する
 
-## Initial Files
+- `memory store`
+  - 過去に話したテーマやコーナーをJSONに保存する
+  - 同じ話題を連発しないようにする
 
-Expected project layout:
+- `browser player`
+  - ブラウザ上で音声とBGMを再生する
+  - 現在の話者、セリフ、コーナー名、生成状況、キューの状態を表示する
+
+## 処理の流れ
+
+1. サーバー起動時に、ルートの `.env`、記憶データ、BGM、番組設定を読み込む
+2. Anthropic APIで最初の番組ブロックを生成する
+3. 各セリフをxAI TTSに送り、MP3ファイルとして `data/audio/` に保存する
+4. ブラウザが再生キューを取得する
+5. ユーザーがスタートボタンを押すと再生が始まる
+6. 現在の番組ブロックを再生している間に、サーバー側で次のブロックを生成する
+7. ブロック再生後、話したテーマや概要を `data/memory.json` に保存する
+8. ユーザーが停止するまで、この流れを繰り返す
+
+## APIキー
+
+ルートの `.env` にある値を使う。
+
+- `ANTHROPIC_API_KEY`
+  - 台本生成に使う
+
+- `XAI_API_KEY`
+  - xAI TTSによる音声生成に使う
+
+秘密情報は、ブラウザ側のJavaScriptやログに出さない。
+
+xAI TTSは差し替えやすい形にしておく。将来的にOpenAI TTS、VOICEVOX、仮音声などに変更できるようにする。
+
+## 初期ファイル構成
 
 ```text
 projects/ai-radio/
@@ -102,58 +129,61 @@ projects/ai-radio/
     show-config.json
 ```
 
-## Browser UI
+## ブラウザ画面
 
-The UI should be a functional radio console, not a marketing page.
+画面はランディングページではなく、実際に使うラジオ操作画面にする。
 
-It should show:
+表示するもの:
 
-- Program title.
-- Current speaker.
-- Current spoken line.
-- Segment or corner name.
-- Generation status.
-- Current queue depth.
-- Start and stop controls.
-- A compact log of recently played lines.
+- 番組タイトル
+- 現在の話者
+- 読み上げ中のセリフ
+- 現在のコーナー名
+- 生成状況
+- 再生キューの残り
+- スタート/停止ボタン
+- 直近に再生したセリフのログ
 
-The design should be polished but utilitarian. It should be readable on desktop first, with responsive behavior for mobile.
+デザインは派手すぎず、作業中に横で開いておけるラジオコンソールにする。
 
-## Error Handling
+まずはデスクトップで見やすく作り、スマホでも崩れないようにする。
 
-The app should stay usable when one part fails:
+## エラー対応
 
-- If Anthropic generation fails, retry once and then show an error state.
-- If xAI TTS fails for one line, skip that line or use a mock fallback depending on configuration.
-- If no BGM files exist, continue with talk-only radio.
-- If memory is missing or invalid, recreate a clean memory file.
-- If queue generation falls behind playback, show a buffering state instead of crashing.
+どこかが失敗しても、アプリ全体がすぐ落ちないようにする。
 
-## Testing And Verification
+- Anthropicの台本生成に失敗したら、1回リトライする
+- それでも失敗したら、画面にエラー状態を表示する
+- xAI TTSが1セリフだけ失敗した場合は、そのセリフをスキップするか、設定に応じて仮音声に切り替える
+- BGMファイルが無い場合は、トークだけで再生を続ける
+- 記憶ファイルが無い、または壊れている場合は、空の記憶ファイルを作り直す
+- 次の生成が再生に間に合わない場合は、クラッシュせずにバッファ中として表示する
 
-Minimum verification for v1:
+## v1の検証条件
 
-- `npm install` succeeds in `projects/ai-radio/`.
-- The app starts locally.
-- Browser UI loads.
-- A radio block is generated.
-- xAI TTS creates at least one playable MP3.
-- Start button plays a generated line.
-- Memory updates after a block completes.
-- No secrets appear in client-side files or console output.
+最低限、以下が確認できればv1完了とする。
 
-## Later Phases
+- `projects/ai-radio/` で `npm install` が成功する
+- アプリがローカルで起動する
+- ブラウザUIが表示される
+- ラジオ台本が1ブロック生成される
+- xAI TTSで少なくとも1つのMP3が生成される
+- スタートボタンで生成済み音声が再生される
+- 1ブロック終了後に `data/memory.json` が更新される
+- ブラウザ側ファイルやコンソールにAPIキーが出ない
 
-Phase 2:
+## 次の段階
 
-- Add OBS-friendly broadcast screen.
-- Add full program recording.
-- Add real listener submission intake.
-- Add richer BGM metadata and mood-based selection.
-- Add news or RSS topics, if the show needs current events.
+### Phase 2
 
-Phase 3:
+- OBS向けの配信用画面を追加する
+- 番組全体の録音を保存する
+- 本物のリスナーメール投稿フォームを追加する
+- BGMのメタデータを増やし、時間帯や雰囲気で選曲する
+- 必要ならニュースやRSSから話題を取得する
 
-- YouTube Live workflow with OBS.
-- Long-running stability improvements.
-- Better voice direction and character tuning.
+### Phase 3
+
+- YouTube Liveに流す運用を整える
+- 長時間起動しても安定するようにする
+- 声やキャラクター設定をさらに調整する
