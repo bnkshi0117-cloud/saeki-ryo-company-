@@ -1,6 +1,7 @@
 import http from "node:http";
 import fs from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { getConfig } from "./config.mjs";
 import { loadMemory, appendMemory } from "./memory-store.mjs";
 import { generateScriptBlock } from "./script-generator.mjs";
@@ -106,7 +107,7 @@ export async function createServer() {
   return { server, config };
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
   const { server, config } = await createServer();
   server.listen(config.port, () => {
     console.log(`佐伯亮AIラジオ: http://localhost:${config.port}`);
