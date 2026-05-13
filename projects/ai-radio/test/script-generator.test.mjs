@@ -49,6 +49,23 @@ test("buildScriptPrompt requires fixed opening self introductions", () => {
   assert.match(prompt, /冒頭3行は必ずこの順番/);
 });
 
+test("buildScriptPrompt requires fixed closing line", () => {
+  const prompt = buildScriptPrompt({
+    showConfig: {
+      programTitle: "佐伯亮のAIゆんたくラジオ",
+      hosts: [
+        { id: "saeki", name: "佐伯亮", role: "パーソナリティ" },
+        { id: "higa", name: "比嘉", role: "相方" }
+      ],
+      corners: ["今日のAI実験報告"]
+    },
+    memory: { blocks: [] }
+  });
+
+  assert.match(prompt, /最後の1行は必ず/);
+  assert.match(prompt, /それではお時間になりましたので、また次回お会いしましょう。/);
+});
+
 test("parseScriptResponse extracts valid JSON from text", () => {
   const response = `以下です。
 

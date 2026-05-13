@@ -49,6 +49,9 @@ ${topics}
 2. speakerId "saeki" / speakerName "佐伯亮" / text "パーソナリティの佐伯亮です。"
 3. speakerId "higa" / speakerName "比嘉" / text "相方の比嘉です。"
 
+最後の1行は必ず以下にしてください:
+- speakerId "saeki" / speakerName "佐伯亮" / text "それではお時間になりましたので、また次回お会いしましょう。"
+
 JSON形式:
 {
   "title": "ブロックタイトル",
