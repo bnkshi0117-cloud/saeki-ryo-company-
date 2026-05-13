@@ -1,7 +1,7 @@
 import { recentTopics } from "./memory-store.mjs";
 import { defaultSettings, normalizeSettings } from "./settings-store.mjs";
 
-export function buildScriptPrompt({ showConfig, memory, settings = defaultSettings, now = new Date() }) {
+export function buildScriptPrompt({ showConfig, memory, settings = defaultSettings, newsContext, now = new Date() }) {
   const normalizedSettings = normalizeSettings(settings);
   const timeText = new Intl.DateTimeFormat("ja-JP", {
     timeZone: "Asia/Tokyo",
@@ -40,6 +40,12 @@ ${corners}
 
 最近話したテーマ:
 ${topics}
+
+${newsContext?.enabled ? `今回参照できるニュース素材:
+${newsContext.promptText}
+
+ニュース素材を使う場合も、投資助言ではなく雑談として扱ってください。
+` : ""}
 
 最近話したテーマを避けて、番組全体の一部として1ブロック分の台本をJSONだけで返してください。
 架空リスナーメールを1つ含めてください。
@@ -110,8 +116,8 @@ export function validateRadioBlock(block) {
   return block;
 }
 
-export async function generateScriptBlock({ config, showConfig, memory, settings, fetchImpl = fetch }) {
-  const prompt = buildScriptPrompt({ showConfig, memory, settings });
+export async function generateScriptBlock({ config, showConfig, memory, settings, newsContext, fetchImpl = fetch }) {
+  const prompt = buildScriptPrompt({ showConfig, memory, settings, newsContext });
   const response = await fetchImpl("https://api.anthropic.com/v1/messages", {
     method: "POST",
     headers: {
@@ -121,7 +127,7 @@ export async function generateScriptBlock({ config, showConfig, memory, settings
     },
     body: JSON.stringify({
       model: config.anthropicModel,
-      max_tokens: 1800,
+      max_tokens: 2200,
       messages: [{ role: "user", content: prompt }]
     })
   });

@@ -66,6 +66,28 @@ test("buildScriptPrompt requires fixed closing line", () => {
   assert.match(prompt, /それではお時間になりましたので、また次回お会いしましょう。/);
 });
 
+test("buildScriptPrompt includes fetched news context", () => {
+  const prompt = buildScriptPrompt({
+    showConfig: {
+      programTitle: "佐伯亮のAIゆんたくラジオ",
+      hosts: [
+        { id: "saeki", name: "佐伯亮", role: "パーソナリティ" },
+        { id: "higa", name: "比嘉", role: "相方" }
+      ],
+      corners: ["今日のAI実験報告"]
+    },
+    memory: { blocks: [] },
+    newsContext: {
+      enabled: true,
+      promptText: "- [market] 日経平均が反発 (Example) https://example.com"
+    }
+  });
+
+  assert.match(prompt, /今回参照できるニュース素材/);
+  assert.match(prompt, /日経平均が反発/);
+  assert.match(prompt, /投資助言ではなく/);
+});
+
 test("parseScriptResponse extracts valid JSON from text", () => {
   const response = `以下です。
 

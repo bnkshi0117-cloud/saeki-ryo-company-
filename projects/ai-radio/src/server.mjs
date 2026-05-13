@@ -8,6 +8,7 @@ import { generateScriptBlock } from "./script-generator.mjs";
 import { synthesizeBlock } from "./tts-xai.mjs";
 import { createQueueManager } from "./queue-manager.mjs";
 import { saveBlockRecording, saveEpisodeRecording } from "./recording-store.mjs";
+import { buildNewsContext } from "./news-fetcher.mjs";
 
 const contentTypes = new Map([
   [".html", "text/html; charset=utf-8"],
@@ -65,7 +66,10 @@ export async function createServer() {
   const manager = createQueueManager({
     generateReadyBlock: async () => {
       const memory = await loadMemory(config.memoryPath);
-      const scriptBlock = await generateScriptBlock({ config, showConfig, memory, settings: manager.getState().settings });
+      const settings = manager.getState().settings;
+      const newsContext = await buildNewsContext({ settings });
+      const scriptBlock = await generateScriptBlock({ config, showConfig, memory, settings, newsContext });
+      scriptBlock.newsItems = newsContext.items;
       return synthesizeBlock({ config, showConfig, block: scriptBlock });
     },
     onBlockCompleted: async (block) => {

@@ -4,6 +4,8 @@ const cornerEl = document.querySelector("#corner");
 const statusEl = document.querySelector("#status");
 const queueEl = document.querySelector("#queue");
 const episodeTimeEl = document.querySelector("#episode-time");
+const newsPanelEl = document.querySelector("#news-panel");
+const newsListEl = document.querySelector("#news-list");
 const logEl = document.querySelector("#log");
 const recordingsEl = document.querySelector("#recordings");
 const settingsForm = document.querySelector("#settings-form");
@@ -28,6 +30,7 @@ function updateState(state) {
   queueEl.textContent = String(state.queue.length);
   const block = state.queue[0];
   cornerEl.textContent = block?.corner || "-";
+  renderNews(block?.newsItems || []);
 
   if (state.settings) {
     themeInput.value = state.settings.theme;
@@ -47,6 +50,22 @@ function appendLog(line) {
   logEl.prepend(item);
   while (logEl.children.length > 20) {
     logEl.lastElementChild.remove();
+  }
+}
+
+function renderNews(items) {
+  newsListEl.replaceChildren();
+  newsPanelEl.hidden = items.length === 0;
+
+  for (const item of items) {
+    const row = document.createElement("li");
+    const link = document.createElement("a");
+    link.href = item.url;
+    link.target = "_blank";
+    link.rel = "noreferrer";
+    link.textContent = `${item.title} (${item.source})`;
+    row.append(link);
+    newsListEl.append(row);
   }
 }
 

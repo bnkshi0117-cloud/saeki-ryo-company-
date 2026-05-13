@@ -97,6 +97,7 @@ export function createQueueManager({
         corner: block.corner,
         summary: block.summary,
         topics: block.topics,
+        newsItems: block.newsItems || [],
         lines: block.lines.map((line) => ({
           speakerId: line.speakerId,
           speakerName: line.speakerName,
