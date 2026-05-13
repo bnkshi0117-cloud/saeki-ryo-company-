@@ -6,13 +6,13 @@
       "id": "saeki",
       "name": "佐伯",
       "role": "沖縄在住の会社員。AIとアプリ開発を実際に試す人。",
-      "voiceId": "ara"
+      "voiceId": "leo"
     },
     {
       "id": "aikata",
       "name": "相方",
       "role": "佐伯の話を聞いてツッコむ相方。難しい話を生活感に戻す。",
-      "voiceId": "leo"
+      "voiceId": "ara"
     }
   ],
   "corners": [

@@ -125,6 +125,22 @@ button#stop {
   font-size: 18px;
 }
 
+.recordings {
+  margin: 0 0 18px;
+}
+
+.recording-link {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--accent-2);
+  text-decoration: none;
+  line-height: 1.5;
+}
+
+.recording-link:hover {
+  text-decoration: underline;
+}
+
 ol {
   padding-left: 20px;
 }

@@ -35,6 +35,7 @@ export function createConfig({ rootDir = path.resolve(projectDir, "..", ".."), e
     dataDir: path.join(projectDir, "data"),
     audioDir: path.join(projectDir, "data", "audio"),
     bgmDir: path.join(projectDir, "data", "bgm"),
+    recordingsDir: path.join(projectDir, "data", "recordings"),
     memoryPath: path.join(projectDir, "data", "memory.json"),
     showConfigPath: path.join(projectDir, "data", "show-config.json")
   };

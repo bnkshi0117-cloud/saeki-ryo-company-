@@ -34,7 +34,10 @@ test("completeBlock removes the block and calls completion hook", async () => {
       topics: ["湿気", "AI"],
       lines: []
     }),
-    onBlockCompleted: async (block) => completed.push(block.id)
+    onBlockCompleted: async (block) => {
+      completed.push(block.id);
+      return { recordingUrl: "/recordings/block-1.mp3" };
+    }
   });
 
   await manager.ensureQueue();
@@ -42,4 +45,5 @@ test("completeBlock removes the block and calls completion hook", async () => {
 
   assert.deepEqual(completed, ["block-1"]);
   assert.equal(manager.getState().queue.length, 0);
+  assert.equal(manager.getState().completed[0].recordingUrl, "/recordings/block-1.mp3");
 });

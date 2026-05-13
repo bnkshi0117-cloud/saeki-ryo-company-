@@ -7,6 +7,7 @@ import { loadMemory, appendMemory } from "./memory-store.mjs";
 import { generateScriptBlock } from "./script-generator.mjs";
 import { synthesizeBlock } from "./tts-xai.mjs";
 import { createQueueManager } from "./queue-manager.mjs";
+import { saveBlockRecording } from "./recording-store.mjs";
 
 const contentTypes = new Map([
   [".html", "text/html; charset=utf-8"],
@@ -57,13 +58,16 @@ export async function createServer() {
       return synthesizeBlock({ config, showConfig, block: scriptBlock });
     },
     onBlockCompleted: async (block) => {
+      const recording = await saveBlockRecording({ config, block });
       await appendMemory(config.memoryPath, {
         id: block.id,
         summary: block.summary,
         topics: block.topics,
-        corner: block.corner
+        corner: block.corner,
+        recordingUrl: recording?.recordingUrl || null
       });
       manager.ensureQueue().catch(() => {});
+      return recording;
     }
   });
 
@@ -87,6 +91,11 @@ export async function createServer() {
 
     if (req.method === "GET" && url.pathname.startsWith("/audio/")) {
       await serveFile(res, config.audioDir, url.pathname.replace("/audio", ""));
+      return;
+    }
+
+    if (req.method === "GET" && url.pathname.startsWith("/recordings/")) {
+      await serveFile(res, config.recordingsDir, url.pathname.replace("/recordings", ""));
       return;
     }
 

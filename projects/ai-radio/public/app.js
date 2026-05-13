@@ -4,6 +4,7 @@ const cornerEl = document.querySelector("#corner");
 const statusEl = document.querySelector("#status");
 const queueEl = document.querySelector("#queue");
 const logEl = document.querySelector("#log");
+const recordingsEl = document.querySelector("#recordings");
 const startButton = document.querySelector("#start");
 const stopButton = document.querySelector("#stop");
 
@@ -23,6 +24,7 @@ function updateState(state) {
   queueEl.textContent = String(state.queue.length);
   const block = state.queue[0];
   cornerEl.textContent = block?.corner || "-";
+  renderRecordings(state.completed || []);
 }
 
 function appendLog(line) {
@@ -44,7 +46,26 @@ function playAudio(url) {
 }
 
 async function completeBlock(blockId) {
-  await fetch(`/api/complete/${encodeURIComponent(blockId)}`, { method: "POST" });
+  const response = await fetch(`/api/complete/${encodeURIComponent(blockId)}`, { method: "POST" });
+  if (response.ok) {
+    updateState(await response.json());
+  }
+}
+
+function renderRecordings(recordings) {
+  recordingsEl.replaceChildren();
+  for (const recording of recordings) {
+    if (!recording.recordingUrl) {
+      continue;
+    }
+    const link = document.createElement("a");
+    link.className = "recording-link";
+    link.href = recording.recordingUrl;
+    link.textContent = `録音: ${recording.title}`;
+    link.target = "_blank";
+    link.rel = "noreferrer";
+    recordingsEl.append(link);
+  }
 }
 
 async function playLoop() {

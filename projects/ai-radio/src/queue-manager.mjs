@@ -3,6 +3,7 @@ export function createQueueManager({ generateReadyBlock, onBlockCompleted }) {
   let status = "idle";
   let lastError = null;
   let inflight = null;
+  const completed = [];
 
   async function ensureQueue() {
     if (queue.length > 0 || inflight) {
@@ -35,13 +36,23 @@ export function createQueueManager({ generateReadyBlock, onBlockCompleted }) {
       return;
     }
     const [block] = queue.splice(index, 1);
-    await onBlockCompleted(block);
+    const completion = await onBlockCompleted(block);
+    if (completion) {
+      completed.unshift({
+        id: block.id,
+        title: block.title,
+        corner: block.corner,
+        recordingUrl: completion.recordingUrl
+      });
+      completed.splice(5);
+    }
   }
 
   function getState() {
     return {
       status,
       lastError,
+      completed,
       queue: queue.map((block) => ({
         id: block.id,
         title: block.title,
