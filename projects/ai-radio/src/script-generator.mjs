@@ -25,8 +25,8 @@ export function buildScriptPrompt({
     ? `冒頭3行は必ずこの順番にしてください:
 1. speakerId "saeki" / speakerName "佐伯亮" / text "どうも、佐伯亮のAIゆんたくラジオです。"
 2. speakerId "saeki" / speakerName "佐伯亮" / text "パーソナリティの佐伯亮です。"
-3. speakerId "higa" / speakerName "比嘉" / text "相方の比嘉です。"`
-    : `番組の冒頭挨拶（「どうも〜です」「パーソナリティの〜」「相方の〜」）は一切入れないでください。
+3. speakerId "higa" / speakerName "比嘉" / text "あいかたの比嘉です。"`
+    : `番組の冒頭挨拶（「どうも〜です」「パーソナリティの〜」「あいかたの〜」）は一切入れないでください。
 前のトークから自然につながる会話として始めてください。`;
 
   const blockShape = isFinalBlock

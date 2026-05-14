@@ -37,7 +37,7 @@ test("first block requires fixed opening self introductions", () => {
 
   assert.match(prompt, /どうも、佐伯亮のAIゆんたくラジオです。/);
   assert.match(prompt, /パーソナリティの佐伯亮です。/);
-  assert.match(prompt, /相方の比嘉です。/);
+  assert.match(prompt, /あいかたの比嘉です。/);
   assert.match(prompt, /冒頭3行は必ずこの順番/);
 });
 

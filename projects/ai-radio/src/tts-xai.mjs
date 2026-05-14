@@ -11,6 +11,10 @@ export function createBlockId() {
   return `${Date.now()}-${crypto.randomBytes(4).toString("hex")}`;
 }
 
+export function spokenTextForTts(text) {
+  return String(text).replaceAll("相方", "あいかた");
+}
+
 export async function synthesizeLine({ config, line, voiceId, outputPath, fetchImpl = fetch }) {
   await fs.mkdir(path.dirname(outputPath), { recursive: true });
 
@@ -21,7 +25,7 @@ export async function synthesizeLine({ config, line, voiceId, outputPath, fetchI
       "content-type": "application/json"
     },
     body: JSON.stringify({
-      text: line.text,
+      text: spokenTextForTts(line.text),
       voice_id: voiceId,
       language: "ja",
       response_format: "mp3"
