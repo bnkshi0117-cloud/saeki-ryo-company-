@@ -10,22 +10,31 @@ export function createQueueManager({
   let status = "idle";
   let lastError = null;
   let inflight = null;
+  let finalBlock = null;
+  let finalInflight = null;
   let settings = normalizeSettings(initialSettings);
   let episodeCounter = 1;
   let episode = createEpisode(settings, episodeCounter);
   const completed = [];
 
   async function ensureQueue() {
-    if (episode.complete || queue.length > 0 || inflight) {
+    if (episode.complete || queue.length >= 2 || inflight) {
       return inflight;
     }
 
     status = "generating";
     lastError = null;
-    inflight = generateReadyBlock(settings)
+    const isFirstBlock = episode.blockCount === 0;
+    const isFinalBlock = episode.closingStarted === true;
+    inflight = generateReadyBlock(settings, { isFirstBlock, isFinalBlock })
       .then((block) => {
+        assertPlayableBlock(block);
+        episode.blockCount += 1;
         queue.push(block);
         status = "ready";
+        if (!isFinalBlock && episode.blockCount === 1) {
+          primeFinalBlock();
+        }
         return block;
       })
       .catch((error) => {
@@ -38,6 +47,25 @@ export function createQueueManager({
       });
 
     return inflight;
+  }
+
+  function primeFinalBlock() {
+    if (episode.complete || episode.closingStarted || finalBlock || finalInflight) {
+      return finalInflight;
+    }
+
+    finalInflight = generateReadyBlock(settings, { isFirstBlock: false, isFinalBlock: true })
+      .then((block) => {
+        assertPlayableBlock(block);
+        finalBlock = { ...block, isFinalBlock: true };
+        return finalBlock;
+      })
+      .catch(() => null)
+      .finally(() => {
+        finalInflight = null;
+      });
+
+    return finalInflight;
   }
 
   async function completeBlock(blockId, { playedSeconds = 0 } = {}) {
@@ -58,11 +86,28 @@ export function createQueueManager({
       completed.splice(5);
       episode.recordings.push(completion);
     }
-    if (episode.playedSeconds >= episode.targetSeconds) {
+    if (block.isFinalBlock) {
       episode.complete = true;
       const recording = await onEpisodeCompleted(episode);
       episode.recordingUrl = recording?.recordingUrl || null;
       status = "complete";
+    } else if (episode.playedSeconds >= episode.targetSeconds) {
+      episode.closingStarted = true;
+      queue.splice(0);
+      if (finalBlock) {
+        queue.push(finalBlock);
+        finalBlock = null;
+        status = "ready";
+      } else {
+        await finalInflight;
+        if (finalBlock) {
+          queue.push(finalBlock);
+          finalBlock = null;
+          status = "ready";
+        } else {
+          await ensureQueue();
+        }
+      }
     } else {
       await ensureQueue();
     }
@@ -71,6 +116,8 @@ export function createQueueManager({
   function updateSettings(input) {
     settings = normalizeSettings(input);
     queue.splice(0);
+    finalBlock = null;
+    finalInflight = null;
     completed.splice(0);
     episodeCounter += 1;
     episode = createEpisode(settings, episodeCounter);
@@ -124,6 +171,16 @@ function createEpisode(settings, counter) {
     playedSeconds: 0,
     complete: false,
     recordingUrl: null,
-    recordings: []
+    recordings: [],
+    blockCount: 0,
+    closingStarted: false
   };
+}
+
+function assertPlayableBlock(block) {
+  const lines = Array.isArray(block?.lines) ? block.lines : [];
+  const playableLines = lines.filter((line) => typeof line.audioUrl === "string" && line.audioUrl.trim() !== "");
+  if (playableLines.length === 0) {
+    throw new Error("Ready block requires playable audio lines.");
+  }
 }
