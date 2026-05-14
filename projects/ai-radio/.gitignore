@@ -1,6 +1,7 @@
 data/audio/*.mp3
 data/audio/*.wav
 data/recordings/*.mp3
+data/videos/*.mp4
 data/memory.json
 .server.*
 node_modules/
