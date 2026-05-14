@@ -42,6 +42,11 @@ jobs:
         env:
           ELECTRON_SKIP_BINARY_DOWNLOAD: '1'
 
+      - name: ffmpeg と日本語フォントをインストール
+        run: |
+          sudo apt-get install -y ffmpeg fonts-noto-cjk
+          echo "FFMPEG_PATH=$(which ffmpeg)" >> $GITHUB_ENV
+
       - name: ショー判定
         id: show
         run: |

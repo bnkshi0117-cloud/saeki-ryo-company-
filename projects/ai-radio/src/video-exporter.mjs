@@ -41,13 +41,21 @@ export async function exportRecordingVideo({ ffmpegPath, inputPath, outputPath, 
   return { outputPath };
 }
 
+function getFontFile() {
+  if (process.platform === "win32") {
+    return "C\\:/Windows/Fonts/meiryo.ttc";
+  }
+  // Linux (GitHub Actions): Noto Sans CJK
+  return "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc";
+}
+
 function titleFilters(title) {
-  const fontFile = "C\\:/Windows/Fonts/meiryo.ttc";
+  const fontFile = getFontFile();
   const escapedTitle = escapeDrawText(title);
   return [
     `drawtext=fontfile='${fontFile}':text='${escapedTitle}':fontcolor=f6f2e8:fontsize=58:x=80:y=220`,
-    "drawtext=fontfile='C\\:/Windows/Fonts/meiryo.ttc':text='AI Yuntaku Radio Clip':fontcolor=5cc8a7:fontsize=34:x=80:y=305",
-    "drawtext=fontfile='C\\:/Windows/Fonts/meiryo.ttc':text='Generated from saved MP3':fontcolor=b9b2a5:fontsize=30:x=80:y=1540"
+    `drawtext=fontfile='${fontFile}':text='AI Yuntaku Radio Clip':fontcolor=5cc8a7:fontsize=34:x=80:y=305`,
+    `drawtext=fontfile='${fontFile}':text='Generated from saved MP3':fontcolor=b9b2a5:fontsize=30:x=80:y=1540`
   ].join(",");
 }
 
