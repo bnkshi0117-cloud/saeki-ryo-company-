@@ -21,7 +21,7 @@ const projectDir = path.resolve(path.dirname(thisFile), "..");
 
 const SHOW_PRESETS = {
   morning: {
-    theme: "最新ニュースと今日の沖縄の天気・AIニュース",
+    theme: "沖縄の日常、今日の天気とニュース、AIの話、生活のこと、なんでも",
     targetMinutes: 10,
     label: "朝のラジオ",
     caption: [
@@ -96,14 +96,22 @@ async function main() {
   const showConfig = JSON.parse(await fs.readFile(config.showConfigPath, "utf8"));
   const settings = { theme: preset.theme, targetMinutes: preset.targetMinutes };
 
+  // ニュースはエピソード単位で1回だけ取得してキャッシュ（毎ブロック同じ記事を引き直さない）
+  console.log(`📰 ニュース取得中...`);
+  const newsContext = await buildNewsContext({ settings });
+  if (newsContext.enabled) {
+    console.log(`  ${newsContext.items.length}件取得`);
+  }
+
   const manager = createQueueManager({
     generateReadyBlock: async (_settings, context = {}) => {
+      // メモリはブロックごとに最新を読み込む（前ブロックの話題を反映させるため）
       const memory = await loadMemory(config.memoryPath);
-      const newsContext = await buildNewsContext({ settings });
       const isFirstBlock = context.isFirstBlock === true;
       const isFinalBlock = context.isFinalBlock === true;
       const scriptBlock = await generateScriptBlock({
-        config, showConfig, memory, settings, newsContext,
+        config, showConfig, memory, settings,
+        newsContext, // キャッシュ済みニュースを使い回す
         isFirstBlock, isFinalBlock
       });
       scriptBlock.newsItems = newsContext.items;
@@ -122,7 +130,8 @@ async function main() {
       return recording;
     },
     onEpisodeCompleted: async (episode) => saveEpisodeRecording({ config, episode }),
-    initialSettings: settings
+    initialSettings: settings,
+    queueDepth: 1  // ヘッドレスは順番生成。前ブロックの話題をメモリに書いてから次を生成する
   });
 
   // 生成開始

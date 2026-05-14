@@ -4,7 +4,8 @@ export function createQueueManager({
   generateReadyBlock,
   onBlockCompleted,
   onEpisodeCompleted = async () => null,
-  initialSettings = defaultSettings
+  initialSettings = defaultSettings,
+  queueDepth = 2
 }) {
   const queue = [];
   let status = "idle";
@@ -17,7 +18,7 @@ export function createQueueManager({
   let episode = createEpisode(settings, episodeCounter);
   const completed = [];
 
-  async function ensureQueue({ maxQueue = 2 } = {}) {
+  async function ensureQueue({ maxQueue = queueDepth } = {}) {
     if (episode.complete || queue.length >= maxQueue || inflight) {
       return inflight;
     }
