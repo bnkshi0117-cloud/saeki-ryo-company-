@@ -11,10 +11,41 @@ export function outputVideoName(recordingName) {
   return `${safeBase}.mp4`;
 }
 
-export function buildVideoExportArgs({ inputPath, outputPath, title = "佐伯亮のAIゆんたくラジオ", skipText = false }) {
-  // CI環境（Linux）ではdrawtextフィルターをスキップしてフォント依存を回避
+export function buildVideoExportArgs({ inputPath, outputPath, bgmPath, title = "佐伯亮のAIゆんたくラジオ", skipText = false }) {
   const useText = !skipText && canUseDrawtext();
 
+  if (bgmPath) {
+    // BGMあり: 音声とBGMを混合（BGMは15%の音量でループ）
+    const waveOverlay = useText
+      ? `[1:v][w]overlay=x=90:y=1060,${titleFilters(title)}[v]`
+      : "[1:v][w]overlay=x=90:y=1060[v]";
+
+    const filter = [
+      "[0:a]showwaves=s=900x360:mode=line:colors=5cc8a7,format=rgba[w]",
+      waveOverlay,
+      "[0:a]volume=1.0[speech]",
+      "[2:a]volume=0.15[bgm]",
+      "[speech][bgm]amix=inputs=2:duration=first[a]"
+    ].join(";");
+
+    return [
+      "-y",
+      "-i", inputPath,
+      "-f", "lavfi", "-i", "color=c=#141414:s=1080x1920:r=30",
+      "-stream_loop", "-1", "-i", bgmPath,
+      "-filter_complex", filter,
+      "-map", "[v]",
+      "-map", "[a]",
+      "-c:v", "libx264",
+      "-pix_fmt", "yuv420p",
+      "-c:a", "aac",
+      "-b:a", "192k",
+      "-shortest",
+      outputPath
+    ];
+  }
+
+  // BGMなし
   const filter = useText
     ? ["[0:a]showwaves=s=900x360:mode=line:colors=5cc8a7,format=rgba[w]",
         `[1:v][w]overlay=x=90:y=1060,${titleFilters(title)}[v]`].join(";")
@@ -24,8 +55,7 @@ export function buildVideoExportArgs({ inputPath, outputPath, title = "佐伯亮
   return [
     "-y",
     "-i", inputPath,
-    "-f", "lavfi",
-    "-i", "color=c=#141414:s=1080x1920:r=30",
+    "-f", "lavfi", "-i", "color=c=#141414:s=1080x1920:r=30",
     "-filter_complex", filter,
     "-map", "[v]",
     "-map", "0:a",
@@ -39,13 +69,12 @@ export function buildVideoExportArgs({ inputPath, outputPath, title = "佐伯亮
 }
 
 function canUseDrawtext() {
-  // Windowsのみテキストオーバーレイを使用（フォントが確実に存在する）
   return process.platform === "win32";
 }
 
-export async function exportRecordingVideo({ ffmpegPath, inputPath, outputPath, title, skipText = false }) {
+export async function exportRecordingVideo({ ffmpegPath, inputPath, outputPath, bgmPath, title, skipText = false }) {
   await fs.mkdir(path.dirname(outputPath), { recursive: true });
-  const args = buildVideoExportArgs({ inputPath, outputPath, title, skipText });
+  const args = buildVideoExportArgs({ inputPath, outputPath, bgmPath, title, skipText });
   await runFfmpeg(ffmpegPath, args);
   return { outputPath };
 }

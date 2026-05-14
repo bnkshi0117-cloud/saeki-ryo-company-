@@ -1,5 +1,5 @@
 /**
- * ヘッドレスラジオ生成スクリプト
+ * ヘッドレスラジオ生成スクリプト（1本スクリプト方式）
  * Usage: node scripts/generate-headless.mjs --show morning|afternoon|night
  */
 
@@ -9,12 +9,10 @@ import { fileURLToPath } from "node:url";
 import ffmpegStatic from "ffmpeg-static";
 import { getConfig } from "../src/config.mjs";
 import { loadMemory, appendMemory } from "../src/memory-store.mjs";
-import { generateScriptBlock } from "../src/script-generator.mjs";
-import { synthesizeBlock } from "../src/tts-xai.mjs";
-import { createQueueManager } from "../src/queue-manager.mjs";
-import { saveBlockRecording, saveEpisodeRecording } from "../src/recording-store.mjs";
-import { buildNewsContext } from "../src/news-fetcher.mjs";
+import { generateFullEpisodeScript } from "../src/script-generator.mjs";
+import { synthesizeLine, safeAudioName, createBlockId } from "../src/tts-xai.mjs";
 import { exportRecordingVideo } from "../src/video-exporter.mjs";
+import { buildNewsContext } from "../src/news-fetcher.mjs";
 
 const thisFile = fileURLToPath(import.meta.url);
 const projectDir = path.resolve(path.dirname(thisFile), "..");
@@ -35,7 +33,7 @@ const SHOW_PRESETS = {
     ].join("\n")
   },
   afternoon: {
-    theme: "沖縄の日常とAI実験",
+    theme: "沖縄の日常とAI実験、生活のあれこれ",
     targetMinutes: 25,
     label: "昼のラジオ",
     caption: [
@@ -60,13 +58,6 @@ const SHOW_PRESETS = {
   }
 };
 
-/** 日本語音声の長さをテキスト文字数から推定（約5.5文字/秒） */
-function estimateBlockDuration(block) {
-  return block.lines.reduce((total, line) => {
-    return total + Math.max(2, line.text.length / 5.5);
-  }, 0);
-}
-
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -82,138 +73,113 @@ function parseArgs(argv) {
   return args;
 }
 
+async function findBgmFile(bgmDir) {
+  try {
+    const files = await fs.readdir(bgmDir);
+    const audio = files.filter((f) => /\.(mp3|wav|m4a)$/i.test(f)).sort();
+    return audio.length > 0 ? path.join(bgmDir, audio[0]) : null;
+  } catch {
+    return null;
+  }
+}
+
+/** TTS並列合成（5本ずつバッチ処理） */
+async function synthesizeAllLines({ config, showConfig, blockId, lines }) {
+  const voiceBySpeaker = new Map(showConfig.hosts.map((h) => [h.id, h.voiceId]));
+  const results = [];
+  const BATCH = 5;
+
+  for (let i = 0; i < lines.length; i += BATCH) {
+    const batch = lines.slice(i, i + BATCH);
+    const batchResults = await Promise.all(
+      batch.map(async (line, batchIndex) => {
+        const index = i + batchIndex;
+        const voiceId = voiceBySpeaker.get(line.speakerId) || showConfig.hosts[0].voiceId;
+        const outputPath = path.join(config.audioDir, safeAudioName({ blockId, index, speakerId: line.speakerId }));
+        await fs.mkdir(path.dirname(outputPath), { recursive: true });
+        return synthesizeLine({ config, line, voiceId, outputPath });
+      })
+    );
+    results.push(...batchResults);
+    process.stdout.write(`  音声合成: ${Math.min(i + BATCH, lines.length)}/${lines.length}\r`);
+    if (i + BATCH < lines.length) await sleep(200); // レートリミット対策
+  }
+  console.log();
+  return results;
+}
+
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   const showName = args.show || "morning";
   const preset = SHOW_PRESETS[showName];
-  if (!preset) {
-    throw new Error(`Unknown show: "${showName}". Use morning, afternoon, or night.`);
-  }
+  if (!preset) throw new Error(`Unknown show: "${showName}". Use morning, afternoon, or night.`);
 
   console.log(`🎙️  [${preset.label}] 生成開始 (目標: ${preset.targetMinutes}分)`);
 
   const config = getConfig();
   const showConfig = JSON.parse(await fs.readFile(config.showConfigPath, "utf8"));
   const settings = { theme: preset.theme, targetMinutes: preset.targetMinutes };
+  const memory = await loadMemory(config.memoryPath);
 
-  // ニュースはエピソード単位で1回だけ取得してキャッシュ（毎ブロック同じ記事を引き直さない）
+  // ニュース取得（1回だけ）
   console.log(`📰 ニュース取得中...`);
   const newsContext = await buildNewsContext({ settings });
-  if (newsContext.enabled) {
-    console.log(`  ${newsContext.items.length}件取得`);
-  }
+  if (newsContext.enabled) console.log(`  ${newsContext.items.length}件取得`);
 
-  const manager = createQueueManager({
-    generateReadyBlock: async (_settings, context = {}) => {
-      // メモリはブロックごとに最新を読み込む（前ブロックの話題を反映させるため）
-      const memory = await loadMemory(config.memoryPath);
-      const isFirstBlock = context.isFirstBlock === true;
-      const isFinalBlock = context.isFinalBlock === true;
-      const scriptBlock = await generateScriptBlock({
-        config, showConfig, memory, settings,
-        newsContext, // キャッシュ済みニュースを使い回す
-        isFirstBlock, isFinalBlock
-      });
-      scriptBlock.newsItems = newsContext.items;
-      scriptBlock.isFinalBlock = isFinalBlock;
-      return synthesizeBlock({ config, showConfig, block: scriptBlock });
-    },
-    onBlockCompleted: async (block) => {
-      const recording = await saveBlockRecording({ config, block });
-      await appendMemory(config.memoryPath, {
-        id: block.id,
-        summary: block.summary,
-        topics: block.topics,
-        corner: block.corner,
-        recordingUrl: recording?.recordingUrl || null
-      });
-      return recording;
-    },
-    onEpisodeCompleted: async (episode) => saveEpisodeRecording({ config, episode }),
-    initialSettings: settings,
-    queueDepth: 1  // ヘッドレスは順番生成。前ブロックの話題をメモリに書いてから次を生成する
+  // 1本のスクリプトを生成（Claude 1回呼び出し）
+  console.log(`✍️  台本生成中...`);
+  const script = await generateFullEpisodeScript({ config, showConfig, memory, settings, newsContext });
+  console.log(`  「${script.title}」(${script.lines.length}行)`);
+
+  // 音声合成（並列バッチ処理）
+  console.log(`🔊 音声合成中...`);
+  const blockId = createBlockId();
+  const synthesizedLines = await synthesizeAllLines({ config, showConfig, blockId, lines: script.lines });
+
+  // MP3連結
+  console.log(`🎵 MP3結合中...`);
+  await fs.mkdir(config.recordingsDir, { recursive: true });
+  const now = new Date();
+  const dateStr = new Intl.DateTimeFormat("ja-JP", {
+    timeZone: "Asia/Tokyo", year: "numeric", month: "2-digit", day: "2-digit"
+  }).format(now).replace(/\//g, "-");
+
+  const episodePath = path.join(config.recordingsDir, `${showName}-${dateStr}.mp3`);
+  const chunks = await Promise.all(synthesizedLines.map((l) => fs.readFile(l.audioPath)));
+  await fs.writeFile(episodePath, Buffer.concat(chunks));
+  console.log(`  ${episodePath}`);
+
+  // メモリ更新
+  await appendMemory(config.memoryPath, {
+    id: blockId,
+    summary: script.summary,
+    topics: script.topics,
+    corner: "フルエピソード",
+    recordingUrl: `/recordings/${path.basename(episodePath)}`
   });
 
-  // 生成開始
-  manager.ensureQueue().catch(() => {});
+  // MP4書き出し
+  console.log(`🎬 動画書き出し中...`);
+  const videoDir = path.join(projectDir, "data", "videos");
+  await fs.mkdir(videoDir, { recursive: true });
+  const videoPath = path.join(videoDir, `${showName}-${dateStr}.mp4`);
+  const ffmpegPath = process.env.FFMPEG_PATH || ffmpegStatic;
+  const bgmPath = await findBgmFile(config.bgmDir);
+  if (bgmPath) console.log(`  BGM: ${path.basename(bgmPath)}`);
 
-  let blockCount = 0;
-  const MAX_WAIT_MS = 20 * 60 * 1000; // 20分タイムアウト
-  const startedAt = Date.now();
+  await exportRecordingVideo({
+    ffmpegPath,
+    inputPath: episodePath,
+    outputPath: videoPath,
+    bgmPath,
+    title: `佐伯亮のAIゆんたくラジオ ${preset.label}`,
+    skipText: process.platform !== "win32"
+  });
+  console.log(`✅ 動画完了: ${videoPath}`);
 
-  while (true) {
-    if (Date.now() - startedAt > MAX_WAIT_MS) {
-      throw new Error("タイムアウト: 生成に20分以上かかっています");
-    }
-
-    const state = manager.getState();
-
-    if (state.episode.complete) {
-      console.log(`\n✅ エピソード完了 (合計 ${Math.round(state.episode.playedSeconds / 60 * 10) / 10}分)`);
-
-      const episodeUrl = state.episode.recordingUrl;
-      if (!episodeUrl) throw new Error("録音URLが取得できませんでした");
-      const episodePath = path.join(config.recordingsDir, path.basename(episodeUrl));
-
-      // MP4書き出し
-      console.log(`🎬 動画書き出し中...`);
-      const now = new Date();
-      const dateStr = new Intl.DateTimeFormat("ja-JP", {
-        timeZone: "Asia/Tokyo",
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit"
-      }).format(now).replace(/\//g, "-");
-
-      const videoDir = path.join(projectDir, "data", "videos");
-      await fs.mkdir(videoDir, { recursive: true });
-      const videoPath = path.join(videoDir, `${showName}-${dateStr}.mp4`);
-
-      const ffmpegPath = process.env.FFMPEG_PATH || ffmpegStatic;
-      const skipText = process.platform !== "win32"; // CI(Linux)ではdrawtext不使用
-      await exportRecordingVideo({
-        ffmpegPath,
-        inputPath: episodePath,
-        outputPath: videoPath,
-        title: `佐伯亮のAIゆんたくラジオ ${preset.label}`,
-        skipText
-      });
-
-      console.log(`✅ 動画完了: ${videoPath}`);
-
-      // 次ステップへの引き渡し用ファイル
-      const runOutput = {
-        videoPath,
-        episodePath,
-        show: showName,
-        label: preset.label,
-        caption: preset.caption,
-        dateStr
-      };
-      const outputFilePath = path.join(projectDir, "data", "run-output.json");
-      await fs.writeFile(outputFilePath, JSON.stringify(runOutput, null, 2), "utf8");
-      console.log(`📋 出力: ${outputFilePath}`);
-      break;
-    }
-
-    if (state.status === "error") {
-      throw new Error(`生成エラー: ${state.lastError}`);
-    }
-
-    if (state.queue.length === 0) {
-      process.stdout.write(".");
-      await sleep(3000);
-      manager.ensureQueue().catch(() => {});
-      continue;
-    }
-
-    // ブロックを完了扱いにして次へ進める
-    const block = state.queue[0];
-    const playedSeconds = estimateBlockDuration(block);
-    blockCount++;
-    console.log(`\n  📻 ブロック${blockCount}: "${block.title}" (~${Math.round(playedSeconds)}秒)`);
-    await manager.completeBlock(block.id, { playedSeconds });
-  }
+  // 次ステップへの引き渡し
+  const runOutput = { videoPath, episodePath, show: showName, label: preset.label, caption: preset.caption, dateStr };
+  await fs.writeFile(path.join(projectDir, "data", "run-output.json"), JSON.stringify(runOutput, null, 2), "utf8");
 }
 
 main().catch((error) => {
