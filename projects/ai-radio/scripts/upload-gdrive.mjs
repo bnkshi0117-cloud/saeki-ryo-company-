@@ -32,8 +32,26 @@ async function sendSlack(webhookUrl, text) {
 async function main() {
   // 前ステップの出力を読み込む
   const outputFilePath = path.join(projectDir, "data", "run-output.json");
-  const runOutput = JSON.parse(await fsPromises.readFile(outputFilePath, "utf8"));
-  const { videoPath, show, label, caption, dateStr } = runOutput;
+  let runOutput;
+  try {
+    runOutput = JSON.parse(await fsPromises.readFile(outputFilePath, "utf8"));
+  } catch {
+    console.log("⚠️ run-output.json が見つかりません。生成ステップが失敗した可能性があります。");
+    process.exitCode = 1;
+    return;
+  }
+  const { videoPath, episodePath, show, label, caption, dateStr } = runOutput;
+
+  // MP4が存在しなければMP3をアップロード（MP4書き出し失敗時のフォールバック）
+  let uploadPath = videoPath;
+  let mimeType = "video/mp4";
+  try {
+    await fsPromises.access(videoPath);
+  } catch {
+    console.log(`⚠️ MP4が見つかりません。MP3をアップロードします: ${episodePath}`);
+    uploadPath = episodePath;
+    mimeType = "audio/mpeg";
+  }
 
   // 認証
   const serviceAccountJson = process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
@@ -50,19 +68,18 @@ async function main() {
   const folderId = process.env.GDRIVE_FOLDER_ID;
   if (!folderId) throw new Error("GDRIVE_FOLDER_ID が設定されていません");
 
-  // ファイル名
-  const videoFileName = path.basename(videoPath);
-  console.log(`📤 アップロード中: ${videoFileName}`);
+  const uploadFileName = path.basename(uploadPath);
+  console.log(`📤 アップロード中: ${uploadFileName}`);
 
   // Google Drive にアップロード
   const response = await drive.files.create({
     requestBody: {
-      name: videoFileName,
+      name: uploadFileName,
       parents: [folderId]
     },
     media: {
-      mimeType: "video/mp4",
-      body: fs.createReadStream(videoPath)
+      mimeType,
+      body: fs.createReadStream(uploadPath)
     },
     fields: "id,webViewLink,name"
   });

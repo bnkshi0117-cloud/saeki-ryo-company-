@@ -69,9 +69,11 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
         run: node scripts/generate-headless.mjs --show ${{ steps.show.outputs.name }}
+        continue-on-error: true  # MP4失敗でもMP3をDriveに上げる
 
       - name: Google Drive にアップロード → Slack通知
         working-directory: projects/ai-radio
+        if: always()  # 前のステップが失敗しても必ず実行
         env:
           GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
           GDRIVE_FOLDER_ID: ${{ secrets.GDRIVE_FOLDER_ID }}
