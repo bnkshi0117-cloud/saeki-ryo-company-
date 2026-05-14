@@ -1,5 +1,6 @@
 import { createPlaybackSessionManager } from "./playback-session.js";
 import { playbackStatusText } from "./playback-status.js";
+import { shouldStopBgmAfterVoice } from "./bgm-policy.js";
 
 const speakerEl = document.querySelector("#speaker");
 const lineEl = document.querySelector("#line");
@@ -294,7 +295,13 @@ async function playLoop(sessionId) {
       speakerEl.textContent = line.speakerName;
       lineEl.textContent = line.text;
       appendLog(line);
-      playedSeconds += await playAudio(line.audioUrl);
+      try {
+        playedSeconds += await playAudio(line.audioUrl);
+      } finally {
+        if (shouldStopBgmAfterVoice()) {
+          stopBgm();
+        }
+      }
     }
 
     if (!stopped) {
