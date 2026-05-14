@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>佐伯亮のAIゆんたくラジオ</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="console">
+        <div class="masthead">
+          <p class="eyebrow">LOCAL AI RADIO</p>
+          <h1>佐伯亮のAIゆんたくラジオ</h1>
+          <p>沖縄の日常とAI実験を、深夜ラジオくらいの温度で。</p>
+        </div>
+
+        <div class="now-playing">
+          <div>
+            <p class="label">NOW</p>
+            <h2 id="speaker">待機中</h2>
+          </div>
+          <p id="line" class="line">生成が終わったらスタートできます。</p>
+        </div>
+
+        <div id="news-panel" class="news-panel" hidden>
+          <p class="label">参照ニュース</p>
+          <ul id="news-list"></ul>
+        </div>
+
+        <div class="meta-grid">
+          <div>
+            <span>コーナー</span>
+            <strong id="corner">-</strong>
+          </div>
+          <div>
+            <span>生成状況</span>
+            <strong id="status">idle</strong>
+          </div>
+          <div>
+            <span>キュー</span>
+            <strong id="queue">0</strong>
+          </div>
+          <div>
+            <span>番組時間</span>
+            <strong id="episode-time">0:00 / 5:00</strong>
+          </div>
+        </div>
+
+        <form id="settings-form" class="settings-form">
+          <label>
+            <span>テーマ</span>
+            <input id="theme" name="theme" type="text" maxlength="80" value="沖縄の日常とAI実験" />
+          </label>
+          <label>
+            <span>長さ</span>
+            <select id="target-minutes" name="targetMinutes">
+              <option value="3">3分</option>
+              <option value="5" selected>5分</option>
+              <option value="10">10分</option>
+              <option value="15">15分</option>
+            </select>
+          </label>
+          <button type="submit">次の番組に反映</button>
+        </form>
+        <p id="settings-feedback" class="settings-feedback" aria-live="polite"></p>
+
+        <div class="bgm-bar">
+          <label class="bgm-label">
+            <span>BGM</span>
+            <select id="bgm-select">
+              <option value="">なし</option>
+            </select>
+          </label>
+          <label class="bgm-label">
+            <span>BGM音量</span>
+            <input id="bgm-volume" type="range" min="0" max="100" value="20" />
+          </label>
+        </div>
+
+        <div class="controls">
+          <button id="start" type="button">開始</button>
+          <button id="stop" type="button">停止</button>
+        </div>
+      </section>
+
+      <aside class="log-panel">
+        <h2>再生ログ</h2>
+        <div id="recordings" class="recordings"></div>
+        <ol id="log"></ol>
+      </aside>
+    </main>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
