@@ -161,11 +161,13 @@ async function main() {
       const videoPath = path.join(videoDir, `${showName}-${dateStr}.mp4`);
 
       const ffmpegPath = process.env.FFMPEG_PATH || ffmpegStatic;
+      const skipText = process.platform !== "win32"; // CI(Linux)ではdrawtext不使用
       await exportRecordingVideo({
         ffmpegPath,
         inputPath: episodePath,
         outputPath: videoPath,
-        title: `佐伯亮のAIゆんたくラジオ ${preset.label}`
+        title: `佐伯亮のAIゆんたくラジオ ${preset.label}`,
+        skipText
       });
 
       console.log(`✅ 動画完了: ${videoPath}`);

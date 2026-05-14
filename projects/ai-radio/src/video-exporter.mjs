@@ -11,11 +11,15 @@ export function outputVideoName(recordingName) {
   return `${safeBase}.mp4`;
 }
 
-export function buildVideoExportArgs({ inputPath, outputPath, title = "佐伯亮のAIゆんたくラジオ" }) {
-  const filter = [
-    "[0:a]showwaves=s=900x360:mode=line:colors=5cc8a7,format=rgba[w]",
-    `[1:v][w]overlay=x=90:y=1060,${titleFilters(title)}[v]`
-  ].join(";");
+export function buildVideoExportArgs({ inputPath, outputPath, title = "佐伯亮のAIゆんたくラジオ", skipText = false }) {
+  // CI環境（Linux）ではdrawtextフィルターをスキップしてフォント依存を回避
+  const useText = !skipText && canUseDrawtext();
+
+  const filter = useText
+    ? ["[0:a]showwaves=s=900x360:mode=line:colors=5cc8a7,format=rgba[w]",
+        `[1:v][w]overlay=x=90:y=1060,${titleFilters(title)}[v]`].join(";")
+    : ["[0:a]showwaves=s=900x360:mode=line:colors=5cc8a7,format=rgba[w]",
+        "[1:v][w]overlay=x=90:y=1060[v]"].join(";");
 
   return [
     "-y",
@@ -34,9 +38,14 @@ export function buildVideoExportArgs({ inputPath, outputPath, title = "佐伯亮
   ];
 }
 
-export async function exportRecordingVideo({ ffmpegPath, inputPath, outputPath, title }) {
+function canUseDrawtext() {
+  // Windowsのみテキストオーバーレイを使用（フォントが確実に存在する）
+  return process.platform === "win32";
+}
+
+export async function exportRecordingVideo({ ffmpegPath, inputPath, outputPath, title, skipText = false }) {
   await fs.mkdir(path.dirname(outputPath), { recursive: true });
-  const args = buildVideoExportArgs({ inputPath, outputPath, title });
+  const args = buildVideoExportArgs({ inputPath, outputPath, title, skipText });
   await runFfmpeg(ffmpegPath, args);
   return { outputPath };
 }
