@@ -1,0 +1,74 @@
+name: AIゆんたくラジオ 自動生成
+
+on:
+  schedule:
+    # 朝のラジオ: 5:00 JST = 20:00 UTC (前日)
+    - cron: '0 20 * * *'
+    # 昼のラジオ: 15:00 JST = 6:00 UTC
+    - cron: '0 6 * * *'
+    # 夜のラジオ: 21:00 JST = 12:00 UTC
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+    inputs:
+      show:
+        description: 'ショー選択'
+        required: true
+        default: 'morning'
+        type: choice
+        options:
+          - morning
+          - afternoon
+          - night
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4.2.2
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Node.js セットアップ
+        uses: actions/setup-node@v4.3.0
+        with:
+          node-version: '22'
+
+      - name: 依存関係インストール
+        working-directory: projects/ai-radio
+        run: npm install
+        env:
+          ELECTRON_SKIP_BINARY_DOWNLOAD: '1'
+
+      - name: ショー判定
+        id: show
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "name=${{ github.event.inputs.show }}" >> $GITHUB_OUTPUT
+          else
+            HOUR=$(TZ=Asia/Tokyo date +%H)
+            if [ "$HOUR" = "05" ]; then
+              echo "name=morning" >> $GITHUB_OUTPUT
+            elif [ "$HOUR" = "15" ]; then
+              echo "name=afternoon" >> $GITHUB_OUTPUT
+            else
+              echo "name=night" >> $GITHUB_OUTPUT
+            fi
+          fi
+
+      - name: ラジオ生成 → MP4書き出し
+        working-directory: projects/ai-radio
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
+        run: node scripts/generate-headless.mjs --show ${{ steps.show.outputs.name }}
+
+      - name: Google Drive にアップロード → Slack通知
+        working-directory: projects/ai-radio
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+          GDRIVE_FOLDER_ID: ${{ secrets.GDRIVE_FOLDER_ID }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: node scripts/upload-gdrive.mjs

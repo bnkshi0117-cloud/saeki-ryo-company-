@@ -287,9 +287,14 @@ async function playLoop(sessionId) {
       throw new Error("readyですが、再生できる音声ファイルがありません。もう一度「次の番組に反映」を押してください。");
     }
 
-    for (const line of playableLines) {
+    for (let lineIndex = 0; lineIndex < playableLines.length; lineIndex++) {
+      const line = playableLines[lineIndex];
       if (stopped || !playbackSession.isCurrent(sessionId)) {
         break;
+      }
+      // 3行目を読み終えたタイミングで次のブロックを先行生成（fire-and-forget）
+      if (lineIndex === 2) {
+        fetch("/api/preload", { method: "POST" }).catch(() => {});
       }
       startBgm();
       speakerEl.textContent = line.speakerName;

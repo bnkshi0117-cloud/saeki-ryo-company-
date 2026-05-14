@@ -64,12 +64,15 @@ export async function createServer() {
   const showConfig = await readJson(config.showConfigPath);
 
   const manager = createQueueManager({
-    generateReadyBlock: async () => {
+    generateReadyBlock: async (_settings, context = {}) => {
       const memory = await loadMemory(config.memoryPath);
       const settings = manager.getState().settings;
       const newsContext = await buildNewsContext({ settings });
-      const scriptBlock = await generateScriptBlock({ config, showConfig, memory, settings, newsContext });
+      const isFirstBlock = context.isFirstBlock === true;
+      const isFinalBlock = context.isFinalBlock === true;
+      const scriptBlock = await generateScriptBlock({ config, showConfig, memory, settings, newsContext, isFirstBlock, isFinalBlock });
       scriptBlock.newsItems = newsContext.items;
+      scriptBlock.isFinalBlock = isFinalBlock;
       return synthesizeBlock({ config, showConfig, block: scriptBlock });
     },
     onBlockCompleted: async (block) => {
@@ -92,8 +95,14 @@ export async function createServer() {
     const url = new URL(req.url, `http://${req.headers.host}`);
 
     if (req.method === "GET" && url.pathname === "/api/state") {
-      await manager.ensureQueue().catch(() => {});
+      manager.ensureQueue().catch(() => {});
       sendJson(res, 200, manager.getState());
+      return;
+    }
+
+    if (req.method === "POST" && url.pathname === "/api/preload") {
+      manager.preload().catch(() => {});
+      sendJson(res, 200, { ok: true });
       return;
     }
 
@@ -104,7 +113,7 @@ export async function createServer() {
 
     if (req.method === "POST" && url.pathname === "/api/settings") {
       manager.updateSettings(await readRequestJson(req));
-      await manager.ensureQueue().catch(() => {});
+      manager.ensureQueue().catch(() => {});
       sendJson(res, 200, manager.getState());
       return;
     }
@@ -124,6 +133,16 @@ export async function createServer() {
 
     if (req.method === "GET" && url.pathname.startsWith("/recordings/")) {
       await serveFile(res, config.recordingsDir, url.pathname.replace("/recordings", ""));
+      return;
+    }
+
+    if (req.method === "GET" && url.pathname === "/api/bgm-list") {
+      let files = [];
+      try {
+        const entries = await fs.readdir(config.bgmDir);
+        files = entries.filter((name) => /\.(mp3|wav|m4a)$/i.test(name)).sort();
+      } catch {}
+      sendJson(res, 200, { files });
       return;
     }
 

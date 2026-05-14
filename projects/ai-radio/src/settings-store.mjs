@@ -1,4 +1,4 @@
-const allowedTargetMinutes = new Set([3, 5, 10, 15]);
+const allowedTargetMinutes = new Set([3, 5, 10, 15, 25, 30]);
 
 export const defaultSettings = {
   theme: "沖縄の日常とAI実験",

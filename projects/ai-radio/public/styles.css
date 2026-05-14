@@ -126,6 +126,27 @@ h1 {
   color: var(--text);
 }
 
+.bgm-bar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 160px;
+  gap: 12px;
+  margin-top: 14px;
+  align-items: end;
+}
+
+.bgm-label span {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--accent);
+  font-size: 12px;
+}
+
+input[type="range"] {
+  padding: 6px 0;
+  cursor: pointer;
+  accent-color: var(--accent);
+}
+
 .controls {
   display: flex;
   gap: 12px;
@@ -145,6 +166,19 @@ h1 {
   margin-bottom: 6px;
   color: var(--accent);
   font-size: 12px;
+}
+
+.settings-feedback {
+  min-height: 24px;
+  margin: 10px 0 0;
+  color: var(--accent-2);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+button:disabled {
+  cursor: wait;
+  opacity: 0.62;
 }
 
 input,

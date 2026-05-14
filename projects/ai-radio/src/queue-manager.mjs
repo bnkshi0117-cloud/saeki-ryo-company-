@@ -17,8 +17,8 @@ export function createQueueManager({
   let episode = createEpisode(settings, episodeCounter);
   const completed = [];
 
-  async function ensureQueue() {
-    if (episode.complete || queue.length >= 2 || inflight) {
+  async function ensureQueue({ maxQueue = 2 } = {}) {
+    if (episode.complete || queue.length >= maxQueue || inflight) {
       return inflight;
     }
 
@@ -158,6 +158,7 @@ export function createQueueManager({
 
   return {
     ensureQueue,
+    preload: () => ensureQueue({ maxQueue: 3 }),
     completeBlock,
     updateSettings,
     getState
