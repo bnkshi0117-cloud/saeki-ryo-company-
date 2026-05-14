@@ -3,9 +3,11 @@
  * Usage: node scripts/upload-gdrive.mjs
  *
  * 必要な環境変数:
- *   GOOGLE_SERVICE_ACCOUNT_JSON  - サービスアカウントのJSON文字列
- *   GDRIVE_FOLDER_ID             - アップロード先のフォルダID
- *   SLACK_WEBHOOK_URL            - Slack通知用（任意）
+ *   GOOGLE_CLIENT_ID     - OAuthクライアントID
+ *   GOOGLE_CLIENT_SECRET - OAuthクライアントシークレット
+ *   GOOGLE_REFRESH_TOKEN - OAuthリフレッシュトークン
+ *   GDRIVE_FOLDER_ID     - アップロード先のフォルダID
+ *   SLACK_WEBHOOK_URL    - Slack通知用（任意）
  */
 
 import fs from "node:fs";
@@ -53,17 +55,18 @@ async function main() {
     mimeType = "audio/mpeg";
   }
 
-  // 認証
-  const serviceAccountJson = process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
-  if (!serviceAccountJson) throw new Error("GOOGLE_SERVICE_ACCOUNT_JSON が設定されていません");
+  // OAuth認証（個人Googleアカウント対応）
+  const clientId = process.env.GOOGLE_CLIENT_ID;
+  const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
+  const refreshToken = process.env.GOOGLE_REFRESH_TOKEN;
+  if (!clientId || !clientSecret || !refreshToken) {
+    throw new Error("GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET / GOOGLE_REFRESH_TOKEN が設定されていません");
+  }
 
-  const credentials = JSON.parse(serviceAccountJson);
-  const auth = new google.auth.GoogleAuth({
-    credentials,
-    scopes: ["https://www.googleapis.com/auth/drive.file"]
-  });
+  const oauth2Client = new google.auth.OAuth2(clientId, clientSecret);
+  oauth2Client.setCredentials({ refresh_token: refreshToken });
 
-  const drive = google.drive({ version: "v3", auth });
+  const drive = google.drive({ version: "v3", auth: oauth2Client });
 
   const folderId = process.env.GDRIVE_FOLDER_ID;
   if (!folderId) throw new Error("GDRIVE_FOLDER_ID が設定されていません");
