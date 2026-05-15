@@ -83,26 +83,19 @@ async function findBgmFile(bgmDir) {
   }
 }
 
-/** TTS並列合成（5本ずつバッチ処理） */
+/** TTS直列合成（1本ずつ、xAIのスロットリング対策） */
 async function synthesizeAllLines({ config, showConfig, blockId, lines }) {
   const voiceBySpeaker = new Map(showConfig.hosts.map((h) => [h.id, h.voiceId]));
   const results = [];
-  const BATCH = 3;
 
-  for (let i = 0; i < lines.length; i += BATCH) {
-    const batch = lines.slice(i, i + BATCH);
-    const batchResults = await Promise.all(
-      batch.map(async (line, batchIndex) => {
-        const index = i + batchIndex;
-        const voiceId = voiceBySpeaker.get(line.speakerId) || showConfig.hosts[0].voiceId;
-        const outputPath = path.join(config.audioDir, safeAudioName({ blockId, index, speakerId: line.speakerId }));
-        await fs.mkdir(path.dirname(outputPath), { recursive: true });
-        return synthesizeLine({ config, line, voiceId, outputPath, timeoutMs: 90000 });
-      })
-    );
-    results.push(...batchResults);
-    process.stdout.write(`  音声合成: ${Math.min(i + BATCH, lines.length)}/${lines.length}\r`);
-    if (i + BATCH < lines.length) await sleep(500); // レートリミット対策
+  for (let index = 0; index < lines.length; index++) {
+    const line = lines[index];
+    const voiceId = voiceBySpeaker.get(line.speakerId) || showConfig.hosts[0].voiceId;
+    const outputPath = path.join(config.audioDir, safeAudioName({ blockId, index, speakerId: line.speakerId }));
+    await fs.mkdir(path.dirname(outputPath), { recursive: true });
+    const result = await synthesizeLine({ config, line, voiceId, outputPath, timeoutMs: 90000 });
+    results.push(result);
+    process.stdout.write(`  音声合成: ${index + 1}/${lines.length}\r`);
   }
   console.log();
   return results;

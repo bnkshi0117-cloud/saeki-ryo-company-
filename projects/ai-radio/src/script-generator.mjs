@@ -155,8 +155,9 @@ export function buildFullEpisodePrompt({ showConfig, memory, settings = defaultS
 
   const topics = recentTopics(memory).join("、") || "まだ過去テーマなし";
   const targetMinutes = normalizedSettings.targetMinutes;
-  const minLines = Math.max(10, Math.round(targetMinutes * 2.5));
-  const maxLines = Math.round(targetMinutes * 4);
+  // 1行あたり約15秒想定。TTS時間を抑えるため上限を60行に制限
+  const minLines = Math.max(10, Math.round(targetMinutes * 1.5));
+  const maxLines = Math.min(60, Math.round(targetMinutes * 2.5));
 
   const newsText = newsContext?.enabled
     ? `\n参照できるニュース素材:\n${newsContext.promptText}\n（1〜2件だけ自然に雑談に混ぜる。投資助言不可）\n`
