@@ -73,14 +73,16 @@ export function buildVideoExportArgs({ inputPath, outputPath, bgmPath, subtitleP
   currentBg = "[bg_wave]";
 
   // アバターオーバーレイ（話者に応じて表示切替）
-  if (saekiIdx !== null && avatarConfig?.saekiEnable) {
+  if (saekiIdx !== null && avatarConfig?.saekiEnable && avatarConfig?.saekiPath) {
     filterParts.push(`[${saekiIdx}:v]scale=160:160[saeki_sc]`);
-    filterParts.push(`${currentBg}[saeki_sc]overlay=x=90:y=360:enable='${avatarConfig.saekiEnable}'[bg_saeki]`);
+    const enableOpt = avatarConfig.saekiEnable === "1" ? "" : `:enable='${avatarConfig.saekiEnable}'`;
+    filterParts.push(`${currentBg}[saeki_sc]overlay=x=90:y=360${enableOpt}[bg_saeki]`);
     currentBg = "[bg_saeki]";
   }
-  if (higaIdx !== null && avatarConfig?.higaEnable) {
+  if (higaIdx !== null && avatarConfig?.higaEnable && avatarConfig?.higaPath) {
     filterParts.push(`[${higaIdx}:v]scale=160:160[higa_sc]`);
-    filterParts.push(`${currentBg}[higa_sc]overlay=x=470:y=360:enable='${avatarConfig.higaEnable}'[bg_higa]`);
+    const enableOpt = avatarConfig.higaEnable === "1" ? "" : `:enable='${avatarConfig.higaEnable}'`;
+    filterParts.push(`${currentBg}[higa_sc]overlay=x=470:y=360${enableOpt}[bg_higa]`);
     currentBg = "[bg_higa]";
   }
 

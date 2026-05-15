@@ -54,6 +54,27 @@ function parseArgs(argv) {
   return args;
 }
 
+async function buildStaticAvatarConfig(projectDir) {
+  const avatarDir = path.join(projectDir, "data", "avatars");
+  const saekiPath = path.join(avatarDir, "saeki.png");
+  const higaPath = path.join(avatarDir, "higa.png");
+
+  const [saekiExists, higaExists] = await Promise.all([
+    fs.access(saekiPath).then(() => true).catch(() => false),
+    fs.access(higaPath).then(() => true).catch(() => false)
+  ]);
+
+  if (!saekiExists && !higaExists) return null;
+
+  // 常時表示（タイミングなし）
+  return {
+    saekiPath: saekiExists ? saekiPath : null,
+    higaPath: higaExists ? higaPath : null,
+    saekiEnable: saekiExists ? "1" : null,
+    higaEnable: higaExists ? "1" : null
+  };
+}
+
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   const recordingsDir = path.join(projectDir, "data", "recordings");
@@ -66,7 +87,12 @@ async function main() {
   const title = args.get("title") || "佐伯亮のAIゆんたくラジオ";
   const options = resolveExportVideoOptions({ projectDir, inputPath, outputPath, title });
 
-  await exportRecordingVideo({ ffmpegPath, ...options });
+  const avatarConfig = await buildStaticAvatarConfig(projectDir);
+  if (avatarConfig) {
+    console.log("アバター付きで書き出します");
+  }
+
+  await exportRecordingVideo({ ffmpegPath, avatarConfig, ...options });
   console.log(`Video exported: ${options.outputPath}`);
 }
 
