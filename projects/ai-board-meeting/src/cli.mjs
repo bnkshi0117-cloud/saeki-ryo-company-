@@ -46,18 +46,26 @@ export function createInputFromArgs(args) {
   return input;
 }
 
-export async function runCli({ argv = process.argv.slice(2), stdout = process.stdout, stderr = process.stderr } = {}) {
+export async function runCli({
+  argv = process.argv.slice(2),
+  stdout = process.stdout,
+  stderr = process.stderr,
+  getConfigImpl = getConfig,
+  generateMeetingLogImpl = generateMeetingLog,
+  saveMeetingLogImpl = saveMeetingLog,
+  setExitCode = (code) => { process.exitCode = code; }
+} = {}) {
   try {
     const args = parseArgs(argv);
     const input = createInputFromArgs(args);
-    const config = getConfig();
-    const markdown = await generateMeetingLog({ config, input });
-    const saved = await saveMeetingLog({ meetingLogDir: config.meetingLogDir, markdown });
+    const config = getConfigImpl();
+    const markdown = await generateMeetingLogImpl({ config, input });
+    const saved = await saveMeetingLogImpl({ meetingLogDir: config.meetingLogDir, markdown });
     stdout.write(`AI役員会ログを保存しました: ${saved.filePath}\n`);
     return saved;
   } catch (error) {
     stderr.write(`${error.message}\n`);
-    process.exitCode = 1;
+    setExitCode(1);
     return null;
   }
 }

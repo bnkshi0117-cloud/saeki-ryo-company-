@@ -13,6 +13,8 @@ npm install
 
 リポジトリルートの `.env` に Anthropic API キーを設定します。
 
+`.env` と `ANTHROPIC_API_KEY` は秘密情報です。コミットしたり共有したりしないでください。
+
 ```env
 ANTHROPIC_API_KEY=your_api_key
 ```
