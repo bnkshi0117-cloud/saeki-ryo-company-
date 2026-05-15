@@ -121,10 +121,14 @@ export function validateRadioBlock(block) {
   if (!block || typeof block !== "object") {
     throw new Error("Radio block must be an object.");
   }
-  for (const key of ["title", "corner", "summary"]) {
+  for (const key of ["title", "summary"]) {
     if (typeof block[key] !== "string" || block[key].trim() === "") {
       throw new Error(`Radio block requires ${key}.`);
     }
+  }
+  // corner は省略可能。ない場合はデフォルト値を補完
+  if (typeof block.corner !== "string" || block.corner.trim() === "") {
+    block.corner = "今日のAI実験報告";
   }
   if (!Array.isArray(block.topics)) {
     throw new Error("Radio block requires topics array.");
