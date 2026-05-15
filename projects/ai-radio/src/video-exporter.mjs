@@ -22,7 +22,7 @@ export function buildVideoExportArgs({ inputPath, outputPath, bgmPath, title = "
 
     const filter = [
       "[0:a]asplit=2[a_wave][a_mix]",
-      "[a_wave]showwaves=s=900x360:mode=line:colors=5cc8a7,format=rgba[w]",
+      "[a_wave]showwaves=s=600x240:mode=line:colors=5cc8a7,format=rgba[w]",
       waveOverlay,
       "[a_mix]volume=1.0[speech]",
       "[2:a]volume=0.15[bgm]",
@@ -32,12 +32,13 @@ export function buildVideoExportArgs({ inputPath, outputPath, bgmPath, title = "
     return [
       "-y",
       "-i", inputPath,
-      "-f", "lavfi", "-i", "color=c=#141414:s=1080x1920:r=30",
+      "-f", "lavfi", "-i", "color=c=#141414:s=720x1280:r=24",
       "-stream_loop", "-1", "-i", bgmPath,
       "-filter_complex", filter,
       "-map", "[v]",
       "-map", "[a]",
       "-c:v", "libx264",
+      "-preset", "ultrafast",
       "-pix_fmt", "yuv420p",
       "-c:a", "aac",
       "-b:a", "192k",
@@ -50,17 +51,18 @@ export function buildVideoExportArgs({ inputPath, outputPath, bgmPath, title = "
   const filter = useText
     ? ["[0:a]showwaves=s=900x360:mode=line:colors=5cc8a7,format=rgba[w]",
         `[1:v][w]overlay=x=90:y=1060,${titleFilters(title)}[v]`].join(";")
-    : ["[0:a]showwaves=s=900x360:mode=line:colors=5cc8a7,format=rgba[w]",
+    : ["[0:a]showwaves=s=600x240:mode=line:colors=5cc8a7,format=rgba[w]",
         "[1:v][w]overlay=x=90:y=1060[v]"].join(";");
 
   return [
     "-y",
     "-i", inputPath,
-    "-f", "lavfi", "-i", "color=c=#141414:s=1080x1920:r=30",
+    "-f", "lavfi", "-i", "color=c=#141414:s=720x1280:r=24",
     "-filter_complex", filter,
     "-map", "[v]",
     "-map", "0:a",
     "-c:v", "libx264",
+    "-preset", "ultrafast",
     "-pix_fmt", "yuv420p",
     "-c:a", "aac",
     "-b:a", "192k",
