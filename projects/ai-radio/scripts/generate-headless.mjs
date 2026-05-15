@@ -13,6 +13,7 @@ import { generateFullEpisodeScript } from "../src/script-generator.mjs";
 import { synthesizeLine, safeAudioName, createBlockId } from "../src/tts-xai.mjs";
 import { exportRecordingVideo } from "../src/video-exporter.mjs";
 import { buildNewsContext } from "../src/news-fetcher.mjs";
+import { buildAssSubtitles } from "../src/subtitle-builder.mjs";
 
 const thisFile = fileURLToPath(import.meta.url);
 const projectDir = path.resolve(path.dirname(thisFile), "..");
@@ -151,22 +152,27 @@ async function main() {
     recordingUrl: `/recordings/${path.basename(episodePath)}`
   });
 
+  // 字幕ファイル生成
+  console.log(`📝 字幕生成中...`);
+  const subtitlePath = path.join(projectDir, "data", `${showName}-${dateStr}.ass`);
+  const assContent = buildAssSubtitles(script.lines, `佐伯亮のAIゆんたくラジオ ${preset.label}`);
+  await fs.writeFile(subtitlePath, assContent, "utf8");
+
   // MP4書き出し
   console.log(`🎬 動画書き出し中...`);
   const videoDir = path.join(projectDir, "data", "videos");
   await fs.mkdir(videoDir, { recursive: true });
   const videoPath = path.join(videoDir, `${showName}-${dateStr}.mp4`);
   const ffmpegPath = process.env.FFMPEG_PATH || ffmpegStatic;
-  // BGMは現在無効（ffmpegのstream_loopがCI環境でハングするため）
-  const bgmPath = null;
 
   await exportRecordingVideo({
     ffmpegPath,
     inputPath: episodePath,
     outputPath: videoPath,
-    bgmPath,
+    bgmPath: null,
+    subtitlePath,
     title: `佐伯亮のAIゆんたくラジオ ${preset.label}`,
-    skipText: process.platform !== "win32"
+    skipText: true
   });
   console.log(`✅ 動画完了: ${videoPath}`);
 

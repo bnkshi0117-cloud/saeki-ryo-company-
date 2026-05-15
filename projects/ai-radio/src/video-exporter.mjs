@@ -11,7 +11,7 @@ export function outputVideoName(recordingName) {
   return `${safeBase}.mp4`;
 }
 
-export function buildVideoExportArgs({ inputPath, outputPath, bgmPath, title = "佐伯亮のAIゆんたくラジオ", skipText = false }) {
+export function buildVideoExportArgs({ inputPath, outputPath, bgmPath, subtitlePath, title = "佐伯亮のAIゆんたくラジオ", skipText = false }) {
   const useText = !skipText && canUseDrawtext();
 
   if (bgmPath) {
@@ -47,12 +47,23 @@ export function buildVideoExportArgs({ inputPath, outputPath, bgmPath, title = "
     ];
   }
 
-  // BGMなし
-  const filter = useText
-    ? ["[0:a]showwaves=s=900x360:mode=line:colors=5cc8a7,format=rgba[w]",
-        `[1:v][w]overlay=x=90:y=1060,${titleFilters(title)}[v]`].join(";")
-    : ["[0:a]showwaves=s=600x240:mode=line:colors=5cc8a7,format=rgba[w]",
-        "[1:v][w]overlay=x=90:y=1060[v]"].join(";");
+  // BGMなし（字幕対応）
+  const subtitleFilter = subtitlePath
+    ? `ass=${subtitlePath.replace(/\\/g, "/").replace(/:/g, "\\:")}`
+    : null;
+
+  const bgApply = subtitleFilter
+    ? `[1:v]${subtitleFilter}[bg_sub]`
+    : null;
+
+  const waveSource = bgApply ? "[bg_sub]" : "[1:v]";
+
+  const filterParts = [];
+  if (bgApply) filterParts.push(bgApply);
+  filterParts.push(`[0:a]showwaves=s=600x240:mode=line:colors=5cc8a7,format=rgba[w]`);
+  filterParts.push(`${waveSource}[w]overlay=x=60:y=960[v]`);
+
+  const filter = filterParts.join(";");
 
   return [
     "-y",
@@ -75,9 +86,9 @@ function canUseDrawtext() {
   return process.platform === "win32";
 }
 
-export async function exportRecordingVideo({ ffmpegPath, inputPath, outputPath, bgmPath, title, skipText = false }) {
+export async function exportRecordingVideo({ ffmpegPath, inputPath, outputPath, bgmPath, subtitlePath, title, skipText = false }) {
   await fs.mkdir(path.dirname(outputPath), { recursive: true });
-  const args = buildVideoExportArgs({ inputPath, outputPath, bgmPath, title, skipText });
+  const args = buildVideoExportArgs({ inputPath, outputPath, bgmPath, subtitlePath, title, skipText });
   await runFfmpeg(ffmpegPath, args);
   return { outputPath };
 }
