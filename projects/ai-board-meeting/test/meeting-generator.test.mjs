@@ -55,13 +55,26 @@ test("extractMarkdownFromAnthropicResponse returns text content", () => {
 
 test("validateMeetingMarkdown rejects missing required sections", () => {
   assert.throws(
-    () => validateMeetingMarkdown("# AI役員会: 不完全\n\n## テーマの再定義\n本文"),
+    () => validateMeetingMarkdown(`# AI役員会: 不完全
+
+- 日付: 2026/05/15 10:00
+- 入力テーマ: AIラジオ
+- 会議ステータス: 実行推奨
+- 推奨アクション: 小さな実験を1本作る
+
+## テーマの再定義
+本文`),
     /Missing required meeting section/
   );
 });
 
 test("validateMeetingMarkdown rejects sections mentioned only in prose", () => {
   const proseOnlyMarkdown = `# AI役員会: 不完全
+
+- 日付: 2026/05/15 10:00
+- 入力テーマ: AIラジオ
+- 会議ステータス: 実行推奨
+- 推奨アクション: 小さな実験を1本作る
 
 本文に ## テーマの再定義 と書いただけ
 本文に ## ブランド接続 と書いただけ
@@ -88,6 +101,27 @@ test("validateMeetingMarkdown rejects non-exact required heading lines", () => {
   assert.throws(
     () => validateMeetingMarkdown(nonExactHeadingMarkdown),
     /Missing required meeting section: テーマの再定義/
+  );
+});
+
+test("validateMeetingMarkdown rejects missing metadata", () => {
+  const missingMetadataMarkdown = completeMarkdown.replace("- 入力テーマ: AIラジオ\n", "");
+
+  assert.throws(
+    () => validateMeetingMarkdown(missingMetadataMarkdown),
+    /Missing required meeting metadata: 入力テーマ/
+  );
+});
+
+test("validateMeetingMarkdown rejects invalid meeting status", () => {
+  const invalidStatusMarkdown = completeMarkdown.replace(
+    "- 会議ステータス: 実行推奨",
+    "- 会議ステータス: 実験中"
+  );
+
+  assert.throws(
+    () => validateMeetingMarkdown(invalidStatusMarkdown),
+    /Invalid meeting status/
   );
 });
 

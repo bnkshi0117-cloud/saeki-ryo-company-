@@ -125,3 +125,40 @@ test("runCli saves generated meeting log for valid theme", async () => {
     }]
   ]);
 });
+
+test("runCli prints generated markdown when saving fails", async () => {
+  let stderrText = "";
+  let exitCode;
+  const config = {
+    meetingLogDir: "logs/meeting",
+    anthropicApiKey: "test-key",
+    anthropicModel: "test-model",
+    anthropicEndpoint: "https://example.test/messages"
+  };
+  const markdown = "# AI役員会: AIラジオ\n\n本文";
+
+  const result = await runCli({
+    argv: ["AIラジオの次の可能性"],
+    stdout: { write() {} },
+    stderr: { write(text) { stderrText += text; } },
+    getConfigImpl() {
+      return config;
+    },
+    async generateMeetingLogImpl() {
+      return markdown;
+    },
+    async saveMeetingLogImpl() {
+      throw new Error("disk full");
+    },
+    setExitCode(code) {
+      exitCode = code;
+    }
+  });
+
+  assert.equal(result, null);
+  assert.match(stderrText, /disk full/);
+  assert.match(stderrText, /保存に失敗しました。生成本文を出力します。/);
+  assert.match(stderrText, /--- 生成本文 ---/);
+  assert.match(stderrText, /# AI役員会: AIラジオ/);
+  assert.equal(exitCode, 1);
+});

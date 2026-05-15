@@ -1,5 +1,14 @@
 import { buildMeetingPrompt, REQUIRED_SECTIONS } from "./prompt-template.mjs";
 
+const REQUIRED_METADATA = [
+  { label: "日付", prefix: "- 日付:" },
+  { label: "入力テーマ", prefix: "- 入力テーマ:" },
+  { label: "会議ステータス", prefix: "- 会議ステータス:" },
+  { label: "推奨アクション", prefix: "- 推奨アクション:" }
+];
+
+const ALLOWED_MEETING_STATUSES = new Set(["実行推奨", "追加調査", "保留", "却下"]);
+
 export function extractMarkdownFromAnthropicResponse(responseJson) {
   const textParts = responseJson?.content
     ?.filter((part) => part.type === "text" && typeof part.text === "string")
@@ -22,6 +31,16 @@ export function validateMeetingMarkdown(markdown) {
   const lines = markdown.split(/\r?\n/);
   if (lines.some((line) => line.trimStart().startsWith("```"))) {
     throw new Error("Meeting markdown must not contain code fences.");
+  }
+  for (const { label, prefix } of REQUIRED_METADATA) {
+    const line = lines.find((candidate) => candidate.startsWith(prefix));
+    const value = line?.slice(prefix.length).trim();
+    if (!value) {
+      throw new Error(`Missing required meeting metadata: ${label}`);
+    }
+    if (label === "会議ステータス" && !ALLOWED_MEETING_STATUSES.has(value)) {
+      throw new Error(`Invalid meeting status: ${value}`);
+    }
   }
   const headingLines = new Set(lines.map((line) => line.trimEnd()));
   for (const section of REQUIRED_SECTIONS) {

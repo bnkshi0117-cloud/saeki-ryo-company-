@@ -55,16 +55,20 @@ export async function runCli({
   saveMeetingLogImpl = saveMeetingLog,
   setExitCode = (code) => { process.exitCode = code; }
 } = {}) {
+  let markdown;
   try {
     const args = parseArgs(argv);
     const input = createInputFromArgs(args);
     const config = getConfigImpl();
-    const markdown = await generateMeetingLogImpl({ config, input });
+    markdown = await generateMeetingLogImpl({ config, input });
     const saved = await saveMeetingLogImpl({ meetingLogDir: config.meetingLogDir, markdown });
     stdout.write(`AI役員会ログを保存しました: ${saved.filePath}\n`);
     return saved;
   } catch (error) {
     stderr.write(`${error.message}\n`);
+    if (typeof markdown === "string") {
+      stderr.write(`保存に失敗しました。生成本文を出力します。\n--- 生成本文 ---\n${markdown}\n`);
+    }
     setExitCode(1);
     return null;
   }
