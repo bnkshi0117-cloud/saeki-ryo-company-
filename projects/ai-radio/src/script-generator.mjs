@@ -47,13 +47,8 @@ linesは3から6個にしてください。`
 
 現在時刻: ${timeText}
 
-番組テーマ:
-- 沖縄の日常
-- AI関連
-- ChatGPT、Codex、アプリ開発、小さな自動化
-- 実際に試した感想のような一次情報感
-
-今回の指定テーマ: ${normalizedSettings.theme}
+今回のテーマ: ${normalizedSettings.theme}
+※このテーマを中心に話すこと。テーマ以外の話題に脱線しすぎないこと。
 番組全体の目標時間: 約${normalizedSettings.targetMinutes}分
 
 トーン:
@@ -168,7 +163,8 @@ export function buildFullEpisodePrompt({ showConfig, memory, settings = defaultS
 現在時刻: ${timeText}
 目標収録時間: 約${targetMinutes}分
 
-テーマ: ${normalizedSettings.theme}
+今回のテーマ: ${normalizedSettings.theme}
+※このテーマを中心に話すこと。テーマ以外の話題に脱線しすぎないこと。
 
 話者:
 - 佐伯亮（さえきりょう）: メインパーソナリティ。沖縄在住の会社員。AIやアプリ開発を実際に試す人。一人称は「俺」。
