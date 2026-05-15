@@ -15,15 +15,16 @@ export function buildVideoExportArgs({ inputPath, outputPath, bgmPath, title = "
   const useText = !skipText && canUseDrawtext();
 
   if (bgmPath) {
-    // BGMあり: 音声とBGMを混合（BGMは15%の音量でループ）
+    // BGMあり: [0:a]をasplitで分岐（波形表示用とBGM混合用）
     const waveOverlay = useText
       ? `[1:v][w]overlay=x=90:y=1060,${titleFilters(title)}[v]`
       : "[1:v][w]overlay=x=90:y=1060[v]";
 
     const filter = [
-      "[0:a]showwaves=s=900x360:mode=line:colors=5cc8a7,format=rgba[w]",
+      "[0:a]asplit=2[a_wave][a_mix]",
+      "[a_wave]showwaves=s=900x360:mode=line:colors=5cc8a7,format=rgba[w]",
       waveOverlay,
-      "[0:a]volume=1.0[speech]",
+      "[a_mix]volume=1.0[speech]",
       "[2:a]volume=0.15[bgm]",
       "[speech][bgm]amix=inputs=2:duration=first[a]"
     ].join(";");
