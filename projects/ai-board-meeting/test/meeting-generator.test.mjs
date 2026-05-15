@@ -60,6 +60,44 @@ test("validateMeetingMarkdown rejects missing required sections", () => {
   );
 });
 
+test("validateMeetingMarkdown rejects sections mentioned only in prose", () => {
+  const proseOnlyMarkdown = `# AI役員会: 不完全
+
+本文に ## テーマの再定義 と書いただけ
+本文に ## ブランド接続 と書いただけ
+本文に ## Codex視点 と書いただけ
+本文に ## Claude Code視点 と書いただけ
+本文に ## 相互反論 と書いただけ
+本文に ## 100点化した統合案 と書いただけ
+本文に ## 実行プラン と書いただけ
+本文に ## 発信ネタ と書いただけ
+本文に ## 次回会議に残す問い と書いただけ`;
+
+  assert.throws(
+    () => validateMeetingMarkdown(proseOnlyMarkdown),
+    /Missing required meeting section/
+  );
+});
+
+test("validateMeetingMarkdown rejects non-exact required heading lines", () => {
+  const nonExactHeadingMarkdown = completeMarkdown.replace(
+    "## テーマの再定義",
+    "## テーマの再定義 extra"
+  );
+
+  assert.throws(
+    () => validateMeetingMarkdown(nonExactHeadingMarkdown),
+    /Missing required meeting section: テーマの再定義/
+  );
+});
+
+test("validateMeetingMarkdown rejects code fences", () => {
+  assert.throws(
+    () => validateMeetingMarkdown(`${completeMarkdown}\n\n\`\`\`js\nconsole.log("nope");\n\`\`\``),
+    /Meeting markdown must not contain code fences/
+  );
+});
+
 test("generateMeetingLog sends Anthropic request and returns validated Markdown", async () => {
   let capturedRequest;
   const fetchImpl = async (url, options) => {

@@ -19,8 +19,13 @@ export function validateMeetingMarkdown(markdown) {
   if (!markdown.startsWith("# AI役員会:")) {
     throw new Error("Meeting markdown must start with '# AI役員会:'.");
   }
+  const lines = markdown.split(/\r?\n/);
+  if (lines.some((line) => line.trimStart().startsWith("```"))) {
+    throw new Error("Meeting markdown must not contain code fences.");
+  }
+  const headingLines = new Set(lines.map((line) => line.trimEnd()));
   for (const section of REQUIRED_SECTIONS) {
-    if (!markdown.includes(`## ${section}`)) {
+    if (!headingLines.has(`## ${section}`)) {
       throw new Error(`Missing required meeting section: ${section}`);
     }
   }
