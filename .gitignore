@@ -10,6 +10,7 @@ venv/
 # Node.js
 node_modules/
 npm-debug.log*
+.worktrees/
 
 # Claude Code lock
 .claude/scheduled_tasks.lock
