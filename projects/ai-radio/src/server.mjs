@@ -59,11 +59,33 @@ async function serveFile(res, baseDir, requestPath) {
   }
 }
 
+const USER_SETTINGS_FILE = "user-settings.json";
+
+async function loadUserSettings(config) {
+  try {
+    return JSON.parse(await fs.readFile(path.join(config.dataDir, USER_SETTINGS_FILE), "utf8"));
+  } catch {
+    return null;
+  }
+}
+
+async function saveUserSettings(config, settings) {
+  await fs.mkdir(config.dataDir, { recursive: true });
+  await fs.writeFile(path.join(config.dataDir, USER_SETTINGS_FILE), JSON.stringify(settings, null, 2), "utf8");
+}
+
 export async function createServer() {
   const config = getConfig();
   const showConfig = await readJson(config.showConfigPath);
 
+  // 前回の設定を復元（なければデフォルト）
+  const savedSettings = await loadUserSettings(config);
+  if (savedSettings) {
+    console.log(`設定復元: テーマ「${savedSettings.theme}」/ ${savedSettings.targetMinutes}分`);
+  }
+
   const manager = createQueueManager({
+    initialSettings: savedSettings || undefined,
     generateReadyBlock: async (_settings, context = {}) => {
       const memory = await loadMemory(config.memoryPath);
       const settings = manager.getState().settings;
@@ -113,6 +135,7 @@ export async function createServer() {
 
     if (req.method === "POST" && url.pathname === "/api/settings") {
       manager.updateSettings(await readRequestJson(req));
+      await saveUserSettings(config, manager.getState().settings);
       manager.ensureQueue().catch(() => {});
       sendJson(res, 200, manager.getState());
       return;
