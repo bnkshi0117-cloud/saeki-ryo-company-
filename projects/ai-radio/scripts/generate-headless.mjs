@@ -157,8 +157,8 @@ async function main() {
   await fs.mkdir(videoDir, { recursive: true });
   const videoPath = path.join(videoDir, `${showName}-${dateStr}.mp4`);
   const ffmpegPath = process.env.FFMPEG_PATH || ffmpegStatic;
-  const bgmPath = await findBgmFile(config.bgmDir);
-  if (bgmPath) console.log(`  BGM: ${path.basename(bgmPath)}`);
+  // BGMは現在無効（ffmpegのstream_loopがCI環境でハングするため）
+  const bgmPath = null;
 
   await exportRecordingVideo({
     ffmpegPath,
