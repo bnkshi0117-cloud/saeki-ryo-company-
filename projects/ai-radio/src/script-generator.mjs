@@ -33,10 +33,10 @@ export function buildScriptPrompt({
     ? `これは締めブロックです。
 本編を広げず、リスナーへの軽い一言、比嘉の短い返し、佐伯亮の終わりの挨拶だけでスッと終えてください。
 linesは3から6個にしてください。`
-    : `1ブロックは2から3分のラジオ尺を目安にしてください。
-短い一問一答で終わらせず、話題の導入、脱線、ツッコミ、リスナーメール、少し深掘り、次への余韻まで入れてください。`;
+    : `1ブロックは約5分のラジオ尺を目安にしてください。
+話題の導入、脱線、ツッコミ、リスナーメール、少し深掘り、次への余韻まで入れてください。`;
 
-  const lineCountRule = isFinalBlock ? "linesは3から6個" : "linesは18から26個";
+  const lineCountRule = isFinalBlock ? "linesは3から6個" : "linesは18から22個";
 
   const closingLine = isFinalBlock
     ? `最後の1行は必ず以下にしてください:

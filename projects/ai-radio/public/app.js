@@ -94,14 +94,15 @@ async function fetchState() {
   return response.json();
 }
 
-function updateState(state) {
+function updateState(state, { updateForm = false } = {}) {
   statusEl.textContent = state.status;
   queueEl.textContent = String(state.queue.length);
   const block = state.queue[0];
   cornerEl.textContent = block?.corner || "-";
   renderNews(block?.newsItems || []);
 
-  if (state.settings) {
+  // フォームはユーザーが意図的に保存した時だけ更新（定期ポーリングで上書かない）
+  if (updateForm && state.settings) {
     themeInput.value = state.settings.theme;
     targetMinutesInput.value = String(state.settings.targetMinutes);
   }
@@ -217,7 +218,7 @@ async function saveSettings(event) {
     if (!response.ok) {
       throw new Error(`settings failed: ${response.status}`);
     }
-    updateState(await response.json());
+    updateState(await response.json(), { updateForm: true });
   } catch (error) {
     settingsFeedbackEl.textContent = `反映に失敗しました: ${error.message}`;
     statusEl.textContent = "error";
@@ -354,7 +355,7 @@ stopButton.addEventListener("click", () => {
 
 settingsForm.addEventListener("submit", saveSettings);
 
-fetchState().then(updateState).catch((error) => {
+fetchState().then((s) => updateState(s, { updateForm: true })).catch((error) => {
   statusEl.textContent = "error";
   lineEl.textContent = error.message;
 });
