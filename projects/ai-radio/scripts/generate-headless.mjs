@@ -20,7 +20,7 @@ const projectDir = path.resolve(path.dirname(thisFile), "..");
 const SHOW_PRESETS = {
   morning: {
     theme: "沖縄の日常、今日の天気とニュース、AIの話、生活のこと、なんでも",
-    targetMinutes: 10,
+    targetMinutes: 3,
     label: "朝のラジオ",
     caption: [
       "おはようございます！今朝のAIゆんたくラジオです☀️",
@@ -34,7 +34,7 @@ const SHOW_PRESETS = {
   },
   afternoon: {
     theme: "沖縄の日常とAI実験、生活のあれこれ",
-    targetMinutes: 25,
+    targetMinutes: 3,
     label: "昼のラジオ",
     caption: [
       "こんにちは！昼のAIゆんたくラジオです🌺",
@@ -46,7 +46,7 @@ const SHOW_PRESETS = {
   },
   night: {
     theme: "沖縄の日常とAI実験、ちょっとおふざけ深夜ラジオ",
-    targetMinutes: 25,
+    targetMinutes: 3,
     label: "夜のラジオ",
     caption: [
       "今夜もAIゆんたくラジオです🌙",
