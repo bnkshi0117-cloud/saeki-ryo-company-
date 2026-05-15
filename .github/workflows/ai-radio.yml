@@ -1,13 +1,7 @@
 name: AIゆんたくラジオ 自動生成
 
 on:
-  schedule:
-    # 朝のラジオ: 5:00 JST = 20:00 UTC (前日)
-    - cron: '0 20 * * *'
-    # 昼のラジオ: 15:00 JST = 6:00 UTC
-    - cron: '0 6 * * *'
-    # 夜のラジオ: 21:00 JST = 12:00 UTC
-    - cron: '0 12 * * *'
+  # スケジュール停止中（手動実行のみ）
   workflow_dispatch:
     inputs:
       show:
