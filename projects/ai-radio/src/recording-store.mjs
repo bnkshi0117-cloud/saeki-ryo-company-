@@ -22,6 +22,20 @@ export async function saveBlockRecording({ config, block }) {
 
   await fs.writeFile(recordingPath, Buffer.concat(chunks));
 
+  // 字幕・アバター用マニフェスト保存
+  const manifestPath = recordingPath.replace(/\.mp3$/, ".json");
+  const manifest = {
+    type: "block",
+    id: block.id,
+    title: block.title || "",
+    lines: block.lines.filter((l) => l.audioPath).map((l) => ({
+      speakerId: l.speakerId,
+      speakerName: l.speakerName,
+      text: l.text
+    }))
+  };
+  await fs.writeFile(manifestPath, JSON.stringify(manifest, null, 2), "utf8");
+
   return {
     recordingPath,
     recordingUrl: `/recordings/${path.basename(recordingPath)}`
@@ -43,6 +57,26 @@ export async function saveEpisodeRecording({ config, episode }) {
   }
 
   await fs.writeFile(recordingPath, Buffer.concat(chunks));
+
+  // 全ブロックのラインを集約してエピソードマニフェスト保存
+  const allLines = [];
+  for (const rec of episode.recordings) {
+    if (!rec.recordingPath) continue;
+    const blockManifestPath = rec.recordingPath.replace(/\.mp3$/, ".json");
+    try {
+      const data = JSON.parse(await fs.readFile(blockManifestPath, "utf8"));
+      allLines.push(...(data.lines || []));
+    } catch { /* マニフェストがなければスキップ */ }
+  }
+
+  if (allLines.length > 0) {
+    const episodeManifestPath = recordingPath.replace(/\.mp3$/, ".json");
+    await fs.writeFile(episodeManifestPath, JSON.stringify({
+      type: "episode",
+      id: episode.id,
+      lines: allLines
+    }, null, 2), "utf8");
+  }
 
   return {
     recordingPath,

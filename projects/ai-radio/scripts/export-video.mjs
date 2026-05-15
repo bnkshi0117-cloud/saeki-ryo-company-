@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import ffmpegPath from "ffmpeg-static";
 import { exportRecordingVideo, outputVideoName } from "../src/video-exporter.mjs";
+import { buildAssSubtitles, estimateDuration } from "../src/subtitle-builder.mjs";
 
 const thisFile = fileURLToPath(import.meta.url);
 const projectDir = path.resolve(path.dirname(thisFile), "..");
@@ -54,6 +55,28 @@ function parseArgs(argv) {
   return args;
 }
 
+async function loadManifest(mp3Path) {
+  const manifestPath = mp3Path.replace(/\.mp3$/i, ".json");
+  try {
+    return JSON.parse(await fs.readFile(manifestPath, "utf8"));
+  } catch {
+    return null;
+  }
+}
+
+function buildEnableStr(lines, speakerId) {
+  let t = 0;
+  const parts = [];
+  for (const line of lines) {
+    const d = estimateDuration(line.text);
+    if (line.speakerId === speakerId) {
+      parts.push(`between(t,${t.toFixed(2)},${(t + d).toFixed(2)})`);
+    }
+    t += d;
+  }
+  return parts.length > 0 ? parts.join("+") : "between(t,-1,-2)";
+}
+
 async function buildStaticAvatarConfig(projectDir) {
   const avatarDir = path.join(projectDir, "data", "avatars");
   const saekiPath = path.join(avatarDir, "saeki.png");
@@ -87,12 +110,41 @@ async function main() {
   const title = args.get("title") || "佐伯亮のAIゆんたくラジオ";
   const options = resolveExportVideoOptions({ projectDir, inputPath, outputPath, title });
 
-  const avatarConfig = await buildStaticAvatarConfig(projectDir);
-  if (avatarConfig) {
-    console.log("アバター付きで書き出します");
+  // マニフェストが存在すれば字幕・アバタータイミングを生成
+  const manifest = await loadManifest(options.inputPath);
+  let subtitlePath = null;
+  let avatarConfig = null;
+
+  if (manifest?.lines?.length > 0) {
+    console.log(`マニフェスト読み込み: ${manifest.lines.length}行`);
+
+    // 字幕ファイル生成
+    const assContent = buildAssSubtitles(manifest.lines, options.title);
+    subtitlePath = options.outputPath.replace(/\.mp4$/, ".ass");
+    await fs.writeFile(subtitlePath, assContent, "utf8");
+
+    // アバタータイミング生成
+    const avatarDir = path.join(projectDir, "data", "avatars");
+    const saekiPath = path.join(avatarDir, "saeki.png");
+    const higaPath = path.join(avatarDir, "higa.png");
+    const [saekiExists, higaExists] = await Promise.all([
+      fs.access(saekiPath).then(() => true).catch(() => false),
+      fs.access(higaPath).then(() => true).catch(() => false)
+    ]);
+    avatarConfig = {
+      saekiPath: saekiExists ? saekiPath : null,
+      higaPath: higaExists ? higaPath : null,
+      saekiEnable: buildEnableStr(manifest.lines, "saeki"),
+      higaEnable: buildEnableStr(manifest.lines, "higa")
+    };
+    console.log("字幕・アバタータイミング付きで書き出します");
+  } else {
+    // マニフェストなし → アバター常時表示にフォールバック
+    avatarConfig = await buildStaticAvatarConfig(projectDir);
+    if (avatarConfig) console.log("アバター常時表示で書き出します");
   }
 
-  await exportRecordingVideo({ ffmpegPath, avatarConfig, ...options });
+  await exportRecordingVideo({ ffmpegPath, subtitlePath, avatarConfig, ...options });
   console.log(`Video exported: ${options.outputPath}`);
 }
 
