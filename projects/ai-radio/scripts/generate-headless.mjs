@@ -13,7 +13,7 @@ import { generateFullEpisodeScript } from "../src/script-generator.mjs";
 import { synthesizeLine, safeAudioName, createBlockId } from "../src/tts-xai.mjs";
 import { exportRecordingVideo } from "../src/video-exporter.mjs";
 import { buildNewsContext } from "../src/news-fetcher.mjs";
-import { buildAssSubtitles } from "../src/subtitle-builder.mjs";
+import { buildAssSubtitles, estimateDuration } from "../src/subtitle-builder.mjs";
 
 const thisFile = fileURLToPath(import.meta.url);
 const projectDir = path.resolve(path.dirname(thisFile), "..");
@@ -158,6 +158,30 @@ async function main() {
   const assContent = buildAssSubtitles(script.lines, `佐伯亮のAIゆんたくラジオ ${preset.label}`);
   await fs.writeFile(subtitlePath, assContent, "utf8");
 
+  // アバタータイミング計算
+  const saekiAvatarPath = path.join(projectDir, "data", "avatars", "saeki.png");
+  const higaAvatarPath = path.join(projectDir, "data", "avatars", "higa.png");
+
+  function buildEnableStr(lines, speakerId) {
+    let t = 0;
+    const parts = [];
+    for (const line of lines) {
+      const d = estimateDuration(line.text);
+      if (line.speakerId === speakerId) {
+        parts.push(`between(t,${t.toFixed(2)},${(t + d).toFixed(2)})`);
+      }
+      t += d;
+    }
+    return parts.length > 0 ? parts.join("+") : "between(t,-1,-2)";
+  }
+
+  const avatarConfig = {
+    saekiPath: saekiAvatarPath,
+    higaPath: higaAvatarPath,
+    saekiEnable: buildEnableStr(script.lines, "saeki"),
+    higaEnable: buildEnableStr(script.lines, "higa")
+  };
+
   // MP4書き出し
   console.log(`🎬 動画書き出し中...`);
   const videoDir = path.join(projectDir, "data", "videos");
@@ -171,6 +195,7 @@ async function main() {
     outputPath: videoPath,
     bgmPath: null,
     subtitlePath,
+    avatarConfig,
     title: `佐伯亮のAIゆんたくラジオ ${preset.label}`,
     skipText: true
   });

@@ -10,7 +10,7 @@ function toAssTime(seconds) {
   return `${h}:${String(m).padStart(2, "0")}:${s}`;
 }
 
-function estimateDuration(text) {
+export function estimateDuration(text) {
   return Math.max(1.5, String(text).length / 5);
 }
 

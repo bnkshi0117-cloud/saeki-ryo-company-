@@ -11,7 +11,7 @@ export function outputVideoName(recordingName) {
   return `${safeBase}.mp4`;
 }
 
-export function buildVideoExportArgs({ inputPath, outputPath, bgmPath, subtitlePath, title = "佐伯亮のAIゆんたくラジオ", skipText = false }) {
+export function buildVideoExportArgs({ inputPath, outputPath, bgmPath, subtitlePath, avatarConfig, title = "佐伯亮のAIゆんたくラジオ", skipText = false }) {
   const useText = !skipText && canUseDrawtext();
 
   if (bgmPath) {
@@ -47,21 +47,47 @@ export function buildVideoExportArgs({ inputPath, outputPath, bgmPath, subtitleP
     ];
   }
 
-  // BGMなし（字幕対応）
-  const subtitleFilter = subtitlePath
-    ? `ass=${subtitlePath.replace(/\\/g, "/").replace(/:/g, "\\:")}`
+  // BGMなし（字幕 + アバター対応）
+  const assPath = subtitlePath
+    ? subtitlePath.replace(/\\/g, "/").replace(/:/g, "\\:")
     : null;
 
-  const bgApply = subtitleFilter
-    ? `[1:v]${subtitleFilter}[bg_sub]`
-    : null;
-
-  const waveSource = bgApply ? "[bg_sub]" : "[1:v]";
+  const extraInputs = [];
+  if (avatarConfig?.saekiPath) extraInputs.push("-i", avatarConfig.saekiPath);
+  if (avatarConfig?.higaPath) extraInputs.push("-i", avatarConfig.higaPath);
+  const saekiIdx = avatarConfig?.saekiPath ? 2 : null;
+  const higaIdx = avatarConfig?.higaPath ? (saekiIdx !== null ? 3 : 2) : null;
 
   const filterParts = [];
-  if (bgApply) filterParts.push(bgApply);
+
+  // 字幕を背景に焼き込む
+  const bgOut = assPath ? "[bg_sub]" : "[1:v]";
+  if (assPath) filterParts.push(`[1:v]ass=${assPath}${bgOut}`);
+
+  // 波形
   filterParts.push(`[0:a]showwaves=s=600x240:mode=line:colors=5cc8a7,format=rgba[w]`);
-  filterParts.push(`${waveSource}[w]overlay=x=60:y=960[v]`);
+
+  // 波形オーバーレイ
+  let currentBg = bgOut;
+  filterParts.push(`${currentBg}[w]overlay=x=60:y=960[bg_wave]`);
+  currentBg = "[bg_wave]";
+
+  // アバターオーバーレイ（話者に応じて表示切替）
+  if (saekiIdx !== null && avatarConfig?.saekiEnable) {
+    filterParts.push(`[${saekiIdx}:v]scale=160:160[saeki_sc]`);
+    filterParts.push(`${currentBg}[saeki_sc]overlay=x=90:y=360:enable='${avatarConfig.saekiEnable}'[bg_saeki]`);
+    currentBg = "[bg_saeki]";
+  }
+  if (higaIdx !== null && avatarConfig?.higaEnable) {
+    filterParts.push(`[${higaIdx}:v]scale=160:160[higa_sc]`);
+    filterParts.push(`${currentBg}[higa_sc]overlay=x=470:y=360:enable='${avatarConfig.higaEnable}'[bg_higa]`);
+    currentBg = "[bg_higa]";
+  }
+
+  // 最終出力にラベルをつける
+  if (currentBg !== "[v]") {
+    filterParts.push(`${currentBg}null[v]`);
+  }
 
   const filter = filterParts.join(";");
 
@@ -69,6 +95,7 @@ export function buildVideoExportArgs({ inputPath, outputPath, bgmPath, subtitleP
     "-y",
     "-i", inputPath,
     "-f", "lavfi", "-i", "color=c=#141414:s=720x1280:r=24",
+    ...extraInputs,
     "-filter_complex", filter,
     "-map", "[v]",
     "-map", "0:a",
@@ -86,9 +113,9 @@ function canUseDrawtext() {
   return process.platform === "win32";
 }
 
-export async function exportRecordingVideo({ ffmpegPath, inputPath, outputPath, bgmPath, subtitlePath, title, skipText = false }) {
+export async function exportRecordingVideo({ ffmpegPath, inputPath, outputPath, bgmPath, subtitlePath, avatarConfig, title, skipText = false }) {
   await fs.mkdir(path.dirname(outputPath), { recursive: true });
-  const args = buildVideoExportArgs({ inputPath, outputPath, bgmPath, subtitlePath, title, skipText });
+  const args = buildVideoExportArgs({ inputPath, outputPath, bgmPath, subtitlePath, avatarConfig, title, skipText });
   await runFfmpeg(ffmpegPath, args);
   return { outputPath };
 }
