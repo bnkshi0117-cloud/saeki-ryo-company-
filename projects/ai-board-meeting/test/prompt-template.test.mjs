@@ -2,6 +2,10 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { buildMeetingPrompt, REQUIRED_SECTIONS } from "../src/prompt-template.mjs";
 
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 test("buildMeetingPrompt embeds Saeki Ryo brand rules and user theme", () => {
   const prompt = buildMeetingPrompt({
     theme: "AIラジオを副業や発信につなげたい",
@@ -38,7 +42,7 @@ test("buildMeetingPrompt requires every meeting section", () => {
 
   assert.deepEqual(REQUIRED_SECTIONS, expectedSections);
   for (const section of expectedSections) {
-    assert.match(prompt, new RegExp(`## ${section}`));
+    assert.match(prompt, new RegExp(`^## ${escapeRegExp(section)}$`, "m"));
   }
 });
 
