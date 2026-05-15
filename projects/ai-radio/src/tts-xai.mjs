@@ -15,22 +15,36 @@ export function spokenTextForTts(text) {
   return String(text).replaceAll("相方", "あいかた");
 }
 
-export async function synthesizeLine({ config, line, voiceId, outputPath, fetchImpl = fetch }) {
+export async function synthesizeLine({ config, line, voiceId, outputPath, fetchImpl = fetch, timeoutMs = 90000 }) {
   await fs.mkdir(path.dirname(outputPath), { recursive: true });
 
-  const response = await fetchImpl(config.xaiTtsEndpoint, {
-    method: "POST",
-    headers: {
-      authorization: `Bearer ${config.xaiApiKey}`,
-      "content-type": "application/json"
-    },
-    body: JSON.stringify({
-      text: spokenTextForTts(line.text),
-      voice_id: voiceId,
-      language: "ja",
-      response_format: "mp3"
-    })
-  });
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+
+  let response;
+  try {
+    response = await fetchImpl(config.xaiTtsEndpoint, {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${config.xaiApiKey}`,
+        "content-type": "application/json"
+      },
+      body: JSON.stringify({
+        text: spokenTextForTts(line.text),
+        voice_id: voiceId,
+        language: "ja",
+        response_format: "mp3"
+      }),
+      signal: controller.signal
+    });
+  } catch (error) {
+    if (error.name === "AbortError") {
+      throw new Error(`xAI TTS timeout (${timeoutMs / 1000}s): ${line.text.slice(0, 20)}...`);
+    }
+    throw error;
+  } finally {
+    clearTimeout(timer);
+  }
 
   if (!response.ok) {
     throw new Error(`xAI TTS failed: ${response.status}`);
