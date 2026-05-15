@@ -37,7 +37,8 @@ Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour,
 Style: Title,Noto Sans CJK JP,26,&H00B9B2A5,&H000000FF,&H00000000,&HA0000000,0,0,0,0,100,100,0,0,1,1,0,8,30,30,40,1
 Style: Saeki,Noto Sans CJK JP,36,&H00F4B942,&H000000FF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,2,1,2,40,40,440,1
 Style: Higa,Noto Sans CJK JP,36,&H005CC8A7,&H000000FF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,2,1,2,40,40,440,1
-Style: Sub,Noto Sans CJK JP,28,&H00F6F2E8,&H000000FF,&H00000000,&H80000000,0,0,0,0,100,100,0,0,1,2,1,2,40,40,540,1
+Style: Sub_Saeki,Noto Sans CJK JP,28,&H0042B9F4,&H000000FF,&H00000000,&H80000000,0,0,0,0,100,100,0,0,1,2,1,2,40,40,540,1
+Style: Sub_Higa,Noto Sans CJK JP,28,&H00A7C85C,&H000000FF,&H00000000,&H80000000,0,0,0,0,100,100,0,0,1,2,1,2,40,40,540,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text`;
@@ -53,10 +54,12 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text`
     const duration = durations[i];
     const start = toAssTime(currentTime);
     const end = toAssTime(currentTime + duration);
-    const style = line.speakerId === "saeki" ? "Saeki" : "Higa";
+    const isSaeki = line.speakerId === "saeki";
+    const style = isSaeki ? "Saeki" : "Higa";
+    const subStyle = isSaeki ? "Sub_Saeki" : "Sub_Higa";
 
     events.push(`Dialogue: 0,${start},${end},${style},,0,0,0,,${escapeAss(line.speakerName)}`);
-    events.push(`Dialogue: 0,${start},${end},Sub,,0,0,0,,${escapeAss(line.text)}`);
+    events.push(`Dialogue: 0,${start},${end},${subStyle},,0,0,0,,${escapeAss(line.text)}`);
 
     currentTime += duration;
   }
