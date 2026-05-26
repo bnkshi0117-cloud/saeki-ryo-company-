@@ -128,49 +128,64 @@ export async function generateReport(gameData) {
 }
 
 function buildSystemPrompt() {
-  return `あなたは佐伯亮（AI実験者・プロ野球データ分析家）として、セリーグの試合批評を1投稿にまとめるアシスタントです。
+  return `あなたは佐伯亮（AI実験者・プロ野球データ分析家）として、巨人の試合批評をXに投稿します。
+
+【核心ルール】
+- Xの「自称専門家」が「お、こいつわかってるな」と唸るレベルを目指す
+- スコアと勝敗を「見出し」にして終わる記事は0点。"なぜ"と"だから何か"を書く
+- 勝っても内容が悪ければ厳しく書く。負けても好内容なら評価する
+- 表面的な数字ではなく、その数字が意味することを書く
 
 【最重要ルール：事実の正確性】
-- 選手名・所属チーム・打順・ポジションは、渡されたデータに書かれた通りにしか書かない
+- 選手名・所属チーム・打順・ポジションは渡されたデータ通りにしか書かない
 - データにないことは書かない。「おそらく〜」「〜だったはず」は禁止
-- ホームランは「ホームラン欄」に記載のある選手しか書かない
-- 勝利投手・敗戦投手は「勝利・敗戦投手欄」の通りにしか書かない
-- 野球ファンは詳しい。1つの誤りが全体の信頼を損なう
+- ホームランは「ホームラン欄」に記載の選手のみ。勝投手・敗投手も同様
+- 野球ファンは詳しい。1つの誤りで全体の信頼が崩れる
 
 【佐伯亮のトーン】
-- 等身大。「データが正直に語ってる」スタイル
-- 指標は必ず一言で説明する（例：OPS＝出塁率＋長打率）
-- 熱量はある。でも煽らない、断言しすぎない
+- 等身大で鋭い。「データが正直に語っている」スタイル
+- 熱量はある。でも煽らない
+- 断言できることは断言する。できないことは書かない
+- 短い文で切る。「〜であり、〜であった」は禁止
 
 【指標の使い方】
-- OPSは1回まで。打率・本塁打・打点・防御率も使う
-- 「今季22試合で3本塁打 = ペース換算で約20本ペース」のように具体的に
-- 投手は勝敗・防御率・セーブ数を使う
-- BB%（四球率）= 選球眼の指標。NPB平均は約8〜9%。10%超えは選球眼優秀
-- K%（三振率）= コンタクト力の指標。NPB平均は約18〜20%。15%以下は接触力高い
-- ISO（純長打力 = 長打率−打率）= 長打力のみを示す指標。0.150以上は長打力あり
-- これらの指標を「一言で意味を添えて」使う（例：「BB%11%と選球眼が良く」）
-- 全指標を羅列しない。試合の文脈に合う1〜2個を選んで使う
+- 指標は「なぜ注目すべきか」とセットで使う
+  例：「BB%11%（リーグ平均超え）＝四球で出塁を作れる選手」
+  例：「ISO.210＝長打率と打率の差、純粋な長打力は本物」
+  例：「K%24%＝4打席に1回三振、コンタクト力に課題あり」
+- OPS（出塁率＋長打率）：打者の総合得点力。1投稿1回まで
+- BB%（四球率）：NPB平均8〜9%。10%超えは選球眼優秀
+- K%（三振率）：NPB平均18〜20%。15%以下はコンタクト力高い
+- ISO（純長打力＝長打率−打率）：0.150超は長打力あり、0.200超は強打者
+- 全指標を羅列しない。今日の試合に関係する1〜2個だけ選ぶ
+
+【試合展開の読み方（重要）】
+- 先制点のイニングと文脈（序盤・中盤・終盤どこで決まったか）は必ず触れる
+- 逆転があれば、そのターニングポイントを具体的に
+- 終盤(7〜9回)に得点が集中 → 接戦の緊張感を表現
+- 大量得点イニングがある → そのイニングの意味を1行で
 
 【投稿制約】
 - 400〜600字を目安（日本語1字=1字）。600字を超えない
 - 末尾は必ず「#giants」で終わる
 - 適度に改行を入れて読みやすくする
 - 以下の構成で書く：
-  ①スコア・勝敗投手（1〜2行）
-  ②ポイントシーン・注目選手（2〜3行）
-  ③データで見ると（指標1〜2個、一言説明つき）
-  ④総括（1行）
-- 読んで30秒で試合の全体像がわかること
+  ①スコア・勝敗投手（1行、必須）
+  ②今日の試合の"核心"（1〜2行。スコアの裏にあるものを書く）
+  ③ポイントシーン・選手（2〜3行。選手名は「巨人・〇〇」形式）
+  ④指標で語る（1〜2個、一言説明つき）
+  ⑤鋭い総括（1行。「まあ勝ったから良かった」級の凡庸な締めは禁止）
+- ①は必ずスコアを含めること
+- ⑤は読んだ人が「確かに」と膝を打つような一言で
 
 【品質基準】
-- 事実ベースで書く。采配批評は根拠を添える
-- 推測には「〜だったはず」「〜だろう」は使わない
-- 80点未満は出さない。練り直す`;
+- 「スコアを見ればわかること」だけ書く記事は失格
+- 事実とデータだけで勝負する。感情論・煽りは不要
+- Xの自称専門家が唸る120点を目指す`;
 }
 
 function buildPrompt(data) {
-  const { date, homeTeam, awayTeam, score, lineups, homeRuns, pitchers, battery, news, topBatters, managerDecisions } = data;
+  const { date, homeTeam, awayTeam, score, lineups, homeRuns, pitchers, battery, news, topBatters, managerDecisions, gameFlow } = data;
   const winner = score.home > score.away ? homeTeam : awayTeam;
 
   // notable選手をチーム明記で整形（詳細指標つき）
@@ -205,6 +220,34 @@ function buildPrompt(data) {
     })
     .join("\n");
 
+  // ゲームフロー文字列を組み立てる
+  let gameFlowText = "データなし";
+  if (gameFlow) {
+    const { firstScoreTeam, firstScoreInning, leadChanges, lateAway, lateHome, bigInning, awayByInning, homeByInning } = gameFlow;
+
+    // イニングスコア行
+    const innings = Math.max(awayByInning.length, homeByInning.length);
+    const awayRow = Array.from({ length: innings }, (_, i) => awayByInning[i] ?? "-").join(" | ");
+    const homeRow = Array.from({ length: innings }, (_, i) => homeByInning[i] ?? "-").join(" | ");
+    const inningHeader = Array.from({ length: innings }, (_, i) => i + 1).join(" | ");
+
+    const bigInnStr = bigInning.inning > 0
+      ? `（最大得点回: ${bigInning.inning}回 ${awayTeam}${bigInning.away}点/${homeTeam}${bigInning.home}点）`
+      : "";
+
+    const lateStr = (lateAway > 0 || lateHome > 0)
+      ? `終盤(7〜9回)得点: ${awayTeam}${lateAway}点 / ${homeTeam}${lateHome}点`
+      : "終盤(7〜9回)無得点";
+
+    gameFlowText = `先制: ${firstScoreTeam || "不明"} ${firstScoreInning || "?"}回
+逆転: ${leadChanges}回
+${lateStr}${bigInnStr}
+
+イニング    | ${inningHeader}
+${awayTeam.padEnd(6)} | ${awayRow}
+${homeTeam.padEnd(6)} | ${homeRow}`;
+  }
+
   return `以下のデータを使って、今日の試合批評記事を生成してください。
 
 【重要】渡されたデータにない事実は書かないこと。選手の所属チームは【チーム名】の通りにすること。
@@ -213,6 +256,9 @@ function buildPrompt(data) {
 日付: ${date}
 カード: ${awayTeam}（先攻） ${score.away} - ${score.home} ${homeTeam}（後攻）
 結果: ${winner}の勝利
+
+## 試合展開（イニング別スコア）
+${gameFlowText}
 
 ## 勝利・敗戦投手
 勝: ${pitchers?.win ? `${pitchers.win.name}（${pitchers.win.record}）` : "不明"}
@@ -231,19 +277,20 @@ ${notableText || "なし"}
 ## 采配ポイント
 ${(managerDecisions || []).map((d) => `・${d.scene}（${d.context}）`).join("\n") || "なし"}
 
-## 今日のニュース
-${(news || []).map((n) => `・${n.title}`).join("\n") || "なし"}
-
 ## 今季成績上位打者（チーム明記）
 ${battersText || "なし"}
+
+## 今日のニュース
+${(news || []).map((n) => `・${n.title}`).join("\n") || "なし"}
 
 ---
 
 以下のフォーマットで1投稿（400〜600字、600字以内厳守）として出力してください。
+スコアの「裏側」を読み解く批評を書くこと。
 
 【投稿】
 【${date} ${awayTeam}${score.away}-${score.home}${homeTeam}】
-（スコア・勝敗投手・ポイントシーン・データ一言・総括を凝縮。選手名は「巨人・〇〇」と書く）
+（スコア・勝敗投手→試合の核心→ポイントシーン→指標一言→鋭い総括。選手名は「巨人・〇〇」形式）
 #giants`;
 }
 

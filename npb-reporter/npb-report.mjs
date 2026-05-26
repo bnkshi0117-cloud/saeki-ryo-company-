@@ -118,8 +118,79 @@ async function main() {
   }
 }
 
+/**
+ * イニング別スコアから試合展開を分析する
+ */
+function analyzeGameFlow(innings, awayTeam, homeTeam) {
+  if (!innings || innings.length === 0) return null;
+
+  const awayScores = innings.find((i) => i.side === "top")?.scores || [];
+  const homeScores = innings.find((i) => i.side === "bottom")?.scores || [];
+  const maxInnings = Math.max(awayScores.length, homeScores.length);
+  if (maxInnings === 0) return null;
+
+  let awayTotal = 0, homeTotal = 0;
+  let firstScoreInning = null, firstScoreTeam = null;
+  let leadChanges = 0;
+  let prevLeadSign = 0; // 1=away, -1=home, 0=tie
+  const scoringInnings = [];
+
+  for (let i = 0; i < maxInnings; i++) {
+    const a = awayScores[i] ?? 0;
+    const h = homeScores[i] ?? 0;
+    awayTotal += a;
+    homeTotal += h;
+
+    if (!firstScoreInning && (a > 0 || h > 0)) {
+      firstScoreInning = i + 1;
+      firstScoreTeam = a > 0 ? awayTeam : homeTeam;
+    }
+
+    const curSign = awayTotal > homeTotal ? 1 : awayTotal < homeTotal ? -1 : 0;
+    if (prevLeadSign !== 0 && curSign !== 0 && curSign !== prevLeadSign) {
+      leadChanges++;
+    }
+    if (curSign !== 0) prevLeadSign = curSign;
+
+    if (a > 0 || h > 0) {
+      scoringInnings.push({
+        inning: i + 1,
+        away: a,
+        home: h,
+        awayTotal,
+        homeTotal,
+      });
+    }
+  }
+
+  // 終盤（7〜9回）得点
+  const lateAway = awayScores.slice(6, 9).reduce((s, v) => s + v, 0);
+  const lateHome = homeScores.slice(6, 9).reduce((s, v) => s + v, 0);
+
+  // 最大得点イニング（爆発回）
+  const bigInning = scoringInnings.reduce(
+    (best, cur) => {
+      const total = cur.away + cur.home;
+      return total > (best.away + best.home) ? cur : best;
+    },
+    { inning: 0, away: 0, home: 0 }
+  );
+
+  return {
+    firstScoreInning,
+    firstScoreTeam,
+    leadChanges,
+    lateAway,
+    lateHome,
+    bigInning,
+    scoringInnings,
+    awayByInning: awayScores,
+    homeByInning: homeScores,
+  };
+}
+
 function buildGameData(detail, playerStats, news, dateLabel) {
-  const { awayTeam, homeTeam, score, lineups, homeRuns, gameInfo, playerIds } = detail;
+  const { awayTeam, homeTeam, score, lineups, homeRuns, gameInfo, playerIds, innings } = detail;
 
   // スタメン注目選手（3〜5番クリーンナップ + 今季OPS高い選手）
   const notablePlayers = extractNotablePlayers(lineups, playerStats, awayTeam, homeTeam);
@@ -148,12 +219,15 @@ function buildGameData(detail, playerStats, news, dateLabel) {
       kPct: s.kPct,
     }));
 
+  const gameFlow = analyzeGameFlow(innings, awayTeam, homeTeam);
+
   return {
     date: dateLabel,
     homeTeam,
     awayTeam,
     score,
     gameInfo,
+    gameFlow,
     lineups: {
       away: lineups.away,
       home: lineups.home,
