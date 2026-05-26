@@ -320,23 +320,40 @@ function parseStatsRow(rowHtml, playerId) {
 
   if (cells.length < 10) return null;
 
-  // カラム順: year, team, 試合, 打席, 打数, 得点, 安打, 二塁打, 三塁打, 本塁打, 打点, 盗塁, ..., 打率, 長打率, 出塁率
+  // カラム順: year, team, 試合, 打席, 打数, 得点, 安打, 二塁打, 三塁打, 本塁打, 打点,
+  //           盗塁, 盗塁死, 犠打, 犠飛, 四球, 死球, 三振, 併殺, 打率, 長打率, 出塁率
   const avg = parseFloat(cells[cells.length - 3]) || 0;
   const slg = parseFloat(cells[cells.length - 2]) || 0;
   const obp = parseFloat(cells[cells.length - 1]) || 0;
   const ops = Math.round((slg + obp) * 1000) / 1000;
 
+  const pa  = parseInt(cells[3]) || 0;
+  const bb  = parseInt(cells[15]) || 0;
+  const k   = parseInt(cells[17]) || 0;
+  const iso = Math.round((slg - avg) * 1000) / 1000;
+  const bbPct = pa > 0 ? Math.round((bb / pa) * 1000) / 10 : 0; // %表示
+  const kPct  = pa > 0 ? Math.round((k  / pa) * 1000) / 10 : 0;
+
   return {
     playerId,
-    games: parseInt(cells[2]) || 0,
+    games:  parseInt(cells[2]) || 0,
+    pa,
     atBats: parseInt(cells[4]) || 0,
-    hits: parseInt(cells[6]) || 0,
-    hr: parseInt(cells[9]) || 0,
-    rbi: parseInt(cells[10]) || 0,
+    hits:   parseInt(cells[6]) || 0,
+    doubles: parseInt(cells[7]) || 0,
+    triples: parseInt(cells[8]) || 0,
+    hr:     parseInt(cells[9]) || 0,
+    rbi:    parseInt(cells[10]) || 0,
+    steals: parseInt(cells[11]) || 0,
+    bb,
+    k,
     avg,
     slg,
     obp,
     ops,
+    iso,    // 純長打力 = 長打率 - 打率
+    bbPct,  // 四球率(%)
+    kPct,   // 三振率(%)
   };
 }
 

@@ -94,7 +94,7 @@ export async function generateReport(gameData) {
   const message = await withRetry(
     () => anthropic.messages.create({
       model: "claude-sonnet-4-6",
-      max_tokens: 3000,
+      max_tokens: 1500,
       system: buildSystemPrompt(),
       messages: [{ role: "user", content: prompt }],
     }),
@@ -104,37 +104,31 @@ export async function generateReport(gameData) {
   const raw = message.content[0].text;
   const report = parseReport(raw);
 
-  // 各ツイートの140字チェック
-  for (let i = 0; i < report.thread.length; i++) {
-    const len = [...report.thread[i]].length;
-    if (len > 140) {
-      console.log(`  ⚠️ ツイート${i + 1}が${len}字 → 140字以内に再生成...`);
-      const retryMsg = await withRetry(
-        () => anthropic.messages.create({
-          model: "claude-sonnet-4-6",
-          max_tokens: 300,
-          system: buildSystemPrompt(),
-          messages: [
-            { role: "user", content: prompt },
-            { role: "assistant", content: raw },
-            {
-              role: "user",
-              content: `ツイート${i + 1}が${len}字で140字を超えています。そのツイートだけ140字以内に収めて再出力してください。`,
-            },
-          ],
-        }),
-        { retries: 3, delay: 5000, label: "140字再生成API" }
-      );
-      report.thread[i] = retryMsg.content[0].text.trim().replace(/^【ツイート[①-⑤]】\n?/, "");
-      console.log(`  → 再生成後: ${[...report.thread[i]].length}字`);
-    }
+  // 600字超えの場合は再生成
+  const len = [...report.thread[0]].length;
+  if (len > 600) {
+    console.log(`  ⚠️ 投稿が${len}字 → 600字以内に再生成...`);
+    const retryMsg = await withRetry(
+      () => anthropic.messages.create({
+        model: "claude-sonnet-4-6",
+        max_tokens: 1200,
+        system: buildSystemPrompt(),
+        messages: [
+          { role: "user", content: prompt },
+          { role: "assistant", content: raw },
+          { role: "user", content: `投稿が${len}字で600字を超えています。600字以内に収めて【投稿】フォーマットで再出力してください。` },
+        ],
+      }),
+      { retries: 2, delay: 3000, label: "600字再生成API" }
+    );
+    return parseReport(retryMsg.content[0].text);
   }
 
   return report;
 }
 
 function buildSystemPrompt() {
-  return `あなたは佐伯亮（AI実験者・プロ野球データ分析家）として、セリーグの試合批評記事を書くアシスタントです。
+  return `あなたは佐伯亮（AI実験者・プロ野球データ分析家）として、セリーグの試合批評を1投稿にまとめるアシスタントです。
 
 【最重要ルール：事実の正確性】
 - 選手名・所属チーム・打順・ポジションは、渡されたデータに書かれた通りにしか書かない
@@ -145,25 +139,33 @@ function buildSystemPrompt() {
 
 【佐伯亮のトーン】
 - 等身大。「データが正直に語ってる」スタイル
-- 指標は必ず一言で説明する（例：OPS＝出塁率＋長打率、打者の総合得点力）
+- 指標は必ず一言で説明する（例：OPS＝出塁率＋長打率）
 - 熱量はある。でも煽らない、断言しすぎない
 
 【指標の使い方】
-- OPSは記事全体で最大2回まで。毎段落に出さない
-- 打者には打率・本塁打数・打点・HR本数ペースも活用する
+- OPSは1回まで。打率・本塁打・打点・防御率も使う
 - 「今季22試合で3本塁打 = ペース換算で約20本ペース」のように具体的に
-- 投手は勝敗・防御率（ERA）・リリーフなら登板回数・セーブ数を使う
-- 全部OPSに帰結させない。数字を使い分けてこそ読み応えが出る
+- 投手は勝敗・防御率・セーブ数を使う
+- BB%（四球率）= 選球眼の指標。NPB平均は約8〜9%。10%超えは選球眼優秀
+- K%（三振率）= コンタクト力の指標。NPB平均は約18〜20%。15%以下は接触力高い
+- ISO（純長打力 = 長打率−打率）= 長打力のみを示す指標。0.150以上は長打力あり
+- これらの指標を「一言で意味を添えて」使う（例：「BB%11%と選球眼が良く」）
+- 全指標を羅列しない。試合の文脈に合う1〜2個を選んで使う
 
-【スレッド制約】
-- 各ツイートは必ず140字以内（日本語1字=1字、句読点・改行・ハッシュタグも全部カウント）
-- ツイート①の末尾は必ず「詳細はスレッドで👇 #giants」で終わる
-- ツイート⑤の末尾は必ず「#giants」で終わる
-- 各ツイートは独立して読めること。前のツイートを前提にしない
+【投稿制約】
+- 400〜600字を目安（日本語1字=1字）。600字を超えない
+- 末尾は必ず「#giants」で終わる
+- 適度に改行を入れて読みやすくする
+- 以下の構成で書く：
+  ①スコア・勝敗投手（1〜2行）
+  ②ポイントシーン・注目選手（2〜3行）
+  ③データで見ると（指標1〜2個、一言説明つき）
+  ④総括（1行）
+- 読んで30秒で試合の全体像がわかること
 
 【品質基準】
-- 事実ベースで書く。采配批評は「データがこうだから」という根拠を必ず添える
-- 推測には「〜だったはず」「〜だろう」は使わない。データにある事実だけ書く
+- 事実ベースで書く。采配批評は根拠を添える
+- 推測には「〜だったはず」「〜だろう」は使わない
 - 80点未満は出さない。練り直す`;
 }
 
@@ -171,23 +173,35 @@ function buildPrompt(data) {
   const { date, homeTeam, awayTeam, score, lineups, homeRuns, pitchers, battery, news, topBatters, managerDecisions } = data;
   const winner = score.home > score.away ? homeTeam : awayTeam;
 
-  // notable選手をチーム明記で整形（指標を多様に）
+  // notable選手をチーム明記で整形（詳細指標つき）
   const notableText = (lineups?.notable || [])
     .map((p) => {
       const pace = p.games > 5 && p.hr > 0
-        ? `HR換算ペース約${Math.round((p.hr / p.games) * 143)}本/年`
-        : p.hr === 0 ? "今季HR未" : "";
-      return `【${p.team}】${p.order}${p.position} ${p.name}（今季${p.games}試合・打率.${String(Math.round(p.avg * 1000)).padStart(3,'0')}・${p.rbi ?? "-"}打点・${p.hr}HR${pace ? "・" + pace : ""}・OPS${p.ops}）`;
+        ? `HRペース約${Math.round((p.hr / p.games) * 143)}本/年`
+        : "";
+      const adv = [
+        p.iso != null ? `ISO${p.iso}` : "",
+        p.bbPct != null ? `BB%${p.bbPct}%` : "",
+        p.kPct != null ? `K%${p.kPct}%` : "",
+        p.steals > 0 ? `${p.steals}盗塁` : "",
+      ].filter(Boolean).join("・");
+      const avgStr = p.avg != null ? `.${String(Math.round(p.avg * 1000)).padStart(3,'0')}` : "-";
+      return `【${p.team}】${p.order}${p.position} ${p.name}（${p.games}試合・打率${avgStr}・${p.rbi ?? "-"}打点・${p.hr ?? 0}HR${pace ? "・" + pace : ""}・OPS${p.ops}${adv ? "｜" + adv : ""}）`;
     })
     .join("\n");
 
-  // topBattersをチーム明記で整形（指標を多様に）
+  // topBattersをチーム明記で整形（詳細指標つき）
   const battersText = (topBatters || [])
     .map((b) => {
       const pace = b.games > 5 && b.hr > 0
         ? `ペース約${Math.round((b.hr / b.games) * 143)}本/年`
         : "";
-      return `【${b.team}】${b.name}: 打率.${String(Math.round(b.avg * 1000)).padStart(3,'0')} / ${b.hr}HR（${pace}） / ${b.rbi}打点 / OPS${b.ops}（${b.games}試合）`;
+      const adv = [
+        b.iso != null ? `ISO${b.iso}` : "",
+        b.bbPct != null ? `BB%${b.bbPct}%` : "",
+        b.kPct != null ? `K%${b.kPct}%` : "",
+      ].filter(Boolean).join(" / ");
+      return `【${b.team}】${b.name}: 打率.${String(Math.round(b.avg * 1000)).padStart(3,'0')} / ${b.hr}HR（${pace}） / ${b.rbi}打点 / OPS${b.ops}（${b.games}試合）${adv ? " ｜ " + adv : ""}`;
     })
     .join("\n");
 
@@ -225,44 +239,22 @@ ${battersText || "なし"}
 
 ---
 
-以下のフォーマットでXスレッド用に5ツイート出力してください。各ツイートは140字以内厳守。
+以下のフォーマットで1投稿（400〜600字、600字以内厳守）として出力してください。
 
-【ツイート①】
-【昨日の記録】${date} ${awayTeam} ${score.away}-${score.home} ${homeTeam}
-（1〜2行で試合ハイライト。選手名は「巨人・〇〇」と書く）
-詳細はスレッドで👇 #giants
-
-【ツイート②】
-【注目スタメン】
-（起用意図と結果を2〜3選手。選手は「チーム名＋名前」で書く）
-
-【ツイート③】
-【今日の熱盛】
-（データに記載のある事実だけ。2〜3本）
-
-【ツイート④】
-【データで見ると】
-（指標の一言説明つき。数字を使い分ける）
-
-【ツイート⑤】
-（1〜2文の総括）
+【投稿】
+【${date} ${awayTeam}${score.away}-${score.home}${homeTeam}】
+（スコア・勝敗投手・ポイントシーン・データ一言・総括を凝縮。選手名は「巨人・〇〇」と書く）
 #giants`;
 }
 
 function parseReport(raw) {
-  const markers = ["【ツイート①】", "【ツイート②】", "【ツイート③】", "【ツイート④】", "【ツイート⑤】"];
-  const thread = markers.map((marker, i) => {
-    const start = raw.indexOf(marker);
-    if (start === -1) return null;
-    const contentStart = start + marker.length;
-    const nextMarker = markers[i + 1] ? raw.indexOf(markers[i + 1], contentStart) : -1;
-    const content = nextMarker !== -1
-      ? raw.slice(contentStart, nextMarker)
-      : raw.slice(contentStart);
-    return content.trim();
-  }).filter(Boolean);
-
-  return { thread, raw };
+  const match = raw.match(/【投稿】\s*([\s\S]+)/);
+  const post = match ? match[1].trim() : raw.trim();
+  const len = [...post].length;
+  if (len > 600) {
+    console.warn(`  ⚠️ 投稿が${len}字（600字超え）`);
+  }
+  return { thread: [post], raw };
 }
 
 // ── 自己検証・修正 ──

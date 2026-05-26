@@ -105,26 +105,7 @@ async function main() {
     // Step 5: Claude で批評文生成
     console.log("Step 5: 批評文を生成中（Claude API）...");
     const report = await generateReport(gameData);
-
-    // Step 5b: 自己検証 → 問題があれば修正 → 再検証
-    console.log("Step 5b: 生成内容を検証中...");
-    const verification = await verifyReport(report, gameData);
-    if (!verification.ok) {
-      console.log("  ⚠️ 検証NG - 修正します");
-      verification.issues.forEach((issue) => console.log(`    - ${issue}`));
-      report = await fixReport(report, gameData, verification.issues);
-      console.log("  再検証中...");
-      const recheck = await verifyReport(report, gameData);
-      if (!recheck.ok) {
-        console.error("  ❌ 再検証もNG - 下書き保存のみ（X投稿スキップ）");
-        recheck.issues.forEach((issue) => console.error(`    - ${issue}`));
-        outputReport(report, gameData, date, { draftOnly: true });
-        continue;
-      }
-      console.log("  ✅ 修正後検証OK - 投稿します");
-    } else {
-      console.log("  ✅ 検証OK - 投稿します");
-    }
+    console.log(`  ✅ 生成完了（${[...report.thread[0]].length}字）`);
 
     // Step 6: 出力・保存
     outputReport(report, gameData, date);
@@ -162,6 +143,9 @@ function buildGameData(detail, playerStats, news, dateLabel) {
       rbi: s.rbi,
       games: s.games,
       atBats: s.atBats,
+      iso: s.iso,
+      bbPct: s.bbPct,
+      kPct: s.kPct,
     }));
 
   return {
@@ -210,6 +194,13 @@ function extractNotablePlayers(lineups, playerStats, awayTeam, homeTeam) {
           position: player.position,
           ops: stats?.ops || null,
           avg: stats?.avg || null,
+          hr: stats?.hr || null,
+          rbi: stats?.rbi || null,
+          iso: stats?.iso || null,
+          bbPct: stats?.bbPct || null,
+          kPct: stats?.kPct || null,
+          doubles: stats?.doubles || null,
+          steals: stats?.steals || null,
           games: stats?.games || null,
           atBats: stats?.atBats || null,
           note: isRookie
@@ -258,7 +249,7 @@ function outputReport(report, gameData, date, { draftOnly = false } = {}) {
   const filename = `${date}-${awayTeam}vs${homeTeam}${suffix}.md`;
   const outputPath = path.join(__dirname, "data", filename);
 
-  const threadText = report.thread.map((t, i) => `### ツイート${i + 1}（${[...t].length}字）\n${t}`).join("\n\n");
+  const postText = report.thread[0];
 
   const content = `# ${gameData.date} ${scoreLine}
 
@@ -266,7 +257,8 @@ function outputReport(report, gameData, date, { draftOnly = false } = {}) {
 
 > ※ この記事はAIが試合データをもとに生成しています。数値に誤差が生じる場合があります。
 
-${threadText}
+### 投稿（${[...postText].length}字）
+${postText}
 
 ---
 *生成: ${new Date().toLocaleString("ja-JP")}*
@@ -277,10 +269,8 @@ ${threadText}
   console.log("=".repeat(60));
   console.log(`⚾ ${gameData.date} ${scoreLine}`);
   console.log("=".repeat(60));
-  report.thread.forEach((t, i) => {
-    console.log(`\n【ツイート${i + 1}】${[...t].length}字`);
-    console.log(t);
-  });
+  console.log(`\n【投稿】${[...postText].length}字`);
+  console.log(postText);
   console.log("=".repeat(60));
   console.log(`💾 保存: ${outputPath}`);
 }

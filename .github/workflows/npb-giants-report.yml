@@ -2,7 +2,7 @@ name: NPB 巨人戦 批評レポート
 
 on:
   schedule:
-    - cron: '*/30 7-14 * * *'  # 16:00〜23:30 JST（UTC 7:00〜14:30）30分おきに試合完了を確認
+    - cron: '*/15 7-14 * * *'  # 16:00〜23:30 JST（UTC 7:00〜14:30）15分おきに試合完了を確認
   workflow_dispatch:
     inputs:
       date:
@@ -45,8 +45,8 @@ jobs:
               exit 0
             fi
             if [ $i -lt 3 ]; then
-              echo "失敗。60秒後にリトライ..."
-              sleep 60
+              echo "失敗。20秒後にリトライ..."
+              sleep 20
             fi
           done
           echo "❌ 3回すべて失敗"
