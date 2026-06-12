@@ -1,0 +1,6 @@
+[2026/6/12 23:18:37] [ERROR] 致命的エラー: An unexpected error has occurred. Please retry your request later.
+[2026/6/12 23:18:37] [ERROR] Error: An unexpected error has occurred. Please retry your request later.
+    at createContainer (file:///home/runner/work/saeki-ryo-company-/saeki-ryo-company-/x-dashboard/satsuki-threads.mjs:71:36)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async postNext (file:///home/runner/work/saeki-ryo-company-/saeki-ryo-company-/x-dashboard/satsuki-threads.mjs:228:22)
+    at async main (file:///home/runner/work/saeki-ryo-company-/saeki-ryo-company-/x-dashboard/satsuki-threads.mjs:277:3)
