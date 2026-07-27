@@ -1,0 +1,6 @@
+[2026/7/27 16:08:40] [ERROR] 致命的エラー: An unknown error occurred
+[2026/7/27 16:08:40] [ERROR] Error: An unknown error occurred
+    at getUserId (file:///home/runner/work/saeki-ryo-company-/saeki-ryo-company-/x-dashboard/satsuki-threads.mjs:50:36)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async postNext (file:///home/runner/work/saeki-ryo-company-/saeki-ryo-company-/x-dashboard/satsuki-threads.mjs:224:26)
+    at async main (file:///home/runner/work/saeki-ryo-company-/saeki-ryo-company-/x-dashboard/satsuki-threads.mjs:277:3)
