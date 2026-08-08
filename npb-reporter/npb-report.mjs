@@ -86,6 +86,7 @@ async function main() {
     console.log(`Step 3: ${awayName} vs ${homeName} の詳細取得中...`);
     const detail = await fetchGameDetail(url, awayCode, homeCode);
     if (!detail) { console.log("  → 取得失敗、スキップ\n"); continue; }
+    if (!detail.gameInfo?.isFinished) { console.log("  → 試合はまだ進行中のためスキップ\n"); continue; }
 
     // Step 4: スタメン選手の累積成績取得（投手除く）
     console.log(`Step 4: スタメン選手の今季成績を取得中...`);

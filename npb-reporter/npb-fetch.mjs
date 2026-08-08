@@ -288,6 +288,9 @@ function parseGameInfo(html) {
     startTime: infoMatch ? infoMatch[1] : "",
     duration: infoMatch ? infoMatch[2] : "",
     attendance: infoMatch ? infoMatch[3].replace(",", "") : "",
+    // 「◇試合時間」「◇入場者」はNPB公式が試合終了後にしか掲載しないため、
+    // これが取れて初めて試合終了とみなす（進行中の試合を誤検知して投稿するのを防ぐ）
+    isFinished: !!infoMatch,
   };
 }
 
