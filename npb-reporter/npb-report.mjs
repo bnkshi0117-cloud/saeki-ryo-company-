@@ -12,7 +12,6 @@ import dotenv from "dotenv";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { TwitterApi } from "twitter-api-v2";
 
 import {
   fetchCentralGameUrls,
@@ -111,9 +110,9 @@ async function main() {
     // Step 6: 出力・保存
     outputReport(report, gameData, date);
 
-    // Step 7: Xスレッド投稿
+    // Step 7: Slackにドラフト通知（Xへの投稿は佐伯さんが手動で行う）
     if (!isDryRun) {
-      await postToX(report.thread, gameData);
+      await notifySlack(report, gameData);
     }
     console.log("");
   }
@@ -392,48 +391,51 @@ async function runDemoMode(dateLabel, dryRun) {
   console.log("Claude APIで批評文を生成中...");
   const report = await generateReport(demoData);
   outputReport(report, demoData, dateLabel.replace(/\//g, ""));
-  await postToX(report.thread, demoData);
+  await notifySlack(report, demoData);
 }
 
-// ── Xスレッド投稿 ──
-async function postToX(thread, gameData) {
-  const keys = ["X_CONSUMER_KEY", "X_CONSUMER_SECRET", "X_ACCESS_TOKEN", "X_ACCESS_TOKEN_SECRET"];
-  const missing = keys.filter((k) => !process.env[k]);
-  if (missing.length > 0) {
-    console.log(`  ⚠️ X APIキー未設定（${missing.join(", ")}）→ 投稿スキップ`);
+// ── Slackにドラフト通知（Xへは投稿しない。投稿は佐伯さんが手動で行う）──
+async function notifySlack(report, gameData) {
+  const webhookUrl = process.env.SLACK_WEBHOOK_URL;
+  if (!webhookUrl) {
+    console.log("  ⚠️ SLACK_WEBHOOK_URL未設定 → Slack通知スキップ");
     return;
   }
 
-  const client = new TwitterApi({
-    appKey:      process.env.X_CONSUMER_KEY,
-    appSecret:   process.env.X_CONSUMER_SECRET,
-    accessToken:  process.env.X_ACCESS_TOKEN,
-    accessSecret: process.env.X_ACCESS_TOKEN_SECRET,
+  const { awayTeam, homeTeam, score, date } = gameData;
+  const scoreLine = `${awayTeam} ${score.away}-${score.home} ${homeTeam}`;
+  const postText = report.thread[0];
+
+  console.log("Step 7: Slackにドラフトを通知中...");
+
+  const payload = {
+    text:
+      `⚾ NPB批評ドラフトができました\n` +
+      `*${date} ${scoreLine}*\n\n` +
+      "```\n" + postText + "\n```\n\n" +
+      "このドラフトはまだXに投稿していません。内容を確認のうえ、ご自身で投稿してください🙏",
+  };
+
+  const res = await fetch(webhookUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
   });
 
-  console.log("Step 7: Xスレッド投稿中...");
-  let replyToId = null;
-  const tweetIds = [];
-
-  for (let i = 0; i < thread.length; i++) {
-    const params = { text: thread[i] };
-    if (replyToId) params.reply = { in_reply_to_tweet_id: replyToId };
-    const res = await client.v2.tweet(params);
-    replyToId = res.data.id;
-    tweetIds.push(replyToId);
-    console.log(`  ✅ ツイート${i + 1}: https://x.com/saekiryoAI/status/${replyToId}`);
+  if (!res.ok) {
+    console.error(`  ⚠️ Slack通知失敗: HTTP ${res.status}`);
+    return;
   }
+  console.log("  ✅ Slackに通知しました");
 
-  // 投稿ログ保存
+  // 通知済みログ保存（二重通知防止）
   const logPath = path.join(__dirname, "data", "post-log.json");
   const log = fs.existsSync(logPath) ? JSON.parse(fs.readFileSync(logPath, "utf-8")) : [];
   log.push({
     date: gameData.date,
-    matchup: `${gameData.awayTeam}vs${gameData.homeTeam}`,
-    score: `${gameData.score.away}-${gameData.score.home}`,
-    tweet_ids: tweetIds,
-    url: `https://x.com/saekiryoAI/status/${tweetIds[0]}`,
-    posted_at: new Date().toISOString(),
+    matchup: `${awayTeam}vs${homeTeam}`,
+    score: `${score.away}-${score.home}`,
+    notified_at: new Date().toISOString(),
   });
   fs.writeFileSync(logPath, JSON.stringify(log, null, 2));
 }

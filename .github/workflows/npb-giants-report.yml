@@ -28,13 +28,10 @@ jobs:
       - name: 依存関係インストール
         run: cd npb-reporter && npm install
 
-      - name: NPB巨人戦レポート生成・自己検証・X投稿（リトライあり）
+      - name: NPB巨人戦レポート生成・自己検証・Slack通知（リトライあり）
         env:
-          ANTHROPIC_API_KEY:     ${{ secrets.ANTHROPIC_API_KEY }}
-          X_CONSUMER_KEY:        ${{ secrets.X_CONSUMER_KEY }}
-          X_CONSUMER_SECRET:     ${{ secrets.X_CONSUMER_SECRET }}
-          X_ACCESS_TOKEN:        ${{ secrets.X_ACCESS_TOKEN }}
-          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
           DATE_ARG=""
           if [ -n "${{ github.event.inputs.date }}" ]; then
